@@ -1,0 +1,22 @@
+<odoo>
+
+    <record id="view_auto_location_responsible_tree" model="ir.ui.view">
+        <field name="name">auto.location.responsible.tree</field>
+        <field name="model">auto.location.responsible</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="user_id"/>
+                <field name="picking_count" readonly="1"/>
+                <field name="origen_bienes"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_auto_location_responsible" model="ir.actions.act_window">
+        <field name="name">Responsables Auto Ubicación</field>
+        <field name="res_model">auto.location.responsible</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

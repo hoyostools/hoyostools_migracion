@@ -1,0 +1,43 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Campos Hoyos Tools',
+    'summary': 'Se agregan campos personalizados para Hoyos Tools',
+    'description': 'Se agregan campos personalizados para Hoyos Tools',
+    'author': 'PETI Soluciones Productivas',
+    'website': 'https://www.peti.com.co',
+    'category': 'Tools',
+    'version': '17.0.1.0.0',
+    'license': 'OPL-1',
+    'depends': [
+        'sale',
+        'sale_stock',
+        'product',
+        'account',
+        'base',
+        'sale_commission',
+        'descuento_lineas_producto',
+        'stock',
+        'website_sale',
+        'b4b',
+        'point_of_sale'
+    ],
+    'data': [
+        'views/product_template_views.xml',
+        'views/sale_order_views.xml',
+        'report/purchase_order_report.xml',
+        'views/logistic_service.xml',
+        'views/stock_warehouse_orderpoint.xml',
+        'views/stock_picking_view.xml',
+        'views/product_pricelist_item.xml',
+        'views/product_product.xml',
+        'views/b4b_sale_order.xml',
+        'views/purchase_order_views.xml',
+        "views/product_template_sales_view.xml",
+        "views/sale_order_readonly_view.xml",
+        'views/stock_location_views.xml',
+        'views/stock_quant_view.xml',
+        'views/stock_scrap_views.xml',
+        'data/data.xml',
+        "security/res_groups.xml"
+    ],
+}

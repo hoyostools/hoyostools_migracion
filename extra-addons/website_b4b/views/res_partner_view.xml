@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_sellers" model="ir.actions.act_window">
+        <field name="name">Vendedores</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="context">{'default_is_company': False, 'default_is_seller': True, 'default_company_type': 'person' }</field>
+        <field name="domain">[('is_seller', '=', True)]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a Seller in your address book
+          </p>
+        </field>
+    </record>
+
+        <menuitem id="res_partner_menu_sellers"
+        name="Vendedores"
+        action="action_sellers"
+        parent="contacts.menu_contacts"
+        sequence="2"/>
+
+    </data>
+</odoo>

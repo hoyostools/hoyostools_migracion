@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="OrderWidget" t-inherit="point_of_sale.OrderWidget" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('order-summary')]" position="after">
+            <t t-if="orderlines.length > 0">
+                <div class='product-items' style="padding-bottom: 10px;padding-left: 15px;">
+                    <i><b style="font-weight: bold;color: #017e84;font-size: 20px;"><span> Total Number Of Items:</span><t t-esc="(product_total).toFixed(2)"/></b></i>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>
+    

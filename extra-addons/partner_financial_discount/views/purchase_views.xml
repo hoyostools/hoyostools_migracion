@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="purchase_order_view_inherit_financial_discount" model="ir.ui.view">
+            <field name="name">purchase.order.view.inherit.financial.discount</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_ship_send_id']" position="after">
+                    <field name="financial_discount_percentage" readonly="1"/>
+                    <field name="maximum_date_financial_discount" readonly="1"/>
+                    <field name="financial_discount_deadline" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ========================= -->
+    <!-- VISTA TREE -->
+    <!-- ========================= -->
+    <record id="view_productividad_turno_tree" model="ir.ui.view">
+        <field name="name">productividad.turno.tree</field>
+        <field name="model">productividad.turno</field>
+        <field name="arch" type="xml">
+            <tree string="Turnos" default_order="hora_inicio asc">
+                <field name="name"/>
+                <field name="codigo"/>
+                <field name="hora_inicio"/>
+                <field name="hora_fin"/>
+                <field name="activo"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- ========================= -->
+    <!-- VISTA FORM -->
+    <!-- ========================= -->
+    <record id="view_productividad_turno_form" model="ir.ui.view">
+        <field name="name">productividad.turno.form</field>
+        <field name="model">productividad.turno</field>
+        <field name="arch" type="xml">
+            <form string="Configuración de Turno">
+                <sheet>
+
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="codigo" required="1"/>
+                        </group>
+                        <group>
+                            <field name="activo"/>
+                        </group>
+                    </group>
+
+                    <separator string="Horario del Turno"/>
+
+                    <group>
+                        <group>
+                            <field name="hora_inicio" required="1"/>
+                        </group>
+                        <group>
+                            <field name="hora_fin" required="1"/>
+                        </group>
+                    </group>
+
+                    <separator string="Información"/>
+                    <div>
+                        <p>• Use formato 24 horas. Ejemplo: 22.5 = 22:30</p>
+                        <p>• Si el turno cruza medianoche (ej: 22 → 6), el sistema lo detecta automáticamente.</p>
+                    </div>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- ========================= -->
+    <!-- VISTA SEARCH -->
+    <!-- ========================= -->
+    <record id="view_productividad_turno_search" model="ir.ui.view">
+        <field name="name">productividad.turno.search</field>
+        <field name="model">productividad.turno</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="codigo"/>
+                <filter name="activos" string="Activos" domain="[('activo','=',True)]"/>
+                <filter name="inactivos" string="Inactivos" domain="[('activo','=',False)]"/>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- ========================= -->
+    <!-- ACCIÓN -->
+    <!-- ========================= -->
+    <record id="action_productividad_turno" model="ir.actions.act_window">
+        <field name="name">Turnos</field>
+        <field name="res_model">productividad.turno</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_productividad_turno_search"/>
+        <field name="help" type="html">
+            <p>
+                Aquí puede configurar los turnos de trabajo.
+                Soporta turnos nocturnos que cruzan medianoche.
+            </p>
+        </field>
+    </record>
+
+</odoo>

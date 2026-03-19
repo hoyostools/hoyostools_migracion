@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Definición de la plantilla del reporte -->
+    <template id="servicio_logistico">
+        <t t-call="web.basic_layout">
+        <style>
+    .no_borde {
+        width: 100%;
+        border: none !important;
+        border: 1px solid white !important;
+        border-collapse: collapse; /* Hace que los bordes no se dupliquen */
+    }
+     .page {
+                font-family: Arial, sans-serif; /* Aplica Arial a todo el reporte */
+            }
+
+            .arial-11 {
+                font-family: Arial, sans-serif;
+                font-size: 11pt;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+            .arial-18 {
+                font-family: Arial, sans-serif;
+                font-size: 18pt;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+             .arial-24 {
+                font-family: Arial, sans-serif;
+                font-size: 24pt;
+                font-weight: bold;
+            }
+            .arial-12-bold {
+                font-family: Arial, sans-serif;
+                font-size: 12pt;
+                font-weight: bold;
+            }
+            .arial-12 {
+                font-family: Arial, sans-serif;
+                font-size: 12pt;
+            }
+            .arial-11 {
+                font-family: Arial, sans-serif;
+                font-size: 12pt;
+            }
+
+
+</style>
+                    <div class="page">
+            <div style="padding-bottom: 20px;">
+            <table style="width:100%; border: none; table-layout: fixed; " class="no_borde">
+                <tr style="border: none; margin-bottom: 20px;">
+                    <th style="border: none; text-align: left; padding: 0px 0 15px 0;" class="arial-24">
+                           OVSL: <t t-esc="o.name"/>
+                        </th>
+                    <th style="border: none; text-align: left; padding: 0px 0 15px 0;" class="arial-24"><t t-esc="o.carrier_id.name"/> </th>
+                </tr>
+                <tr style="border: none;">
+                        <td class="arial-11" style="border: none; text-align: left;">
+                            <span class="arial-18">REMITE</span><br/>
+                            <t t-esc="o.partner_id.name" /><br/>
+                            <t t-esc="o.partner_id.street" /><br/>
+                            <t t-esc="o.partner_id.city_id.name" /> <t t-esc="o.partner_id.state_id.name" /><br/>
+                            <t t-esc="o.partner_id.phone" />
+                        </td>
+                        <td class="arial-11" style="border: none; text-align: left;">
+                            <span class="arial-18">DESTINATARIO</span><br/>
+                            <t t-esc="o.nombre_logistico" /><br/>
+                            <t t-esc="o.address_logistica" /><br/>
+                            <t t-esc="o.city_logistica" /> <t t-esc="o.state_logistico" /><br/>
+                            <t t-esc="o.phone_logistico" />
+                        </td>
+                    </tr>
+            </table>
+            </div>
+            <div style="padding-bottom: 15px; padding-left:20px; margin-bottom: 15px;">
+                <p class="arial-12-bold">
+                    OBSERVACIONES:
+
+                </p>
+                <p class="arial-12">
+                    <t t-esc="o.notas_logisticas"/>
+
+                </p>
+                <p class="arial-12">
+                    <t t-esc="o.obtener_observaciones_empaque()"/>
+                </p>
+            </div>
+
+
+            <table style="width:100%; border: 1px solid black; border-collapse: collapse;">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th style="border: 1px solid black; padding: 8px; text-align: center;" class="arial-12-bold">ITEM</th>
+                        <th style="border: 1px solid black; padding: 8px;" class="arial-12-bold">DESCRIPCION PRODUCTO</th>
+                        <th style="border: 1px solid black; padding: 8px; text-align: center;" class="arial-12-bold">CANT.</th>
+                        <th style="border: 1px solid black; padding: 8px;" class="arial-12-bold">TIPO EMPAQUE</th>
+                        <th style="border: 1px solid black; padding: 8px;" class="arial-12-bold">PACK NO.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="o.order_line.sorted(lambda line: int(line.product_id.default_code) if line.product_id.default_code.isdigit() else 999999999, reverse=False)" t-as="line">
+                        <tr>
+                            <td style="border: 1px solid black; padding: 8px; text-align: center; text-transform: uppercase; font-weight: normal;" class="arial-11">
+                                <t t-esc="line.product_id.default_code"/>
+                            </td>
+                            <td style="border: 1px solid black; padding: 8px; text-transform: uppercase; font-weight: normal;" class="arial-11">
+                                <t t-esc="line.name"/>
+                            </td>
+                            <td style="border: 1px solid black; padding: 8px; text-align: center; text-transform: uppercase; font-weight: normal;" class="arial-11">
+                                <t t-esc="line.product_uom_qty"/>
+                            </td>
+                            <td style="border: 1px solid black; padding: 8px; text-transform: uppercase; font-weight: normal;" class="arial-11">
+                                <t t-esc="line.obtener_tipo_empaque()"/>
+                            </td>
+                            <td style="border: 1px solid black; padding: 8px; text-transform: uppercase; font-weight: normal;" class="arial-11">
+                                 <t t-esc="line.obtener_paquete()"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </div>
+        </t>
+    </template>
+
+    <template id="report_servicio_logistico_document">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="reporte_servicio_logistico.servicio_logistico" t-lang="o.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+
+    <record id="report_servicio_logistico" model="ir.actions.report">
+        <field name="name">Reporte Servicio Logístico</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">reporte_servicio_logistico.report_servicio_logistico_document</field>
+        <field name="report_file">reporte_servicio_logistico.report_servicio_logistico_document</field>
+        <field name="print_report_name">'Reporte Servicio Logístico - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+         <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
+    </record>
+
+
+    <record id="action_report_servico_logistico" model="ir.actions.server">
+            <field name="name">Reporte Servicio Logistico</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="binding_model_id" ref="sale.model_sale_order"/>
+            <field name="binding_view_types">form</field>
+            <field name="code">
+                action = records.print_report_servicio_logistico()
+            </field>
+        </record>
+
+
+</odoo>

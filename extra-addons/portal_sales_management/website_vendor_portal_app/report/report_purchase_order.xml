@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <template id="report_purchase_quote_sequence_qweb" inherit_id="purchase.report_purchasequotation_document">
+            <xpath expr="//th[@name='th_description']" position="before">
+                <th><strong>Origin</strong></th>
+            </xpath>
+            <!--complicated expr to be compatible with other modules-->
+            <xpath expr="//td[@id='product']" position="before">
+                 <td id="td_user_change">
+                    <span t-field="order_line.user_change" />
+                 </td>
+            </xpath>
+
+            <xpath expr="//th[@name='th_quantity']" position="after">
+                <th><strong>Vendor price</strong></th>
+            </xpath>
+
+            <xpath expr="//tbody/t/tr" position="inside">
+                 <td class="text-end">
+                    <span>$ </span><span t-field="order_line.vendor_price" />
+                 </td>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

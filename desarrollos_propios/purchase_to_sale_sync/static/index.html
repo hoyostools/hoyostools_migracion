@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase to Sale Sync</title>
+</head>
+<body>
+    <h1>Purchase to Sale Sync</h1>
+    <p>Este módulo permite sincronizar automáticamente órdenes de compra como órdenes de venta en otra instancia Odoo usando XML-RPC.</p>
+
+    <h2>Características:</h2>
+    <ul>
+        <li>Conexión entre instancias Odoo vía XML-RPC</li>
+        <li>Configuración desde Ajustes Generales</li>
+        <li>Búsqueda de productos por código interno (`default_code`)</li>
+        <li>Creación automática del cliente remoto si no existe</li>
+    </ul>
+
+    <h2>Configuración:</h2>
+    <p>Después de instalar el módulo, dirígete a <strong>Ajustes > Configuración General</strong> y completa los datos de conexión:</p>
+    <ul>
+        <li>URL del Odoo remoto</li>
+        <li>Base de datos</li>
+        <li>Usuario</li>
+        <li>Contraseña</li>
+    </ul>
+
+    <!-- Aquí va la imagen -->
+    <p><strong>Ejemplo de configuración:</strong></p>
+    <img src="datos_db_remota.png" alt="Ejemplo configuración conexión" width="600">
+
+    <h2>Flujo:</h2>
+    <ol>
+        <li>Crear una orden de compra.</li>
+        <li>El sistema se conecta al Odoo remoto.</li>
+        <li>Busca cliente y productos por nombre/código.</li>
+        <li>Crea una orden de venta correspondiente.</li>
+    </ol>
+
+</body>
+</html>

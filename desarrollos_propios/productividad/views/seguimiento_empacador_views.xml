@@ -1,0 +1,147 @@
+<odoo>
+    <!-- VISTA TREE -->
+    <record id="view_seguimiento_packing_tree" model="ir.ui.view">
+        <field name="name">seguimiento.packing.tree</field>
+        <field name="model">productividad.seguimiento_empacador</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_id"/>
+                <field name="fecha"/>
+                <field name="puntos"/>
+                <field name="cumplimiento_puntos"  optional="hide"/>
+                <field name="items"/>
+                <field name="cumplimiento_items"  optional="hide"/>
+                <field name="documentos"/>
+                <field name="cumplimiento_documentos"  optional="hide"/>
+                <field name="gestion_total" widget="percentage"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- VISTA KANBAN -->
+    <record id="view_seguimiento_empacador_kanban" model="ir.ui.view">
+        <field name="name">seguimiento.empacador.kanban</field>
+        <field name="model">productividad.seguimiento_empacador</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column" create="false">
+                <field name="user_id"/>
+                <field name="fecha"/>
+                <field name="puntos"/>
+                <field name="items"/>
+                <field name="documentos"/>
+                <field name="cumplimiento_puntos"/>
+                <field name="cumplimiento_items"/>
+                <field name="cumplimiento_documentos"/>
+                <field name="meta_puntos_diarios"/>
+                <field name="meta_items_diarios"/>
+                <field name="meta_documentos_diarios"/>
+                <field name="cajas_usadas"/>
+                <field name="cantidad_maxima_cajas"/>
+                <field name="porcentaje_cajas"/>
+                <field name="gestion_total"/>
+
+                    <template id="kanban_seguimiento_empacador_template">
+                        <t t-name="kanban-box">
+                            <div class="o_kanban_record">
+                                <div style="text-align:center; height: 190px; padding: 10px;">
+                                    <t t-if="record.user_id.raw_value">
+                                        <img t-att-src="'/web/image/res.users/' + record.user_id.raw_value + '/image_1024'" class="img img-fluid rounded-circle" style="height:150px; width:120px; object-fit:cover;"/>
+                                    </t>
+                                    <h4>
+                                        <t t-esc="record.user_id.value"/>
+                                    </h4>
+                                    <div>
+                                        <small><t t-esc="record.fecha.value"/></small>
+                                    </div>
+                                </div>
+
+                                <!-- Tabla de metas, logros y cumplimiento -->
+                                <table class="table table-sm mt-2" style="font-size: 12px; margin: auto;">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th style="text-align:center;">Docs</th>
+                                            <th style="text-align:center;">Items</th>
+                                            <th style="text-align:center;">Puntos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><b>🎯 Metas</b></td>
+                                            <td style="text-align:center;"><t t-esc="record.meta_documentos_diarios.value"/></td>
+                                            <td style="text-align:center;"><t t-esc="record.meta_items_diarios.value"/></td>
+                                            <td style="text-align:center;"><t t-esc="record.meta_puntos_diarios.value"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>📊 Logros</b></td>
+                                            <td style="text-align:center;"><t t-esc="record.documentos.value"/></td>
+                                            <td style="text-align:center;"><t t-esc="record.items.value"/></td>
+                                            <td style="text-align:center;"><t t-esc="record.puntos.value"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>✅ %</b></td>
+                                            <td style="text-align:center;"><t t-esc="record.cumplimiento_documentos.value"/>%</td>
+                                            <td style="text-align:center;"><t t-esc="record.cumplimiento_items.value"/>%</td>
+                                            <td style="text-align:center;"><t t-esc="record.cumplimiento_puntos.value"/>%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>📦 Cajas</b></td>
+                                            <td colspan="3" style="text-align:center;">
+                                                <t t-esc="record.cajas_usadas.value"/> /
+                                                <t t-esc="record.cantidad_maxima_cajas.value"/>
+                                                (<t t-esc="record.porcentaje_cajas.value"/>%)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>🗂️ Gestión Total</b></td>
+                                            <td colspan="3" style="text-align:center;"><t t-esc="record.gestion_total.value"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </t>
+                    </template>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- VISTA SEARCH -->
+    <record id="view_seguimiento_empacador_search" model="ir.ui.view">
+        <field name="name">seguimiento.empacador.search</field>
+        <field name="model">productividad.seguimiento_empacador</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="fecha"/>
+                <!-- 🟢 Filtro combinado -->
+                <filter name="today_and_separadores"
+                        string="Hoy y Separadores Configurados"
+                        domain="[('fecha', '=', context_today()), ('configuracion_id', '!=', False)]"/>
+
+                <separator/>
+                <!-- Filtro: Solo configurados como empacador -->
+                <filter name="filtro_empacadores_configurados"
+                        string="Solo Empacadores Configurados"
+                        domain="[('configuracion_id', '!=', False)]"/>
+
+                <!-- ✅ Filtros por Turno (funcionan porque ahora existe el campo 'turno') -->
+                <separator/>
+                <filter name="turno_1" string="Turno 1" domain="[('turno_id.codigo', '=', '1')]"/>
+                <filter name="turno_2" string="Turno 2" domain="[('turno_id.codigo', '=', '2')]"/>
+                <filter name="turno_3" string="Turno 3" domain="[('turno_id.codigo', '=', '3')]"/>
+                <filter name="turno_adicional" string="Adicional" domain="[('turno_id.codigo', '=', 'adicional')]"/>
+
+                <!-- 🔍 Mostrar todos -->
+                <filter name="todos" string="Mostrar Todos" domain="[]"/>     
+            </search>
+        </field>
+    </record>
+
+    <!-- ACCIÓN -->
+    <record id="action_seguimiento_empacador" model="ir.actions.act_window">
+        <field name="name">Seguimiento Empacadores</field>
+        <field name="res_model">productividad.seguimiento_empacador</field>
+        <field name="view_mode">kanban,tree</field>
+        <field name="search_view_id" ref="view_seguimiento_empacador_search"/>
+    </record>
+</odoo>

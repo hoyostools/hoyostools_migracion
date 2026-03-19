@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="available_quantity_stock_quant" model="ir.ui.view">
+        <field name="name">available.quantity.stock.quant</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='reserved_quantity']" position="after">
+                <field name="quant_available" sum='Total' optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="quant_price_view" model="ir.ui.view">
+        <field name="name">quant.price.view</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_inventory_editable"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='inventory_date']" position="after">
+                <field name="quant_price_visible" sum='Total'
+                       decoration-warning="quant_price_visible &lt; 0"
+                       decoration-success="quant_price_visible &gt; 0"
+                       widget="monetary" options="{'currency_field': 'currency_id'}"/>
+
+                <field name="quant_price" column_invisible="1" sum='Total' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+
+                <field name="diff_price_visible" sum='Total'
+                       decoration-warning="diff_price_visible &lt; 0"
+                       decoration-success="diff_price_visible &gt; 0"
+                       widget="monetary" options="{'currency_field': 'currency_id'}"/>
+
+                <field name="diff_price" column_invisible="1" sum='Total' widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

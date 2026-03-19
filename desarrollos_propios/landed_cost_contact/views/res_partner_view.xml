@@ -1,0 +1,34 @@
+<odoo>
+
+    <record id="view_partner_form_landed_cost" model="ir.ui.view">
+        <field name="name">res.partner.landed.cost</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Costos en destino">
+
+                    <group>
+
+                        <field name="lc_flete_internacional"/>
+                        <field name="lc_flete_nacional"/>
+                        <field name="lc_mov_log_tinkano"/>
+                        <field name="lc_mov_log_yalusa"/>
+                        <field name="lc_cuadrilla_descargue"/>
+                        <field name="lc_agenciamiento_aduanero"/>
+                        <field name="lc_satelital"/>
+                        <field name="lc_planilla_traslado"/>
+                        <field name="lc_zona_franca"/>
+                        <field name="lc_registro_impo"/>
+                        <field name="lc_gastos_origen"/>
+
+                    </group>
+
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

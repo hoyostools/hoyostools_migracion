@@ -1,0 +1,76 @@
+<odoo>
+    <record id="b4b_sale_order_tree_view" model="ir.ui.view">
+        <field name="name">b4b.sale.order.tree.view</field>
+        <field name="model">b4b.sale.order</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id"/>
+                <field name="date"/>
+                <field name="namecustomer"/>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="city"/>
+                <field name="servicio_logistico"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="b4b_sale_order_form_view" model="ir.ui.view">
+        <field name="name">b4b.sale.order.form.view</field>
+        <field name="model">b4b.sale.order</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="id"/>
+                        <field name="partner_id" required="1"/>
+                        <field name="namecustomer" required="1"/>
+                        <field name="document"/>
+                        <field name="address"/>
+                        <field name="phone"/>
+                        <field name="city" required="1"/>
+                        <field name="state"/>
+                        <field name="country"/>
+                        <field name="date" required="1"/>
+                        <field name="email"/>
+                    </group>
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="pedido_prov_id"/>
+                        <field name="notes"/>
+                        <field name="servicio_logistico"/>
+                        <field name="status"/>
+                        <field name="city"/>
+                        <field name="servicio_logistico"/>
+                        <field name="create_uid" string="Creado por"/>
+                        <field name="create_date" string="Fecha de creación"/>
+                    </group>
+                </group>
+                <notebook colspan="4">
+                    <page string="Details">
+                        <field name="sale_order_line_ids">
+                            <tree editable="bottom">
+                                <field name="id"/>
+                                <field name="sale_order_id"/>
+                                <field name="default_code"/>
+                                <field name="name"/>
+                                <field name="quantity"/>
+                                <field name="price_unit"/>
+                                <field name="porcentaje_sl"/>
+                                <field name="total"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_b4b_sale_order" model="ir.actions.act_window">
+        <field name="name">Órdenes</field>
+        <field name="res_model">b4b.sale.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

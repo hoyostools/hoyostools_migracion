@@ -1,0 +1,20 @@
+<odoo>
+    <record id="product_template_form_view_inherit_retail" model="ir.ui.view">
+        <field name="name">product.template.form.retail</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='invoicing']" position="after">
+                <page name="retail" string="Retail">
+                    <field name="retail_product_ids" context="{'default_product_tmpl_id': active_id}" mode="tree" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="store_id"/>
+                            <field name="barcode"/>
+                            <field name="warehouse_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

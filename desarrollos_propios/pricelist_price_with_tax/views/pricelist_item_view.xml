@@ -1,0 +1,31 @@
+<odoo>
+
+    <!-- ========================= -->
+    <!-- FORM VIEW (regla individual) -->
+    <!-- ========================= -->
+    <record id="view_pricelist_item_form_with_tax" model="ir.ui.view">
+        <field name="name">product.pricelist.item.form.inherit.tax</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="arch" type="xml">
+            <field name="fixed_price" position="after">
+                <field name="price_with_tax"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- ========================= -->
+    <!-- TREE VIEW (lista de reglas) -->
+    <!-- ========================= -->
+    <record id="view_pricelist_item_tree_with_tax" model="ir.ui.view">
+        <field name="name">product.pricelist.item.tree.inherit.tax</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="inherit_id" ref="product.product_pricelist_item_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="price" position="after">
+                <field name="price_with_tax"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

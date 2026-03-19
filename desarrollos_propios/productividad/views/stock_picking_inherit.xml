@@ -1,0 +1,13 @@
+<odoo>
+    <record id="view_picking_form_inherit_productividad" model="ir.ui.view">
+        <field name="name">stock.picking.form.productividad</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <!-- Insertar justo debajo del campo is_locked -->
+            <field name="is_locked" position="after">
+                <field name="procesado_productividad" invisible="1" readonly="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

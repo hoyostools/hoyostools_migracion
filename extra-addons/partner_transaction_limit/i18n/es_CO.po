@@ -1,0 +1,128 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_transaction_limit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e-20240809\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-28 15:12+0000\n"
+"PO-Revision-Date: 2024-11-28 15:12+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: partner_transaction_limit
+#: model_terms:ir.ui.view,arch_db:partner_transaction_limit.transaction_limit_form
+#: model_terms:ir.ui.view,arch_db:partner_transaction_limit.transaction_limit_form_p
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__purchase_total_current_period
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__purchase_total_current_period
+msgid "Compras totales en el periodo actual"
+msgstr ""
+
+#. module: partner_transaction_limit
+#: model:ir.model,name:partner_transaction_limit.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__transaction_control_months
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__transaction_control_months_p
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__transaction_control_months
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__transaction_control_months_p
+msgid "Control Period (Months)"
+msgstr "Periodo de control (meses)"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__last_update_purchase_validation
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__last_update_purchase_validation
+msgid "Last Update Purchase Validation"
+msgstr "Última validación"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__last_update_sale_validation
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__last_update_sale_validation
+msgid "Last Update Sale Validation"
+msgstr "Última validación"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,help:partner_transaction_limit.field_res_partner__transaction_control_months
+#: model:ir.model.fields,help:partner_transaction_limit.field_res_partner__transaction_control_months_p
+#: model:ir.model.fields,help:partner_transaction_limit.field_res_users__transaction_control_months
+#: model:ir.model.fields,help:partner_transaction_limit.field_res_users__transaction_control_months_p
+msgid "Number of months for transaction limit control"
+msgstr "Número de meses para el control del límite de transacciones"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__purchase_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__purchase_limit
+msgid "Purchase Limit"
+msgstr "Tope de compra"
+
+#. module: partner_transaction_limit
+#: model:ir.model,name:partner_transaction_limit.model_purchase_order
+msgid "Purchase Order"
+msgstr "Orden de compra"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__purchase_order_ids
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__purchase_order_ids
+msgid "Purchase Orders"
+msgstr "Ordenes de compra"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__sales_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__sales_limit
+msgid "Sales Limit"
+msgstr "Tope de ventas"
+
+#. module: partner_transaction_limit
+#: model:ir.model,name:partner_transaction_limit.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de venta"
+
+#. module: partner_transaction_limit
+#: model_terms:ir.ui.view,arch_db:partner_transaction_limit.transaction_limit_form
+#: model_terms:ir.ui.view,arch_db:partner_transaction_limit.transaction_limit_form_p
+msgid "Save"
+msgstr "Guardar"
+
+#. module: partner_transaction_limit
+#: model_terms:ir.ui.view,arch_db:partner_transaction_limit.transaction_limit_form
+#: model_terms:ir.ui.view,arch_db:partner_transaction_limit.transaction_limit_form_p
+msgid "Transaction Limit"
+msgstr "Topes de transacción"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__transaction_validation_document
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__transaction_validation_document_p
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__transaction_validation_document
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__transaction_validation_document_p
+msgid "Transaction Validation Document"
+msgstr "Documento de validación"
+
+#. module: partner_transaction_limit
+#: model_terms:ir.ui.view,arch_db:partner_transaction_limit.view_partner_form_inherit
+msgid "Validar"
+msgstr ""
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__validate_transaction_limits
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__validate_transaction_limits_p
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__validate_transaction_limits
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__validate_transaction_limits_p
+msgid "Validate Transaction Limits"
+msgstr "Tope de transacciones validado"
+
+#. module: partner_transaction_limit
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_partner__sales_total_current_period
+#: model:ir.model.fields,field_description:partner_transaction_limit.field_res_users__sales_total_current_period
+msgid "Ventas totales en el periodo actual"
+msgstr ""

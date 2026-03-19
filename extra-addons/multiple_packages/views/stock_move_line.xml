@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="view_stock_move_line_operation_tree_inherit_multiple_packages"
+                model="ir.ui.view">
+            <field name="name">stock.move.line.operations.list.multiple.packages</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock.view_stock_move_line_operation_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='product_uom_id' and @groups='uom.group_uom']" position="after">
+                    <button name="action_open_multiple_pack_wizard"
+                            invisible="result_package_id"
+                            groups="multiple_packages.merp_menu_multiple_packages"
+                            type="object"
+                            string="Multiple packages"
+                            class="oe_link"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

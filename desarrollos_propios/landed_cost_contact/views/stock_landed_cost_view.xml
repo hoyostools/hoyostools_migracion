@@ -1,0 +1,13 @@
+<odoo>
+    <record id="view_stock_landed_cost_line_contact" model="ir.ui.view">
+        <field name="name">stock.landed.cost.line.contact</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='cost_lines']/tree/field[@name='name']" position="after">
+                <field name="allowed_contact_ids" column_invisible="1"/>
+                <field name="contact_id" options="{'no_create': True, 'no_create_edit': True}" domain="[('id', 'in', allowed_contact_ids)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

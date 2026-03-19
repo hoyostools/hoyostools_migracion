@@ -1,0 +1,385 @@
+<odoo>
+
+    <!-- ================================= -->
+    <!-- TARJETA EN EL PORTAL -->
+    <!-- ================================= -->
+
+    <template id="portal_seguimiento_pedido"
+              name="Seguimiento Pedido"
+              inherit_id="portal.portal_my_home"
+              priority="40">
+
+
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/portal_sale_history/static/src/img/history_icon.png'"/>
+                <t t-set="title">Mi Histórico</t>
+                <t t-set="url" t-value="'/my/sale_history'"/>
+                <t t-set="text">Consultar órdenes por rango de fechas</t>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="sale_order_portal_breadcrumb_inherit"
+          inherit_id="portal.portal_breadcrumbs">
+
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+
+            <li t-if="request.params.get('origin') == '/my/sale_history'"
+                class="breadcrumb-item">
+
+                <a href="/my/sale_history">
+                    Mi Histórico
+                </a>
+
+            </li>
+
+        </xpath>
+
+    </template>
+
+
+    <!-- ================================= -->
+    <!-- PAGINA DEL HISTORICO -->
+    <!-- ================================= -->
+
+    <template id="portal_sale_history_table">
+
+        <table class="table table-striped">
+
+            <thead>
+                <tr>
+                    <th>Pedido</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <t t-foreach="orders" t-as="order">
+
+                    <tr class="product-row">
+
+                        <td>
+                            <a t-att-href="'/my/orders/%s?access_token=%s&amp;origin=/my/sale_history' % (order.id, order.access_token)">
+                                <t t-esc="order.name"/>
+                            </a>
+                        </td>
+
+                        <td>
+                            <t t-esc="order.date_order"/>
+                        </td>
+
+                        <td>
+                            <t t-esc="order.amount_total"/>
+                        </td>
+                         <td>
+
+                            <a t-att-href="'/my/orders/%s' % order.id"
+                               class="btn btn-sm btn-primary">
+
+                                Volver a ordenar
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                </t>
+
+            </tbody>
+
+        </table>
+
+        <div t-if="pager" class="o_portal_pager d-flex justify-content-center my-3">
+            <t t-call="portal.pager"/>
+        </div>
+
+    </template>
+
+
+    <template id="portal_sale_history_page" name="Histórico ventas">
+
+    <t t-call="website.layout">
+
+        <div class="container mt-5 mb-5">
+
+            <div class="row">
+
+                <!-- ================================= -->
+                <!-- TARJETA HISTORICO DE ORDENES -->
+                <!-- ================================= -->
+
+                <div class="col-lg-8">
+
+                    <div class="card card-hover shadow-sm">
+
+                        <div class="card-header bg-primary">
+                            <h4 class="mb-0" style="color:white;">Histórico de órdenes de venta</h4>
+                        </div>
+
+                        <div class="card-body">
+
+                            <form method="get" class="row mb-4">
+
+                                <div class="col-md-4">
+                                    <label>Fecha inicio</label>
+                                    <input type="date"
+                                           name="start_date"
+                                           class="form-control"
+                                           t-att-value="start_date"/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Fecha fin</label>
+                                    <input type="date"
+                                           name="end_date"
+                                           class="form-control"
+                                           t-att-value="end_date"/>
+                                </div>
+
+                                <div class="col-md-4 d-flex align-items-end">
+
+                                    <button class="btn btn-primary w-100" type="submit">
+                                        Consultar
+                                    </button>
+
+                                </div>
+
+                            </form>
+                            <div id="sale_history_table_container">
+                                <t t-call="portal_sale_history.portal_sale_history_table"/>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================================= -->
+                <!-- TARJETA PRODUCTOS MAS COMPRADOS -->
+                <!-- ================================= -->
+
+                <div class="col-lg-4">
+
+                    <div class="card card-hover shadow-sm">
+
+                        <div class="card-header bg-primary">
+                            <h5 class="mb-0" style="color:white;">Productos más comprados por ti</h5>
+                        </div>
+
+                        <div class="card-body">
+
+                            <table id="portal_table" class="table table-sm">
+
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Cantidad Comprada</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    <t t-foreach="top_products" t-as="product">
+
+                                        <tr class="product-row">
+
+                                            <td>
+                                                <t t-esc="product['name']"/>
+                                            </td>
+
+                                            <td>
+                                                <t t-esc="round(product['qty'])"/>
+                                            </td>
+                                            <td>
+
+                                                <div class="d-flex gap-2">
+
+                                                    <input type="number"
+                                                           class="form-control text-center add_qty"
+                                                           style="width:60px"
+                                                           value="1"
+                                                           min="1"/>
+
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-primary add_to_cart_btn"
+                                                            t-att-data-product-id="product['id']">
+
+                                                        <i class="fa fa-shopping-cart"/>
+
+                                                    </button>
+
+                                                </div>
+
+                                            </td>
+
+                                        </tr>
+
+                                    </t>
+
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ================================= -->
+            <!-- TARJETA CATEGORIAS POPULARES -->
+            <!-- ================================= -->
+
+            <!-- ================================= -->
+                <!-- PRODUCTOS NUEVOS -->
+                <!-- ================================= -->
+
+            <div class="card card-hover shadow-sm mt-4 mb-4 px-0" t-if="new_products">
+
+                    <div class="card-header bg-primary text-center">
+                        <h5 class="mb-0" style="color:white;">Productos nuevos en la tienda</h5>
+                    </div>
+
+                    <div class="card-body" style="height:300px;overflow-y:scroll">
+
+                        <div class="mb-3">
+
+                            <select class="form-control" id="filter_category">
+
+                                <option value="">Todas las Marcas</option>
+
+                                <t t-foreach="categories" t-as="cat">
+                                    <option t-att-value="cat.id">
+                                        <t t-esc="cat.name"/>
+                                    </option>
+                                </t>
+
+                            </select>
+
+                        </div>
+
+                        <table class="table table-sm">
+
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Producto</th>
+                                    <th>Precio</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="new_products_tbody">
+
+                                <t t-foreach="new_products" t-as="product">
+
+                                    <tr class="product-row">
+
+                                        <td style="width:70px">
+
+                                            <img t-att-src="'/web/image/product.product/%s/image_1920' % product.product_variant_id.id"
+                                                 class="img rounded"
+                                                 style="width:50px;height:50px;object-fit:cover;"/>
+
+                                        </td>
+
+                                        <td>
+                                            <t t-esc="product.name"/>
+                                        </td>
+
+                                        <td>
+                                            <t t-esc="product.list_price"/>
+                                        </td>
+
+                                        <td>
+                                            <div class="d-flex align-items-center gap-2">
+
+                                                <input type="number"
+                                                       class="form-control text-center add_qty"
+                                                       style="width:60px"
+                                                       value="1"
+                                                       min="1"/>
+
+                                                <button type="button"
+                                                        class="btn btn-sm btn-primary add_to_cart_btn"
+                                                        t-att-data-product-id="product.product_variant_id.id">
+
+                                                    <i class="fa fa-shopping-cart"/>
+
+                                                </button>
+
+                                            </div>
+                                        </td>
+
+                                    </tr>
+
+                                </t>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            <div class="card card-hover shadow-sm mt-4 px-0">
+
+                    <div class="card-header bg-primary text-center">
+                        <h5 class="mb-0" style="color:white;">Categorías más populares en tus compras</h5>
+                    </div>
+
+                    <div class="card-body">
+
+                        <t t-foreach="top_categories" t-as="cat">
+
+                            <div class="mb-3">
+
+                                <div class="d-flex justify-content-between">
+
+                                    <span>
+                                        <t t-esc="cat['name']"/>
+                                    </span>
+
+                                </div>
+
+                                <div class="progress" style="height:15px">
+
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                         role="progressbar"
+                                         t-attf-aria-valuenow="cat['percent']"
+                                         t-attf-esc="cat['percent']"
+                                         aria-valuemax="100"
+                                         t-attf-style="width: {{cat['percent']}}%">
+                                        <t t-esc="round(cat['percent'], 1)"/>%
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </t>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </t>
+
+</template>
+
+
+</odoo>

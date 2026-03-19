@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+sale_montacargas,model_sale_montacargas,model_sale_montacargas,base.group_user,1,1,1,1
+wave_zonas,model_wave_zonas,model_wave_zonas,base.group_user,1,1,1,1
+wave_almacenes,model_wave_almacenes,model_wave_almacenes,base.group_user,1,1,1,1
+filter_order,model_filter_order,model_filter_order,base.group_user,1,1,1,1

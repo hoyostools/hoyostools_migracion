@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_move_form_inherit_contacto" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.contacto</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Agregar el campo en el tree de líneas -->
+            <xpath expr="//field[@name='invoice_line_ids']/list/field[@name='price_unit']" position="after">
+                <field name="contacto"/>
+            </xpath>
+
+            <xpath expr="//field[@name='line_ids']/list/field[@name='tax_ids']" position="after">
+                <field name="partner_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

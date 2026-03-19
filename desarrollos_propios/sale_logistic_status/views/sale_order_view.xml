@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_logistic_status" model="ir.ui.view">
+        <field name="name">sale.order.form.logistic.status</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="logistic_state"
+                       widget="badge"
+                       decoration-muted="logistic_state == 'pending'"
+                       decoration-danger="logistic_state == 'processing'"
+                       decoration-warning="logistic_state in ('packing','shipping')"
+                       decoration-success="logistic_state == 'done'"/>
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <record id="view_order_tree_logistic_status" model="ir.ui.view">
+        <field name="name">sale.order.tree.logistic.status</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="logistic_state"
+                       widget="badge"
+                       decoration-muted="logistic_state == 'pending'"
+                       decoration-danger="logistic_state == 'processing'"
+                       decoration-warning="logistic_state in ('packing','shipping')"
+                       decoration-success="logistic_state == 'done'"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

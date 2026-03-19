@@ -1,0 +1,25 @@
+<odoo>
+    <template id="sorteo_result_template">
+        <t t-call="website.layout">
+            <div class="container mt-5">
+                <h2 class="text-center">¡El Sorteo Está en Progreso!</h2>
+                <div id="spinner" class="text-center my-5">
+                    <img t-att-src="'/awards_and_labels/static/src/img/spinner.gif'" alt="Sorteando..."/>
+                </div>
+                <div id="winner-info" class="text-center" style="display:none;">
+                    <h3>🎉 ¡Ganador! 🎉</h3>
+                    <p><strong>Cliente:</strong> <t t-esc="sorteo.winner_id.name"/></p>
+                    <p><strong>Premio:</strong> <t t-esc="sorteo.award_id.name"/></p>
+                    <p><strong>Tiquetes:</strong> <t t-esc="sorteo.winner_tickets"/></p>
+                </div>
+            </div>
+
+            <script>
+                setTimeout(function() {
+                    document.getElementById('spinner').style.display = 'none';
+                    document.getElementById('winner-info').style.display = 'block';
+                }, 20000); // Espera 20 segundos para simular el sorteo
+            </script>
+        </t>
+    </template>
+</odoo>

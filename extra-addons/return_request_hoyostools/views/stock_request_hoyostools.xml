@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_stock_return_request_form_inherit" model="ir.ui.view">
+            <field name="name">stock.return.request.form.inherit</field>
+            <field name="model">stock.return.request</field>
+            <field name="inherit_id" ref="stock_return_request.view_stock_return_request_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='return_order']" position="after">
+                    <field name="can_edit_values" invisible="1"/>
+                    <field name="delivery_address" domain="['|', ('parent_id', '=', partner_id), ('id', '=', partner_id), ('type', '=', 'delivery') ]" context="{'from_return_request': 1}"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="domain">[('type', '=', 'contact')]</attribute>
+                </xpath>
+<!--                NOTA: para poner los campos en modo lectura adicional a esto se modifico en el modelo el fields security (pestaña del notebook) ya que hoyos modifico directamente alli -->
+                 <xpath expr="//field[@name='return_order']" position="attributes">
+                     <attribute name="readonly">can_edit_values</attribute>
+                 </xpath>
+                <xpath expr="//field[@name='picking_types']" position="attributes">
+                     <attribute name="readonly">can_edit_values</attribute>
+                     <attribute name="force_save">1</attribute>
+                 </xpath>
+                 <xpath expr="//field[@name='return_type']" position="attributes">
+                     <attribute name="readonly">can_edit_values</attribute>
+                 </xpath>
+            </field>
+        </record>
+
+         <record id="view_stock_return_request_tree_inherit" model="ir.ui.view">
+            <field name="name">stock.return.request.tree.inherit</field>
+            <field name="model">stock.return.request</field>
+            <field name="inherit_id" ref="stock_return_request.view_stock_return_request_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='return_type']" position="after">
+                     <field name="has_invoice" optional="hide" />
+                 </xpath>
+            </field>
+         </record>
+
+        <record id="return_" model="ir.ui.view">
+            <field name="name">stock.request.notebook.view</field>
+            <field name="model">stock.return.request</field>
+            <field name="inherit_id" ref="stock_return_request.view_stock_return_request_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook[1]//page[@name='return_comments']" position="after">
+                    <page string="Otra informacion">
+
+                            <group>
+                                <group>
+                                    <field name="package_unit"/>
+                                    <field name="pick_up_on"/>
+                                    <field name="exchange_bill"/>
+                                </group>
+                            </group>
+
+                    </page>
+                </xpath>
+
+                <xpath expr="//notebook[1]//page[@name='return_lines']//tree//field[@name='max_quantity']" position="after">
+                    <field name="product_status"/>
+                </xpath>
+
+                <xpath expr="//button[@name='action_validate']" position="attributes">
+                    <attribute name="invisible">picking_state != 'done' or state == 'done'</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_validate']" position="after">
+                    <field name="picking_state" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

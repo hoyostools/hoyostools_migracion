@@ -1,0 +1,18 @@
+<record id="view_stock_picking_credit_note_button" model="ir.ui.view">
+    <field name="name">stock.picking.credit.note.button</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//div[@name='button_box']" position="inside">
+            <button
+                type="object"
+                name="action_view_credit_notes"
+                class="oe_stat_button"
+                icon="fa-file-text-o"
+                attrs="{'invisible': [('invoice_ids', '=', False)]}"
+            >
+                <field name="invoice_ids" widget="statinfo" string="Notas de Crédito"/>
+            </button>
+        </xpath>
+    </field>
+</record>

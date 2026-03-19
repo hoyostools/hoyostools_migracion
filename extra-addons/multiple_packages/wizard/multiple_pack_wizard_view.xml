@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_multiple_pack_wizard_form" model="ir.ui.view">
+          <field name="name">multiple.pack.wizard.form</field>
+          <field name="model">multiple.pack.wizard</field>
+          <field name="arch" type="xml">
+          <form string="Multiple Packages">
+              <group>
+                  <field name="move_line_id" invisible="1"/>
+                  <field name="quantity_total" readonly="1"/>
+
+                  <field name="number_of_packages"/>
+                  <field name="items_per_package"/>
+
+                  <!-- Show only when there is NO carrier on the transfer -->
+                  <field name="has_carrier" invisible="1"/>
+                  <field name="package_type_id" invisible="has_carrier"/>
+              </group>
+            <footer>
+                <button string="Cancel" class="btn-secondary" special="cancel"/>
+                <button string="Pack" type="object" name="action_pack" class="btn-primary"/>
+            </footer>
+          </form>
+          </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- SEARCH -->
+    <record id="view_resumen_empacador_mensual_search" model="ir.ui.view">
+        <field name="name">resumen.empacador.mensual.search</field>
+        <field name="model">productividad.resumen_empacador_mensual</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id" string="Empacador"/>
+                <field name="mes" string="Mes"/>
+                <field name="anio" string="Año"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- TREE -->
+    <record id="view_resumen_empacador_mensual_tree" model="ir.ui.view">
+        <field name="name">resumen.empacador.mensual.tree</field>
+        <field name="model">productividad.resumen_empacador_mensual</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_id"/>
+                <field name="mes"/>
+                <field name="anio"/>
+                <field name="items"/>
+                <field name="documentos"/>
+                <field name="puntos"/>
+                <field name="cajas_usadas"/>
+                <field name="cantidad_maxima_cajas"/>
+                <field name="ahorro"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- KANBAN -->
+    <record id="view_resumen_empacador_mensual_kanban" model="ir.ui.view">
+        <field name="name">resumen.empacador.mensual.kanban</field>
+        <field name="model">productividad.resumen_empacador_mensual</field>
+        <field name="priority" eval="50"/>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column" create="false" default_order="anio desc, mes desc">
+                <field name="user_id"/>
+                <field name="mes"/>
+                <field name="anio"/>
+                <field name="items"/>
+                <field name="documentos"/>
+                <field name="puntos"/>
+                <field name="cajas_usadas"/>
+                <field name="cantidad_maxima_cajas"/>
+                <field name="ahorro"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record">
+
+                            <div style="text-align:center; height: 190px; padding: 10px;">
+                                <t t-if="record.user_id.raw_value">
+                                    <img t-att-src="'/web/image/res.users/' + record.user_id.raw_value + '/image_1024'"
+                                         class="img img-fluid rounded-circle"
+                                         style="height:150px; width:120px; object-fit:cover;"/>
+                                </t>
+                                <h4><t t-esc="record.user_id.value"/></h4>
+                                <div>
+                                    <small>
+                                        <t t-esc="record.mes.value"/> /
+                                        <t t-esc="record.anio.value"/>
+                                    </small>
+                                </div>
+                            </div>
+
+                            <table class="table table-sm mt-2" style="font-size: 12px; margin: auto;">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th style="text-align:center;">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><b>Items</b></td>
+                                        <td style="text-align:center;"><t t-esc="record.items.value or 0"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Documentos</b></td>
+                                        <td style="text-align:center;"><t t-esc="record.documentos.value or 0"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Puntos</b></td>
+                                        <td style="text-align:center;"><t t-esc="record.puntos.value or 0"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Cajas</b></td>
+                                        <td style="text-align:center;">
+                                            <t t-esc="record.cajas_usadas.value or 0"/> /
+                                            <t t-esc="record.cantidad_maxima_cajas.value or 0"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><b>Ahorro</b></td>
+                                        <td style="text-align:center;"><t t-esc="record.ahorro.value or 0"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_resumen_empacador_mensual" model="ir.actions.act_window">
+        <field name="name">Detalle Empacadores</field>
+        <field name="res_model">productividad.resumen_empacador_mensual</field>
+        <field name="view_mode">kanban,tree</field>
+
+        <!-- CLAVE: amarrar search view -->
+        <field name="search_view_id" ref="view_resumen_empacador_mensual_search"/>
+
+        <!-- CLAVE: amarrar vistas en orden -->
+        <field name="views" eval="[
+            (ref('view_resumen_empacador_mensual_kanban'), 'kanban'),
+            (ref('view_resumen_empacador_mensual_tree'), 'tree')
+        ]"/>
+    </record>
+
+</odoo>

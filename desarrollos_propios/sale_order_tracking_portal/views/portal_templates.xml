@@ -1,0 +1,327 @@
+<odoo>
+    <data>
+
+        <!-- ================================= -->
+        <!-- PANTALLA PRINCIPAL -->
+        <!-- ================================= -->
+
+        <template id="tracking_page" name="Seguimiento Pedido">
+
+            <t t-call="website.layout">
+
+                <div class="container mt-5 mb-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-8">
+                            <div class="card shadow-lg p-4">
+
+                                <h2 class="text-center mb-4">
+                                    Seguimiento de Pedido
+                                </h2>
+
+                                <label class="form-label fw-bold">
+                                    ¿Cómo deseas buscar tu pedido?
+                                </label>
+
+                                <select id="tipo_busqueda" class="form-control form-control-lg mb-4">
+                                    <option value="orden">Número de Orden</option>
+                                    <option value="nit">NIT</option>
+                                </select>
+
+                                <!-- BUSCAR POR ORDEN -->
+
+                                <form id="form_orden" action="/order/tracking/search" method="post">
+
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+
+                                    <input type="hidden"
+                                           name="recaptcha_token"
+                                           id="recaptcha_token_orden"/>
+
+                                    <div class="form-group mb-4">
+
+                                        <label class="form-label fw-bold">
+                                            Número de Orden de Venta
+                                        </label>
+
+                                        <input type="text"
+                                               name="order_name"
+                                               class="form-control form-control-lg"
+                                               placeholder="Ej: SO0046"
+                                               t-att-value="order_name or ''"/>
+
+                                    </div>
+
+                                    <div class="d-grid">
+
+                                        <button type="button"
+                                                class="btn btn-primary btn-lg"
+                                                onclick="onClick(event,'form_orden','recaptcha_token_orden')">
+
+                                            Consultar
+
+                                        </button>
+
+                                    </div>
+
+                                </form>
+
+
+                                <!-- BUSCAR POR NIT -->
+
+                                <form id="form_nit"
+                                      action="/order/tracking/nit"
+                                      method="post"
+                                      style="display:none;">
+
+                                    <input type="hidden"
+                                           name="csrf_token"
+                                           t-att-value="request.csrf_token()"/>
+
+                                    <input type="hidden"
+                                           name="recaptcha_token"
+                                           id="recaptcha_token_nit"/>
+
+                                    <div class="form-group mb-4">
+
+                                        <label class="form-label fw-bold">
+                                            Digite su NIT (sin dígito de verificación)
+                                        </label>
+
+                                        <input type="text"
+                                               name="nit"
+                                               class="form-control form-control-lg"
+                                               placeholder="Ej: 900123456"
+                                               t-att-value="nit or ''"/>
+
+                                    </div>
+
+                                    <div class="d-grid">
+
+                                        <button type="button"
+                                                class="btn btn-primary btn-lg"
+                                                onclick="onClick(event,'form_nit','recaptcha_token_nit')">
+
+                                            Consultar
+
+                                        </button>
+
+                                    </div>
+
+                                </form>
+
+
+                                <!-- MENSAJE ERROR -->
+
+                                <t t-if="error">
+
+                                    <div class="alert alert-warning text-center mt-4">
+                                        <t t-esc="error"/>
+                                    </div>
+
+                                </t>
+
+
+                                <!-- MENSAJE CAMION PROPIO -->
+
+                                <t t-if="camion_propio">
+
+                                    <div class="alert alert-success text-center mt-4">
+
+                                        <h4>Muchas gracias por tu pedido</h4>
+
+                                        <p>
+                                            Ya se encuentra en camino en uno de nuestros camiones propios.
+                                        </p>
+
+                                        <p class="mt-3">
+                                            <strong>Vehículo:</strong>
+                                            <t t-esc="placa"/>
+                                        </p>
+
+                                    </div>
+
+                                </t>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- CAMBIO ENTRE FORMULARIOS -->
+
+                <script>
+
+                    document.addEventListener("DOMContentLoaded", function(){
+
+                        var selector = document.getElementById("tipo_busqueda");
+                        var formOrden = document.getElementById("form_orden");
+                        var formNit = document.getElementById("form_nit");
+
+                        selector.addEventListener("change", function(){
+
+                            if(selector.value === "nit"){
+                                formOrden.style.display = "none";
+                                formNit.style.display = "block";
+                            }else{
+                                formOrden.style.display = "block";
+                                formNit.style.display = "none";
+                            }
+
+                        });
+
+                    });
+
+                </script>
+
+
+                <!-- RECAPTCHA V3 -->
+
+                <script>
+                    var recaptcha_site_key = "<t t-esc='site_key'/>";
+                    var consultas = 0;
+                </script>
+
+                <script t-att-src="'https://www.google.com/recaptcha/api.js?render=%s' % site_key"></script>
+
+                <script>
+
+                function onClick(e, formId, tokenId){
+
+                    e.preventDefault();
+
+                    if(typeof grecaptcha === "undefined"){
+                        document.getElementById(formId).submit();
+                        return;
+                    }
+
+                    grecaptcha.ready(function(){
+
+                        grecaptcha.execute(recaptcha_site_key, {action: 'tracking'})
+                        .then(function(token){
+
+                            document.getElementById(tokenId).value = token;
+                            document.getElementById(formId).submit();
+
+                        })
+                        .catch(function(){
+
+                            document.getElementById(formId).submit();
+
+                        });
+
+                    });
+
+                }
+
+                </script>
+
+            </t>
+
+        </template>
+
+
+        <!-- ================================= -->
+        <!-- LISTADO DE ORDENES -->
+        <!-- ================================= -->
+
+        <template id="tracking_orders_list" name="Órdenes recientes">
+
+            <t t-call="website.layout">
+
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+
+                            <div class="card shadow p-4">
+
+                                <h2 class="mb-4 text-center">
+                                    Órdenes recientes
+                                </h2>
+
+                                <table class="table table-striped align-middle">
+
+                                    <thead>
+                                        <tr>
+                                            <th>Orden</th>
+                                            <th>Fecha</th>
+                                            <th>Estado Logístico</th>
+                                            <th>Método de Envío</th>
+                                            <th class="text-center">Seguimiento</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        <t t-foreach="orders" t-as="order">
+
+                                            <tr>
+
+                                                <td>
+                                                    <strong>
+                                                        <t t-esc="order.name"/>
+                                                    </strong>
+                                                </td>
+
+                                                <td>
+                                                    <t t-esc="order.date_order.strftime('%d-%m-%Y')"/>
+                                                </td>
+
+                                                <td>
+
+                                                    <t t-set="estado" t-value="order.logistic_state"/>
+                                                    <t t-set="estado_texto"
+                                                           t-value="dict(order._fields['logistic_state'].selection).get(order.logistic_state)"/>
+
+                                                    <span t-attf-class="badge #{
+                                                        'bg-warning' if estado == 'pending'
+                                                        else 'bg-primary' if estado == 'processing'
+                                                        else 'bg-info' if estado == 'packing'
+                                                        else 'bg-secondary' if estado == 'shipping'
+                                                        else 'bg-success' if estado == 'done'
+                                                        else 'bg-light'
+                                                    }">
+
+                                                        <t t-esc="estado_texto"/>
+
+                                                    </span>
+
+                                                </td>
+
+                                                <td>
+                                                    <t t-esc="order.carrier_id.name"/>
+                                                </td>
+
+                                                <td class="text-center">
+
+                                                    <a t-att-href="'/order/tracking/direct/' + str(order.id)"
+                                                       class="btn btn-primary btn-sm">
+
+                                                        Ver seguimiento
+
+                                                    </a>
+
+                                                </td>
+
+                                            </tr>
+
+                                        </t>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </t>
+
+        </template>
+
+    </data>
+</odoo>

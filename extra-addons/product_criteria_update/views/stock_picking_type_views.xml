@@ -1,0 +1,15 @@
+<odoo>
+    <record id="stock_mrp_picking_type_kanban_inherit" model="ir.ui.view">
+        <field name="name">stock.mrp.picking.type.kanban.inherit</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock_barcode.stock_picking_type_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="inside"  >
+                <header>
+                    <button string="Tareas" name="action_tasks_view" type="object" display="always" class="btn-outline-success"/>
+                    <button string="Reglas de reordenamiento" name="open_reordering_rules" type="object" display="always" class="btn btn-primary"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+</odoo>

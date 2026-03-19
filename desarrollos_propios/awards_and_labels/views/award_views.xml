@@ -1,0 +1,80 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_award_tree" model="ir.ui.view">
+        <field name="name">awards_and_labels.award.tree</field>
+        <field name="model">awards_and_labels.award</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="active"/>
+                <field name="name"/>
+                <field name="buzon" string="Buzón"/>
+                <field name="condicion"/>
+                <field name="valor"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View CON LÓGICA CONDICIONAL -->
+    <record id="view_award_form" model="ir.ui.view">
+        <field name="name">awards_and_labels.award.form</field>
+        <field name="model">awards_and_labels.award</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"  nolabel="0" string="Premio"/>
+                        <field name="fecha_evento_inicio"/>
+                        <field name="fecha_evento_fin"/>
+                        <field name="condicion" string="Condicion"/>
+                        <field name="fecha_hora_sorteo"/>
+                        <field name="valor" string="Valor"/>
+                        <field name="acomulable" string="Acomulable"/>
+                        <field name="buzon" string="Buzón"/>
+                        <field name="active"/>
+                    </group>
+
+                    <group string="Marca (si aplica)" invisible="not show_brand">
+                        <field name="product_brand_ids" widget="many2many_tags"/>
+                        <field name="show_brand" invisible="1"/>
+                    </group>
+
+                    <group string="Categoría (si aplica)" invisible="not show_categ">
+                        <field name="categ_ids" widget="many2many_tags"/>
+                        <field name="show_categ" invisible="1"/>
+                    </group>
+
+                    <group string="Etiqueta (si aplica)" invisible="not show_tag">
+                        <field name="product_tag_ids" widget="many2many_tags"/>
+                        <field name="show_tag" invisible="1"/>
+                    </group>
+
+                    <group string="Productos (si aplica)" invisible="not show_product">
+                        <field name="product_ids" widget="many2many_tags"/>
+                        <field name="show_product" invisible="1"/>
+                    </group>
+
+                    <group string="Lista de Precios (si aplica)" invisible="not show_price_list">
+                        <field name="pricelist_ids" widget="many2many_tags"/>
+                        <field name="show_price_list" invisible="1"/>
+                    </group>
+
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Acción -->
+    <record id="action_award" model="ir.actions.act_window">
+        <field name="name">Premios</field>
+        <field name="res_model">awards_and_labels.award</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menús -->
+    <menuitem id="menu_award_root" name="Premios y Etiquetas" parent="contacts.res_partner_menu_config" sequence="10"/>
+    <menuitem id="menu_award_config" name="Configurar Premios" parent="menu_award_root" action="action_award"/>
+</odoo>

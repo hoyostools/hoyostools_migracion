@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="group_vendor_price" model="res.groups">
+        <field name="name">Vendor Portal Price</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <!-- Modificar el grupo base.group_portal para añadir un grupo implícito -->
+    <record id="base.group_portal" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('website_vendor_portal_app.group_vendor_price'))]"/>
+    </record>
+
+	<record model="ir.ui.view" id="purchase_order_view">
+        <field name="name">Purchase.Order.View.Inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook/page[1]/field[@name='order_line']/tree/field[@name='date_planned']" position="after">
+        		<field name="can_update"  column_invisible="1"/>
+        	</xpath>
+        	<xpath expr="//notebook/page[1]/field[@name='order_line']/tree/field[@name='date_planned']" position="after">
+        		<field name="delivery_date" groups="website_vendor_portal_app.group_vendor_price" readonly="not can_update"/>
+        	</xpath>
+            <xpath expr="//notebook/page[1]/field[@name='order_line']/tree/field[@name='qty_received']" position="after">
+                <field name="vendor_price" groups="website_vendor_portal_app.group_vendor_price" readonly="not can_update" optional="hide"/>
+                <field name="user_change" groups="website_vendor_portal_app.group_vendor_price" readonly="1" optional="hide"/>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='order_line']/tree/field[@name='product_qty']" position="attributes">
+                <attribute name="readonly">not can_update</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                <attribute name="readonly">not can_update</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[1]/field[@name='order_line']/form/group/group/notebook" position='inside'>
+                <page string="Description" name="description" groups="website_vendor_portal_app.group_vendor_price">
+                    <group>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,104 @@
+<odoo>
+  <record id="action_award_process_order" model="ir.actions.server">
+    <field name="name">Procesar Premios OV</field>
+    <field name="model_id" ref="sale.model_sale_order"/>
+    <field name="binding_model_id" ref="sale.model_sale_order"/>
+    <field name="binding_type">action</field>
+    <field name="state">code</field>
+    <field name="code"><![CDATA[
+for pedido in records:
+    if pedido.bandera_s or pedido.state != 'sale':
+        continue
+
+    cliente = pedido.partner_id
+
+    if not cliente.attended_event:
+        pedido.sudo().write({'bandera_s': True})
+        continue
+        
+    fecha_pedido = pedido.date_order.date()
+    monto_pedido = pedido.amount_untaxed or 0.0
+
+
+    for premio_rel in cliente.award_ids:
+        premio = premio_rel.award_id
+
+        # Validar lista de precios
+        if premio.condicion == 'pricelist':
+            if pedido.pricelist_id.id not in premio.pricelist_ids.ids:
+                continue
+
+        # Rango de fechas
+        if premio.fecha_evento_inicio and premio.fecha_evento_fin:
+            if not (premio.fecha_evento_inicio <= fecha_pedido <= premio.fecha_evento_fin):
+                continue
+
+        if premio.fecha_hora_sorteo and fecha_pedido > premio.fecha_hora_sorteo.date():
+            continue
+
+        condicion = premio.condicion or ''
+        valor = premio.valor or 0.0
+        acomulable = premio.acomulable
+        subtotal = 0.0
+        cantidad_extra = 0
+
+        # Procesar condiciones
+        if not condicion or condicion == 'pricelist':
+            subtotal = monto_pedido
+
+        elif condicion == 'marca':
+            lineas = pedido.order_line.filtered(
+                lambda l: l.product_id.product_tmpl_id.product_brand_id.id in premio.product_brand_ids.ids
+            )
+            subtotal = sum(line.price_subtotal for line in lineas)
+
+        elif condicion == 'categoria':
+            lineas = pedido.order_line.filtered(
+                lambda l: l.product_id.categ_id.id in premio.categ_ids.ids
+            )
+            subtotal = sum(line.price_subtotal for line in lineas)
+
+        elif condicion == 'etiqueta':
+            productos = env['product.template'].search([
+                ('product_tag_ids', 'in', premio.product_tag_ids.ids)
+            ])
+            lineas = pedido.order_line.filtered(
+                lambda l: l.product_id.product_tmpl_id.id in productos.ids
+            )
+            subtotal = sum(line.price_subtotal for line in lineas)
+
+        elif condicion == 'producto':
+            lineas = pedido.order_line.filtered(
+                lambda l: l.product_id.product_tmpl_id.id in premio.product_ids.ids
+            )
+            subtotal = sum(line.price_subtotal for line in lineas)
+
+        # Aplicar reglas de cantidad
+        if valor > 0:
+            if subtotal >= valor:
+                veces = int(subtotal // valor) if acomulable else 1
+                cantidad_extra = veces
+        elif condicion:
+            if acomulable:
+                cantidad_extra = sum(line.product_uom_qty for line in lineas)
+            else:
+                cantidad_extra = len(lineas)
+
+        # Actualizar premio si aplica
+        if cantidad_extra > 0:
+            nuevo_valor = premio_rel.cantidad + cantidad_extra
+            nuevo_historial = premio_rel.historial + cantidad_extra
+            premio_rel.sudo().write({
+                'cantidad': nuevo_valor,
+                'historial': nuevo_historial
+            })
+            cliente.message_post(
+                body=f"Se procesaron por orden de venta {cantidad_extra} boletos para el premio {premio.name}. "
+                     f"Cantidad actual: {nuevo_valor}, Historial: {nuevo_historial}",
+                subtype_xmlid="mail.mt_note"
+            )
+
+    pedido.sudo().write({'bandera_s': True})
+    ]]></field>
+  </record>
+</odoo>

@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+        <record id="stock_warehouse_orderpoint_view_search_base" model="ir.ui.view">
+            <field name="name">stock.warehouse.orderpoint.search.base</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="inherit_id" ref="stock.stock_reorder_report_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group" position="inside">
+                    <filter string="Pendientes" domain="[('task_finished','=',False)]" name="pending_tasks"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_warehouse_order_point_criteria_view_tree" model="ir.ui.view">
+            <field name="name">stock.warehouse.orderpoint.criteria.view.tree</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="1" editable="bottom" default_order='task_finished'
+                      decoration-success="task_finished">
+                    <field name="company_id" column_invisible="1"/>
+                    <field name="product_id" readonly="1"/>
+                    <field name="location_id"/>
+                    <field name="route_id"/>
+                    <field name="product_min_qty"/>
+                    <field name="product_max_qty"/>
+                    <field name="qty_multiple" optional="hide"/>
+                    <field name="task_finished" column_invisible="1"/>
+                    <button name="finish_task" type="object" title="Finalizar tarea" icon="fa-check-square-o"
+                            invisible="task_finished"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stock_warehouse_order_point_barcode_view_tree" model="ir.ui.view">
+            <field name="name">stock.warehouse.orderpoint.barcode.view.tree</field>
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="company_id" column_invisible="1"/>
+                    <field name="id" column_invisible="1"/>
+                    <field name="codigo_barras" widget="widget_barcode" string=" " invisible="id"/>
+                    <field name="product_id" readonly="product_id" force_save="1"
+                           context="{'default_detailed_type': 'product'}" required="0"/>
+                    <field name="codigo_barras_location" widget="widget_barcode_location" string=" " invisible="id"/>
+                    <field name="location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations"/>
+                    <field name="route_id" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="product_min_qty" optional="show"/>
+                    <field name="product_max_qty" optional="show"/>
+                    <field name="qty_multiple" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

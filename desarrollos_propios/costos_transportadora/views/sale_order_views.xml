@@ -1,0 +1,21 @@
+<odoo>
+
+    <record id="sale_order_form_inherit_transportadora"
+            model="ir.ui.view">
+        <field name="name">sale.order.form.transportadora</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="ciudad_principal"/>
+                <field name="valor_caja"/>
+                <field name="cantidad_maxima_cajas"/>
+                <field name="total_flete"/>
+                <field name="porcentaje_flete"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

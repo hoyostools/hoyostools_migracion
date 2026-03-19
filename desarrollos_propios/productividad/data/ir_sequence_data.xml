@@ -1,0 +1,23 @@
+<odoo>
+    <data noupdate="1">
+
+        <!-- Secuencia para Errores de Picking -->
+        <record id="seq_errores_picking" model="ir.sequence">
+            <field name="name">Errores Picking</field>
+            <field name="code">productividad.errores_picking</field>
+            <field name="prefix">EPICKING-%(year)s-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Secuencia para Errores de Packing -->
+        <record id="seq_errores_packing" model="ir.sequence">
+            <field name="name">Errores Packing</field>
+            <field name="code">productividad.errores_packing</field>
+            <field name="prefix">EPACKING-%(year)s-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

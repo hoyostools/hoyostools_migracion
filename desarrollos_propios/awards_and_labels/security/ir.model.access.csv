@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_partner_award_user,awards_and_labels.res_partner_award_user,model_awards_and_labels_res_partner_award,base.group_user,1,0,0,0
+access_res_partner_award_custom_group,awards_and_labels.res_partner_award_custom_group,model_awards_and_labels_res_partner_award,__custom__.group_252,1,1,0,0

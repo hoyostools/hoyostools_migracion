@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_sale_order_form_warehouse_attr_readonly_inherit" model="ir.ui.view">
+        	<field name="name">sale.order.form.warehouse.attr.readonly.inherit</field>
+        	<field name="model">sale.order</field>
+        	<field name="inherit_id" ref="sale_stock.view_order_form_inherit_sale_stock"/>
+			<field name="arch" type="xml">
+				<xpath expr="//page[@name='other_information']//field[@name='warehouse_id'][2]" position="attributes">
+					<attribute name="readonly">True</attribute>
+				</xpath>
+				<xpath expr="//notebook" position="inside">
+					<page string="Validaciones">
+						<group>
+							<field name="margin_exception" widget="boolean_toggle"/>
+							<field name="aurorizar_recogen" widget="boolean_toggle"/>
+						</group>
+					</page>
+				</xpath>
+			</field>
+        </record>
+
+		<record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale_exception.view_order_form_inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_exception.view_order_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='exceptions_summary']" position="after">
+                    <field name="error_excepciones" />
+                </xpath>
+            </field>
+        </record>
+
+		<record id="view_order_discount_info_form_inherit" model="ir.ui.view">
+        <field name="name">sale.discount.info.order.inherit.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <field name="partner_shipping_id" position="attributes">
+                <attribute name="domain" operation="update">['|', ('parent_id', '=', partner_id), ('id', '=', partner_id), ('type', '=', 'delivery') ]</attribute>
+            </field>
+
+            <field name="partner_invoice_id" position="attributes">
+                <attribute name="domain" operation="update">['|', ('parent_id', '=', partner_id), ('id', '=', partner_id), ('type', '=', 'invoice') ]</attribute>
+            </field>
+
+            <xpath expr="//field[@name='ignore_exception']" position="after">
+                <field name="total_packs_order" invisible="1"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="before">
+                <field name="minimum_quantity_for_discount" optional="hide" />
+                <field name="maximum_quantity_for_discount" optional="hide" />
+                <field name="range_discount" optional="hide" />
+                <field name="discount_exceeds_range" optional="hide" />
+                <field name="fixed_price_retail" optional="hide" />
+                <field name="fixed_price_pos" optional="hide" />
+                <field name="precio_unitario_impuesto_excluido" optional="hide" widget="monetary"/>
+                <field name="precio_unitario_impuesto_incluido" optional="hide" widget="monetary"/>
+                <field name="proyeccion_inventario" optional="hide" />
+                <field name="cant_pack" optional="hide" />
+                <field name="total_packs" optional="hide"/>
+
+
+            </xpath>
+             <xpath expr="//field[@name='partner_id']" position="after">
+                      <field name="can_edit_d" invisible="1"/>
+            </xpath>
+             <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">
+
+                 <field name="commission_per" optional="show" readonly="not parent.can_edit_d"/>
+            </xpath>
+
+            <xpath expr="//field[@name='total_packs']" position="attributes">
+                <attribute name="sum">Suma de Total Pacas</attribute>
+            </xpath>
+        </field>
+    </record>
+
+        <record id="view_order_tree_inherit_total_packs" model="ir.ui.view">
+            <field name="name">view.order.tree.total.packs</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='validity_date']" position="after">
+                    <field name="total_packs_order" column_invisible="1" optional="hide" sum="total"/>
+                    <field name="show_group_total_packs" optional="hide" sum="total"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

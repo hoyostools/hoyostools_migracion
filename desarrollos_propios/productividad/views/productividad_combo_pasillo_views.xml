@@ -1,0 +1,44 @@
+<odoo>
+    <record id="view_combo_pasillo_form" model="ir.ui.view">
+        <field name="name">productividad.combo.pasillo.form</field>
+        <field name="model">productividad.combo_pasillo</field>
+        <field name="arch" type="xml">
+            <form string="Combo de Pasillo">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="pasillo_inicio"/>
+                        <field name="pasillo_fin"/>
+                        <field name="documentos"/>
+                        <field name="items"/>
+                        <field name="puntos"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_combo_pasillo_tree" model="ir.ui.view">
+        <field name="name">productividad.combo.pasillo.tree</field>
+        <field name="model">productividad.combo_pasillo</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="pasillo_inicio"/>
+                <field name="pasillo_fin"/>
+                <field name="documentos"/>
+                <field name="items"/>
+                <field name="puntos"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_combo_pasillo" model="ir.actions.act_window">
+        <field name="name">Combos de Pasillo</field>
+        <field name="res_model">productividad.combo_pasillo</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_productividad_root" name="Productividad"/>
+    <menuitem id="menu_combo_pasillo" name="Combos de Pasillo" parent="menu_productividad_root" action="action_combo_pasillo"/>
+</odoo>

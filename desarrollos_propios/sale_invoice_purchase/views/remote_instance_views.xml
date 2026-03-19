@@ -1,0 +1,63 @@
+<odoo>
+    <!-- Vista árbol -->
+    <record id="view_remote_instance_tree" model="ir.ui.view">
+        <field name="name">remote.instance.tree</field>
+        <field name="model">remote.instance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="url"/>
+                <field name="db"/>
+                <field name="username"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista formulario con botón para probar conexión -->
+    <record id="view_remote_instance_form" model="ir.ui.view">
+        <field name="name">remote.instance.form</field>
+        <field name="model">remote.instance</field>
+        <field name="arch" type="xml">
+            <form string="Instancia Remota">
+                <header>
+                    <button name="action_test_connection"
+                            type="object"
+                            string="Probar Conexión"
+                            class="btn-primary"
+                            icon="fa-plug"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="url"/>
+                        <field name="db"/>
+                        <field name="username"/>
+                        <field name="password" password="True"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_sync_remote_instance" model="ir.actions.act_window">
+        <field name="name">Instancias Remotas</field>
+        <field name="res_model">remote.instance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Administra las conexiones a otras bases de datos de Odoo para sincronización automática.</p>
+        </field>
+    </record>
+
+    <!-- Menús (ajustado para Odoo 17) -->
+    <menuitem id="menu_sync_remote_root"
+              name="Sincronización Remota"
+              parent="base.menu_config"
+              sequence="100"/>
+
+    <menuitem id="menu_sync_remote_instance"
+              name="Instancias Remotas"
+              parent="menu_sync_remote_root"
+              action="action_sync_remote_instance"
+              sequence="10"/>
+</odoo>

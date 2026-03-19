@@ -1,0 +1,36 @@
+<odoo>
+  <record id="view_picking_form_kardex_sync" model="ir.ui.view">
+    <field name="name">stock.picking.kardex.sync</field>
+    <field name="model">stock.picking</field>
+    <field name="inherit_id" ref="stock.view_picking_form"/>
+    <field name="arch" type="xml">
+
+      <xpath expr="//sheet" position="inside">
+        <field name="kardex_sent" invisible="1"/>
+      </xpath>
+
+      <xpath expr="//header" position="inside">
+        <!-- Botón original -->
+        <button name="action_sync_kardex"
+                type="object"
+                string="Sincronizar con Kardex OUT"
+                class="btn btn-primary"
+                invisible="kardex_sent == True"/>
+
+        <!-- Botón nuevo: Kardex IN -->
+        <button name="action_sync_kardex_in"
+                type="object"
+                string="Sincronizar con Kardex IN"
+                class="btn btn-primary"
+                invisible="kardex_sent == True"/>
+      </xpath> 
+
+      <!-- Añadir campo booleano en líneas del albarán -->
+      <xpath expr="//field[@name='move_ids_without_package']//tree" position="inside">
+        <field name="estado_confirmado_kardex" readonly="1"/>
+        <field name="kardex_identificador" readonly="1"/>
+      </xpath>
+
+    </field>
+  </record>
+</odoo>

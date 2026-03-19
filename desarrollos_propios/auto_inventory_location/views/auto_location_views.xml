@@ -1,0 +1,39 @@
+<odoo>
+
+    <record id="view_auto_location_tree" model="ir.ui.view">
+        <field name="name">auto.location.record.tree</field>
+        <field name="model">auto.location.record</field>
+        <field name="arch" type="xml">
+
+            <tree default_order="porcentaje_llenado asc">
+                <field name="product_id" string="Producto"/>
+                <field name="default_code" string="Codigo"/>
+                <field name="picking_id" string="Albaran"/>
+                <field name="purchase_id" string="Orden de compra"/>
+                <field name="fecha_llegada"/>
+                <field name="origen_bienes"/>
+                <field name="cantidad_recibida"/>
+                <field name="cantidad_ubicada"/>
+                <field name="cantidad_pendiente"/>
+                <field name="tiempo_sin_ubicar"/>
+                <field name="porcentaje_llenado"
+                   widget="progressbar"
+                   decoration-danger="porcentaje_llenado &lt; 50"
+                   decoration-success="porcentaje_llenado &gt;= 90"/>
+                <field name="ranking_rotacion"/>
+                <field name="prioridad" string="Prioridad" widget="priority"/>
+                <field name="sin_regla"/>
+                <field name="liberado"/>
+            </tree>
+
+        </field>
+    </record>
+
+
+    <record id="action_auto_location_records" model="ir.actions.act_window">
+        <field name="name">Panel Ubicación</field>
+        <field name="res_model">auto.location.record</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+</odoo>

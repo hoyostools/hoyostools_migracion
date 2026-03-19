@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Vista Formulario -->
+    <record id="view_product_template_form_frecuencia" model="ir.ui.view">
+        <field name="name">product.template.frecuencia.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='invoicing']" position="after">
+                <page string="Frecuencia CLH" name="frecuencia_clh">
+                    <group>
+                        <field name="ubicacion_reab"/>
+                        <field name="tunel_clh"/>
+                        <field name="regla_min_sugerida" readonly="1"/>
+                        <field name="pacas_sugeridas_min" readonly="1"/>
+                        <field name="qty_multiple_reab"/>
+                        <field name="regla_min"/>
+                        <field name="regla_max"/>
+                        <field name="dias_min" readonly="1"/>
+                        <field name="dias_max" readonly="1"/>
+                        <field name="alerta" widget="boolean_toggle" readonly="1"/>
+                    </group>
+                </page>
+
+                <page string="Frecuencia EDI" name="frecuencia_edi">
+                    <group>
+                        <field name="promedio_consumo_edi"/>
+                        <field name="ubicacion_reab_edi"/>
+                        <field name="regla_min_sugerida_edi" readonly="1"/>
+                        <field name="pacas_sugeridas_min_edi" readonly="1"/>
+                        <field name="qty_multiple_reab_edi"/>
+                        <field name="regla_min_edi"/>
+                        <field name="regla_max_edi"/>
+                        <field name="dias_min_edi" readonly="1"/>
+                        <field name="dias_max_edi" readonly="1"/>
+                        <field name="alerta_edi" widget="boolean_toggle" readonly="1"/>
+                    </group>
+                </page>
+
+                <page string="Frecuencia PTV" name="frecuencia_ptv">
+                    <group>
+                        <field name="ubicacion_reab_ptv"/>
+                        <field name="regla_min_sugerida_ptv" readonly="1"/>
+                        <field name="pacas_sugeridas_min_ptv" readonly="1"/>
+                        <field name="qty_multiple_reab_ptv"/>
+                        <field name="regla_min_ptv"/>
+                        <field name="regla_max_ptv"/>
+                        <field name="dias_min_ptv" readonly="1"/>
+                        <field name="dias_max_ptv" readonly="1"/>
+                        <field name="alerta_ptv" widget="boolean_toggle" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista Árbol -->
+    <record id="view_product_template_tree_frecuencia" model="ir.ui.view">
+        <field name="name">product.template.frecuencia.tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='inventory_projection']" position="after">
+                <field name="tunel_clh"/>
+                <field name="ubicacion_reab"/>
+                <field name="regla_min_sugerida"/>
+                <field name="regla_min"/>
+                <field name="regla_max"/>
+                <field name="dias_min"/>
+                <field name="dias_max"/>
+                <field name="qty_multiple_reab"/>
+                <field name="alerta" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

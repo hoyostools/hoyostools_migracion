@@ -1,0 +1,54 @@
+<odoo>
+    <!-- Acción Bitácora -->
+    <record id="action_purchase_logbook" model="ir.actions.act_window">
+        <field name="name">Bitácora</field>
+        <field name="res_model">purchase.logbook</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_purchase_logbook_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea registros de bitácora de compras.
+            </p>
+        </field>
+    </record>
+
+
+    <!-- Acción Transportadoras -->
+    <record id="action_transportadoras" model="ir.actions.act_window">
+        <field name="name">Transportadoras</field>
+        <field name="res_model">purchase.logbook.transportadora</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Acción Novedades -->
+    <record id="action_novedades" model="ir.actions.act_window">
+        <field name="name">Novedades</field>
+        <field name="res_model">purchase.logbook.novedad</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menú padre -->
+    <menuitem id="menu_purchase_logbook_root"
+              name="Bitácora"
+              parent="purchase.menu_purchase_root"
+              sequence="100"/>
+
+    <!-- Submenús -->
+    <menuitem id="menu_purchase_logbook"
+              name="Bitácora"
+              parent="menu_purchase_logbook_root"
+              action="action_purchase_logbook"
+              sequence="10"/>
+
+    <menuitem id="menu_transportadoras"
+              name="Transportadoras"
+              parent="menu_purchase_logbook_root"
+              action="action_transportadoras"
+              sequence="30"/>
+
+    <menuitem id="menu_novedades"
+              name="Novedades"
+              parent="menu_purchase_logbook_root"
+              action="action_novedades"
+              sequence="40"/>
+</odoo>

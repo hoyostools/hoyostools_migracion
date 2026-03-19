@@ -1,0 +1,20 @@
+<odoo>
+
+    <template id="portal_helpdesk_ticket_inherit_client"
+              inherit_id="helpdesk.portal_helpdesk_ticket">
+
+        <!-- Agregar columna Cliente -->
+        <xpath expr="//thead/tr/th[1]" position="after">
+            <th>Cliente</th>
+        </xpath>
+
+        <!-- Mostrar nombre del cliente -->
+        <xpath expr="//t[@t-foreach='tickets']/tr/td[1]" position="after">
+            <td>
+                <span t-field="ticket.partner_id.name"/>
+            </td>
+        </xpath>
+
+    </template>
+
+</odoo>

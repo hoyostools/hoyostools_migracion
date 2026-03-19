@@ -1,0 +1,35 @@
+<odoo>
+  <record id="view_config_settings_kardex" model="ir.ui.view">
+    <field name="name">res.config.settings.kardex</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//form" position="inside">
+        <div class="app_settings_block" data-string="Kardex">
+          <h2>Integración Kardex (n8n)</h2>
+          <div class="row mt16 o_settings_container">
+            <div class="col-12 col-lg-6">
+              <field name="kardex_url_insert"/>
+              <button name="action_test_insert_connection"
+                      string="Probar Insertar"
+                      type="object"
+                      class="btn btn-secondary mt8"/>
+
+              <field name="kardex_url_lectura"/>
+              <button name="action_test_lectura_connection"
+                      string="Probar Lectura"
+                      type="object"
+                      class="btn btn-secondary mt8"/>
+                      
+              <field name="kardex_url_update"/>
+              <button name="test_kardex_update"
+                      type="object"
+                      string="Probar Update"
+                      class="btn btn-secondary mt8"/>
+            </div>
+          </div>
+        </div>
+      </xpath>
+    </field>
+  </record>
+</odoo>

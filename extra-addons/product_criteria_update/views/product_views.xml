@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+
+<odoo>
+
+    <record id="product_criteria_update_form_view" model="ir.ui.view">
+        <field name="name">product.criteria.update.form.view</field>
+        <field name="model">product.criteria.update</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <style>
+                        .custom_button_product_criteria_update {
+                        width: 200px;
+                        }
+                    </style>
+                    <field name="create_replenishment_rule" invisible="1"/>
+                    <field name="barcode_readonly" invisible="1"/>
+                    <group>
+                        <field name="manufacturer_pref" style="width: 70%%"/>
+                    </group>
+                    <group>
+                        <field name="image_1920" widget="image" class="oe_avatar" options='{"zoom": true}' nolabel="1"/>
+                        <button name="create_ticket_image" type="object" string="Reportar error de Imagen"
+                                class="btn-outline-danger"/>
+                    </group>
+                    <group>
+                        <field name="barcode" style="width: 70%%" readonly="barcode_readonly"/>
+                        <button name="error_barcode" type="object" string="Error código de barras"
+                                class="btn-outline-danger custom_button_product_criteria_update"
+                                style="text-wrap: nowrap;"/>
+                    </group>
+                    <group colspan="4" string="Embalaje">
+                        <field name="packaging_ids" nolabel="1" colspan="2">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="package_type_id"/>
+                                <field name="qty"/>
+                                <field name="product_uom_id" column_invisible="1"/>
+                                <field name="barcode"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <group string="Advertencia cuando se venda este producto" groups="sale.group_warning_sale"
+                               colspan="2">
+                            <field name="sale_line_warn" nolabel="1" colspan="2"/>
+                            <field name="sale_line_warn_msg" colspan="2" nolabel="1" placeholder="Type a message..."
+                                   readonly="sale_line_warn == 'no-message'"
+                                   invisible="sale_line_warn == 'no-message'"/>
+                        </group>
+                    </group>
+                    <group string="Reglas de reabastecimiento" colspan="2">
+                        <field name="rearrangement_rules" nolabel="1" colspan="2">
+                            <tree editable="bottom">
+                                <field name="location_id"/>
+                                <field name="warehouse_id"/>
+                                <field name="route_id"/>
+                                <field name="qty_multiple"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Confirmar" type="object" name="action_confirm_verification" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="product_criteria_update_validation_view" model="ir.ui.view">
+        <field name="name">product.criteria.update.validation.view</field>
+        <field name="model">product.criteria.update</field>
+        <field name="arch" type="xml">
+            <form>
+                <h2>Se ha actualizado el código de barras del producto, ¿Desea continuar?</h2>
+                <footer>
+                    <button string="Confirmar" type="object" name="action_confirm" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

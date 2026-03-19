@@ -1,0 +1,94 @@
+<!-- <odoo>
+  <template id="report_tiquetes">
+    <t t-call="web.basic_layout">
+      <t t-foreach="docs" t-as="partner">
+        <t t-foreach="partner.award_ids" t-as="premio_rel">
+          <t t-set="premio" t-value="premio_rel.award_id"/>
+          <t t-foreach="range(premio_rel.cantidad)" t-as="n">
+            <div style="page-break-before: always; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+              <div style="
+                width: 8cm;
+                height: 8cm;
+                border: 1px solid #000;
+                box-sizing: border-box;
+                margin: 0; padding: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+              ">
+                <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                  <h2 style="margin:0; font-size:14pt; text-align: center;">
+                    <strong><t t-esc="partner.name"/></strong>
+                  </h2>
+                  <p style="margin:0; text-align: center;">
+                    <strong>Teléfono:</strong> <t t-esc="partner.mobile or ''"/>
+                  </p>
+                  <h1 style="margin:10px 0; font-size:20pt; text-align: center;">
+                    <t t-esc="premio.name"/>
+                  </h1>
+                  <h1 style="margin:0; font-size:20pt; text-align: center;">
+                    Buzón: <t t-esc="premio.buzon"/>
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </t>
+        </t>
+      </t>
+    </t>
+  </template>
+</odoo> -->
+<odoo>
+  <template id="report_tiquetes">
+    <t t-call="web.basic_layout">
+      <t t-foreach="docs" t-as="partner">
+        <t t-foreach="partner.award_ids" t-as="premio_rel">
+          <t t-set="premio" t-value="premio_rel.award_id"/>
+          <t t-foreach="range(premio_rel.cantidad)" t-as="n">
+            <div style="page-break-before: always; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+              <div style="
+                width: 8cm;
+                height: 8cm;
+                border: 1px solid #000;
+                box-sizing: border-box;
+                margin: 0; padding: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+              ">
+                <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+                  <t t-if="partner.name == 'Consumidor Final'">
+                    <p><strong>Nombre:</strong> ____________</p>
+                    <p><strong>CC:</strong> ____________</p>
+                    <p><strong>Teléfono:</strong> ____________</p>
+                  </t>
+                  <t t-else="">
+                    <h2 style="margin:0; font-size:14pt; text-align: center;">
+                      <strong><t t-esc="partner.name"/></strong>
+                    </h2>
+                    <p style="margin:0; text-align: center;">
+                      <strong>Teléfono:</strong> <t t-esc="partner.mobile or ''"/>
+                    </p>
+                  </t>
+
+                  <h1 style="margin:10px 0; font-size:20pt; text-align: center;">
+                    <t t-esc="premio.name"/>
+                  </h1>
+                  <h1 style="margin:0; font-size:20pt; text-align: center;">
+                    Buzón: <t t-esc="premio.buzon"/>
+                  </h1>
+
+                </div>
+              </div>
+            </div>
+          </t>
+        </t>
+      </t>
+    </t>
+  </template>
+</odoo>

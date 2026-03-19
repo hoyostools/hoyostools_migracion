@@ -1,0 +1,109 @@
+<odoo>
+    <!-- TREE -->
+    <record id="view_seguimiento_picking_tree" model="ir.ui.view">
+        <field name="name">seguimiento.picking.tree</field>
+        <field name="model">productividad.seguimiento_picking</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_id"/>
+                <field name="fecha"/>
+                <field name="puntos"/>
+                <field name="cumplimiento_puntos"/>
+                <field name="items"/>
+                <field name="cumplimiento_items"/>
+                <field name="documentos"/>
+                <field name="cumplimiento_documentos"/>
+                <field name="gestion_total"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- KANBAN -->
+    <record id="view_seguimiento_picking_kanban" model="ir.ui.view">
+        <field name="name">seguimiento.picking.kanban</field>
+        <field name="model">productividad.seguimiento_picking</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_small_column" create="false">
+                <field name="user_id"/>
+                <field name="fecha"/>
+                <field name="puntos"/>
+                <field name="items"/>
+                <field name="documentos"/>
+                <field name="cumplimiento_puntos"/>
+                <field name="cumplimiento_items"/>
+                <field name="cumplimiento_documentos"/>
+                <field name="meta_puntos_diarios"/>
+                <field name="meta_items_diarios"/>
+                <field name="meta_documentos_diarios"/>
+                <field name="gestion_total"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record">
+                            <div style="text-align:center; height: 150px; padding: 10px;">
+                                <t t-if="record.user_id.raw_value">
+                                    <img t-att-src="'/web/image/res.users/' + record.user_id.raw_value + '/image_1024'" class="img img-fluid rounded-circle" style="height:110px; width:80px; object-fit:cover;"/>
+                                </t>
+                                <h4><t t-esc="record.user_id.value"/></h4>
+                                <div><small><t t-esc="record.fecha.value"/></small></div>
+                            </div>
+
+                            <table class="table table-sm mt-2" style="font-size: 12px; margin: auto;">
+                                <thead>
+                                    <tr><th></th><th>Docs</th><th>Items</th><th>Puntos</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><b>🎯 Metas</b></td><td><t t-esc="record.meta_documentos_diarios.value"/></td><td><t t-esc="record.meta_items_diarios.value"/></td><td><t t-esc="record.meta_puntos_diarios.value"/></td></tr>
+                                    <tr><td><b>📊 Logros</b></td><td><t t-esc="record.documentos.value"/></td><td><t t-esc="record.items.value"/></td><td><t t-esc="record.puntos.value"/></td></tr>
+                                    <tr><td><b>✅ %</b></td><td><t t-esc="record.cumplimiento_documentos.value"/>%</td><td><t t-esc="record.cumplimiento_items.value"/>%</td><td><t t-esc="record.cumplimiento_puntos.value"/>%</td></tr>
+                                    <tr><td><b>🗂️ Gestión Total</b></td><td colspan="3"><t t-esc="record.gestion_total.value"/></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- SEARCH -->
+    <record id="view_seguimiento_picking_search" model="ir.ui.view">
+        <field name="name">seguimiento.picking.search</field>
+        <field name="model">productividad.seguimiento_picking</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="user_id"/>
+                <field name="fecha"/>
+
+                <!-- 🟢 Filtro combinado -->
+                <filter name="today_and_separadores"
+                        string="Hoy y Separadores Configurados"
+                        domain="[('fecha', '=', context_today()), ('configuracion_id', '!=', False)]"/>
+
+                <separator/>
+                <!-- Filtro: Solo configurados como separador -->
+                <filter name="filtro_separadores_configurados"
+                        string="Solo Separadores Configurados"
+                        domain="[('configuracion_id', '!=', False)]"/>
+
+                <!-- ✅ Filtros por Turno (funcionan porque ahora existe el campo 'turno') -->
+                <separator/>
+                <filter name="turno_1" string="Turno 1" domain="[('turno_id.codigo', '=', '1')]"/>
+                <filter name="turno_2" string="Turno 2" domain="[('turno_id.codigo', '=', '2')]"/>
+                <filter name="turno_3" string="Turno 3" domain="[('turno_id.codigo', '=', '3')]"/>
+                <filter name="turno_adicional" string="Adicional" domain="[('turno_id.codigo', '=', 'adicional')]"/>
+
+                <!-- 🔍 Mostrar todos -->
+                <filter name="todos" string="Mostrar Todos" domain="[]"/>         
+            </search>
+        </field>
+    </record>
+
+    <!-- ACCIÓN -->
+    <record id="action_seguimiento_picking" model="ir.actions.act_window">
+        <field name="name">Seguimiento Picking</field>
+        <field name="res_model">productividad.seguimiento_picking</field>
+        <field name="view_mode">kanban,tree</field>
+        <field name="search_view_id" ref="view_seguimiento_picking_search"/>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-inherit="stock_barcode.MainComponent" t-inherit-mode="extension">
+
+        <xpath expr="//span[@class='o_title navbar-text']" position="after">
+            <span class="o_title navbar-text ms-2">
+                MAX CAJAS:
+                <t t-esc="this.env.model.record.cajas_maximas"/>
+            </span>
+        </xpath>
+
+    </t>
+
+</templates>

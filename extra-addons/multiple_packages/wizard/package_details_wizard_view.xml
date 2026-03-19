@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+      <record id="view_multiple_pack_package_details_wizard_form" model="ir.ui.view">
+          <field name="name">multiple.pack.package.details.wizard.form</field>
+          <field name="model">multiple.pack.package.details.wizard</field>
+          <field name="arch" type="xml">
+          <form string="Package Details">
+              <group>
+                  <field name="package_id" invisible="1"/>
+                  <field name="remaining_package_ids" invisible="1"/>
+                  <field name="package_name" readonly="1"/>
+
+                  <field name="package_type_id"
+                         domain="[('package_carrier_type', '=', context.get('carrier_package_type'))]"/>
+                  <label for="shipping_weight" invisible="not package_type_id"/>
+                  <div class="o_row" invisible="not package_type_id">
+                      <field name="shipping_weight" nolabel="1"/>
+                      <span class="oe_inline">
+                        <field name="weight_uom_name" nolabel="1" readonly="1" class="o_inline"/>
+                      </span>
+                  </div>
+              </group>
+              <footer>
+                  <button string="Finish" type="object" name="action_finish" class="btn-secondary"/>
+                  <button string="Next" type="object" name="action_next" class="btn-primary"/>
+              </footer>
+          </form>
+          </field>
+      </record>
+    </data>
+</odoo>

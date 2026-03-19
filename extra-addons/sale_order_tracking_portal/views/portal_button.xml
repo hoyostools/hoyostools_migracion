@@ -1,0 +1,18 @@
+<odoo>
+    <template id="portal_seguimiento_pedido"
+              name="Seguimiento Pedido"
+              inherit_id="portal.portal_my_home"
+              priority="40">
+
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/sale_order_tracking_portal/static/src/img/tracking.png'"/>
+                <t t-set="title">Seguimiento Pedido</t>
+                <t t-set="url" t-value="'/order/tracking'"/>
+                <t t-set="text">Consulta el estado logístico de tu pedido</t>
+                <t t-set="config_card" t-value="True"/>
+            </t>
+        </xpath>
+
+    </template>
+</odoo>

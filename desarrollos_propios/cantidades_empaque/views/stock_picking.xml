@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="stock_picking_barcode_kanban_inherit_button" model="ir.ui.view">
+        <field name="name">stock.picking.barcode.kanban.inherit.button</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[contains(@class,'o_kanban_record_bottom')]" position="inside">
+                <button name="action_test_print_package"
+                    type="object"
+                    icon="fa-print"
+                    string=""
+                    class="btn btn-link p-0"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

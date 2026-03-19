@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_purchase_logbook_user,purchase.logbook user,model_purchase_logbook,purchase.group_purchase_user,1,1,1,0
+access_purchase_logbook_manager,purchase.logbook manager,model_purchase_logbook,purchase.group_purchase_manager,1,1,1,1
+
+access_purchase_logbook_novedad_user,purchase.logbook.novedad user,model_purchase_logbook_novedad,purchase.group_purchase_user,1,1,1,0
+access_purchase_logbook_novedad_manager,purchase.logbook.novedad manager,model_purchase_logbook_novedad,purchase.group_purchase_manager,1,1,1,1
+
+access_purchase_logbook_transportadora_user,purchase.logbook.transportadora user,model_purchase_logbook_transportadora,purchase.group_purchase_user,1,1,1,0
+access_purchase_logbook_transportadora_manager,purchase.logbook.transportadora manager,model_purchase_logbook_transportadora,purchase.group_purchase_manager,1,1,1,1

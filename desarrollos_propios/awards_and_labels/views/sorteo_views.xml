@@ -1,0 +1,52 @@
+ <odoo>
+    <record id="view_award_sorteo_form" model="ir.ui.view">
+        <field name="name">award.sorteo.form</field>
+        <field name="model">awards_and_labels.award_sorteo</field>
+        <field name="arch" type="xml">
+            <form string="Sorteo de Premios">
+                <group>
+                    <field name="award_id" options="{'no_create': True}" required="1"/>
+                    <field name="winner_id" readonly="1"/>
+                    <field name="winner_tickets" readonly="1"/>
+                </group>
+                <header>
+                    <button name="action_realizar_sorteo"
+                            type="object"
+                            string="Iniciar Sorteo"
+                            class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </header>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_award_sorteo_tree" model="ir.ui.view">
+        <field name="name">award.sorteo.tree</field>
+        <field name="model">awards_and_labels.award_sorteo</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="award_id"/>
+                <field name="winner_id"/>
+                <field name="winner_tickets"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_award_sorteo" model="ir.actions.act_window">
+        <field name="name">Sorteo de Premios</field>
+        <field name="res_model">awards_and_labels.award_sorteo</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Utilice esta opción para realizar el sorteo de un premio entre los clientes que aplicaron.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_award_root" name="Premios y Etiquetas" parent="contacts.res_partner_menu_config" sequence="10"/>
+    <menuitem id="menu_award_config" name="Configurar Premios" parent="menu_award_root" action="action_award" sequence="10"/>
+    <menuitem id="menu_award_sorteo"
+              name="Sorteo de Premios"
+              parent="menu_award_root"
+              action="action_award_sorteo"
+              sequence="20"/>
+</odoo>

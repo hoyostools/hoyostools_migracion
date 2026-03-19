@@ -1,0 +1,43 @@
+<odoo>
+
+    <!-- Vista tree -->
+    <record id="view_transportadora_tree" model="ir.ui.view">
+        <field name="name">transportadora.tree</field>
+        <field name="model">transportadora.transportadora</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista form -->
+    <record id="view_transportadora_form" model="ir.ui.view">
+        <field name="name">transportadora.form</field>
+        <field name="model">transportadora.transportadora</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_transportadoras" model="ir.actions.act_window">
+        <field name="name">Transportadoras</field>
+        <field name="res_model">transportadora.transportadora</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menú dentro de Contactos > Configuración -->
+    <menuitem id="menu_transportadoras"
+              name="Transportadoras"
+              parent="contacts.res_partner_menu_config"
+              action="action_transportadoras"
+              sequence="30"/>
+
+</odoo>

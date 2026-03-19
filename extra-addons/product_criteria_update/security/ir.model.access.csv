@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_criteria_update,product_criteria_update,model_product_criteria_update,base.group_user,1,1,1,1
+access_temporal_product_packaging,temporal_product_packaging,model_temporal_product_packaging,base.group_user,1,1,1,1
+access_user_criteria_update,user_criteria_update,model_user_criteria_update,base.group_user,1,1,1,1
+access_temporal_stock_warehouse_orderpoint,temporal_stock_warehouse_orderpoint,model_temporal_stock_warehouse_orderpoint,base.group_user,1,1,1,1

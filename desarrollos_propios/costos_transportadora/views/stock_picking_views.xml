@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_picking_form_inherit_transportadora"
+            model="ir.ui.view">
+        <field name="name">stock.picking.form.transportadora</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='backorder_id']" position="after">
+                <field name="cantidad_maxima_cajas" readonly="1"/>
+                <field name="cajas_usadas" readonly="1"/>
+                <field name="ahorro" readonly="1"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

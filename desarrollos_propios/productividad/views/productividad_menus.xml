@@ -1,0 +1,88 @@
+<odoo>
+    <menuitem id="menu_productividad_root" name="Productividad" sequence="10"
+              groups="stock.group_stock_manager"/>
+
+    <!-- ======= Picking ======= -->
+    <menuitem id="menu_productividad_picking"
+              name="Picking"
+              parent="menu_productividad_root"
+              sequence="10"/>
+
+    <menuitem id="menu_errores_picking"
+              name="Errores Picking"
+              parent="menu_productividad_picking"
+              action="action_errores_picking"
+              sequence="10"/>
+
+    <menuitem id="menu_seguimiento_picking"
+              name="Seguimiento Picking"
+              parent="menu_productividad_picking"
+              action="action_seguimiento_picking"
+              sequence="20"/>
+
+    <!-- ======= Packing ======= -->
+    <menuitem id="menu_productividad_packing"
+              name="Packing"
+              parent="menu_productividad_root"
+              sequence="20"/>
+
+    <menuitem id="menu_errores_packing"
+              name="Errores Packing"
+              parent="menu_productividad_packing"
+              action="action_errores_packing"
+              sequence="10"/>
+
+    <menuitem id="menu_seguimiento_packing"
+              name="Seguimiento Packing"
+              parent="menu_productividad_packing"
+              action="action_seguimiento_empacador"
+              sequence="20"/>
+
+    <!-- ======= Almacenamiento ======= -->
+    <menuitem id="menu_productividad_almacenamiento"
+              name="Almacenamiento"
+              parent="menu_productividad_root"
+              sequence="30"/>
+
+    <menuitem id="menu_seguimiento_almacenamiento"
+              name="Seguimiento Almacenamiento"
+              parent="menu_productividad_almacenamiento"
+              action="action_seguimiento_almacenamiento"
+              sequence="10"/>
+
+    <!-- ======= Administrativo ======= -->
+    <menuitem id="menu_productividad_administrativo"
+            name="Administrativo"
+            parent="menu_productividad_root"
+            sequence="50"/>
+
+    <menuitem id="menu_detalle_empacadores"
+            name="Detalle Empacadores"
+            parent="menu_productividad_administrativo"
+            action="action_resumen_empacador_mensual"
+            sequence="10"/>
+
+    <!-- ======= Configuración ======= -->
+    <menuitem id="menu_productividad_config"
+              name="Configuración"
+              parent="menu_productividad_root"
+              sequence="40"/>
+
+    <menuitem id="menu_tablero_config"
+              name="Tablero de Configuraciones"
+              parent="menu_productividad_config"
+              action="action_tablero_configuracion"
+              sequence="10"/>
+
+    <menuitem id="menu_configuracion_meta"
+              name="Configuración Meta"
+              parent="menu_productividad_config"
+              action="action_configuracion_meta"
+              sequence="20"/>
+
+    <menuitem id="menu_configuracion_meta"
+              name="Configuración Turno"
+              parent="menu_productividad_config"
+              action="action_productividad_turno"
+              sequence="21"/>
+</odoo>

@@ -1,0 +1,24 @@
+<odoo>
+    <record id="view_location_form_tunel" model="ir.ui.view">
+        <field name="name">stock.location.form.tunel</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+            <field name="usage" position="after">
+                <field name="tunel"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_location_tree2_tunel" model="ir.ui.view">
+        <field name="name">stock.location.tree.tunel</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_tree2"/>
+        <field name="arch" type="xml">
+            <field name="usage" position="after">
+                <field name="tunel"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

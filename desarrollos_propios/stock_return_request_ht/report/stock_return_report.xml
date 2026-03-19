@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="stock_move_lines_to_return">
+        <table class="table table-sm mt4 mb0">
+            <t t-set="has_serial_number" t-value="move_ids.mapped('lot_id')" groups="stock.group_production_lot"/>
+            <thead>
+                <tr>
+                    <th><strong>Producto</strong></th>
+                    <th t-if="has_serial_number">Lote / Serie</th>
+                    <th class="text-center"><strong>Cantidad</strong></th>
+                    <th class="text-center"><strong>Estado</strong></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr t-foreach="move_ids" t-as="move_line">
+                    <td>
+                        <span t-field="move_line.product_id"/>
+                        <t t-if="request_type == 'internal'">
+                            <span t-field="move_line.product_id.sudo().description"/>
+                        </t>
+                        <t t-if="request_type == 'supplier'">
+                            <span t-field="move_line.product_id.sudo().description_purchase"/>
+                        </t>
+                        <t t-if="request_type == 'customer'">
+                            <span t-field="move_line.product_id.sudo().description_sale"/>
+                        </t>
+                    </td>
+                    <t t-if="has_serial_number">
+                        <td>
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <span t-field="move_line.lot_id"/>
+                                        <t t-if="not move_line.lot_id">
+                                            <span t-field="move_line.lot_name"/>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <t t-if="move_line.quantity">
+                                            <span t-field="move_line.quantity"/>
+                                        </t>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </t>
+                    <td class="text-center">
+                        <span t-field="move_line.quantity"/>
+                        <span t-field="move_line.product_uom_id"/>
+                    </td>
+                    <td class="text-center">
+                        <t t-set="line_found" t-value="request.line_ids.filtered(lambda l: l.product_id.id == move_line.product_id.id and (not l.lot_id or l.lot_id.id == move_line.lot_id.id))"/>
+                        <t t-out="dict(line_found[0]._fields['state_quality'].selection).get(line_found[0].state_quality) if line_found else ''"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+
+    <template id="report_stock_return_request_document">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <br/>
+                    <h1 t-field="request.name" class="mt0 pull-left"/>
+                    <div class="clearfix"/>
+                    <div>
+                        <img t-att-src="'/report/barcode/Code128/%s' % request.name" style="width:200px;height:40px;"/>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <!-- Columna izquierda: Dirección del cliente -->
+                        <div class="col-6">
+                            <p><strong>Dirección del cliente:</strong></p>
+                            <p>
+                                <strong><span t-out="request.partner_id.name"/></strong><br/>
+                                <t t-if="request.partner_id.vat">
+                                    Identificación: <span t-out="request.partner_id.vat"/><br/>
+                                </t>
+                                <t t-if="request.partner_id.street"><span t-out="request.partner_id.street"/><br/></t>
+                                <t t-if="request.partner_id.street2"><span t-out="request.partner_id.street2"/><br/></t>
+                                <t t-if="request.partner_id.city"><span t-out="request.partner_id.city"/> </t>
+                                <t t-if="request.partner_id.state_id"><span t-out="request.partner_id.state_id.name"/>, </t>
+                                <t t-if="request.partner_id.zip"><span t-out="request.partner_id.zip"/><br/></t>
+                                <t t-if="request.partner_id.country_id"><span t-out="request.partner_id.country_id.name"/><br/></t>
+                                <t t-if="request.partner_id.mobile"><span t-out="request.partner_id.mobile"/><br/></t>
+                            </p>
+                        </div>
+
+                        <!-- Columna derecha: Dirección a recoger -->
+                        <div class="col-6">
+                            <p><strong>Dirección a recoger:</strong></p>
+                            <t t-if="request.pickup_address_id">
+                                <p>
+                                    <strong><span t-out="request.pickup_address_id.name"/></strong><br/>
+                                    <t t-if="request.pickup_address_id.street"><span t-out="request.pickup_address_id.street"/><br/></t>
+                                    <t t-if="request.pickup_address_id.street2"><span t-out="request.pickup_address_id.street2"/><br/></t>
+                                    <t t-if="request.pickup_address_id.city"><span t-out="request.pickup_address_id.city"/> </t>
+                                    <t t-if="request.pickup_address_id.state_id"><span t-out="request.pickup_address_id.state_id.name"/>, </t>
+                                    <t t-if="request.pickup_address_id.zip"><span t-out="request.pickup_address_id.zip"/><br/></t>
+                                    <t t-if="request.pickup_address_id.country_id"><span t-out="request.pickup_address_id.country_id.name"/><br/></t>
+                                    <t t-if="request.pickup_address_id.mobile"><span t-out="request.pickup_address_id.mobile"/><br/></t>
+                                </p>
+                            </t>
+                        </div>
+                    </div>
+
+
+                    <!-- Productos -->
+                    <t t-call="stock_return_request_ht.stock_move_lines_to_return">
+                        <t t-set="move_ids" t-value="request.returned_picking_ids.mapped('move_line_ids')"/>
+                        <t t-set="request_type" t-value="request.return_type"/>
+                        <t t-set="request" t-value="request"/>
+                    </t>
+
+                    <br/>
+
+                    <!-- Información adicional -->
+                    <div class="row mt4 mb2">
+                        <div class="col-4">
+                            <p><strong>Unidad de Empaque:</strong> <span t-out="request.package_unit or ''"/></p>
+                        </div>
+                        <div class="col-4">
+                            <p><strong>Recoger en:</strong>
+                                <t t-if="request.pickup_method">
+                                    <t t-out="dict(request.fields_get()['pickup_method']['selection'])[request.pickup_method]"/>
+                                </t>
+                            </p>
+                        </div>
+                        <div class="col-4">
+                            <p><strong>Cruzar con Factura:</strong> <span t-out="request.invoice_reference or ''"/></p>
+                        </div>
+                    </div>
+
+                    <!-- Creado por -->
+                    <div class="row">
+                        <div class="col-6">
+                            <p><strong>Creado por:</strong> <span t-out="request.create_uid.name"/></p>
+                        </div>
+                        <div class="col-6">
+                            <p>
+                            <strong>Mercancia Asegurada por:</strong>
+                            <span t-field="request.estimated_total" t-options='{"widget": "monetary", "display_currency": request.company_currency_id}'/>
+                            </p>
+                        </div>
+                    </div>
+                    <t t-if="request.return_type == 'supplier'">
+                        <div class="alert alert-warning" style="margin-top: 20px;">
+                            <strong>IMPORTANTE:</strong><br/>
+                            Una vez enviada la mercancía correspondiente a esta devolución, el proveedor cuenta con un plazo máximo de 15 días calendario para emitir y legalizar la nota crédito correspondiente.<br/>
+                            En caso de no recibir la nota crédito dentro del plazo estipulado, DISTRIBUCIONES HOYOSTOOLS S.A.S. procederá a descontar el valor respectivo en el próximo pago programado, sin excepción.<br/>
+                            Agradecemos su atención y gestión oportuna para mantener un cierre contable ordenado.
+                        </div>
+                    </t>
+                    <br/>
+                    <p t-out="request.note"/>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_stock_return_request">
+        <t t-foreach="docs" t-as="request">
+            <t t-call="stock_return_request_ht.report_stock_return_request_document"/>
+        </t>
+    </template>
+
+    <record id="action_report_stock_return_request" model="ir.actions.report">
+        <field name="name">Stock Return Request Report</field>
+        <field name="model">ht.stock.return.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">stock_return_request_ht.report_stock_return_request</field>
+        <field name="report_file">stock_return_request_ht.report_stock_return_request</field>
+    </record>
+</odoo>
+

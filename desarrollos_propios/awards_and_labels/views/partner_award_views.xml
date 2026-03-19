@@ -1,0 +1,40 @@
+<odoo>
+    <record id="view_res_partner_award_tree" model="ir.ui.view">
+        <field name="name">awards_and_labels.res_partner_award.tree</field>
+        <field name="model">awards_and_labels.res_partner_award</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="award_id"/>
+                <field name="cantidad"/>
+                <field name="historial"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_res_partner_award_search" model="ir.ui.view">
+        <field name="name">awards_and_labels.res_partner_award.search</field>
+        <field name="model">awards_and_labels.res_partner_award</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Tiquetes por Cliente">
+                <field name="partner_id" string="Cliente"/>
+                <field name="award_id" string="Premio"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_res_partner_award" model="ir.actions.act_window">
+        <field name="name">Tiquetes por Cliente</field>
+        <field name="res_model">awards_and_labels.res_partner_award</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_res_partner_award_search"/>
+        <field name="domain">[('cantidad', '&gt;', 0), ('partner_id.type', '=', 'contact')]</field>
+    </record>
+
+
+    <menuitem id="menu_partner_award_dashboard"
+            name="Clientes y Premios"
+            parent="menu_award_root"
+            action="action_res_partner_award"
+            sequence="40"/>
+</odoo>

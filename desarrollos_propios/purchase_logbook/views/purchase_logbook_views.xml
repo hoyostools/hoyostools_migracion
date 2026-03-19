@@ -1,0 +1,96 @@
+<odoo>
+    <record id="view_purchase_logbook_form" model="ir.ui.view">
+        <field name="name">purchase.logbook.form</field>
+        <field name="model">purchase.logbook</field>
+        <field name="arch" type="xml">
+            <form string="Bitácora">
+                <sheet>
+                    <group>
+                        <field name="estado" widget="statusbar" statusbar_visible="pendiente,sobrantes,sin_orden,aprobada,ingresada,ubicada,cancelada" options="{'clickable': '1'}" invisible="estado == 'ubicada'"/>
+                    </group>
+                    <group>
+                        <field name="create_date" readonly="1"/>
+                        <field name="partner_id" options="{'no_create': True}" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="transportadora_id" options="{'no_create': True}" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="numero_factura" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="cant_pacas" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="items" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="valor_factura" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="encargado_proveedor_id"/>
+                        <field name="novedad" widget="many2many_tags" options="{'no_create': True}" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="resuelto_bodega"
+                            depends="novedad"
+                            invisible="not novedad" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="resuelto_compras"
+                            depends="novedad"
+                            invisible="not novedad" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="purchase_order_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="total_a_pagar" readonly="1" />
+                        <field name="observacion" readonly="estado in ['ingresada', 'ubicada']"/>
+                        <field name="create_uid" readonly="1" invisible="1"/>
+                        <field name="create_date" readonly="1" invisible="1"/>
+                    </group>
+
+                    <group string="Fechas de Estados" col="2">
+
+                        <group string="Fechas de Estados">
+                            <field name="fecha_sobrantes"/>
+                            <field name="fecha_sin_orden"/>
+                            <field name="fecha_aprobada"/>
+                            <field name="fecha_ingresada"/>
+                            <field name="fecha_ubicada"/>
+                            <field name="fecha_cancelada"/>
+                        </group>
+
+                        <group string="Usuarios que Cambiaron Estados">
+                            <field name="usuario_sobrantes"/>
+                            <field name="usuario_sin_orden"/>
+                            <field name="usuario_aprobada"/>
+                            <field name="usuario_ingresada"/>
+                            <field name="usuario_ubicada"/>
+                            <field name="usuario_cancelada"/>
+                        </group>
+                        
+                    </group>
+                </sheet>
+
+                <!-- 🔥 Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_purchase_logbook_tree" model="ir.ui.view">
+        <field name="name">purchase.logbook.tree</field>
+        <field name="model">purchase.logbook</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date" readonly="1"/>
+                <field name="partner_id"/>
+                <field name="encargado_proveedor_id"/>
+                <field name="numero_factura"/>
+                <field name="valor_factura"/>
+                <field name="estado"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_purchase_logbook_search" model="ir.ui.view">
+        <field name="name">purchase.logbook.search</field>
+        <field name="model">purchase.logbook</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Bitácora">
+                <!-- Campos buscables -->
+                <field name="partner_id" string="Proveedor"/>
+                <field name="numero_factura" string="Número de Factura"/>
+                <field name="transportadora_id" string="Transportadora"/>
+                <field name="encargado_proveedor_id" string="Encargado Proveedor"/>
+            </search>
+        </field>
+    </record>
+</odoo>

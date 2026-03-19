@@ -1,0 +1,39 @@
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h2 class="oe_slogan">Factura &rarr; Orden de Compra</h2>
+    <h3 class="oe_slogan">Crea automáticamente la OC al validar la factura</h3>
+    <p class="oe_mt32">
+      Este módulo crea una Orden de Compra a partir de cada factura de cliente validada.
+      Además, deja rastro en el chatter tanto de la factura como de la orden de compra.
+      Puedes decidir si la OC se confirma automáticamente o queda en borrador.
+    </p>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Configuración</h3>
+    <p>Activa o desactiva la confirmación automática desde Ajustes &gt; General Settings.</p>
+    <img class="oe_screenshot" src="config.png" alt="Ajuste: Confirmar OC desde Factura"/>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Trazabilidad</h3>
+    <p>Mensaje en el chatter de Odoo</p>
+    <img class="oe_screenshot" src="chatter.png" alt="Ajuste: Confirmar OC desde Factura"/>
+  </div>
+</section>
+
+<section class="oe_container">
+  <div class="oe_row oe_spaced">
+    <h3 class="oe_slogan">Características</h3>
+    <ul>
+      <li>Se ejecuta al validar la factura (action_post).</li>
+      <li>Replica líneas de productos a la OC.</li>
+      <li>Confirma la OC si el ajuste está activo; si no, queda en borrador.</li>
+      <li>Deja notas en el chatter de la Factura y de la Orden de Compra.</li>
+    </ul>
+  </div>
+</section>

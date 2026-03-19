@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_order_form_inherit_export_excel" model="ir.ui.view">
+        <field name="name">sale.order.export.excel</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_export_excel"
+                        type="object"
+                        string="Exportar Excel"
+                        class="btn-primary"
+                        icon="fa-download"/>
+            </header>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,91 @@
+<odoo>
+    <!-- 🌳 Vista tipo tree agrupada por cliente -->
+    <record id="view_semi_auto_reconciliation_tree" model="ir.ui.view">
+        <field name="name">semi.auto.reconciliation.line.tree</field>
+        <field name="model">semi.auto.reconciliation.line</field>
+        <field name="arch" type="xml">
+            <tree string="Documentos a conciliar"
+                  default_group_by="partner_id"
+                  create="false"
+                  delete="false"
+                  editable="bottom"
+                  decoration-danger="is_due"
+                  decoration-warning="is_warning_due">
+                <field name="company_id" optional="hide"/>
+                <field name="partner_id" readonly="1"/>
+                <field name="invoice_date" readonly="1"/>
+                <field name="document_type" readonly="1"/>
+                <field name="move_id" readonly="1"/>
+                <field name="invoice_payment_term_id" readonly="1"/>
+                <field name="due_date"/>
+                <field name="is_due" optional="hide"/>
+                <field name="is_warning_due" optional="hide"/>
+                <field name="date" readonly="1"/>
+                <field name="payment_id" readonly="1"/>
+                <field name="debit" sum="Débito" readonly="1"/>
+                <field name="credit" sum="Crédito" readonly="1"/>
+                <field name="reconcile_full" widget="boolean_toggle"/>
+                <field name="amount_to_apply" sum="Aplicar"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista de búsqueda para filtros y agrupación -->
+    <record id="view_semi_auto_reconciliation_search" model="ir.ui.view">
+        <field name="name">semi.auto.reconciliation.line.search</field>
+        <field name="model">semi.auto.reconciliation.line</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Documentos">
+                <field name="partner_id"/>
+                <field name="due_date"/>
+                <field name="move_id"/>
+
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_by_partner" string="Cliente" context="{'group_by': 'partner_id'}"/>
+                    <filter name="group_by_due_date" string="Fecha Vencimiento" context="{'group_by': 'due_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ⚙️ Acción de servidor que limpia y recarga datos -->
+    <record id="action_semi_auto_reconciliation_server" model="ir.actions.server">
+        <field name="name">Cargar Conciliación Semiautomática</field>
+        <field name="model_id" ref="model_semi_auto_reconciliation_line"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+model.load_documents_from_action()
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Conciliación Semiautomática',
+    'res_model': 'semi.auto.reconciliation.line',
+    'view_mode': 'tree',
+    'target': 'current',
+}
+action
+        ]]></field>
+    </record>
+
+    <!-- Acción de servidor para conciliar -->
+    <record id="action_conciliar_documentos_seleccionados" model="ir.actions.server">
+        <field name="name">Conciliar Documentos</field>
+        <field name="model_id" ref="model_semi_auto_reconciliation_line"/>
+        <field name="binding_model_id" ref="model_semi_auto_reconciliation_line"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+            model.action_reconcile_selected(records.ids)
+        ]]></field>
+    </record>
+
+    <!-- 📂 Menú que llama la acción de servidor -->
+    <!-- <menuitem id="menu_semi_auto_reconciliation_lines"
+              name="Conciliación Semiautomática"
+              parent="account.menu_finance_receivables"
+              action="semi_auto_reconciliation_ht.action_semi_auto_reconciliation_server"/> -->
+
+
+    <menuitem id="menu_semi_auto_reconciliation_lines"
+            name="Conciliación Semiautomática"
+            parent="account.menu_finance_receivables"
+            action="semi_auto_reconciliation_ht.action_open_select_clients_wizard"/>
+</odoo>

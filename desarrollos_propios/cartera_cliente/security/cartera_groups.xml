@@ -1,0 +1,11 @@
+<odoo>
+    <record id="group_cartera_clientes_full" model="res.groups">
+        <field name="name">Cartera Clientes - Todos</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="group_cartera_mis_clientes" model="res.groups">
+        <field name="name">Cartera Clientes - Mis Clientes</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+</odoo>

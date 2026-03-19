@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="bi_loyalty_generic_template" inherit_id="point_of_sale.template" xml:space="preserve">
+    <t t-extend="PartnerListScreenWidget" t-inherit="point_of_sale.PartnerListScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//table[hasclass('partner-list')]/thead/tr" position="inside">
+            <th>Cashback</th>
+            <th>Evento</th>
+            <th>Mora</th>
+        </xpath>
+    </t>
+    
+    <t t-name="PartnerLine" t-inherit="point_of_sale.PartnerLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tr[1]" position="inside">
+            <td id="bal">
+                <t t-esc='props.partner.blocking_amount or "0"' />
+            </td>
+            <td id="bal">
+                <t t-if="props.partner.attended_event">
+                    SI
+                </t>
+                <t t-if="!props.partner.attended_event">
+                    NO
+                </t>
+            </td>
+            <td id="bal">
+                <t t-if="props.partner.days_unreconciled_10">
+                    SI
+                </t>
+                <t t-if="!props.partner.days_unreconciled_10">
+                    NO
+                </t>
+            </td>
+        </xpath>
+    </t>
+
+    <t t-name="bi_cashback_limit_on_pos.BiWarningPopup" owl="1">
+        <div class="popup">
+            <div class="modal-header">
+                <h4 class="modal-title"><t t-esc="props.title"/></h4>
+            </div>
+            <div class="modal-body">
+                <t t-esc="props.body"/><br/><br/>
+                Current Cashback: <t t-esc="props.custom_cashback"/>.<br/>
+                Cashback: <t t-esc="props.blocking_amount"/>
+            </div>
+            <footer class="footer modal-footer">
+                <button class="button confirm btn btn-lg btn-primary" t-on-click="confirm">
+                    OK
+                </button>
+            </footer>
+        </div>
+    </t>
+
+    <t t-name="bi_cashback_limit_on_pos.BiWarningBlockingPopup" owl="1">
+        <div class="popup">
+            <div class="modal-header">
+                <h4 class="modal-title"><t t-esc="props.title"/></h4>
+            </div>
+            <div class="modal-body">
+                Cashback: <t t-esc="props.blocking_amount"/><br/>
+                Your Current Cashback: <t t-esc="props.custom_cashback"/><br/>
+                Please Pay using a different Payment Method.
+            </div>
+            <footer class="footer modal-footer">
+                <button class="button confirm btn btn-lg btn-primary" t-on-click="confirm">
+                    OK
+                </button>
+            </footer>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- HEREDAR VISTA DE ORDEN DE COMPRA -->
+    <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit.partial</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Agregar el campo oculto has_selected_products -->
+            <xpath expr="//sheet/group/group" position="inside">
+                <field name="has_selected_products" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='product_qty']" position="after">
+                <field name="to_split_qty"/>
+            </xpath>
+
+            <xpath expr="//field[@name='product_id']" position="before">
+                <field name="selected_for_partial"/>
+            </xpath>
+
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="partition_origin_names"  readonly="1"/>
+            </xpath>
+
+            <!-- Agregar Botón "Actualizar Cantidad a Partir" después de "Confirmar Orden" -->
+            <xpath expr="//button[@name='button_confirm']" position="after">
+                <button name="action_update_split_qty"
+                        type="object"
+                        string="Actualizar Cantidad a Partir"
+                        class="btn-secondary"
+                        invisible="1"/>
+            </xpath>
+
+            <!-- Agregar Botón "Crear Orden Parcial" después de "Confirmar Orden" -->
+            <xpath expr="//button[@name='button_confirm']" position="after">
+                <button name="action_create_partial_order"
+                        type="object"
+                        string="Crear Orden Parcial"
+                        class="btn-primary"
+                        invisible="has_selected_products == False"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="partner_form_inherit_financial_discount" model="ir.ui.view">
+            <field name="name">partner.form.inherit.financial.discount</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='purchase']/field[@name='property_supplier_payment_term_id']" position="after">
+                    <field name="financial_discount_percentage"/>
+                    <field name="maximum_date_financial_discount"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

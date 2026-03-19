@@ -1,0 +1,101 @@
+<odoo>
+    <!-- Vista de Formulario de product.supplierinfo -->
+    <record id="view_product_supplierinfo_form" model="ir.ui.view">
+        <field name="name">product.supplierinfo.form.inherit</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='delay']/.." position="after">
+                <field name="purchase_manufacturer_pname" readonly="1"/>
+                <field name="purchase_extreme_rentability" readonly="1"/>
+                <field name="sale_ok" readonly="1"/>
+                <field name="purchase_ok" readonly="1"/>
+                <field name="promedio_consumo" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="commission_factory"/>
+                <field name="price_factory"/>
+                <field name="currency_factory"/>
+                <field name="yuan_exchange"/>
+                <field name="liquidation_factor"/>
+                <field name="rent_percentage"/>
+                <field name="estimated_cost" readonly="1"/>
+                <field name="costo_actual" readonly="1"/>
+                <field name="sale_suggested_price" readonly="1"/>
+                <field name="rent_mayorista" readonly="1"/>
+                <field name="current_list_price"/>
+                <field name="diferencia_precio_venta" readonly="1"/>
+            </xpath>
+
+            <xpath expr="//group[.//field[@name='product_id']]" position="after">
+                <group>
+                    <group string="Cálculos Detal">
+                        <field name="precio_actual"/>
+                        <field name="precio_actual_iva" readonly="1"/>
+                        <field name="diferencia_precio_detal" readonly="1"/>
+                        <field name="renta_detal"/>
+                        <field name="sale_suggested_price_detal" readonly="1"/>
+                        <field name="sale_suggested_price_detal_without_tax" readonly="1"/>
+                        <field name="sale_suggested_price_detal_rounded" readonly="1"/>
+                        <field name="sale_suggested_price_detal_rounded_without_tax" readonly="1"/>
+                        <field name="rent_detal" readonly="1"/>
+                    </group>
+                    <group string="Cálculos PTV">
+                        <field name="precio_actual_ptv" />
+                        <field name="precio_actual_iva_ptv" readonly="1"/>
+                        <field name="diferencia_precio_ptv" readonly="1"/>
+                        <field name="renta_ptv"/>
+                        <field name="sale_suggested_price_ptv" readonly="1"/>
+                        <field name="sale_suggested_price_ptv_without_tax" readonly="1"/>
+                        <field name="sale_suggested_price_ptv_rounded" readonly="1"/>
+                        <field name="sale_suggested_price_ptv_rounded_without_tax" readonly="1"/>
+                        <field name="rent_ptv" readonly="1"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Vista de Lista de product.supplierinfo -->
+    <record id="view_product_supplierinfo_tree" model="ir.ui.view">
+        <field name="name">product.supplierinfo.tree.inherit</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="sale_ok" optional="hide"/>
+                <field name="purchase_ok" optional="hide"/>
+                <field name="promedio_consumo" optional="hide"/>
+                <field name="purchase_manufacturer_pname" optional="hide"/>
+                <field name="commission_factory" optional="hide"/>
+                <field name="price_factory" optional="hide"/>
+                <field name="currency_factory" optional="hide"/>
+                <field name="yuan_exchange" optional="hide"/>
+                <field name="liquidation_factor" optional="hide"/>
+                <field name="rent_percentage" optional="hide"/>
+                <field name="renta_detal" optional="hide"/>
+                <field name="renta_ptv" optional="hide"/>
+                <field name="costo_actual" readonly="1" optional="hide"/>
+                <field name="estimated_cost" readonly="1" optional="hide"/>
+                <field name="purchase_ranking" readonly="1" optional="hide"/>
+                <field name="purchase_proyeccion_inventario" readonly="1" optional="hide"/>
+                <field name="purchase_extreme_rentability" readonly="1" optional="hide"/>
+                <field name="current_list_price" optional="hide"/>
+                <field name="sale_suggested_price" readonly="1" optional="hide"/>
+                <field name="rent_mayorista" readonly="1" optional="hide"/>
+                <field name="diferencia_precio_venta" readonly="1" optional="hide"/>
+                <field name="precio_actual" optional="hide"/>
+                <field name="sale_suggested_price_detal_rounded_without_tax" readonly="1" optional="hide"/>
+                <field name="rent_detal" readonly="1" optional="hide"/>
+                <field name="diferencia_precio_detal" readonly="1" optional="hide"/>
+                <field name="precio_actual_ptv" optional="hide"/>
+                <field name="sale_suggested_price_ptv_rounded_without_tax" readonly="1" optional="hide"/>
+                <field name="rent_ptv" readonly="1" optional="hide"/>
+                <field name="diferencia_precio_ptv" readonly="1" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+    

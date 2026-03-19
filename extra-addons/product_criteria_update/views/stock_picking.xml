@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="stock_picking_inherit_product_criteria_view" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.product.criteria</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="buy_to_resupply_verification" invisible="1"/>
+                <field name="product_criteria_update_finished" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button name="start_product_criteria_update" string="Iniciar captura de criterios"
+                        invisible="not buy_to_resupply_verification or product_criteria_update_finished or state != 'done'" type="object"
+                        class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_inherit_product_list_criteria_view_tree" model="ir.ui.view">
+        <field name="name">stock.picking.tree.inherit.product.list.criteria</field>
+        <field name="model">stock.move</field>
+        <field name="arch" type="xml">
+            <tree action="product_criteria_update" type="object" create="0" delete="0" decoration-success="product_criteria_update_finished" decoration-danger="not product_criteria_update_finished">
+                <header>
+                    <button string="Finalizar y enviar tareas" name="finish_criteria_update" type="object" display="always" class="oe_highlight"/>
+                </header>
+                <field name="product_id"/>
+                <field name="product_uom_qty"/>
+                <field name="quantity"/>
+                <field name="product_uom"/>
+                <field name="product_criteria_update_finished" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

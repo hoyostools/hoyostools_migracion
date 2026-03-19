@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+        <record id="stock_picking_kanban_inherit_hoyos" model="ir.ui.view">
+            <field name="name">stock.barcode.picking.kanban.inherit.hoyos</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.stock_picking_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="address_complete"/>
+                    <field name="carrier_id_name"/>
+                </xpath>
+                <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="after">
+                    <field name="address_complete"/>
+                </xpath>
+                <xpath expr="//div[hasclass('o_kanban_record_top')]" position="after">
+                    <field name="carrier_id_name"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

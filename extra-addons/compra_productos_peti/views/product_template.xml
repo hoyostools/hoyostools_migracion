@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+
+        <record id="product_template_form" model="ir.ui.view">
+            <field name="name">product_template_form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='purchase']/group[1]" position="inside">
+                    <field name="orden_compra"/>
+                    <field name="fecha_recepcion"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_search" model="ir.ui.view">
+            <field name="name">product_template_search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="orden_compra"/>
+                    <filter name="fecha_recepcion" date="fecha_recepcion" string="Fecha de Recepcion:"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

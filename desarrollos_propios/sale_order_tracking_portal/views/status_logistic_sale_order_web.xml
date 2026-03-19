@@ -1,0 +1,73 @@
+<odoo>
+
+<template id="portal_sale_order_logistic_state_replace_delivery"
+          inherit_id="sale.sale_order_portal_content"
+          name="Estado Logistico Portal Replace Delivery">
+
+    <xpath expr="//div[@name='delivery_order']" position="replace">
+
+        <div class="col-12 col-lg-6 mb-4">
+
+            <h6 class="text-muted">Estado Logístico</h6>
+
+            <t t-set="estado" t-value="sale_order.logistic_state"/>
+            <t t-set="estado_texto"
+               t-value="dict(sale_order._fields['logistic_state'].selection).get(sale_order.logistic_state)"/>
+
+            <span t-attf-class="badge #{ 
+                'bg-warning' if estado == 'pending'
+                else 'bg-primary' if estado == 'processing'
+                else 'bg-info' if estado == 'packing'
+                else 'bg-secondary' if estado == 'shipping'
+                else 'bg-success' if estado == 'done'
+                else 'bg-light'
+            }">
+
+                <t t-esc="estado_texto"/>
+
+            </span>
+
+        </div>
+
+    </xpath>
+
+</template>
+
+<template id="portal_my_orders_logistic_state"
+          inherit_id="sale.portal_my_orders"
+          name="Portal Orders Logistic State">
+
+    <!-- Cambiar el encabezado -->
+    <xpath expr="//th[@class='text-center']" position="replace">
+        <th class="text-center">Estado Logístico</th>
+    </xpath>
+
+    <!-- Reemplazar el contenido de la celda -->
+    <xpath expr="//td[@class='text-center']" position="replace">
+
+        <td class="text-center">
+
+            <t t-set="estado" t-value="order.logistic_state"/>
+            <t t-set="estado_texto"
+               t-value="dict(order._fields['logistic_state'].selection).get(order.logistic_state)"/>
+
+            <span t-attf-class="badge #{ 
+                'bg-warning' if estado == 'pending'
+                else 'bg-primary' if estado == 'processing'
+                else 'bg-info' if estado == 'packing'
+                else 'bg-secondary' if estado == 'shipping'
+                else 'bg-success' if estado == 'done'
+                else 'bg-light'
+            }">
+
+                <t t-esc="estado_texto"/>
+
+            </span>
+
+        </td>
+
+    </xpath>
+
+</template>
+
+</odoo>

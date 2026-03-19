@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ht_stock_return_request_stock_user,ht.stock.return.request stock_user,model_ht_stock_return_request,stock.group_stock_user,1,0,0,0
+access_ht_stock_return_request_stock_manager,ht.stock.return.request stock_manager,model_ht_stock_return_request,stock.group_stock_manager,1,1,1,1
+access_ht_stock_return_request_line_stock_user,ht.stock.return.request.line stock_user,model_ht_stock_return_request_line,stock.group_stock_user,1,0,0,0
+access_ht_stock_return_request_line_stock_manager,ht.stock.return.request.line stock_manager,model_ht_stock_return_request_line,stock.group_stock_manager,1,1,1,1
+access_ht_suggest_return_request_lot,ht.suggest.return.request.lot,model_ht_suggest_return_request_lot,base.group_user,1,1,1,1
+access_ht_suggest_return_request_lot_line,ht.suggest.return.request.lot.line,model_ht_suggest_return_request_lot_line,base.group_user,1,1,1,1

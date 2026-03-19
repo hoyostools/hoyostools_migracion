@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+	<template id="purchase.portal_my_home_menu_purchase" name="Portal layout : purchase menu entries" inherit_id="portal.portal_breadcrumbs" priority="25">
+    	<xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+      		<li t-if="page_name == 'purchase' or purchase_order and purchase_order.state in ('purchase', 'cancel')" t-attf-class="breadcrumb-item #{'active ' if not purchase_order else ''}">
+        		<a t-if="purchase_order" t-attf-href="/my/purchase?{{ keep_query() }}">Purchase Orders</a>
+        		<t t-else="">Purchase Orders</t>
+      		</li>
+      		<li t-if="page_name == 'quotation' or purchase_order and purchase_order.state not in ('sent', 'cancel')" t-attf-class="breadcrumb-item #{'active ' if not purchase_order else ''}">
+        		<a t-if="purchase_order" t-attf-href="/my/quote?{{ keep_query() }}">Quotations</a>
+        		<t t-else="">Quotations</t>
+      		</li>
+      		<li t-if="purchase_order" class="breadcrumb-item active">
+        		<t t-esc="purchase_order.name"/>
+      		</li>
+    	</xpath>
+  	</template>
+
+
+	<template id="portal_docs_entry_inherit" inherit_id="portal.portal_docs_entry" name="My Portal Docs Entry">
+		 <xpath expr="//a" position="attributes">
+        <attribute name="class" remove="d-none" separator=" "/>
+    </xpath>
+    </template>
+
+	<template id="purchase.portal_my_home_purchase" name="Portal My Home : purchase entry" inherit_id="portal.portal_my_home" priority="25">
+	    <div id="portal_vendor_category" position="inside">
+          <t t-call="portal.portal_docs_entry">
+              <t t-set="icon" t-value="'/purchase/static/src/img/rfq.svg'"/>
+              <t t-set="text">Follow your Requests for Quotation</t>
+              <t t-set="title">Requests for Quotation</t>
+              <t t-set="url" t-value="'/my/quote'"/>
+              <t t-set="placeholder_count" t-value="'rfq_count'"/>
+          </t>
+          <t t-call="portal.portal_docs_entry">
+              <t t-set="icon" t-value="'/purchase/static/src/img/calculator.svg'"/>
+              <t t-set="text">Follow orders you have to fulfill</t>
+              <t t-set="title">Our Orders</t>
+              <t t-set="url" t-value="'/my/purchase'"/>
+              <t t-set="placeholder_count" t-value="'purchase_count'"/>
+          </t>
+      </div>
+ 	</template>
+	<template id="y_2_portal_my_home_purchase" name="Portal My Home : purchase quotation entry" inherit_id="portal.portal_my_home" priority="25">
+	    <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+			<t t-call="portal.portal_docs_entry">
+				<t t-set="title">Request for Quotation</t>
+				<t t-set="url" t-value="'/my/quote'"/>
+                <t t-set="text">Follow your Requests for Quotation</t>
+				<t t-set="placeholder_count" t-value="'rfq_count'"/>
+			</t>
+		</xpath>
+	</template>
+	<template id="y_2_portal_my_home_purchase_order" name="Portal My Home : purchase order entry" inherit_id="portal.portal_my_home" priority="25">
+	    <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+			<t t-call="portal.portal_docs_entry">
+				<t t-set="title">Purchase Orders</t>
+				<t t-set="url" t-value="'/my/purchase'"/>
+                <t t-set="text">Follow orders you have to fulfill</t>
+				<t t-set="placeholder_count" t-value="'purchase_count'"/>
+			</t>
+		</xpath>
+	</template>
+
+ 	<template id="portal_my_purchase_quotes" name="Portal: My Purchase Orders">
+	    <t t-call="portal.portal_layout">
+	      	<t t-call="portal.portal_searchbar">
+	        	<t t-set="title">Request for Quotation</t>
+	      	</t>
+	      	<t t-if="orders" t-call="portal.portal_table">
+	        	<thead>
+	          		<tr class="active">
+			            <th>Purchase Orders #</th>
+			            <th>Order Date</th>
+			            <th></th>
+			            <th>Total</th>
+	          		</tr>
+	        	</thead>
+	        	<tbody>
+	          		<t t-foreach="orders" t-as="order">
+	           	 		<tr>
+		              		<td><a t-attf-href="/my/quote/#{order.id}?#{keep_query()}"><t t-esc="order.name"/></a></td>
+		              		<td><span t-field="order.date_order"/></td>
+		              		<td>
+			                	<t t-if="order.invoice_status == 'to invoice'">
+			                  		<span class="badge badge-info"><i class="fa fa-fw fa-file-text"/> Waiting for Bill</span>
+			                	</t>
+			                	<t t-if="order.state == 'draft'">
+			                 		<span class="badge badge-secondary"><i class="fa fa-fw fa-remove"/> RFQ</span>
+			                	</t>
+		              		</td>
+		              		<td>
+		              			<span t-field="order.amount_total" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+		              		</td>
+	            		</tr>
+	          		</t>
+	        	</tbody>
+	      	</t>
+	    </t>
+	 </template>
+
+	 <template id="portal_my_purchase_quote" name="Portal: My Purchase Order">
+    	<t t-call="portal.portal_layout">
+	     	<t t-set="purchase_order" t-value="order"/>
+
+	      	<div id="optional_placeholder"></div>
+	      	<div class="container">
+	          	<div class="card">
+		            <div class="card-header">
+		              	<div class="row">
+		                	<div class="col-lg-12">
+		                  		<h4>
+		                    		<t t-if="order.state in ['draft', 'sent']">
+		                      			Request for Quotation
+		                    		</t>
+		                    		<t t-else="1">
+		                      			Purchase Order
+		                    		</t>
+		                    		<span t-esc="order.name"/>
+		                  		</h4>
+		                	</div>
+		              	</div>
+		            </div>
+		            <div class="card-body">
+		            	<div class="row">
+					      	<div class="col-lg-6">
+					      		<input type="hidden" t-att-value="order.id" class="order_id"/>
+					      		<span t-field="order.partner_id.name"></span>
+					      		<br/>
+					      		<span t-field="order.partner_id.street"></span>
+					      		<br/>
+					      		<span t-field="order.partner_id.city"></span>
+					      		<span t-field="order.partner_id.state_id.name"></span>
+					      		<span t-field="order.partner_id.zip"></span>
+					      		<br/>
+					      		<span t-field="order.partner_id.country_id.name"></span>
+					      	</div>
+			              	<div class="col-lg-6">
+			                  	<strong>Order Date:</strong> <span t-field="order.date_order" t-options='{"widget": "date"}'/>
+			                  	<br/>
+			                  	<br/>
+			                  	<strong>Vendor Ref:</strong> <span t-field="order.partner_ref" t-options='{"widget": "date"}'/>
+			              	</div>
+			            </div>
+			            <br/>
+			            <table style="width:100%;">
+				            <thead style="border-bottom: 1px solid #c9c9c9">
+				          		<tr class="active">
+						            <th>Product</th>
+						            <th></th>
+						            <th groups="website_vendor_portal_app.group_vendor_price,base.group_portal">Delivery Date</th>
+						            <th>Unit Price</th>
+						            <th groups="website_vendor_portal_app.group_vendor_price,base.group_portal">Vendor Price</th>
+						            <th>Quantity</th>
+						            <th>Subtotal</th>
+				          		</tr>
+			        		</thead>
+							<tbody t-foreach="order.order_line" t-as="ol">
+		        				<td>
+		        					<img t-att-src="image_data_uri(resize_to_48(ol.product_id.image_128))" alt="Product"/>
+		        				</td>
+		        				<td>
+		        					<div id='product_name'>
+			                    		<span t-esc="ol.name"/>
+			                  		</div>
+		        				</td>
+		        				<td groups="website_vendor_portal_app.group_vendor_price,base.group_portal">
+		        					<span t-field="ol.delivery_date" t-options='{"widget": "date"}'/>
+		        				</td>
+		        				<td>
+		        					<span t-field="ol.price_unit" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+		        				</td>
+		        				<td groups="website_vendor_portal_app.group_vendor_price,base.group_portal">
+		        					<span t-field="ol.vendor_price" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+		        				</td>
+		        				<td>
+		        					<span t-esc="ol.product_qty"/>
+		        				</td>
+		        				<td>
+		        					<span t-field="ol.price_subtotal" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+		        				</td>
+
+		        				<td groups="website_vendor_portal_app.group_vendor_price,base.group_portal">
+		        					<button t-att-id="ol.id" role="button" data-bs-toggle="modal"
+											data-bs-target="#modalcancelquote" class="btn btn-primary js_vendor"
+											t-att-data-quantity="ol.product_qty"
+											t-att-data-price="ol.vendor_price"
+											style="float: right;">
+										Price
+									</button>
+		        				</td>
+			        		</tbody>
+							<t t-set="qty" t-value="0"/>
+							<script>
+									document.addEventListener('DOMContentLoaded', function() {
+										// Selecciona todos los botones con la clase 'js_vendor'
+										const vendorButtons = document.querySelectorAll('.js_vendor');
+
+										vendorButtons.forEach(button => {
+											button.addEventListener('click', function() {
+												// Acceder al atributo data-id que almacena el Cantidad de 'ol'
+												const olQty = this.getAttribute('data-quantity');
+												const olPrice = this.getAttribute('data-price');
+												document.getElementById('modal_quantity').value = olQty;
+												document.getElementById('vendor_price').value = olPrice;
+												document.getElementById('old_qty').value =  olQty;
+											});
+									});
+								});
+							</script>
+			        	</table>
+		              	<hr/>
+
+		              	<div class="row">
+		                	<div class="col-lg-12 text-right">
+		                  		<div class="row">
+		                    		<div class="col-lg-10 text-right">
+		                     			Untaxed Amount:
+		                    		</div>
+		                    		<div class="col-lg-2 text-right">
+		                      			<span t-field="order.amount_untaxed" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+		                    		</div>
+		                  		</div>
+		                  		<div class="row">
+		                    		<div class="col-lg-10 text-right">
+		                      			Taxes:
+		                    		</div>
+		                    		<div class="col-lg-2 text-right">
+		                      			<span t-field="order.amount_tax" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/>
+		                    		</div>
+		                  		</div>
+		                  		<div class="row">
+		                    		<div class="col-lg-10 text-right">
+		                      			<strong>Total:</strong>
+		                    		</div>
+		                    		<div class="col-lg-2 text-right">
+		                      			<strong><span t-field="order.amount_total" t-options='{"widget": "monetary", "display_currency": order.currency_id}'/></strong>
+		                    		</div>
+		                  		</div>
+		                	</div>
+		              	</div>
+		            <div role="dialog" class="modal fade modal_view" id="modalcancelquote">
+
+							<div class="modal-dialog modal-content">
+								<form class="modal-content" method="POST">
+									<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+									<header class="modal-header">
+										<h4 class="modal-title">Quote Details</h4>
+										<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">x</button>
+									</header>
+									<main class="modal-body">
+			                            <p>
+			                                <strong>Delivery Date</strong><br/>
+											<input class="form-control" type="date" name="reason_for_cancel" id="delivery_date" style="width: 100%;padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px;box-sizing: border-box; position:relative;" required=""/>
+			                                <strong>Vendor Price</strong><br/>
+			                                <input class="form-control" type="number" name="remarks" id="vendor_price" style="width: 100%;padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px;box-sizing: border-box;" required=""/>
+											<strong>Quantity</strong><br/>
+			                                <input class="form-control" type="number" min="0" name="remarks" id="modal_quantity" style="width: 100%;padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px;box-sizing: border-box;" required=""/>
+			                                <strong>Vendor Message</strong><br/>
+			                                <input class="form-control" type="text" name="remarks" id="description" placeholder="e.g., Product value changed" style="width: 100%;padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px;box-sizing: border-box;" required=""/>
+											<input id="old_qty" name="old_qty" type="hidden" value="xm234jq" />
+			                            </p>
+			                        </main>
+
+			                        <footer class="modal-footer">
+			                            <button id="submit_ids" type="submit" class="btn btn-primary submit_btn"><i class="fa fa-check"></i> Save</button>
+			                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+			                        </footer>
+								</form>
+							</div>
+						</div>
+		            </div>
+	          	</div>
+	      	</div>
+	      <div class="oe_structure mb32"/>
+
+	    </t>
+	</template>
+
+
+</odoo>

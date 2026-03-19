@@ -1,0 +1,20 @@
+<odoo>
+    <record id="view_partner_form_inherit_awards" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.awards</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Tiquetes Premios">
+                    <field name="award_ids"  options="{'no_create': True}">
+                        <tree editable="top" create="false">
+                            <field name="award_id"/>
+                            <field name="cantidad"/>
+                            <field name="historial" readonly="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

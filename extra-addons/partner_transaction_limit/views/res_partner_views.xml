@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority">50</field>
+            <field name="arch" type="xml">
+                <group name="sale" position="inside">
+                    <field name="transaction_control_months" />
+                    <field name="sales_total_current_period" invisible="1"/>
+                    <field name="sales_limit" />
+                    <field name="validate_transaction_limits" />
+                    <label for="last_update_sale_validation"  invisible="validate_transaction_limits"/>
+                    <div class="o_row" >
+                        <field name="last_update_sale_validation" class="o_inline" readonly="1" invisible="validate_transaction_limits"/>
+                        <button name="action_last_update_sale_validation"
+                                type="object"
+                                string="Validar"
+                                class="o_inline btn-link"
+                                icon="oi-arrow-right"
+                                invisible="validate_transaction_limits"/>
+
+                    </div>
+                </group>
+                <group name="purchase" position="inside" >
+                    <field name="transaction_control_months_p" />
+                    <field name="purchase_total_current_period" invisible="1"/>
+                    <field name="purchase_limit" />
+                    <field name="validate_transaction_limits_p" />
+                    <label for="last_update_purchase_validation"  invisible="validate_transaction_limits_p"/>
+                    <div class="o_row" >
+                        <field name="last_update_purchase_validation" class="o_inline" readonly="1" invisible="validate_transaction_limits_p"/>
+                        <button name="action_last_update_purchase_validation"
+                                type="object"
+                                string="Validar"
+                                class="o_inline btn-link"
+                                icon="oi-arrow-right"
+                                invisible="validate_transaction_limits_p"/>
+
+                    </div>
+                </group>
+            </field>
+        </record>
+
+        <record id="transaction_limit_form" model="ir.ui.view">
+            <field name="name">res.partner.transaction.limit.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Transaction Limit">
+                    <sheet>
+                        <group>
+                            <field name="last_update_sale_validation" required="1"/>
+                            <field name="transaction_validation_document" />
+                            <field name="validate_transaction_limits" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="transaction_limit_form_p" model="ir.ui.view">
+            <field name="name">res.partner.transaction.limit.form</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form string="Transaction Limit">
+                    <sheet>
+                        <group>
+                            <field name="last_update_purchase_validation" required="1"/>
+                            <field name="transaction_validation_document_p" />
+                            <field name="validate_transaction_limits_p" invisible="1"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+
+
+
+    </data>
+</odoo>

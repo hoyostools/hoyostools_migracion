@@ -1,0 +1,74 @@
+<odoo>
+    <record id="view_res_config_settings_sync_odoo_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.sync.odoo</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='about']" position="before">
+                <div class="app_settings_block" data-string="Sincronización Odoo XML-RPC" string="Sincronización Odoo XML-RPC">
+                    <h2>Sincronización Odoo XML-RPC</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6">
+
+                            <div class="o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label for="enable_purchase_sync"/>
+                                    <div>
+                                        <field name="enable_purchase_sync"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label for="remote_odoo_url" invisible="not enable_purchase_sync"/>
+                                    <div>
+                                        <field name="remote_odoo_url" invisible="not enable_purchase_sync" required="enable_purchase_sync"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label for="remote_odoo_db" invisible="not enable_purchase_sync"/>
+                                    <div>
+                                        <field name="remote_odoo_db" invisible="not enable_purchase_sync" required="enable_purchase_sync"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label for="remote_odoo_user" invisible="not enable_purchase_sync"/>
+                                    <div>
+                                        <field name="remote_odoo_user" invisible="not enable_purchase_sync" required="enable_purchase_sync"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <label for="remote_odoo_password" invisible="not enable_purchase_sync"/>
+                                    <div>
+                                        <field name="remote_odoo_password" password="True" invisible="not enable_purchase_sync" required="enable_purchase_sync"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 mt16">
+                            <button type="object"
+                                    name="action_test_connection"
+                                    string="Probar conexión"
+                                    class="btn btn-primary"
+                                    context="{'from_res_config_settings': True}"
+                                    invisible="not enable_purchase_sync"
+                                    />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

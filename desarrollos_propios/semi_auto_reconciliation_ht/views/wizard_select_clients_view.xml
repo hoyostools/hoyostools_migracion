@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_select_clients_wizard_form" model="ir.ui.view">
+        <field name="name">select.clients.wizard.form</field>
+        <field name="model">semi.auto.reconciliation.client.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Seleccionar Clientes para Conciliación">
+                <group>
+                    <field name="user_id" options="{'no_create': True}" required="1"/>
+                    <field name="partner_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                    <field name="available_partner_ids" invisible="1"/>
+                </group>
+                <footer>
+                    <button string="Confirmar" type="object" name="confirm" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_open_select_clients_wizard" model="ir.actions.act_window">
+        <field name="name">Seleccionar Clientes</field>
+        <field name="res_model">semi.auto.reconciliation.client.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

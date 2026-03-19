@@ -1,0 +1,49 @@
+<odoo>
+    <record id="view_configuracion_meta_tree" model="ir.ui.view">
+        <field name="name">configuracion.meta.tree</field>
+        <field name="model">productividad.configuracion_meta</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nombre"/>
+                <field name="proceso"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="meta_puntos_diarios"/>
+                <field name="porcentaje_puntos"/>
+                <field name="meta_items_diarios"/>
+                <field name="porcentaje_items"/>
+                <field name="meta_documentos_diarios"/>
+                <field name="porcentaje_documentos"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_configuracion_meta_form" model="ir.ui.view">
+        <field name="name">configuracion.meta.form</field>
+        <field name="model">productividad.configuracion_meta</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="nombre"/>
+                        <field name="proceso"/>
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                        <field name="meta_puntos_diarios"/>
+                        <field name="porcentaje_puntos"/>
+                        <field name="meta_items_diarios"/>
+                        <field name="porcentaje_items"/>
+                        <field name="meta_documentos_diarios"/>
+                        <field name="porcentaje_documentos"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_configuracion_meta" model="ir.actions.act_window">
+        <field name="name">Configuración Meta</field>
+        <field name="res_model">productividad.configuracion_meta</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

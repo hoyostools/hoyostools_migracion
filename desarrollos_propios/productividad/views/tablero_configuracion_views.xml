@@ -1,0 +1,35 @@
+<odoo>
+    <record id="view_tablero_configuracion_tree" model="ir.ui.view">
+        <field name="name">tablero.configuracion.tree</field>
+        <field name="model">productividad.tablero_configuracion</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="user_id"/>
+                <field name="funcion"/>
+                <field name="turno_id"/>
+                <field name="combo_pasillo_id" invisible= "funcion != 'separador'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_tablero_configuracion_form" model="ir.ui.view">
+        <field name="name">tablero.configuracion.form</field>
+        <field name="model">productividad.tablero_configuracion</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="user_id"/>
+                    <field name="funcion"/>
+                    <field name="turno_id"/>
+                    <field name="combo_pasillo_id" invisible= "funcion != 'separador'"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_tablero_configuracion" model="ir.actions.act_window">
+        <field name="name">Tablero de Configuraciones</field>
+        <field name="res_model">productividad.tablero_configuracion</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

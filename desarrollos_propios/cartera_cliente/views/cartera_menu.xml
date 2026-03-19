@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_cartera_root"
+              name="Cartera Cliente"
+              parent="contacts.menu_contacts"
+              sequence="50"/>
+
+    <record id="action_cartera_wizard" model="ir.actions.act_window">
+        <field name="name">Generar Cartera</field>
+        <field name="res_model">cartera.cliente.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_cartera_action"
+              name="Generar Cartera"
+              parent="menu_cartera_root"
+              action="action_cartera_wizard"
+              sequence="10"/>
+</odoo>

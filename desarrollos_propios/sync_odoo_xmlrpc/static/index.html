@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sync Odoo XML-RPC - Sale Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            margin: 40px;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0069d9;
+        }
+        h2 {
+            margin-top: 30px;
+            color: #444;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        .module-image {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .module-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 14px;
+            color: #777;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sync Odoo XML-RPC (Sale Order)</h1>
+        <p>
+            Este módulo permite sincronizar pedidos de venta (<code>sale.order</code>) desde una instancia local de Odoo hacia otra instancia remota mediante <strong>XML-RPC</strong>.
+        </p>
+
+        <div class="module-image">
+            <img src="sync_odoo_xmlrpc/static/descripcion/imagen.png" alt="Vista previa del módulo">
+        </div>
+
+        <h2>Características</h2>
+        <ul>
+            <li>Sincroniza <strong>pedidos de venta</strong> de Odoo a otra base de datos.</li>
+            <li>Valida si el pedido ya fue sincronizado para evitar duplicados.</li>
+            <li>Crea el cliente remoto si no existe (buscando por NIT/VAT o nombre).</li>
+            <li>Crea los productos remotos si no existen (usando el <code>default_code</code>).</li>
+            <li>Notificación amigable al usuario en Odoo con el resultado.</li>
+        </ul>
+
+        <h2>Configuración</h2>
+        <p>En <strong>Ajustes → Parámetros del sistema</strong>, configurar las siguientes claves:</p>
+        <pre>
+sync_odoo_xmlrpc.remote_odoo_url = https://mi-odoo-remoto.com
+sync_odoo_xmlrpc.remote_odoo_db = mi_basededatos
+sync_odoo_xmlrpc.remote_odoo_user = usuario@odoo.com
+sync_odoo_xmlrpc.remote_odoo_password = mipassword
+        </pre>
+
+        <h2>Uso</h2>
+        <ol>
+            <li>Abrir un pedido de venta en Odoo.</li>
+            <li>Hacer clic en el botón <strong>Sincronizar Pedido</strong>.</li>
+            <li>El sistema validará y creará el pedido en la base remota.</li>
+        </ol>
+
+        <div class="footer">
+            <p>Desarrollado por <strong>Distribuciones Hoyostools</strong> - Integración de Odoo vía XML-RPC</p>
+        </div>
+    </div>
+</body>
+</html>

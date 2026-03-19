@@ -1,0 +1,19 @@
+<odoo>
+    <record id="view_stock_quant_tree_inherit_frecuencia" model="ir.ui.view">
+        <field name="name">stock.quant.tree.frecuencia</field>
+        <field name="model">stock.quant</field>
+        <field name="inherit_id" ref="stock.view_stock_quant_tree_editable"/>
+        <field name="arch" type="xml">
+            <!-- Insertar después del campo reserved_quantity -->
+            <xpath expr="//field[@name='reserved_quantity']" position="after">
+                <field name="ubicacion_reab" readonly="1"/>
+                <field name="tunel_clh" readonly="1"/>
+                <field name="regla_min_sugerida" readonly="1"/>
+                <field name="regla_min" readonly="1"/>
+                <field name="regla_max" readonly="1"/>
+                <field name="cant_pack" readonly="1"/>
+                <field name="alerta" widget="boolean_toggle" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

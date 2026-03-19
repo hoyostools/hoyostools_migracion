@@ -1,0 +1,103 @@
+<odoo>
+    <!-- Registrar el template como vista QWeb -->
+    <record id="report_cruce_saldos_document" model="ir.ui.view">
+        <field name="name">report.cruce.saldos.document</field>
+        <field name="type">qweb</field>
+        <field name="arch" type="xml">
+            <template id="report_cruce_saldos_document">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <main class="page">
+                            <h2 style="text-align:center;">Recibo de Cruce <span t-field="doc.name"/></h2>
+                            <p><strong>Cliente:</strong> <span t-field="doc.partner_id"/></p>
+                            <p><strong>Fecha:</strong> <span t-field="doc.date"/></p>
+                            <p><strong>Total Cruzado:</strong> 
+                                <span t-field="doc.total_amount"
+                                    t-options="{'widget': 'monetary', 'display_currency': doc.company_id.currency_id}"/>
+                            </p>
+
+                            <h4>Documentos Conciliados</h4>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Factura</th>
+                                        <th>Nota de Crédito</th>
+                                        <th>Pago</th>
+                                        <th>Monto Aplicado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.line_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <t t-if="line.document_type == 'invoice'">
+                                                    <span t-field="line.move_id.name"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.document_type == 'credit_note'">
+                                                    <span t-field="line.move_id.name"/>
+                                                </t>
+                                            </td>
+                                            <td>
+                                                <t t-if="line.document_type == 'payment'">
+                                                    <span t-field="line.payment_id.name"/>
+                                                </t>
+                                            </td>
+                                            <td><span t-field="line.amount_applied"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            
+                            <h4>Apuntes Contables</h4>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Asiento contable</th>
+                                        <th>Cuenta</th>
+                                        <th>Descripción</th>
+                                        <th style="text-align:right;">Debe</th>
+                                        <th style="text-align:right;">Haber</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.move_line_ids" t-as="ml">
+                                        <tr>
+                                            <td><span t-field="ml.move_line_id.move_id.name"/></td>
+                                            <td>
+                                                <span t-field="ml.account_id.code"/> 
+                                                <span t-field="ml.account_id.name"/>
+                                            </td>
+                                            <td><span t-field="ml.move_line_id.name"/></td>
+
+                                            <!-- Columna de Débito -->
+                                            <td style="text-align:right;">
+                                                <span t-if="ml.move_line_id.debit != 0.0">
+                                                    <span t-field="ml.move_line_id.debit"/>
+                                                </span>
+                                                <span t-if="ml.move_line_id.debit == 0.0">
+                                                    $ 0,00
+                                                </span>
+                                            </td>
+
+                                            <!-- Columna de Crédito -->
+                                            <td style="text-align:right;">
+                                                <span t-if="ml.move_line_id.credit != 0.0">
+                                                    <span t-field="ml.move_line_id.credit"/>
+                                                </span>
+                                                <span t-if="ml.move_line_id.credit == 0.0">
+                                                    $ 0,00
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </main>
+                    </t>
+                </t>
+            </template>
+        </field>
+    </record>
+</odoo>

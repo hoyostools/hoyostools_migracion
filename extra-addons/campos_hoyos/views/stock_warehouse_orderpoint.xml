@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_view_warehouse_orderpoint_tree_editable" model="ir.ui.view">
+        <field name="name">stock.warehouse.orderpoint.tree.editable.inherit</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.view_warehouse_orderpoint_tree_editable"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="ranking_product_id"/>
+                <field name="responsible_id" optional="hide"/>
+                <field name="sale_ok" optional="hide"/>
+                <field name="purchase_ok" optional="hide"/>
+                <field name="promedio_consumo" optional="hide"/>
+                <field name="cant_pack" optional="hide"/>
+                <field name="inventory_projection" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="inherit_view_warehouse_orderpoint_tree_proyeccion_inventario" model="ir.ui.view">
+        <field name="name">view.inherit.stock.warehouse.orderpoint.tree.proyeccion.inventario</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="campos_hoyos.inherit_view_warehouse_orderpoint_tree_editable"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='inventory_projection']" position="after">
+                <field name="proyeccion_inventario" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_stock_warehouse_orderpoint_search" model="ir.ui.view">
+        <field name="name">warehouse.orderpoint.search.inherit</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.warehouse_orderpoint_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <field name="responsible_id"/>
+                <field name="promedio_consumo"/>
+                <separator/>
+                    <filter string="Responsable" name="responsable" context="{'group_by':'responsible_id'}"/>
+                    <filter string="Puede ser vendido" name="vendido" domain="[('product_id.sale_ok','=', 1)]"/>
+                    <filter string="Puede ser comprado" name="comprado" domain="[('product_id.purchase_ok','=', 1)]"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_stock_warehouse_orderpoint_search_rabastecimiento" model="ir.ui.view">
+        <field name="name">warehouse.orderpoint.search.rabastecimiento.inherit</field>
+        <field name="model">stock.warehouse.orderpoint</field>
+        <field name="inherit_id" ref="stock.stock_reorder_report_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_creation_trigger']" position="after">
+                <field name="stand_ptv"/>
+                <separator/>
+                    <filter string="Stand Ptv" name="stand_ptv" domain="[('stand_ptv','!=','')]"/>
+                <separator/>
+            </xpath>
+            <xpath expr="//group[@expand='0']" position="inside">
+                <separator/>
+                    <filter string="Stand Ptv" name="stand_ptv" context="{'group_by':'stand_ptv'}"/>
+                <separator/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

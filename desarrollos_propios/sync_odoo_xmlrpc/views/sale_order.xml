@@ -1,0 +1,33 @@
+<odoo>
+    <record id="view_order_form_sync_button" model="ir.ui.view">
+        <field name="name">sale.order.form.sync.button</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_sync_order"
+                        type="object"
+                        string="Sincronizar"
+                        class="btn-primary"
+                        invisible="is_synced"/>
+            </header>
+            <sheet position="inside">
+                <group>
+                    <field name="is_synced" readonly="1"/>
+                </group>
+            </sheet>
+        </field>
+    </record>
+
+    <record id="view_order_form_inherit_meli_tracking" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.meli.tracking</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Insertar después del campo campaign_id -->
+            <xpath expr="//field[@name='campaign_id']" position="after">
+                <field name="meli_tracking_pdf" filename="meli_tracking_filename"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

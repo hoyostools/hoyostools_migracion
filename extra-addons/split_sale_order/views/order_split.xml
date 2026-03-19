@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.limit.sale.order</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='proforma_configuration']" position="after">
+                <setting id="split_sale_order" company_dependent="1"
+                         groups="account.group_account_user" help="Activar división de órdenes de venta">
+                    <field name="split_activated"/>
+                    <div class="content-group" invisible="not split_activated">
+                        <label for="max_lines_per_order"/>
+                        <field name="max_lines_per_order"/>
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_delivery_carrier_form_inherit_split_order" model="ir.ui.view">
+            <field name="name">delivery.carrier.form.inherit.split.order</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="split_active"/>
+                </xpath>
+            </field>
+       </record>
+</odoo>

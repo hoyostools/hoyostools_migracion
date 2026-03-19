@@ -1,0 +1,124 @@
+<odoo>
+  <template id="reporte_cartera_pdf">
+    <t t-call="web.html_container">
+      <t t-call="web.external_layout">
+        <div class="page">
+          <h2 style="text-align: center;">Reporte de Cartera del Cliente</h2>
+          <p><strong>Cliente:</strong> <t t-esc="partner.name"/></p>
+          <p><strong>Fecha del reporte:</strong> <t t-esc="report_date.strftime('%Y-%m-%d')"/></p>
+
+          <!-- FACTURAS -->
+          <t t-if="opcion_reporte in ['todo', 'fecha_vencimiento']">
+            <h3 style="margin-top: 20px;">Facturas Pendientes</h3>
+            <table class="table table-sm table-bordered">
+              <thead>
+                <tr>
+                  <th>Factura</th>
+                  <th>Fecha</th>
+                  <th>Vencimiento</th>
+                  <th>Días</th>
+                  <th>Importe Pendiente</th>
+                </tr>
+              </thead>
+              <tbody>
+                <t t-if="facturas">
+                  <t t-foreach="facturas" t-as="inv">
+                    <tr>
+                      <td><t t-esc="inv['name']"/></td>
+                      <td><t t-esc="inv['invoice_date']"/></td>
+                      <td><t t-esc="inv['due_date']"/></td>
+                      <td>
+                        <span t-attf-style="color: #{inv['color']};">
+                          <t t-esc="inv['dias_vencido']"/> días
+                        </span>
+                      </td>
+                      <td>
+                        <t t-esc="inv['currency'].with_context(lang=partner.lang).format(inv['amount_residual'])"/>
+                      </td>
+                    </tr>
+                  </t>
+                </t>
+                <t t-if="not facturas">
+                  <tr><td colspan="5">Sin facturas pendientes</td></tr>
+                </t>
+              </tbody>
+            </table>
+          </t>
+
+          <!-- NOTAS DE CRÉDITO -->
+          <h3 style="margin-top: 30px;">Notas Crédito Pendientes por Cruzar</h3>
+          <table class="table table-sm table-bordered">
+            <thead>
+              <tr>
+                <th>Documento</th>
+                <th>Fecha</th>
+                <th>Vencimiento</th>
+                <th>Días</th>
+                <th>Importe Pendiente</th>
+              </tr>
+            </thead>
+            <tbody>
+              <t t-if="notas_credito">
+                <t t-foreach="notas_credito" t-as="nc">
+                  <tr>
+                    <td><t t-esc="nc['name']"/></td>
+                    <td><t t-esc="nc['invoice_date']"/></td>
+                    <td><t t-esc="nc['due_date']"/></td>
+                    <td>
+                      <span t-attf-style="color: #{nc['color']};">
+                        <t t-esc="nc['dias_vencido']"/> días
+                      </span>
+                    </td>
+                    <td>
+                      <t t-esc="nc['currency'].with_context(lang=partner.lang).format(nc['amount_residual'])"/>
+                    </td>
+                  </tr>
+                </t>
+              </t>
+              <t t-if="not notas_credito">
+                <tr><td colspan="5">Sin notas crédito pendientes</td></tr>
+              </t>
+            </tbody>
+          </table>
+
+          <!-- PAGOS -->
+          <h3 style="margin-top: 30px;">Pagos Pendientes por Conciliar</h3>
+          <table class="table table-sm table-bordered">
+            <thead>
+              <tr>
+                <th>Pago</th>
+                <th>Fecha</th>
+                <th>Saldo Disponible</th>
+              </tr>
+            </thead>
+            <tbody>
+              <t t-if="payments">
+                <t t-foreach="payments" t-as="pay">
+                  <tr>
+                    <td><t t-esc="pay['name']"/></td>
+                    <td><t t-esc="pay['date']"/></td>
+                    <td>
+                      <t t-esc="pay['currency'].with_context(lang=partner.lang).format(pay['amount_residual'])"/>
+                    </td>
+                  </tr>
+                </t>
+              </t>
+              <t t-if="not payments">
+                <tr><td colspan="3">Sin pagos con saldo</td></tr>
+              </t>
+            </tbody>
+          </table>
+        </div>
+      </t>
+    </t>
+  </template>
+
+  <record id="action_reporte_cartera_pdf" model="ir.actions.report">
+    <field name="name">Reporte de Cartera</field>
+    <field name="model">cartera.cliente.wizard</field>
+    <field name="report_type">qweb-pdf</field>
+    <field name="report_name">cartera_cliente.reporte_cartera_pdf</field>
+    <field name="report_file">cartera_cliente.reporte_cartera_pdf</field>
+    <field name="print_report_name">'Reporte Cartera - %s' % object.partner_id.name</field>
+  </record>
+</odoo>

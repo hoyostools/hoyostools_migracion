@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//block[@id='pos_interface_section']" position="after">
+                    <block title="Stock Configuration in POS" id="stock_config">
+                        <setting help="Check this to display stock in pos screen">
+                            <field name="pos_pos_display_stock"/>
+                        </setting>
+                        <setting help="Stock type show up in POS screen.">
+                            <label for="pos_pos_stock_type" string="Stock Type"/>
+                            <div class="text-muted">
+                                Stock type show up in POS screen.
+                            </div>
+                            <field name="pos_pos_stock_type"/>
+                        </setting>
+                        <setting help="Allow pos order when product is out of stock.">
+                            <field name="pos_pos_allow_order"/>
+                        </setting>
+                        <setting help="Deny pos order when product quanity goes down to the entered quantity." invisible="not pos_pos_allow_order">
+                            <field name="pos_pos_deny_order"/>
+                        </setting>
+                        <setting>
+                            <field name="pos_stock_position" required="pos_pos_display_stock"/>
+                        </setting>
+                        <setting>
+                            <span class="o_form_label">Color Selection</span>
+                                <div class="w-50 row">
+                                    <span class="d-block w-75 py-2">Background Color</span>
+                                    <field name="pos_color_background" class="d-block w-25 p-0 m-0" widget="color"/>
+                                </div>
+                                <div class="w-50 row mt-1">
+                                    <span class="d-block w-75 py-2">Font Color</span>
+                                    <field name="pos_font_background" class="d-block w-25 p-0 m-0" widget="color"/>
+                                </div>
+                        </setting>
+                        <setting>
+                            <field name="pos_low_stock"/>
+                        </setting>
+                    </block>
+                    <block title="Stock Location Configuration" id="stock_location_config">
+                        <setting id="stock_location">
+                            <label for="pos_show_stock_location"/>
+                            <div class="text-muted">
+                                Product stock location type
+                            </div>
+                            <field name="pos_show_stock_location" class="o_light_label" widget="radio"/>
+                        </setting>
+                        <setting id="stock_location_inventory">
+                            <label for="pos_stock_location_id"/>
+                            <div class="text-muted">
+                                Stock location used for inventory
+                            </div>
+                            <field name="pos_stock_location_id" required="pos_pos_display_stock"/>
+                        </setting>
+                    </block>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="product_stock_quant" model="ir.ui.view">
+            <field name="name">product.product.stock.quant.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pos_categ_ids']" position="after">
+                   <field name="stock_quant_ids" readonly="1" invisible="1"/>
+                   <field name="quant_text" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>        

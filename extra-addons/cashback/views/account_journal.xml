@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="bi_account_view_account_journal_form_inherit" model="ir.ui.view">
+            <field name="name">bi.account.journal.form.inherit</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="before">
+                    <field name="is_cashback"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="inherit_view_pos_payment_method_form1" model="ir.ui.view">
+            <field name="name">pos.payment.method.inherit</field>
+            <field name="model">pos.payment.method</field>
+            <field name="inherit_id" ref="point_of_sale.pos_payment_method_view_form"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="is_cashback"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="loyalty_program_view_form_cashback_inherit">
+            <field name="name">loyalty.program.view.from.cashback.inherit</field>
+            <field name="model">loyalty.program</field>
+            <field name="inherit_id" ref="loyalty.loyalty_program_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="is_chasback_program" widget="boolean_toggle"/>
+                    <field name="value_point"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_bi_website_portal_dashboard_inherit_view_partner_form" model="ir.ui.view">
+            <field name="name">bi.website.portal.dashboard.inherit.view.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_purchases']" position="inside">
+                    <group string="Cashback" name="CashbackLimit">
+                        
+                        <field name="over_permision_unreconciled_10" widget="boolean_toggle"/>                        
+                        <field name="multiplier_points"/>
+                        <field name="active_cashback_limit" widget="boolean_toggle"/>
+                        <field name="custom_cashback" invisible="1"/>
+                        <field name="attended_event" widget="boolean_toggle"/>                        
+                        <field name="blocking_amount" />
+                    </group>
+                </xpath>
+                <div name="button_box" position="inside">
+                    <button type="object" class="oe_stat_button" icon="fa-usd" name="action_view_cashback_detail" context="{'default_partner_id': active_id}">
+                        <div class="o_form_field o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="currency_id" invisible="1"/>
+                                <field name="custom_cashback" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </span>
+                            <span class="o_stat_text">POS Cashback</span>
+                        </div>
+                    </button>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

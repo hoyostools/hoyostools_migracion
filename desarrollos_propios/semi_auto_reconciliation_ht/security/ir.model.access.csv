@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_semi_auto_reconciliation_line,access_semi_auto_reconciliation_line,model_semi_auto_reconciliation_line,,1,1,1,1
+access_cruce_saldos_user,access_cruce_saldos_user,model_cruce_saldos,,1,1,1,1
+access_semi_auto_reconciliation_client_wizard,access_semi_auto_reconciliation_client_wizard,model_semi_auto_reconciliation_client_wizard,,1,0,0,0
+access_select_clients_wizard,access_select_clients_wizard,model_semi_auto_reconciliation_client_wizard,,1,0,1,0

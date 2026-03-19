@@ -1,0 +1,48 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_retail_product_tree" model="ir.ui.view">
+        <field name="name">retail.product.tree</field>
+        <field name="model">retail.product</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_tmpl_id"/>
+                <field name="store_id"/>
+                <field name="barcode"/>
+                <field name="warehouse_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_retail_product_form" model="ir.ui.view">
+        <field name="name">retail.product.form</field>
+        <field name="model">retail.product</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="product_tmpl_id"/>
+                    <field name="store_id"/>
+                    <field name="barcode"/>
+                    <field name="warehouse_id"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_retail_product" model="ir.actions.act_window">
+        <field name="name">Productos Retail</field>
+        <field name="res_model">retail.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Gestiona productos retail con almacenes y tiendas específicas.</p>
+        </field>
+    </record>
+
+    <!-- Menú principal directamente bajo "Inventario" -->
+    <menuitem id="menu_inventory_retail_product"
+              name="Productos Retail"
+              parent="stock.menu_stock_root"
+              action="action_retail_product"
+              sequence="30"/>
+</odoo>

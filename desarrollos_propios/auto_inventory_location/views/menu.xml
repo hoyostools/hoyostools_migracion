@@ -1,0 +1,16 @@
+<odoo>
+
+    <menuitem
+        id="menu_auto_location_records"
+        name="Panel de Ubicación"
+        parent="stock.menu_stock_procurement"
+        action="action_auto_location_records"/>
+
+    <menuitem
+        id="menu_auto_location_responsibles"
+        name="Responsables Panel Ubicación"
+        parent="stock.menu_stock_procurement"
+        action="action_auto_location_responsible"/>
+
+
+</odoo>

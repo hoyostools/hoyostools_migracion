@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_order_logistic_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree.logistic.sale.stock</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <tree js_class="button_in_tree" decoration-info="a_procesar == True" default_order="a_procesar desc"
+                      editable="bottom">
+                    <field name="name" string="Number" readonly="1" decoration-bf="1"/>
+                    <field name="servicio_logistico" string="Servicio Logístico"/>
+                    <field name="b4b"/>
+                    <field name="date_order" widget="date"/>
+                    <field name="commitment_date" optional="hide"/>
+                    <field name="expected_date" optional="hide"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="carrier_id" readonly="1"/>
+                    <field name="ciudad_destino" readonly="1"/>
+                    <field name="amount_total"/>
+                    <!--                    <field name="order_line" readonly="1" string="Items"/>-->
+                    <field name="numero_items" readonly="1"/>
+                    <field name="pricelist_id" readonly="1"/>
+                    <field name="problema"/>
+                    <field name="a_procesar" column_invisible="0"/>
+                    <field name="procesada" column_invisible="0"/>
+                    <field name="proceso_disponibilidad" widget="boolean_toggle"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_order_form_problem" model="ir.ui.view">
+            <field name="name">problem_order_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="problema"/>
+                    <field name="a_procesar"/>
+                    <field name="procesada"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_location_form_inherit" model="ir.ui.view">
+            <field name="name">stock.location.form.inherit</field>
+            <field name="model">stock.location</field>
+            <field name="inherit_id" ref="stock.view_location_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='additional_info']" position="after">
+                    <group string="Holeadas">
+                        <field name="funcion"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_ids_without_package']//tree//field[@name='product_packaging_id']"
+                       position="after">
+                    <field name="reportar_error"/>
+                    <field name="encargado_picking"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_stock_quant_tree_inherit">
+            <field name="name">stock.move.line.form.inherit</field>
+            <field name="model">stock.move.line</field>
+            <field name="inherit_id" ref="stock_barcode.stock_move_line_product_selector"></field>
+            <field name="arch" type="xml">
+                <xpath expr="//div[7]" position="after">
+                    <div class="row" groups="stock.group_tracking_owner">
+                        <div class="col-12 col-md-6 my-2 d-flex align-items-baseline">
+                            <i class="fa fa-fw fa-lg fa-paste text-center me-3" title="Error"/>
+                            <field name="reportar_error" placeholder="Sin errores en Picking"/>
+                        </div>
+                        <div class="col-12 col-md-6 my-2 d-flex align-items-baseline">
+                            <i class="fa fa-fw fa-lg fa-user-o text-center me-3" title="Encargado picking"/>
+                            <field name="encargado_picking" placeholder="Encargado picking"/>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_filter_logistic_form" model="ir.ui.view">
+            <field name="name">filter.order.form.logistic.filter</field>
+            <field name="model">filter.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="almacen" create="False" string="Almacén" widget="many2one_tags" required="1"
+                                   options="{'no_create': True}"/>
+                            <field name="tipo_planeacion" string="Tipo de Planeación" invisible="not mostrar_tipo"/>
+                            <field name="metodo_envio" create="False" widget="many2many_tags"
+                                   options="{'no_create': True}"
+                            />
+                            <field name="termino_pago" create="False" widget="many2many_tags"
+                                   options="{'no_create': True}"
+                            />
+                            <field name="cliente" create="False" widget="many2many_tags" options="{'no_create': True}"
+                            />
+                            <field name="ciudad" create="False" widget="many2many_tags" options="{'no_create': True}"
+                            />
+                        </group>
+                        <label for="fecha_orden">
+                            Fecha y Hora
+                        </label>
+                        <field name="fecha_orden_mayor"
+                               invisible=" parametro_fecha_orden != 'entre'" placeholder="Fecha"/>
+                        <field name="parametro_fecha_orden"
+                        />
+                        <field name="fecha_orden" placeholder="Fecha"/>
+                        <br/>
+                        <label for="fecha_entrega">
+                            Fecha y Hora de la Entrega
+                        </label>
+                        <field name="fecha_entrega_mayor"
+                               invisible=" parametro_fecha_entrega != 'entre'" placeholder="Fecha entrega"/>
+                        <field name="parametro_fecha_entrega"
+                        />
+                        <field name="fecha_entrega" placeholder="Fecha"/>
+                        <br/>
+                        <group>
+                            <field name="mostrar_tipo" invisible="1"/>
+                            <field name="servicio_logistico"
+                            />
+                            <field name="b4b"/>
+                            <field name="num_turbo"
+                            />
+                            <field name="num_ordenes"/>
+                        </group>
+                        <label for="parametro_items">
+                            No Items
+                        </label>
+                        <field name="items_mayor"
+                               invisible=" parametro_items != 'entre'"/>
+                        <field name="parametro_items"
+                        />
+                        <field name="items"/>
+                        <br/>
+                        <label for="parametro_total">
+                            Total
+                        </label>
+                        <field name="total_mayor"
+                               invisible=" parametro_total != 'entre'"/>
+                        <field name="parametro_total"
+                        />
+                        <field name="total"/>
+                    </sheet>
+                    <footer>
+                        <button name="ejecutar_accion" string="Ver Tablero"
+                                class="btn btn-success"
+                                invisible="tipo_planeacion == 'automatico' or not tipo_planeacion"
+                                type="object"/>
+                        <button name="planear"
+                                string="Planear" class="btn btn-warning"
+                                invisible="tipo_planeacion != 'automatico'"
+                                type="object"/>
+                        <button string="Cancelar" special="cancel" class="btn btn-secondary" type="action"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sale_motacargas_tree" model="ir.ui.view">
+            <field name="name">sale.montacargas.tree</field>
+            <field name="model">sale.montacargas</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="user_id" string="Montacarguista" readonly="1" decoration-bf="1"/>
+                    <field name="activo" string="Activo"/>
+                    <field name="asignaciones" string="Asignaciones"/>
+                    <field name="funcion" string="Función"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sale_motacargas_form" model="ir.ui.view">
+            <field name="name">sale.montacargas.form</field>
+            <field name="model">sale.montacargas</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="user_id" string="Montacarguista" required="True"/>
+                            <field name="activo" string="Activo"/>
+                        </group>
+                        <group>
+                            <field name="funcion" string="Función" required="True"/>
+                            <field name="asignaciones" string="Asignaciones"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wave_zonas_kanban" model="ir.ui.view">
+            <field name="name">wave.zonas.kanban</field>
+            <field name="model">wave.zonas</field>
+            <field name="arch" type="xml">
+                <kanban string="Tablero Zonas" class="o_kanban_mobile">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card" style="text-align: center;">
+                                <div class="o_kanban_card_content">
+                                    <field name="name" readonly="1"/>
+                                    <field name="ocupado" widget="boolean_toggle"/>
+                                    <field name="nombre" display="full"/>
+                                    <field name="orden" display="full"/>
+                                    <field name="write_uid" display="full"/>
+                                    <field name="metodo_de_envio" display="full"/>
+                                    <field name="write_date" display="full"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="wave_zonas_tree" model="ir.ui.view">
+            <field name="name">wave.zonas.tree</field>
+            <field name="model">wave.zonas</field>
+            <field name="arch" type="xml">
+                <tree string="Tablero Zonas">
+                    <field name="name"/>
+                    <field name="ocupado"/>
+                    <field name="orden"/>
+                    <field name="write_uid"/>
+                    <field name="metodo_de_envio"/>
+                    <field name="write_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="wave_almacenes_tree" model="ir.ui.view">
+            <field name="name">wave.almacenes.tree</field>
+            <field name="model">wave.almacenes</field>
+            <field name="arch" type="xml">
+                <tree string="Tablero Zonas" editable="bottom">
+                    <field name="almacen"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="vpicktree_inherit_stock_picking_priority" model="ir.ui.view">
+            <field name="name">stock.picking.tree.priority</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <tree position="attributes">
+                    <attribute name="default_order">prioridad_real desc</attribute>
+                </tree>
+                <field name='picking_type_id' position="after">
+                    <field name="prioridad" column_invisible="1"/>
+                    <field name="prioridad_real"/>
+                    <field name="metodo_envio"/>
+                    <field name="valor_orden"/>
+                    <field name="cantidad_items"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="batch_inherit_stock_picking_batch" model="ir.ui.view">
+            <field name="name">stock.picking.batch.tree</field>
+            <field name="model">stock.picking.batch</field>
+            <field name="inherit_id" ref="stock_picking_batch.stock_picking_wave_tree"/>
+            <field name="arch" type="xml">
+                <field name='state' position="after">
+                    <field name="numero_ordenes_real"/>
+                    <field name="cantidad_items"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="action_wave_zonas" model="ir.actions.act_window">
+            <field name="name">Tablero zonas</field>
+            <field name="res_model">wave.zonas</field>
+            <field name="view_id" ref="wave_zonas_kanban"/>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record id="action_sale_motacargas" model="ir.actions.act_window">
+            <field name="name">Configurar usuarios</field>
+            <field name="res_model">sale.montacargas</field>
+            <field name="view_id" ref="view_sale_motacargas_tree"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="wave_warehouse" model="ir.actions.act_window">
+            <field name="name">Almacenes</field>
+            <field name="res_model">wave.almacenes</field>
+            <field name="view_id" ref="wave_almacenes_tree"/>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <record id="view_delivery_carrier_form_inherit_type" model="ir.ui.view">
+            <field name="name">delivery.carrier.form.inherit.type</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="tipo"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="disponibility_process">
+            <field name="name">Procesar Disponibilidad</field>
+            <field name="model_id" ref="model_sale_order"/>
+            <field name="binding_model_id" eval="False"/>
+            <field name="binding_view_types" eval="False"/>
+            <field name="state">code</field>
+            <field name="code">
+                action = model.calculate_problem()
+            </field>
+        </record>
+
+        <record id="wave_productivity" model="ir.actions.client">
+            <field name="name">Tablero de Productividad</field>
+            <field name="tag">productivity_dashboard_template</field>
+        </record>
+
+        <menuitem
+                id="stock_picking_logistic_menu"
+                parent="stock.menu_stock_root" sequence="3"
+                name="Planeación Logística"/>
+        <menuitem
+                action="action_sale_motacargas"
+                id="menu_sale_motacargas"
+                parent="stock_picking_logistic_menu" sequence="3"
+                name="Usuarios y funciones"/>
+        <menuitem
+                action="action_wave_zonas"
+                id="menu_wave_zonas"
+                parent="stock_picking_logistic_menu" sequence="1"
+                name="Tablero Zonas"/>
+        <menuitem
+                action="disponibility_process"
+                id="planeation_sale_order"
+                parent="stock_picking_logistic_menu" sequence="0"
+                name="Tablero Planeación"/>
+        <menuitem
+                action="wave_warehouse"
+                id="warehouse_sale_order"
+                parent="stock_picking_logistic_menu" sequence="2"
+                name="Almacenes"/>
+        <menuitem
+                action="wave_productivity"
+                id="productivity_dashboard"
+                parent="stock_picking_logistic_menu" sequence="4"
+                name="Tablero de productividad"/>
+
+        <record id="action_picking_tree_wave" model="ir.actions.act_window">
+            <field name="name">Wave Transfers</field>
+            <field name="res_model">stock.picking.batch</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="context">{'search_default_draft': True, 'search_default_in_progress': True}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('stock_picking_batch.stock_picking_wave_tree')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('stock_picking_batch.stock_picking_wave_kanban')})]"/>
+            <field name="domain">[('is_wave', '=', True),('mostrar','=',True)]</field>
+            <field name="search_view_id" ref="stock_picking_batch.stock_picking_batch_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new wave transfer
+                </p>
+                <p>
+                    The goal of the wave transfer is to group operations from different transfer
+                    together in order to increase their efficiency.
+                    It may also be useful to assign jobs (one person = one batch) or
+                    help the timing management of operations (tasks to be done at 1pm).
+                </p>
+            </field>
+        </record>
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.dashboard</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="stock.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//app[@name='stock']" position="inside">
+                    <block title="Tablero de Gestión">
+                        <setting string="Mostrar opción semiautomática en tablero planeación:">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label string="Mostrar semiautomático"
+                                           for="mostrar_semiautomatico"/>
+                                    <field name="mostrar_semiautomatico"/>
+                                </div>
+                            </div>
+                        </setting>
+                        <setting string="Controlar desface de operaciones INT en tablero?">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label string="Controlar desface"
+                                           for="controlar_desface"/>
+                                    <field name="controlar_desface"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="stock_warehouse_form_inherit" model="ir.ui.view">
+            <field name="name">stock.warehouse.form.inherit.holeadas</field>
+            <field name="model">stock.warehouse</field>
+            <field name="inherit_id" ref="stock.view_warehouse"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form/sheet/notebook/page[1]/group[1]" position="after">
+                    <group string="Funciones a ejecutar automaticas">
+                        <field name="oleada_pos" widget="boolean_toggle"/>
+                        <field name="piso" widget="boolean_toggle"/>
+                        <field name="pasillo" widget="boolean_toggle"/>
+                        <field name="turbo" widget="boolean_toggle"/>
+                        <field name="mkp" widget="boolean_toggle"/>
+                        <field name="flex" widget="boolean_toggle"/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="stock_location_route_view_form_inherit_stock_delivery" model="ir.ui.view">
+            <field name="name">stock.route.form</field>
+            <field name="model">stock.route</field>
+            <field name="inherit_id" ref="stock.stock_location_route_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='route_selector']/group" position="inside">
+                    <field name="oleada_pos" string="Oleada en PTV"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

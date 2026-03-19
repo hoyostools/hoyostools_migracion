@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_product_proyection_stock_account">
+            <field name="name">product.product.proyection.stock.account</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_product_stock_tree"/>
+            <field name="arch" type="xml">
+                <field name="qty_available" position="before">
+                    <field name="promedio_consumo" column_invisible="1"/>
+                    <field name="free_qty" column_invisible="1"/>
+                    <field name="proyeccion_inventario" optional="show" readonly="1"/>
+                    <field name="inventory_projection" optional="show" readonly="1"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="product_product_stock_tree_inherit_stock_account">
+            <field name="name">product.product.stock.tree.inherit.stock.account</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_product_stock_tree"/>
+            <field name="arch" type="xml">
+                <field name="outgoing_qty" position="after">
+                    <field name="responsible_id" optional="show" groupby="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_product_product_search" model="ir.ui.view">
+            <field name="name">product.product.search</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_search_form_view_stock_report"/>
+            <field name="arch" type="xml">
+                <filter name="categ_id" position="after">
+                    <group>
+                        <field name="responsible_id"/>
+                    </group>
+                    <group expand="0" string="Group By" name="group_by">
+                        <filter
+                                name="responsible_id"
+                                string="Responsable"
+                                context="{'group_by': 'responsible_id'}"
+                        />
+                    </group>
+                </filter>
+            </field>
+        </record>
+    </data>
+</odoo>

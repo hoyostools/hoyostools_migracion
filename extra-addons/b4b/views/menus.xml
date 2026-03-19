@@ -1,0 +1,7 @@
+<odoo>
+    <data>
+        <menuitem id="b4b_menu" name="Servicio logístico" parent="sale.sale_menu_root" sequence="10"/>
+        <menuitem id="b4b_sale_order_menu" name="Lista de órdenes" parent="b4b.b4b_menu" sequence="1"
+                  action="b4b.action_b4b_sale_order"/>
+    </data>
+</odoo>

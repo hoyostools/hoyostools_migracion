@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo noupdate="1">
+    <record model="ir.actions.server" id="ir_server_inventory_projection">
+        <field name="name">Calcular proyección</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_stock_warehouse_orderpoint"/>
+        <field name="binding_model_id" ref="model_stock_warehouse_orderpoint"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = record._compute_inventory_projection()
+        </field>
+    </record>
+    <record model="ir.actions.server" id="ir_server_proyeccion_inventario">
+        <field name="name">Calcular proyección</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_product_product"/>
+        <field name="binding_model_id" ref="model_product_product"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = record.calcular_proyeccion_inventario()
+        </field>
+    </record>
+</odoo>

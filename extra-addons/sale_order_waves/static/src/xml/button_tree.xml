@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+   <t t-name="sale_ListView_Buttons" t-inherit="web.ListView.Buttons">
+       <xpath expr="//div[hasclass('o_list_buttons')]" position="after">
+           <button type="button" class="btn btn-outline-dark" title="Función Pasillo" t-on-click="pasillo">
+               Pasillo
+           </button>
+           <button type="button" class="btn btn-outline-dark" title="Función Pasillo" t-on-click="piso">
+               Piso
+           </button>
+           <button type="button" class="btn btn-outline-dark" title="Función Turbo" t-on-click="turbo">
+               Turbo
+           </button>
+           <button type="button" class="btn btn-outline-dark" title="Función Flex" t-on-click="flex">
+               Flex
+           </button>
+           <button type="button" class="btn btn-outline-dark" title="Función MKP" t-on-click="mkp">
+               MKP
+           </button>
+       </xpath>
+   </t>
+</templates>

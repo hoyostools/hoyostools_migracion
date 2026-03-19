@@ -1,0 +1,15 @@
+<odoo>
+    <record id="b4b_sale_order_form_view_inherit" model="ir.ui.view">
+        <field name="name">b4b.sale.order.form.view.inherit</field>
+        <field name="model">b4b.sale.order</field>
+        <field name="inherit_id" ref="b4b.b4b_sale_order_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='notes']" position="after">
+                <field name="guia_url"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

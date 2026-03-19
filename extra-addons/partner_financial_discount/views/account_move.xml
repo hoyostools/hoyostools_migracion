@@ -1,0 +1,58 @@
+<odoo>
+  <data>
+
+    <record id="extra_importaciones.view_move_form" model="ir.ui.view">
+        <field name="name">campos.dispartes.view.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='header_right_group']" position="inside">
+                <field name="fecha_bl"/>
+                <field name="tasa_FW"/>
+                <field name="fecha_vencimiento_FW"/>
+                <field name="financial_discount_percentage"/>
+                <field name="maximum_date_financial_discount" readonly="1"/>
+                <field name="financial_discount_deadline" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="extra_importaciones.view_in_invoice_tree" model="ir.ui.view">
+        <field name="name">campos.dispartes.view.in.invoice.tree</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_in_invoice_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='invoice_date_due']" position="after">
+                <field name="fecha_bl" optional="show"/>
+                <field name="tasa_FW" optional="show"/>
+                <field name="fecha_vencimiento_FW" optional="show"/>
+                <field name="fecha_vencimiento_FW_due" widget="remaining_days" optional="hide"/>
+                <field name="financial_discount_percentage" optional="show"/>
+                <field name="financial_discount_deadline" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_account_move_filter" model="ir.ui.view">
+        <field name="name">account.move.filter</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <field name="line_ids" position="after">
+                <field name="financial_discount_percentage"/>
+                <field name="financial_discount_deadline"/>
+            </field>
+            <filter name="due_date" position="after">
+                <separator />
+                <filter name="financial_discount_percentage" string="% Descuento" domain="[('financial_discount_percentage','>','0')]"/>
+                <filter name="financial_discount_deadline" string="Fecha limite Descuento" date="financial_discount_deadline"/>
+            </filter>
+            <filter name="group_by_sequence_prefix" position="after">
+                <separator />
+                <filter name="financial_discount_percentage" string="% Descuento Financiero" context="{'group_by': 'financial_discount_percentage'}"/>
+                <filter name="financial_discount_deadline" string="Fecha limite Descuento" context="{'group_by': 'financial_discount_deadline'}"/>
+                <separator />
+            </filter>
+        </field>
+    </record>
+  </data>
+</odoo>

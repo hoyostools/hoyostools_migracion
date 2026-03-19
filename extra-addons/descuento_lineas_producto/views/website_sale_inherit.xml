@@ -1,0 +1,16 @@
+<odoo>
+    <template id="product_inherit_discount_message" inherit_id="website_sale.product">
+        <xpath expr="//t[@t-call='website_sale.product_price']"  position="after">
+            <t t-if="not request.env.user._is_public() and product.valor_a != 0 and product.valor_b != 0 and product.applicable_web">
+                <div class="o_discount_message">
+                    <p style="font-weight: bold; color: red;">
+                        Compra de <t t-esc="int(product.valor_b)"/> a <t t-esc="int(product.valor_a)"/> y obtén un <t t-esc="product.descuento_rango"/>% de descuento.<br/>
+                        <t t-if="product.descuento_mayor != 0">
+                            Compra mas de <t t-esc="int(product.valor_a)"/> y obtén un <t t-esc="product.descuento_mayor"/>% de descuento.
+                        </t>
+                    </p>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

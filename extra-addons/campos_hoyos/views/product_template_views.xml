@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_extend_fields_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.extend.fields.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='allow_negative_stock']" position="after">
+                    <field name="not_send_dispatch" widget="boolean_toggle" />
+                </xpath>
+
+                <xpath expr="//field[@name='alternative_product_ids']" position="after">
+                    <field name="commission" />
+                </xpath>
+
+                <xpath expr="//field[@name='not_send_dispatch']" position="after">
+                    <field name="auction" widget="boolean_toggle"/>
+                </xpath>
+
+                <xpath expr="//page[@name='purchase']/group[1]" position="inside">
+                    <field string="Prom. Consumo" name="promedio_consumo"/>
+                </xpath>
+
+                <xpath expr="//field[@name='commission']" position="after">
+                    <field name="ranking"/>
+                </xpath>
+
+                <xpath expr="//field[@name='commission']" position="after">
+                    <field name="ranking"/>
+                </xpath>
+
+                <xpath expr="//page[@name='general_information']/group/group/field[@name='uom_id']" position="before">
+                    <field name="cant_pack"/>
+                </xpath>
+
+                <xpath expr="//field[@name='average_retail']" position="after">
+                    <field name="stand_ptv"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_tree_view_campos_hoyos" model="ir.ui.view">
+            <field name="name">product.template.product.tree.campos.hoyos</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="standard_price" position="after">
+                    <field name="pricelist_additional_discount_id" column_invisible="1"/>
+                    <field name="additional_discount" column_invisible="1"/>
+                    <field name="list_price" column_invisible="1"/>
+                    <field name="descuento_mayor" column_invisible="1"/>
+                    <field name="standard_price" column_invisible="1"/>
+                    <field name="is_rentability_negative" column_invisible="1"/>
+                    <field name="extreme_rentability" decoration-bf="is_rentability_negative" decoration-danger="is_rentability_negative" optional="hide" force_save="1" digits="[3, 1]"/>
+                    <field name="product_variant_ids" column_invisible="1"/>
+                    <field name="proyeccion_inventario" optional="show"/>
+                    <field name="inventory_projection" optional="show"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_template_search_view_custom" model="ir.ui.view">
+            <field name="name">product.template.search.view.custom</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='consumable']" position="after">
+                    <field name="stand_ptv"/>
+                    <separator/>
+                    <filter name="stand_ptv" string="Stand Ptv" domain="[('stand_ptv','!=','')]"/>
+                </xpath>
+                <xpath expr="//group/filter[@name='categ_id']" position="after">
+                    <separator/>
+                    <filter name="stand_ptv" string="Stand Ptv" context="{'group_by':'stand_ptv'}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

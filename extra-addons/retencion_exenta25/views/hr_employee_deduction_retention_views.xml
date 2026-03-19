@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_employee_deduction_retention_tree_view">
+            <field name="name">hr.employee.deduction.retention.tree.view</field>
+            <field name="model">hr.employee.deduction.retention</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="concept_deduction_id" column_invisible="1"/>
+                    <field name="employee_id" required="1"/>
+                    <field name="year" required="1"/>
+                    <field name="month" required="1"/>
+                    <field name="result_calculation"/>
+                </tree>
+            </field>
+        </record>
+        <record id="hr_employee_deduction_retention_tree_view_filter" model="ir.ui.view">
+            <field name="name">hr.employee.deduction.retention.tree.view.filter</field>
+            <field name="model">hr.employee.deduction.retention</field>
+            <field name="arch" type="xml">
+                <search string="Buscar en acumulado">
+                    <field name="employee_id" string="Empleado" />
+                    <field name="year" string="Año" />
+                    <field name="month" string="Mes" />
+                </search>
+            </field>
+        </record>
+        <record id="hr_employee_deduction_retention_action_view" model="ir.actions.act_window">
+            <field name="name">Acumulados renta exenta 25%</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.employee.deduction.retention</field>
+            <field name="domain">[('concept_deduction_code', '=', 'RE_RENTA_EXENTA_O'), ('accum', '=', True)]</field>
+            <field name="context">{'acc_ret_ex_25': True}</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="hr_employee_deduction_retention_tree_view_filter"/>
+        </record>
+        <menuitem id="hr_employee_deduction_retention_menu_item"
+                  name="Acumulados renta exenta 25%"
+                  parent="hr_payroll.menu_hr_payroll_report"
+                  action="hr_employee_deduction_retention_action_view"/>
+    </data>
+</odoo>

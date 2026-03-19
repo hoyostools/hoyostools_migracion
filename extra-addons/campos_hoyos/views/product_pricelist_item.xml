@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="product_pricelist_item_tree_view_campos_hoyos" model="ir.ui.view">
+            <field name="name">product.pricelist.item.tree.campos.hoyos</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="inherit_id" ref="product.product_pricelist_item_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="price" position="after">
+                    <field name="compute_price" column_invisible="1"/>
+                    <field name="product_tmpl_id" column_invisible="1"/>
+                    <field name="fixed_price" column_invisible="1"/>
+                    <field name="rentability" column_invisible="1"/>
+                    <field name="is_rentability_negative" column_invisible="1"/>
+                    <field name="product_tmpl_standard_price" invisible="compute_price != 'fixed'" optional="hide" force_save="1" width="120px"/>
+                    <field name="rentability" decoration-bf="is_rentability_negative" decoration-danger="is_rentability_negative" optional="hide" force_save="1" width="120px" digits="[3, 2]" widget="percentage"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

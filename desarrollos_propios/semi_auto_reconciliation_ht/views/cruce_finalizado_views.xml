@@ -1,0 +1,97 @@
+<odoo>
+    <!-- Vista árbol -->
+    <record id="view_cruce_saldos_tree" model="ir.ui.view">
+        <field name="name">cruce.saldos.tree</field>
+        <field name="model">cruce.saldos</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="company_id"/>
+                <field name="date"/>
+                <field name="total_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista formulario -->
+    <record id="view_cruce_saldos_form" model="ir.ui.view">
+        <field name="name">cruce.saldos.form</field>
+        <field name="model">cruce.saldos</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="partner_id" readonly="1"/>
+                        <field name="company_id" readonly="1"/>
+                        <field name="date" readonly="1"/>
+                        <field name="total_amount" readonly="1"/>
+                    </group>
+
+                    <field name="move_id" invisible="1"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_account_move"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-book"
+                                string="Asiento Contable"/>
+                    </div>
+
+                    <notebook>
+                        <page string="Documentos Usados">
+                            <field name="line_ids" readonly="1">
+                                <tree>
+                                    <field name="invoice_number" string="Factura"/>
+                                    <field name="credit_note_number" string="Nota de Crédito"/>
+                                    <field name="payment_number" string="Pago"/>
+                                    <field name="amount_applied"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Apuntes Contables">
+                            <field name="move_line_ids" readonly="1">
+                                <tree>
+                                    <field name="move_line_id"/>
+                                    <field name="account_id"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_cruce_saldos" model="ir.actions.act_window">
+        <field name="name">Cruces Finalizados</field>
+        <field name="res_model">cruce.saldos</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Menú -->
+    <menuitem id="menu_cruce_saldos"
+            name="Cruces Finalizados"
+            parent="account.menu_finance_receivables"
+            action="action_cruce_saldos"
+            sequence="30"/>
+    
+    <record id="cruce_saldos_report_action" model="ir.actions.report">
+        <field name="name">Recibo de Cruce</field>
+        <field name="model">cruce.saldos</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">semi_auto_reconciliation_ht.report_cruce_saldos_document</field>
+        <field name="binding_model_id" ref="model_cruce_saldos"/>
+        <field name="binding_type">report</field>
+        <field name="print_report_name">'Cruce - %s' % object.name</field>
+    </record>
+
+</odoo>
+

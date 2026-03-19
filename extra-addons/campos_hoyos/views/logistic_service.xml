@@ -1,0 +1,37 @@
+<odoo>
+    <data>
+        <record id="logistic_service_page" model="ir.ui.view">
+            <field name="name">logistic.service.page</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook//page[3]" position="after">
+                    <page string="Servicio Logístico" name="servicio_logistico">
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="idOrden"/>
+                                    <field name="idb4b"/>
+                                    <field name="servicio_logistico"/>
+                                    <field name="nombre_logistico"/>
+                                    <field name="identificacion_logistico"/>
+                                    <field name="tipo_id_logistico"/>
+                                </group>
+                                <group>
+                                    <field name="address_logistica"/>
+                                    <field name="city_logistica"/>
+                                    <field name="state_logistico"/>
+                                    <field name="phone_logistico"/>
+                                    <field name="guia_url"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="notas_logisticas"/>
+                            </group>
+                        </sheet>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

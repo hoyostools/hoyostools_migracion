@@ -1,0 +1,28 @@
+{
+    'name': 'Costos Transportadora',
+    'version': '17.0.1.7.0',
+    'summary': 'Agrega campos de costos Envia y Transprensa en ciudades',
+    'author': 'Distribuciones Hoyostools',
+    'category': 'Localization',
+    'license': 'LGPL-3',
+    'depends': [
+        'base',
+        # 'l10n_co_location',
+        # 'th360_erp',
+        'sale',
+        'stock',
+        'sale_stock',
+        'contacts',
+        'base_address_extended',
+    ],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/res_config_settings_views.xml',
+        'views/transportadora_views.xml',
+        'views/res_city_views.xml',
+        'views/sale_order_views.xml',
+        'views/stock_picking_views.xml',
+    ],
+    'installable': True,
+    'application': False,
+}
