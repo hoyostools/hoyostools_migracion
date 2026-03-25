@@ -27,7 +27,6 @@ class ProductTemplate(models.Model):
         else:
             records = self.env["auto.location.record"].search([
                 ("product_id", "=", product.id),
-                ("liberado", "=", True)
             ])
             records.write({
                 "sin_regla": True,
