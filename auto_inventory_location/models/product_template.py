@@ -7,7 +7,7 @@ class ProductTemplate(models.Model):
     def _compute_ubicacion_reab(self):
         res = super()._compute_ubicacion_reab()
         for record in self:
-            record._onchange_reab
+            record._onchange_reab()
         return res
 
     @api.onchange('ubicacion_reab')
