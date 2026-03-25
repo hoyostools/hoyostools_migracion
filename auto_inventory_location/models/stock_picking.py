@@ -42,7 +42,7 @@ class StockPicking(models.Model):
 
                 if orderpoint:
 
-                    dest =  product.ubicacion_reab
+                    dest =  product.ubicacion_reab or sin_regla_location
                     if not product.ubicacion_reab or product.ubicacion_reab.complete_name == 'CLH/Existencias/U05/Pasillo 01/Sin Regla Abastecer U05':
                         record_vals.update({
                             "sin_regla": True,
