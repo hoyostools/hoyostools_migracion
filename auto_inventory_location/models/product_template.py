@@ -4,6 +4,12 @@ from odoo import models, fields, api
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
+    def write(self, vals):
+        res = super().write(vals)
+        if 'ubicacion_reab' in vals:
+            self._onchange_reab()
+        return res
+
     @api.onchange('ubicacion_reab')
     @api.depends('ubicacion_reab')
     def _onchange_reab(self):
