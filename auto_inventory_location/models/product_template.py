@@ -29,6 +29,6 @@ class ProductTemplate(models.Model):
                 ("sin_regla", "=", True)
             ])
             records.write({
-                "sin_regla": False,
-                "liberado": True
+                "sin_regla": True,
+                "liberado": False
             })
