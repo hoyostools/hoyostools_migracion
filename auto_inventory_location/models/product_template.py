@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
     @api.constrains('ubicacion_reab')
     def _onchange_reab(self):
         product = self.env['product.product'].search([('product_tmpl_id', '=', self.product_variant_id.id)])
-        if not self.ubicacion_reab or self.ubicacion_reab.complete_name != 'CLH/Existencias/U05/Pasillo 01/Sin Regla Abastecer U05':
+        if self.ubicacion_reab and self.ubicacion_reab.complete_name != 'CLH/Existencias/U05/Pasillo 01/Sin Regla Abastecer U05':
             records = self.env["auto.location.record"].search([
                 ("product_id", "=", product.id),
                 ("sin_regla", "=", True)
