@@ -12,6 +12,7 @@ class AutoLocationRecord(models.Model):
     purchase_id = fields.Many2one("purchase.order")
 
     location_id = fields.Many2one("stock.location")
+    move_id = fields.Many2one("stock.move")
     product_max_qty = fields.Float()
 
     fecha_llegada = fields.Datetime()
@@ -79,6 +80,12 @@ class AutoLocationRecord(models.Model):
             rec.cantidad_pendiente = rec.cantidad_recibida - rec.cantidad_ubicada
             if rec.cantidad_pendiente < 0:
                 rec.cantidad_pendiente = 0
+
+    @api.depends("move_id.state")
+    def _compute_pendiente(self):
+        for rec in self:
+            if rec.move_id.state == 'done':
+                rec.cantidad_ubicada = rec.move_id.quantity
 
     # -------------------------
     # PORCENTAJE LLENADO

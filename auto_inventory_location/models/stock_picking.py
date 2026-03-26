@@ -68,7 +68,7 @@ class StockPicking(models.Model):
                         ("name", "=", picking.origin)
                     ], limit=1)
 
-                    self.env["stock.move"].create({
+                    move = self.env["stock.move"].create({
                         "name": product.name,
                         "product_id": product.id,
                         "product_uom_qty": qty,
@@ -86,6 +86,7 @@ class StockPicking(models.Model):
 
                     record_vals.update({
                         "cantidad_pendiente": qty,
+                        "move_id": move.id,
                         "location_id": dest.id,
                         "product_max_qty": orderpoint.product_max_qty,
                         "purchase_id": purchase.id,
