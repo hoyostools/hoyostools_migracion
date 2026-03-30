@@ -200,7 +200,7 @@ export class OwlInformDashboard extends Component {
 
         if (fechaInicio && fechaFin)
         {
-        var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true]]);
+        var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true],['funcion','not in', ['piso01','piso02','piso03','piso04','piso05']]]);
         const datos_empleados_selection = await this.orm.read('sale.montacargas', empleados ,['image_1920', 'user_id', 'id','funcion',]);
         const empleadosSelection = Object.values(
             datos_empleados_selection.reduce((acc, empleado) => {
@@ -249,7 +249,7 @@ export class OwlInformDashboard extends Component {
         this.state.cumplimiento = Math.round((this.state.ordenes_procesadas/this.state.ordenes)*100);
         this.state.cumplimiento_productos = Math.round((this.state.productos_ordenes_procesadas/this.state.productos_ordenes)*100);
         this.state.cumplimiento_valor = Math.round((this.state.sumar_ordenes_procesadas/this.state.sumar_ordenes)*100);
-        this.state.cumplimiento_porcentajes = Math.round(this.state.cumplimiento+this.state.cumplimiento_productos+this.state.cumplimiento_valor/3);
+        this.state.cumplimiento_porcentajes = Math.round((this.state.cumplimiento+this.state.cumplimiento_productos+this.state.cumplimiento_valor)/3);
 
         // Formatear los valores antes de asignarlos al estado
         this.state.sumar_ordenes = numberFormatter.format(sumar_ordenes);
@@ -304,7 +304,7 @@ export class OwlInformDashboard extends Component {
         }
         else{
 
-        var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true]]);
+        var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true],['funcion','not in', ['piso01','piso02','piso03','piso04','piso05']]]);
         const datos_empleados_selection = await this.orm.read('sale.montacargas', empleados ,['image_1920', 'user_id', 'id','funcion',]);
         const empleadosSelection = Object.values(
             datos_empleados_selection.reduce((acc, empleado) => {
@@ -427,7 +427,7 @@ export class OwlInformDashboard extends Component {
             });
             if (fechaInicio && fechaFin)
             {
-            var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true]]);
+            var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true], ['funcion','not in', ['piso01','piso02','piso03','piso04','piso05']]]);
             const datos_empleados_selection = await this.orm.read('sale.montacargas', empleados ,['image_1920', 'user_id', 'id','funcion',]);
             const empleadosSelection = Object.values(
                 datos_empleados_selection.reduce((acc, empleado) => {
@@ -476,7 +476,7 @@ export class OwlInformDashboard extends Component {
             this.state.cumplimiento = Math.round((this.state.ordenes_procesadas/this.state.ordenes)*100);
             this.state.cumplimiento_productos = Math.round((this.state.productos_ordenes_procesadas/this.state.productos_ordenes)*100);
             this.state.cumplimiento_valor = Math.round((this.state.sumar_ordenes_procesadas/this.state.sumar_ordenes)*100);
-            this.state.cumplimiento_porcentajes = Math.round(this.state.cumplimiento+this.state.cumplimiento_productos+this.state.cumplimiento_valor/3);
+            this.state.cumplimiento_porcentajes = Math.round((this.state.cumplimiento+this.state.cumplimiento_productos+this.state.cumplimiento_valor)/3);
 
             // Formatear los valores antes de asignarlos al estado
             this.state.sumar_ordenes = numberFormatter.format(sumar_ordenes);
@@ -531,7 +531,7 @@ export class OwlInformDashboard extends Component {
             }
             else{
 
-            var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true]]);
+            var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true], ['funcion','not in', ['piso01','piso02','piso03','piso04','piso05']]]);
             const datos_empleados_selection = await this.orm.read('sale.montacargas', empleados ,['image_1920', 'user_id', 'id','funcion',]);
             const empleadosSelection = Object.values(
                 datos_empleados_selection.reduce((acc, empleado) => {
@@ -579,7 +579,7 @@ export class OwlInformDashboard extends Component {
             this.state.cumplimiento = Math.round((this.state.ordenes_procesadas/this.state.ordenes)*100);
             this.state.cumplimiento_productos = Math.round((this.state.productos_ordenes_procesadas/this.state.productos_ordenes)*100);
             this.state.cumplimiento_valor = Math.round((this.state.sumar_ordenes_procesadas/this.state.sumar_ordenes)*100);
-            this.state.cumplimiento_porcentajes = Math.round(this.state.cumplimiento+this.state.cumplimiento_productos+this.state.cumplimiento_valor/3);
+            this.state.cumplimiento_porcentajes = Math.round((this.state.cumplimiento+this.state.cumplimiento_productos+this.state.cumplimiento_valor)/3);
 
             // Formatear los valores antes de asignarlos al estado
             this.state.sumar_ordenes = numberFormatter.format(sumar_ordenes);
@@ -640,14 +640,14 @@ export class OwlInformDashboard extends Component {
         }
 
     }
-    
+
     formatTimeFloat(floatNumber) {
             const hours = Math.floor(floatNumber); // Parte entera (horas)
             const minutes = Math.round((floatNumber - hours) * 60); // Parte decimal convertida a minutos
-        
+
             // Aseguramos que los minutos siempre tengan dos dígitos
             const formattedMinutes = minutes.toString().padStart(2, '0');
-            
+
             return `${hours}:${formattedMinutes}`;
         }
 
@@ -669,9 +669,9 @@ export class OwlInformDashboard extends Component {
 
         let empleados;
         if (id[0] !== 'todos') {
-            empleados = await this.orm.search('sale.montacargas', [['activo', '=', true], ['id', 'in', id]]);
+            empleados = await this.orm.search('sale.montacargas', [['activo', '=', true], ['id', 'in', id],['funcion','not in', ['piso01','piso02','piso03','piso04','piso05']]]);
         } else {
-            empleados = await this.orm.search('sale.montacargas', [['activo', '=', true]]);
+            empleados = await this.orm.search('sale.montacargas', [['activo', '=', true],['funcion','not in', ['piso01','piso02','piso03','piso04','piso05']]]);
         }
 
         const datos_empleados = await this.orm.read('sale.montacargas', empleados, ['image_1920', 'user_id', 'id', 'funcion']);
@@ -733,9 +733,9 @@ export class OwlInformDashboard extends Component {
 
             let empleados;
             if (id[0] !== 'todos') {
-                empleados = await this.orm.search('sale.montacargas', [['activo', '=', true], ['id', 'in', id]]);
+                empleados = await this.orm.search('sale.montacargas', [['activo', '=', true], ['funcion','not in', ['piso01','piso02','piso03','piso04','piso05']], ['id', 'in', id]]);
             } else {
-                empleados = await this.orm.search('sale.montacargas', [['activo', '=', true]]);
+                empleados = await this.orm.search('sale.montacargas', [['activo', '=', true], ['funcion','not in', ['piso01','piso02','piso03','piso04','piso05']]]);
             }
 
             const datos_empleados = await this.orm.read('sale.montacargas', empleados, ['image_1920', 'user_id', 'id', 'funcion']);
@@ -803,7 +803,7 @@ export class OwlInformDashboard extends Component {
             maximumFractionDigits: 0,
         });
 
-        var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true]]);
+        var empleados = await this.orm.search('sale.montacargas', [['activo', '=', true],['funcion','not in', ['piso01','piso02','piso03','piso04','piso05']]]);
         const datos_empleados_selection = await this.orm.read('sale.montacargas', empleados ,['image_1920', 'user_id', 'id','funcion',]);
         const empleadosSelection = Object.values(
             datos_empleados_selection.reduce((acc, empleado) => {
@@ -859,7 +859,7 @@ export class OwlInformDashboard extends Component {
         this.state.cumplimiento = Math.round((this.state.ordenes_procesadas/this.state.ordenes)*100);
         this.state.cumplimiento_productos = Math.round((this.state.productos_ordenes_procesadas/this.state.productos_ordenes)*100);
         this.state.cumplimiento_valor = Math.round((this.state.sumar_ordenes_procesadas/this.state.sumar_ordenes)*100);
-        this.state.cumplimiento_porcentajes = Math.round(this.state.cumplimiento+this.state.cumplimiento_productos+this.state.cumplimiento_valor/3);
+        this.state.cumplimiento_porcentajes = Math.round((this.state.cumplimiento+this.state.cumplimiento_productos+this.state.cumplimiento_valor)/3);
 
         // Formatear los valores antes de asignarlos al estado
         this.state.sumar_ordenes = numberFormatter.format(sumar_ordenes);
@@ -897,15 +897,43 @@ export class OwlInformDashboard extends Component {
         ]);
 
         const data = empleados.map(empleado => {
-            // Validamos si user_id[1] existe y es una cadena
-            const category = typeof empleado.user_id[1] === "string"
+
+            const category = typeof empleado.user_id?.[1] === "string"
                 ? empleado.user_id[1].split(" ").slice(0, 2).join(" ")
-                : "Sin nombre"; // Valor por defecto en caso de que no sea válido
+                : "Sin nombre";
+
+
+            const cumplimiento_docs = empleado.cumplimiento || 0;
+
+            const cumplimiento_productos =
+                empleado.productos > 0
+                    ? Math.round(
+                        (empleado.productos_procesado / empleado.productos) * 100
+                      )
+                    : 0;
+
+            const cumplimiento_valor =
+                empleado.valor_real > 0
+                    ? Math.round(
+                        (empleado.valor_procesado_real / empleado.valor_real) * 100
+                      )
+                    : 0;
+
+
+            const cumplimiento_promedio = Math.round(
+                (
+                    cumplimiento_docs +
+                    cumplimiento_productos +
+                    cumplimiento_valor
+                ) / 3
+            );
+
 
             return {
                 category: category,
-                value: empleado.cumplimiento || 0 // Aseguramos un valor por defecto para 'cumplimiento'
+                value: cumplimiento_promedio
             };
+
         });
 
         root.setThemes([

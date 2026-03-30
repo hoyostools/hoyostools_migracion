@@ -12,7 +12,7 @@ class StockPickingBatch(models.Model):
 
     def actualizar_campos_ordenes(self):
         for p in self:
-            origins = set(p.picking_ids.mapped('origin'))
+            origins = set(p.picking_ids.sale_id)
             p.numero_ordenes = len(origins)
             p.numero_ordenes_real = len(origins)
             p.cantidad_items = len(p.picking_ids)

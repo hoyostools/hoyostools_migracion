@@ -110,155 +110,159 @@ class StockPicking(models.Model):
 
         return hora_primera_orden, hora_ultima_orden
 
-    def calcular_cumplimiento(self, usuario):
+    def calcular_cumplimiento(self, usuario_data):
 
-        ordenes = 0
-        cumplimiento = 0
+        if not usuario_data:
+            return (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, False, False, 0)
+
+        user_id = usuario_data[0]
         fecha_inicio = False
         fecha_fin = False
-        if len(usuario) > 1:
-            fecha_fin = usuario[2]
-            fecha_inicio = usuario[1]
-            usuario = [usuario[0]]
 
-        motacarguistas = self.env['sale.montacargas'].browse(usuario)
-        pickings = self.env['stock.picking'].search([('user_id', 'in', usuario)])
-        pickings_hechos = self.env['stock.picking'].search([('state', '=', 'done'),('user_id', 'in', usuario)])
-        pickings_en_proceso = self.env['stock.picking'].search([('state', 'not in', ['done', 'draft']),('user_id', 'in', usuario)])
-        ordenes = self.env['stock.picking.batch'].search([('user_id', 'in', usuario),('picking_id', 'in', pickings)])
-        ordenes_hechas = self.env['stock.picking.batch'].search([('user_id', 'in', usuario),('state', '=', 'done'),('picking_id', 'in', pickings)])
-        ordenes_en_proceso = self.env['stock.picking.batch'].search([('user_id', 'in', usuario),('state', 'not in', ['done', 'draft']),('picking_id', 'in', pickings)])
+        if len(usuario_data) > 1:
+            fecha_inicio = usuario_data[1]
 
-        if motacarguistas:
-            funcion = motacarguistas.funcion
-            usuario = motacarguistas.user_id.id
-            if 'pasillo' in funcion:
-                if fecha_fin and fecha_inicio:
-                    ordenes = self.env['sale.order'].search(
-                        [('date_order', '>=', fecha_inicio), ('date_order', '<=', fecha_fin),
-                         ('picking_ids', 'in', pickings.ids)]).picking_ids.batch_id.filtered(
-                        lambda b: b.user_id.id == usuario)
-                hora_inicio, hora_fin = self.obtener_horas_ordenes_hoy(usuario, fecha_fin, 'sale')
-                productos = len(ordenes.picking_ids.move_ids)
-                valor = sum(ordenes.picking_ids.sale_id.mapped(
-                    'amount_untaxed'))
-                procesadas = len(ordenes_hechas)
-                en_proceso = len(ordenes_en_proceso)
-                productos_procesadas = len(ordenes_hechas.picking_ids.move_ids)
-                productos_en_proceso = len(
-                    ordenes_en_proceso.picking_ids.move_ids)
-                valor_procesadas = sum(
-                    ordenes_hechas.picking_ids.sale_id.mapped('amount_untaxed'))
-                valor_en_proceso = sum(
-                    ordenes_en_proceso.picking_ids.sale_id.mapped(
-                        'amount_untaxed'))
-            elif 'piso' in funcion:
-                if fecha_fin and fecha_fin:
-                    ordenes = self.env['sale.order'].search(
-                        [('date_order', '>=', fecha_inicio), ('date_order', '<=', fecha_fin),
-                         ('picking_ids', 'in', self.env['stock.picking'].search(
-                             [('user_id', '=', usuario)]).ids)]).picking_ids.batch_id.filtered(
-                        lambda b: b.user_id.id == usuario)
-                hora_inicio, hora_fin = self.obtener_horas_ordenes_hoy(usuario, fecha_fin, 'sale')
-                productos = len(ordenes.picking_ids.move_ids)
-                valor = sum(ordenes.picking_ids.sale_id.mapped('amount_untaxed'))
-                procesadas = len(ordenes_hechas)
-                en_proceso = len(ordenes_en_proceso)
-                productos_procesadas = len(ordenes_hechas.picking_ids.product_id)
-                productos_en_proceso = len(
-                    ordenes_en_proceso.picking_ids.product_id)
-                valor_procesadas = sum(
-                    ordenes_hechas.picking_ids.sale_id.mapped('amount_untaxed'))
-                valor_en_proceso = sum(
-                    ordenes_en_proceso.picking_ids.sale_id.mapped(
-                        'amount_untaxed'))
-            elif 'turbo' == funcion:
-                hora_inicio, hora_fin = self.obtener_horas_ordenes_hoy(usuario, fecha_fin, 'sale')
-                if fecha_fin and fecha_fin:
-                    ordenes = self.env['sale.order'].search(
-                        [('date_order', '>=', fecha_inicio), ('date_order', '<=', fecha_fin),
-                         ('picking_ids', 'in', self.env['stock.picking'].search(
-                             [('user_id', '=', usuario)]).ids)]).picking_ids.batch_id.filtered(
-                        lambda b: b.user_id.id == usuario)
-                productos = len(ordenes.picking_ids.batch_id.filtered(
-                    lambda b: b.user_id.id == usuario).picking_ids.move_ids)
-                valor = sum(ordenes.picking_ids.sale_id.mapped('amount_untaxed'))
-                procesadas = len(ordenes_hechas)
-                en_proceso = len(ordenes_en_proceso)
-                productos_procesadas = len(ordenes_hechas.picking_ids.product_id)
-                productos_en_proceso = len(
-                    ordenes_en_proceso.picking_ids.product_id)
-                valor_procesadas = sum(
-                    ordenes_hechas.picking_ids.sale_id.mapped('amount_untaxed'))
-                valor_en_proceso = sum(
-                    ordenes_en_proceso.picking_ids.sale_id.mapped(
-                        'amount_untaxed'))
-            elif 'mkp' == funcion:
-                if fecha_fin and fecha_fin:
-                    ordenes = self.env['sale.order'].search(
-                        [('date_order', '>=', fecha_inicio), ('date_order', '<=', fecha_fin),
-                         ('picking_ids', 'in', self.env['stock.picking'].search(
-                             [('user_id', '=', usuario)]).ids)]).picking_ids.batch_id.filtered(
-                        lambda b: b.user_id.id == usuario)
-                hora_inicio, hora_fin = self.obtener_horas_ordenes_hoy(usuario, fecha_fin, 'sale')
-                productos = len(ordenes.picking_ids.move_ids)
-                valor = sum(ordenes.picking_ids.sale_id.mapped('amount_untaxed'))
-                procesadas = len(ordenes_hechas)
-                en_proceso = len(ordenes_en_proceso)
-                productos_procesadas = len(ordenes_hechas.picking_ids.move_ids)
-                productos_en_proceso = len(
-                    ordenes_en_proceso.picking_ids.product_id)
-                valor_procesadas = sum(
-                    ordenes_hechas.picking_ids.sale_id.mapped('amount_untaxed'))
-                valor_en_proceso = sum(
-                    ordenes_en_proceso.picking_ids.sale_id.mapped(
-                        'amount_untaxed'))
-            elif 'flex' == funcion:
-                ordenes = pickings.batch_id.filtered(lambda b: b.user_id.id == usuario)
-                if fecha_fin and fecha_fin:
-                    ordenes = self.env['sale.order'].search(
-                        [('date_order', '>=', fecha_inicio), ('date_order', '<=', fecha_fin),
-                         ('picking_ids', 'in', pickings.ids)]).picking_ids.batch_id.filtered(
-                        lambda b: b.user_id.id == usuario)
-                hora_inicio, hora_fin = self.obtener_horas_ordenes_hoy(usuario, fecha_fin, 'sale')
-                productos = len(ordenes.picking_ids.move_ids)
-                valor = sum(ordenes.picking_ids.sale_id.mapped('amount_untaxed'))
-                procesadas = len(ordenes_hechas)
-                en_proceso = len(ordenes_en_proceso)
-                productos_procesadas = len(ordenes_hechas.picking_ids.move_ids)
-                productos_en_proceso = len(
-                    ordenes_en_proceso.picking_ids.product_id)
-                valor_procesadas = sum(
-                    ordenes_hechas.picking_ids.sale_id.mapped('amount_untaxed'))
-                valor_en_proceso = sum(
-                    ordenes_en_proceso.picking_ids.sale_id.mapped(
-                        'amount_untaxed'))
-            else:
-                if fecha_fin and fecha_fin:
-                    ordenes = self.env['stock.picking'].search(
-                        [('scheduled_date', '>=', fecha_inicio), ('scheduled_date', '<=', fecha_fin),
-                         ('user_id', '=', usuario)])
-                hora_inicio, hora_fin = self.obtener_horas_ordenes_hoy(usuario, fecha_fin, 'picking')
-                productos = len(pickings.move_ids)
-                valor = sum(pickings.sale_id.mapped('amount_untaxed'))
-                procesadas = len(pickings_hechos)
-                productos_procesadas = len(pickings_hechos.move_ids)
-                en_proceso = len(pickings_en_proceso)
-                productos_en_proceso = len(pickings_en_proceso.move_ids)
-                valor_procesadas = sum(
-                    pickings_hechos.sale_id.mapped('amount_untaxed'))
-                valor_en_proceso = sum(
-                    pickings_en_proceso.sale_id.mapped(
-                        'amount_untaxed'))
+        if len(usuario_data) > 2:
+            fecha_fin = usuario_data[2]
 
-            cumplimiento = (len(ordenes_hechas) / (len(ordenes) if ordenes else 1)) * 100
+        montacargas = self.env['sale.montacargas'].search(
+            [('id', '=', user_id)],
+            limit=1
+        )
 
-        tiempo_promedio = self.env['stock.picking'].search(
-                [('user_id', '=', usuario)]).move_ids.move_line_ids.mapped('tiempo_tarea')
-        tiempo_promedio = float(sum(tiempo_promedio) / (len(tiempo_promedio) if len(tiempo_promedio) else 1))
-        return round(
-            cumplimiento), procesadas, en_proceso, productos_procesadas, productos_en_proceso, valor_procesadas, valor_en_proceso, len(
-            ordenes), productos, valor, hora_inicio, hora_fin, tiempo_promedio
+        if not montacargas:
+            return (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, False, False, 0)
+
+        funcion = (montacargas.funcion or '').lower()
+
+        user_id = montacargas.user_id.id
+
+        domain_batch = [
+            ('user_id', '=', user_id)
+        ]
+
+        if fecha_inicio:
+            domain_batch.append(
+                ('create_date', '>=', fecha_inicio)
+            )
+
+        if fecha_fin:
+            domain_batch.append(
+                ('create_date', '<=', fecha_fin)
+            )
+
+        batches = self.env['stock.picking.batch'].search(domain_batch)
+
+        pickings = batches.picking_ids
+
+        if not pickings:
+            pickings = self.env['stock.picking'].search([('user_id', '=', user_id),('date', '>=', fecha_inicio),('date', '<=', fecha_fin)])
+            if not pickings:
+                return (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, False, False, 0)
+
+        ordenes_rs = pickings.sale_id
+
+        ordenes_done = ordenes_rs.filtered(
+            lambda o: all(
+                p.state == 'done'
+                for p in o.picking_ids
+                if p.batch_id in batches
+            )
+        )
+
+        ordenes_proceso = ordenes_rs - ordenes_done
+
+        # detectar si es empaque
+        es_empaque = 'empaque' in funcion
+
+        if es_empaque:
+
+            move_lines = pickings.move_line_ids
+
+            productos = len(move_lines)
+
+            productos_procesadas = len(move_lines.filtered(lambda p: p.state == 'done'))
+
+            productos_en_proceso = productos - productos_procesadas
+
+
+        else:
+
+            moves = pickings.move_ids_without_package
+
+            def qty_done_move(move):
+                return sum(
+                    move.move_line_ids.mapped('qty_done')
+                )
+
+            productos = len(moves)
+
+            productos_procesadas = len(moves.filtered(lambda p: p.state == 'done'))
+
+            productos_en_proceso = productos - productos_procesadas
+
+        # valores
+        valor = sum(
+            ordenes_rs.mapped('amount_untaxed')
+        )
+
+        valor_procesadas = sum(
+            ordenes_done.mapped('amount_untaxed')
+        )
+
+        valor_en_proceso = sum(
+            ordenes_proceso.mapped('amount_untaxed')
+        )
+
+        procesadas = len(ordenes_done)
+
+        en_proceso = len(ordenes_proceso)
+
+        numero_ordenes = len(ordenes_rs)
+
+        cumplimiento = (
+                               procesadas /
+                               (numero_ordenes if numero_ordenes else 1)
+                       ) * 100
+
+        hora_inicio, hora_fin = self.obtener_horas_ordenes_hoy(
+            user_id,
+            fecha_fin,
+            'sale'
+        )
+
+        tiempos = pickings.move_line_ids.mapped(
+            'tiempo_tarea'
+        )
+
+        tiempo_promedio = float(
+            sum(tiempos) /
+            (len(tiempos) if tiempos else 1)
+        )
+
+        return (
+
+            round(cumplimiento),
+
+            procesadas,
+            en_proceso,
+
+            productos_procesadas,
+            productos_en_proceso,
+
+            valor_procesadas,
+            valor_en_proceso,
+
+            numero_ordenes,
+            productos,
+            valor,
+
+            hora_inicio,
+            hora_fin,
+
+            tiempo_promedio
+
+        )
 
     def write(self, values):
         for record in self:

@@ -200,17 +200,33 @@
                         <tbody>
                             <t t-foreach="state.valores_empleados" t-as="empleado" t-key="empleado.id">
                                 <tr style="font-size:13px">
+                                    <t t-if="empleado.productos &gt; 0">
+                                        <t t-set="cumplimiento_productos"
+                                           t-value="Math.round((empleado.productos_procesado / empleado.productos ) *100)"/>
+                                    </t>
+                                    <t t-if="empleado.productos == 0">
+                                        <t t-set="cumplimiento_productos" t-value="0"/>
+                                    </t>
+                                    <t t-if="empleado.valor_real &gt; 0">
+                                        <t t-set="cumplimiento_valor"
+                                           t-value="Math.round((empleado.valor_procesado_real / empleado.valor_real)*100)"/>
+                                    </t>
+                                    <t t-else="">
+                                        <t t-set="cumplimiento_valor" t-value="0"/>
+                                    </t>
+                                    <t t-set="cumplimiento_promedio"
+                                       t-value="Math.round((cumplimiento_valor + empleado.cumplimiento + cumplimiento_productos) / 3)"/>
                                     <td><t t-esc="empleado.user_id[1]"/></td>
-                                    <t t-if="empleado.cumplimiento &lt; 50">
-                                        <td style="background-color : red;color:white"><t t-esc="empleado.cumplimiento"/>
+                                    <t t-if="cumplimiento_promedio &lt; 50">
+                                        <td style="background-color : red;color:white"><t t-esc="cumplimiento_promedio"/>
                                             %</td>
                                     </t>
-                                    <t t-if="empleado.cumplimiento &gt; 49 and empleado.cumplimiento &lt; 100">
-                                        <td style="background-color : gold"><t t-esc="empleado.cumplimiento"/>
+                                    <t t-if="cumplimiento_promedio &gt; 49 and cumplimiento_promedio &lt; 100">
+                                        <td style="background-color : gold"><t t-esc="cumplimiento_promedio"/>
                                             %</td>
                                     </t>
-                                    <t t-if="empleado.cumplimiento == 100">
-                                        <td style="background-color : green"><t t-esc="empleado.cumplimiento"/>
+                                    <t t-if="cumplimiento_promedio == 100">
+                                        <td style="background-color : green"><t t-esc="cumplimiento_promedio"/>
                                             %</td>
                                     </t>
                                     <td><t t-esc="empleado.funcion"/></td>

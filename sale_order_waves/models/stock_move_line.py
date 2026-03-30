@@ -23,9 +23,10 @@ class StockMoveLine(models.Model):
 
     def write(self, vals):
         for record in self:
-            if 'qty_done' in vals:
-                if vals['qty_done'] > 0 and not record.fecha_inicio:
-                    vals['fecha_inicio'] = fields.datetime.today()
-            if 'date_done' in vals:
-                vals['tiempo_tarea'] = (record.fecha_inicio - vals['date_done']) if record.fecha_inicio else 0
+            if 'picked' in vals:
+                if vals['picked'] == True and record.create_date:
+                    delta = fields.Datetime.now() - record.create_date
+                    tiempo_horas = delta.total_seconds() / 3600
+                    vals['tiempo_tarea'] = tiempo_horas
+
         return super(StockMoveLine, self).write(vals)
