@@ -162,13 +162,7 @@ class StockPicking(models.Model):
 
         ordenes_rs = pickings.sale_id
 
-        ordenes_done = ordenes_rs.filtered(
-            lambda o: all(
-                p.state == 'done'
-                for p in o.picking_ids
-                if p.batch_id in batches
-            )
-        )
+        ordenes_done = pickings.filtered(lambda p: p.state == 'done').sale_id
 
         ordenes_proceso = ordenes_rs - ordenes_done
 
@@ -189,11 +183,6 @@ class StockPicking(models.Model):
         else:
 
             moves = pickings.move_ids_without_package
-
-            def qty_done_move(move):
-                return sum(
-                    move.move_line_ids.mapped('qty_done')
-                )
 
             productos = len(moves)
 
