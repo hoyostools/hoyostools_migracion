@@ -920,7 +920,7 @@ export class OwlInformDashboard extends Component {
                     : 0;
 
 
-            const cumplimiento_promedio = Math.round(
+            var cumplimiento_promedio = Math.round(
                 (
                     cumplimiento_docs +
                     cumplimiento_productos +
@@ -928,6 +928,9 @@ export class OwlInformDashboard extends Component {
                 ) / 3
             );
 
+            if(empleado.funcion.includes('montacargas')){
+                cumplimiento_promedio = Math.round( cumplimiento_productos );
+            };
 
             return {
                 category: category,

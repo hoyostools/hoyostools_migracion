@@ -216,6 +216,10 @@
                                     </t>
                                     <t t-set="cumplimiento_promedio"
                                        t-value="Math.round((cumplimiento_valor + empleado.cumplimiento + cumplimiento_productos) / 3)"/>
+                                    <t t-if="empleado.funcion.includes('montacargas')">
+                                        <t t-set="cumplimiento_promedio"
+                                           t-value="Math.round(cumplimiento_productos)"/>
+                                    </t>
                                     <td><t t-esc="empleado.user_id[1]"/></td>
                                     <t t-if="cumplimiento_promedio &lt; 50">
                                         <td style="background-color : red;color:white"><t t-esc="cumplimiento_promedio"/>
@@ -314,41 +318,41 @@
                                         <thead>
                                             <tr>
                                                 <td style="padding: 0px;">Etapa</td>
-                                                <td style="padding: 0px;">Documentos</td>
+                                                <td style="padding: 0px;"  t-if="!empleado.funcion.includes('montacargas')">Documentos</td>
                                                 <td style="padding: 0px;">Productos</td>
-                                                <td style="padding: 0px;">Valor</td>
+                                                <td style="padding: 0px;" t-if="!empleado.funcion.includes('montacargas')">Valor</td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr style="background-color: #25333e;">
                                                 <td style="padding: 0px; color:#CBC3E3">Asignación Odoo</td>
-                                                <td style="padding: 0px;"><t t-esc="empleado.documentos"/></td>
+                                                <td t-if="!empleado.funcion.includes('montacargas')" style="padding: 0px;"><t t-esc="empleado.documentos"/></td>
                                                 <td style="padding: 0px;"><t t-esc="empleado.productos"/></td>
-                                                <td style="padding: 0px;">$<t t-esc="empleado.valor"/></td>
+                                                <td t-if="!empleado.funcion.includes('montacargas')" style="padding: 0px;">$<t t-esc="empleado.valor"/></td>
                                             </tr>
                                             <tr style="background-color: #25333e;">
                                                 <td style="padding: 0px; color: lightblue">En Proceso</td>
-                                                <td style="padding: 0px;"><t t-esc="empleado.en_proceso"/></td>
+                                                <td t-if="!empleado.funcion.includes('montacargas')" style="padding: 0px;"><t t-esc="empleado.en_proceso"/></td>
                                                 <td style="padding: 0px;"><t t-esc="empleado.productos_en_proceso"/></td>
-                                                <td style="padding: 0px;">$<t t-esc="empleado.valor_en_proceso"/></td>
+                                                <td t-if="!empleado.funcion.includes('montacargas')" style="padding: 0px;">$<t t-esc="empleado.valor_en_proceso"/></td>
                                             </tr>
                                             <tr style="background-color: #25333e;">
                                                 <td style="padding: 0px; color: lightgreen">Procesado</td>
-                                                <td style="padding: 0px;"><t t-esc="empleado.procesado"/></td>
+                                                <td t-if="!empleado.funcion.includes('montacargas')" style="padding: 0px;"><t t-esc="empleado.procesado"/></td>
                                                 <td style="padding: 0px;"><t t-esc="empleado.productos_procesado"/></td>
-                                                <td style="padding: 0px;">$<t t-esc="empleado.valor_procesado"/></td>
+                                                <td t-if="!empleado.funcion.includes('montacargas')" style="padding: 0px;">$<t t-esc="empleado.valor_procesado"/></td>
                                             </tr>
                                             <tr style="background-color: #25333e;">
                                                 <td style="padding: 0px;">% Cumplimiento</td>
-                                                <t t-if="empleado.cumplimiento &lt; 50">
+                                                <t t-if="empleado.cumplimiento &lt; 50 and !empleado.funcion.includes('montacargas')">
                                                     <td style="padding: 0px;color : red;"><t t-esc="empleado.cumplimiento"/>
                                                         %</td>
                                                 </t>
-                                                <t t-if="empleado.cumplimiento &gt; 49 and empleado.cumplimiento &lt; 100">
+                                                <t t-if="empleado.cumplimiento &gt; 49 and empleado.cumplimiento &lt; 100 and !empleado.funcion.includes('montacargas')">
                                                     <td style="padding: 0px;color : gold"><t t-esc="empleado.cumplimiento"/>
                                                         %</td>
                                                 </t>
-                                                <t t-if="empleado.cumplimiento == 100">
+                                                <t t-if="empleado.cumplimiento == 100 and !empleado.funcion.includes('montacargas')">
                                                     <td style="padding: 0px;color : green"><t t-esc="empleado.cumplimiento"/>
                                                         %</td>
                                                 </t>
@@ -371,22 +375,22 @@
                                                     <td style="padding: 0px;color : green"><t t-esc="cumplimiento_productos"/>
                                                         %</td>
                                                 </t>
-                                                <t t-if="empleado.valor_real &gt; 0">
+                                                <t t-if="empleado.valor_real &gt; 0 and !empleado.funcion.includes('montacargas')">
                                                     <t t-set="cumplimiento_valor"
                                                        t-value="Math.round((empleado.valor_procesado_real / empleado.valor_real)*100)"/>
                                                 </t>
                                                 <t t-else="">
                                                     <t t-set="cumplimiento_valor" t-value="0"/>
                                                 </t>
-                                                <t t-if="cumplimiento_valor &lt; 50">
+                                                <t t-if="cumplimiento_valor &lt; 50 and !empleado.funcion.includes('montacargas')">
                                                     <td style="padding: 0px;color : red;"><t t-esc="cumplimiento_valor"/>
                                                         %</td>
                                                 </t>
-                                                <t t-if="cumplimiento_valor &gt; 50 and cumplimiento_valor &lt; 100">
+                                                <t t-if="cumplimiento_valor &gt; 50 and cumplimiento_valor &lt; 100 and !empleado.funcion.includes('montacargas')">
                                                     <td style="padding: 0px;color : gold"><t t-esc="cumplimiento_valor"/>
                                                         %</td>
                                                 </t>
-                                                <t t-if="cumplimiento_valor == 100">
+                                                <t t-if="cumplimiento_valor == 100 and !empleado.funcion.includes('montacargas')">
                                                     <td style="padding: 0px;color : green"><t t-esc="cumplimiento_valor"/>
                                                         %</td>
                                                 </t>
@@ -396,6 +400,10 @@
                                                 <td style="padding: 0px;"><t t-esc="empleado.hora_inicio"/></td>
                                                 <t t-set="cumplimiento_promedio"
                                                     t-value="Math.round((cumplimiento_valor + empleado.cumplimiento + cumplimiento_productos) / 3)"/>
+                                                <t t-if="empleado.funcion.includes('montacargas')">
+                                                    <t t-set="cumplimiento_promedio"
+                                                       t-value="Math.round(cumplimiento_productos)"/>
+                                                </t>
                                                 <t t-if="cumplimiento_promedio &lt; 50">
                                                     <td rowspan="2" colspan="2"
                                                         style="padding: 0px;background-color : red;text-align: center; vertical-align: middle;"><t t-esc="cumplimiento_promedio"/>
