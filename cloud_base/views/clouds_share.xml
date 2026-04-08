@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="clouds_share_view_search" model="ir.ui.view">
+        <field name="name">clouds.share.search</field>
+        <field name="model">clouds.share</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="description"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="clouds_share_view_form" model="ir.ui.view">
+        <field name="name">clouds.share.form</field>
+        <field name="model">clouds.share</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_generate_token" type="object" class="oe_stat_button" icon="fa-refresh" confirm="Are you sure? This action will make the previous access URL invalid" invisible="not allow_by_token">
+                            Regenerate Token
+                        </button>
+                        <button name="action_preview" type="object" class="oe_stat_button" icon="fa-globe">
+                            Preview Portal
+                        </button>
+                        <button name="%(cloud_base.share_send_invitation_action)d" type="action" class="oe_stat_button" icon="fa-share" context="{'default_share_id': id}">
+                            Send Invitation
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Title" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="partner_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                        <field name="allow_by_token"/>
+                        <field name="acess_url" invisible="not allow_by_token" readonly="1" widget="CopyClipboardURL"/>
+                        <field name="active_till"/>
+                    </group>
+                    <notebook>
+                        <page string="Attachments">
+                            <group>
+                                <field name="folder_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                                <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                                <field name="attachment_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                            </group>
+                        </page>
+                        <page string="View and permissions">
+                            <group>
+                                <group>
+                                    <field name="allow_uploading"/>
+                                    <field name="uploading_folder_id" invisible="not allow_uploading" required="allow_uploading" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                                </group>
+                                <group >
+                                    <field name="show_folders"/>
+                                    <field name="allow_adding_folders" invisible="not show_folders"/>
+                                    <field name="allow_folders_search" invisible="not show_folders"/>
+                                </group>
+                                <group groups="cloud_base.group_cloud_base_tags">
+                                    <field name="show_tags"/>
+                                    <field name="allow_adding_tags" invisible="not show_folders"/>
+                                    <field name="allow_tags_search" invisible="not show_tags"/>
+                                </group>
+                                <group>
+                                    <field name="allow_slideshow"/>
+                                    <field name="show_chatter"/>
+                                    <field name="parent_id"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="description"/>
+                        </page>
+                        <page string="Tech" invisible="1">
+                            <group>
+                                <field name="active"/>
+                                <field name="access_token"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="clouds_share_view_tree" model="ir.ui.view">
+        <field name="name">clouds.share.tree</field>
+        <field name="model">clouds.share</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="clouds_share_action" model="ir.actions.act_window">
+        <field name="name">Shares</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clouds.share</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" eval="clouds_share_view_search"/>
+    </record>
+
+</odoo>

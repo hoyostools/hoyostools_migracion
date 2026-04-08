@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cloud_base.PhotosSlideShow" owl="1">
+        <div class="cb-photos-container w-100 h-100 flex-column align-items-center justify-content-center d-flex" tabindex="1" t-on-keydown.stop="(ev) => this.onKeydown(ev)" t-on-mousemove="() => this._onActivateControlPanel()" t-on-mouseleave="() => this._onHideControlPanel()">
+            <div id="cb-photos-left" class="cb-photos-part w-50" t-on-click.stop="() => this._onClickPrevious()"/>
+            <div id="cb-photos-right" class="cb-photos-part w-50" t-on-click.stop="() => this._onClickNext()">
+                <icon class="fa fa-2x fa-times mr8 mt8 cb-photos-control-elements" t-on-click="() => this.close()"/>
+            </div>
+            <div class="cb-photos-control-panel cb-photos-control-elements flex-row align-items-center justify-content-center d-flex w-100">
+                <button class="btn mr32" t-on-click.stop="() => this._onClickPrevious()"><i class="fa fa-arrow-left fa-3x"></i></button>
+                <button class="btn mr32" t-if="state.playing" t-on-click.stop="() => this._onTogglePlay()"><i class="fa fa-pause fa-3x"></i></button>
+                <button class="btn mr32" t-if="!state.playing" t-on-click.stop="() => this._onTogglePlay()"><i class="fa fa-play fa-3x"></i></button>
+                <button class="btn mr32" t-on-click.stop="() => this._onClickNext()"><i class="fa fa-arrow-right fa-3x"></i></button>
+                <div class="cb-photos-speed">
+                    <select class="cb-photos-speed-selector" t-on-change="(event) => this._onChangeSpeed(event)">
+                        <option value="2">2 seconds</option>
+                        <option value="3">3 seconds</option>
+                        <option value="5" selected="1">5 seconds</option>
+                        <option value="7">7 seconds</option>
+                        <option value="10">10 seconds</option>
+                        <option value="15">15 seconds</option>
+                        <option value="20">20 seconds</option>
+                        <option value="30">30 seconds</option>
+                        <option value="60">1 minute</option>
+                        <option value="120">2 minutes</option>
+                        <option value="180">3 minutes</option>
+                        <option value="300">5 minutes</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

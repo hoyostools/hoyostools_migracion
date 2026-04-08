@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Download selected attachments -->
+        <record id="ir_attachment_mass_download" model="ir.actions.server">
+            <field name="name">Download</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="base.model_ir_attachment"/>
+            <field name="state">code</field>
+            <field name="code">
+if records:
+    action = {"type": "ir.actions.act_url", "target": "new"}
+    if len(records) == 1:
+        action.update({"url": "web/content/{}?download=true".format(records[0].id)})
+    else:
+        action.update({"url": "cloud_base/multiupload/{}".format(",".join([str(rec) for rec in records.ids]))})
+            </field>
+            <field name="groups_id" eval="[(4, ref('cloud_base.group_cloud_base_user'))]"/>
+        </record>
+        <!-- Trigger the wizard to update folder -->
+        <record id="ir_attachment_change_folder" model="ir.actions.server">
+            <field name="name">Update folder</field>
+            <field name="model_id" ref="base.model_ir_attachment"/>
+            <field name="state">code</field>
+            <field name="code">
+action = env.ref("cloud_base.update_attachment_folder_action").sudo().read()[0]
+            </field>
+            <field name="groups_id" eval="[(4, ref('cloud_base.group_cloud_base_admin'))]"/>
+        </record>
+        <!-- Trigger the wizard to update tags -->
+        <record id="ir_attachment_updated_tags" model="ir.actions.server">
+            <field name="name">Update tags</field>
+            <field name="model_id" ref="base.model_ir_attachment"/>
+            <field name="state">code</field>
+            <field name="code">
+action = env.ref("cloud_base.update_attachment_tags_action").sudo().read()[0]
+            </field>
+            <field name="groups_id" eval="[(4, ref('cloud_base.group_cloud_base_tags'))]"/>
+        </record>
+        <!-- Trigger the wizard to update shares -->
+        <record id="ir_attachment_updated_shares" model="ir.actions.server">
+            <field name="name">Share</field>
+            <field name="model_id" ref="base.model_ir_attachment"/>
+            <field name="state">code</field>
+            <field name="code">
+action = env.ref("cloud_base.mass_create_share_action").sudo().read()[0]
+            </field>
+            <field name="groups_id" eval="[(4, ref('cloud_base.group_cloud_base_share'))]"/>
+        </record>
+        <!-- Trigger SlideShow -->
+        <record id="ir_attachment_slideshow" model="ir.actions.server">
+            <field name="name">Slideshow</field>
+            <field name="model_id" ref="base.model_ir_attachment"/>
+            <field name="state">code</field>
+            <field name="code">
+action = env.ref("cloud_base.photos_slideshow_action").sudo().read()[0]
+            </field>
+            <field name="groups_id" eval="[(4, ref('cloud_base.group_cloud_base_user'))]"/>
+        </record>
+        <!-- Delete selected attachments -->
+        <record id="ir_attachment_mass_delete" model="ir.actions.server">
+            <field name="name">Delete</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="base.model_ir_attachment"/>
+            <field name="state">code</field>
+            <field name="code">
+if records:
+    records.unlink()
+            </field>
+            <field name="groups_id" eval="[(4, ref('cloud_base.group_cloud_base_admin'))]"/>
+        </record>
+
+    </data>
+</odoo>

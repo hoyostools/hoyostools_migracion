@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="module_category_cloud_base" model="ir.module.category">
+        <field name="name">Cloud Storage</field>
+        <field name="sequence">20</field>
+        <field name="parent_id" ref="base.module_category_productivity"/>
+    </record>
+    <record id="group_cloud_base_user" model="res.groups">
+        <field name="name">File manager access</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="cloud_base.module_category_cloud_base"/>
+    </record>
+    <record id="group_cloud_base_admin" model="res.groups">
+        <field name="name">Administration</field>
+        <field name="implied_ids" eval="[(4, ref('cloud_base.group_cloud_base_user'))]"/>
+        <field name="category_id" ref="cloud_base.module_category_cloud_base"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="group_cloud_base_share" model="res.groups">
+        <field name="name">Allow sharing for Cloud Storage Solutions</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <record id="group_cloud_base_tags" model="res.groups">
+        <field name="name">Turn on attachment tags</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+    <!-- Clouds shares special rules -->
+    <record id="portal_clouds_share_read_rule_portal" model="ir.rule">
+        <field name="name">Cloud Share: Portal and Usual Users</field>
+        <field name="model_id" ref="cloud_base.model_clouds_share"/>
+        <field name="domain_force">[
+            "|", ("partner_ids", "=", user.partner_id.id), ("partner_ids", "=", user.partner_id.commercial_partner_id.id),
+        ]</field>
+        <field name="groups" eval="[(4,ref('base.group_portal')),(4,ref('base.group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+    <record id="portal_clouds_share_cloud_user" model="ir.rule">
+        <field name="name">Cloud Share: Cloud Users</field>
+        <field name="model_id" ref="cloud_base.model_clouds_share"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="groups" eval="[(4,ref('cloud_base.group_cloud_base_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
+
+</odoo>

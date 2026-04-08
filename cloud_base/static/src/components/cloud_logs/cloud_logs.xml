@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cloud_base.CloudLogs" owl="1">
+        <div class="o_kanban_view o_view_controller o_action">
+                <div class="o_content cb-content">
+                    <div class="jstr-navigation-panel jstr-hide-mobile jstr-hide-tablet">
+                        <div class="jstr-panel-content mt16">
+                            <div class="jstr-panel-body w-100">
+                                <div class="jstr-search-row">
+                                    <div class="jstr-search-view">
+                                        <i class="fa fa-search jstr-search-icon jstr-search-icon-search" t-on-click="() => this._onSearchExecute()"/>
+                                        <i class="fa fa-ban jstr-search-icon jstr-search-icon-trash" t-on-click="() => this._onSearchClear()"/>
+                                        <div class="jstr-search-input-container">
+                                            <input id="cloud_logs_search_input" placeholder="search" t-on-change="(event) => this._onSearchChange(event)" t-on-keyup="(event) => this._onSearchkeyUp(event)"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mb8 jstr-hr"/>
+                            <div class="jstr-panel-header">
+                                Cloud Clients
+                            </div>
+                            <div class="jstr-panel-body cloud-logs-navigation">
+                                <t t-foreach="state.cloudClients" t-as="cloudClient" t-key="cloudClient.id">
+                                    <div class="mb4" t-att-title="cloudClient.title">
+                                        <label class="cloud-logs-navigation-switcher">
+                                            <input type="checkbox" t-att-checked="cloudClient.chosen" t-on-change="(event) => this._onToggleCloudClient(event, cloudClient.id)"/>
+                                            <span class="cloud-logs-navigation-slider"></span>
+                                        </label>
+                                        <span t-attf-class="#{cloudClient.id != 'CORE' and 'cloud-logs-active-link' or ''} ml8 text-#{cloudClient.state}" t-on-click="() => this._onOpenCloudClient(cloudClient.id)">
+                                            <t t-out="cloudClient.name"/>
+                                        </span>
+                                    </div>
+                                </t>
+                            </div>
+                            <hr class="mb8 jstr-hr"/>
+                            <div class="jstr-panel-header">
+                                Log Levels
+                            </div>
+                            <div class="jstr-panel-body cloud-logs-navigation">
+                                <t t-foreach="state.logLevels" t-as="logLevel" t-key="logLevel">
+                                    <div class="mb4">
+                                        <label class="cloud-logs-navigation-switcher">
+                                            <input type="checkbox" t-on-change="(event) => this._onToggleLogLevel(event, logLevel)"/>
+                                            <span class="cloud-logs-navigation-slider"></span>
+                                        </label>
+                                        <span class="ml8"><t t-out="logLevel"/></span>
+                                    </div>
+                                </t>
+                            </div>
+                            <hr class="mb8 jstr-hr"/>
+                            <div class="jstr-panel-header">
+                                Period
+                            </div>
+                            <div class="jstr-panel-body cloud-logs-navigation">
+                                <div class="clouds-logs-range">
+                                    <div class="clouds-log-datepicker">
+                                        <div t-ref="rootStart">
+                                            <input t-ref="start-date" type="text" class="o_input cursor-pointer" autocomplete="off" t-att-data-field="dateStartLocal"/>
+                                        </div>
+                                    </div>
+                                    <div class="ml8 mr8 clouds-log-label">-</div>
+                                    <div class="clouds-log-datepicker">
+                                        <div t-ref="rootEnd">
+                                            <input t-ref="end-date" type="text" class="o_input cursor-pointer" autocomplete="off" t-att-data-field="dateEndLocal"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="mb8 jstr-hr"/>
+                            <div class="jstr-panel-body cloud-logs-navigation">
+                                <div>
+                                    <span class="cloud-logs-active-link" t-on-click="() => this._onOpenQueue(false)">
+                                        Planned tasks: <span t-out="state.activeTasks"/>
+                                    </span>
+                                </div>
+                                <div t-if="state.failedTasks > 0" class="text-danger">
+                                    <span class="cloud-logs-active-link" t-on-click="() => this._onOpenQueue(true)">
+                                        Failed tasks: <span t-out="state.failedTasks"/>
+                                    </span>
+                                </div>
+                                <div class="jstr-pull-right">
+                                    <span class="cloud-logs-active-link mr16" t-on-click="() => this._onExportLogs()">
+                                        <i class="fa fa-download"></i> Export logs
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="o_kanban_renderer o_renderer d-flex o_kanban_ungrouped align-content-start flex-wrap justify-content-start jstr-kanban-view cloud-logs-screen-wrap">
+                        <div class="cloud-logs-screen w-100">
+                            <div class="clouds-logs-more-btn-div">
+                                <a t-if="state.loadMore" class="btn clouds-logs-more-btn" t-on-click="(ev) => this.onLoadMoreLogs(ev)">... load more</a>
+                            </div>
+                            <div class="cloud-logs-main"/>
+                            <div class="cloud-logs-last-string"> </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="cloud_base.Chatter" t-inherit="mail.Chatter" t-inherit-mode="extension">
+        <FileUploader position="attributes">
+            <!-- Always show the box since add url is always shown -->
+            <attribute name="t-if">1 == 0</attribute> <!-- attachments.length === 0 and !state.folderExist -->
+        </FileUploader>
+        <xpath expr="//div[hasclass('o-mail-AttachmentBox')]/div[hasclass('flex-column')]" position="before">
+            <div class="cb-attachment-box" t-if="state.folderExist">
+                <CloudJsTreeContainer t-props="getJsTreeProps('folders')"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('o-mail-AttachmentBox')]/div[hasclass('flex-column')]/FileUploader" position="after">
+            <button class="btn btn-link" type="button" t-att-disabled="!state.thread.hasWriteAccess" t-on-click="(ev) => this.onClickAddUrl(ev)">
+                <i class="fa fa-link"/>
+                Add URL
+            </button>
+        </xpath>
+    </t>
+
+</templates>

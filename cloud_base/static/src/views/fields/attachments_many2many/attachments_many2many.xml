@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="cloud_base.Many2XAutocompleteAttachments" t-inherit="web.Many2ManyTagsField" t-inherit-mode="primary" owl="1">
+        <Many2XAutocomplete position="attributes">
+            <attribute name="cloudsModel">this.getCloudModel()</attribute>
+            <attribute name="cloudsResIds">this.getCloudResIds()</attribute>
+        </Many2XAutocomplete>
+    </t>
+
+</templates>

@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="clouds_folder_view_search" model="ir.ui.view">
+        <field name="name">clouds.folder.search</field>
+        <field name="model">clouds.folder</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group by...">
+                    <filter name="parent_id_group" context="{'group_by' : 'parent_id'}" string="Parent Folder"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="clouds_folder_view_form" model="ir.ui.view">
+        <field name="name">clouds.folder.form</field>
+        <field name="model">clouds.folder</field>
+        <field name="arch" type="xml">
+            <form delete="0">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="folder name..." class="oe_inline" required="1"/>
+                        </h1>
+                        <field name="parent_id" placeholder="parent folder..."/>
+                    </div>
+                    <group>
+                        <field name="own_client_id" invisible="parent_client_id or rule_id" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                        <field name="parent_client_id" invisible="1"/>
+                        <field name="rule_client_id" invisible="1"/>
+                        <field name="client_id" invisible="not parent_client_id and not rule_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Details">
+                            <group>
+                                <group name="rule_group" string="Rule info" invisible="not rule_id">
+                                    <field name="rule_id" readonly="1"/>
+                                </group>
+                                <group name="model_group" string="Target object" invisible="not res_model" groups="base.group_no_one">
+                                    <field name="res_model" readonly="1"/>
+                                    <field name="res_id" readonly="1" invisible="not res_id"/>
+                                </group>
+                            </group>
+                            <group name="sync_group" string="Sync info">
+                                <field name="cloud_key" groups="base.group_no_one" readonly="1"/>
+                                <field name="url" widget="url" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Extra security" invisible="rule_id">
+                            <group>
+                                <field name="access_user_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                                <field name="access_group_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>                       
+                            </group>
+                            <p class="text-muted mt16 mb8">
+                                Access to folders and their attachment is regulated according to user access to the related Odoo objects. For example, if a user is permitted to read the task "Office design", this user is permitted to read its folder and manual subfolders.
+                            </p>
+                            <p class="text-muted mt0 mb8">
+                                For manual subfolders, however, you can further restrict rights by defining allowed users and groups. In this way, a user should satisfy those criteria to access a folder, even this user can access a linked object. For example, configure the folder so a user may access "Office design" but not access "Office design/Commercial contracts". If both fields "Limit access to users" and  "Limit access to groups" are not defined, no further restriction will be applied.
+                            </p>
+                            <p class="text-muted mt0 mb8">
+                                The restrictions are cumulative: a user should be permitted to access the folder and all its parents. Make sure no limitations lead to the case when a folder is available for nobody. Otherwise, the app will show a validation error. For example, if only Marc can access "Commerical contracts" and only Ann can access "Commercial contracts/scans", then Ann is not allowed for the folder "Commercial contracts", and hence nobody can access "scans"
+                            </p>
+                        </page>
+                        <page string="Notes" invisible="not rule_id">
+                            <field name="description" placeholder="notes..."/>
+                        </page>
+                        <page string="Tech" invisible="1">
+                            <field name="active"/>
+                            <field name="sequence"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="clouds_folder_view_tree" model="ir.ui.view">
+        <field name="name">clouds.folder.tree</field>
+        <field name="model">clouds.folder</field>
+        <field name="arch" type="xml">
+            <tree delete="0">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active" column_invisible="1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="clouds_folder_action" model="ir.actions.act_window">
+        <field name="name">Folders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">clouds.folder</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" eval="clouds_folder_view_search"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create pull-right">
+                Click "Create" to register a new folder
+            </p>
+        </field>
+    </record>
+
+</odoo>

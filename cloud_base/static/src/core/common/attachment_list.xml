@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="cloud_base.AttachmentList" t-inherit="mail.AttachmentList" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o-mail-AttachmentCard-aside')]" position="inside">
+            <button t-if="attachment.cloudSynced and attachment.cloudURL" class="btn d-flex justify-content-center align-items-center w-100 h-100 rounded-0 bg-300" title="Open in clouds" t-on-click.stop="() => this.onClickOpenCloudLink(attachment)">
+                <i class="fa fa-cloud" role="img" aria-label="Open in clouds"/>
+            </button>
+        </xpath>
+        <xpath expr="//div[hasclass('o-mail-AttachmentCard-image')]" position="attributes">
+            <attribute name="t-if">attachment.cloudSynced or !attachment.cloudURL</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o-mail-AttachmentCard-image')]" position="before">
+            <a class="cb-attachment-link o_image flex-shrink-0 m-1" t-att-href="attachment.cloudURL" target="new" t-if="!attachment.cloudSynced and attachment.cloudURL">
+                <i class="fa fa-link fa-2x"/>
+            </a>
+        </xpath>
+        <t t-if="attachment.type === 'url'" position="attributes">
+            <attribute name="t-if">attachment.type === 'url' and !(attachment.cloudSynced or !attachment.cloudURL)</attribute>
+        </t>
+        <button t-elif="canDownload(attachment)" position="attributes">
+            <attribute name="t-elif">attachment.cloudSynced or !attachment.cloudURL</attribute>
+        </button>
+        <xpath expr="//div[hasclass('o-mail-AttachmentCard')]" position="attributes">
+        	<attribute name="t-on-click">() => this.onPreviewOpen(attachment, props.attachments)</attribute>
+        </xpath>
+    </t>
+
+</templates>

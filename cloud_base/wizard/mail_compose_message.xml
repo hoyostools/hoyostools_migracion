@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mail_compose_message_view_form_no_auto_subsription" model="ir.ui.view">
+        <field name="name">mail.compose.message.form</field>
+        <field name="model">mail.compose.message</field>
+        <field name="inherit_id" ref="mail.email_compose_message_wizard_form"/>
+        <field name="arch" type="xml">
+            <field name="attachment_ids" position="after">
+                <field name="existing_attachment_ids" widget="attachments_many2many" options="{'no_create_edit': 1, 'no_quick_create': 1}" nolabel="1" colspan="2" placeholder="existing attachments" domain="['|', ('type', '=', 'binary'), ('cloud_key', '!=', False)]"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

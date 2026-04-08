@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+     <record id="share_send_invitation_form_view" model="ir.ui.view">
+        <field name="name">share.send.invitation.form</field>
+        <field name="model">share.send.invitation</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="share_id" readonly="1"/>
+                        <field name="partner_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                    </group>
+                    <field name="message"/>
+                </sheet>
+                <footer>
+                    <button name="action_send_invitation" type="object" string="Send Invitation" class="oe_highlight"/>
+                    <button name="cancel" string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="share_send_invitation_action" model="ir.actions.act_window">
+        <field name="name">Send Invitation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">share.send.invitation</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cloud_base.share_send_invitation_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<odoo>
+
+     <record id="mass_create_share_form_view" model="ir.ui.view">
+        <field name="name">mass.create.share.form</field>
+        <field name="model">mass.create.share</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="attachment_ids" widget="many2many_tags" invisible="1"/>
+                    <field name="share_method"/>
+                    <field name="share_id" invisible="share_method == 'new_share'" required="share_method == 'existing_share'"/>
+                </group>
+                <group invisible="share_method == 'existing_share'">
+                    <group>
+                        <field name="name" required="share_method == 'new_share'"/>
+                        <field name="partner_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                        <field name="send_invitation" invisible="not partner_ids"/>
+                    </group>
+                    <group>
+                        <field name="allow_by_token"/>
+                        <field name="acess_url" invisible="not allow_by_token" readonly="1" widget="CopyClipboardURL"/>
+                        <field name="active_till"/>
+                        <field name="access_token" invisible="1"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="tag_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                    <field name="folder_ids" widget="many2many_tags" options="{'no_create_edit': 1, 'no_quick_create': 1}"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="mass_create_share_action" model="ir.actions.act_window">
+        <field name="name">Share</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mass.create.share</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cloud_base.mass_create_share_form_view"/>
+        <field name="context">{"need_navigation_reload": 1}</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

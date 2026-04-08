@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="add_url_attachment_form" model="ir.ui.view">
+        <field name="name">add.url.attachment.form.view</field>
+        <field name="model">add.url.attachment</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="res_model" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
+                    <field name="folder_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="url" widget="url"/>
+                </group>
+                <footer>
+                    <button name="action_link_attachment" string="Add Url" class="oe_highlight" type="object"/>
+                    <button special="cancel" string="Cancel" class="oe_link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="add_url_attachment_action" model="ir.actions.act_window">
+        <field name="name">Add Url</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">add.url.attachment</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="cloud_base.add_url_attachment_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

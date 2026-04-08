@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="cloud_base.jsTreeWidget" owl="1">
+        <div id="jsTreeContainer"/>
+        <div class="ml32 mt8">
+            <button class="btn btn-sm btn-secondary" t-on-click="() => this._onAddNode()">
+                CREATE ROOT SUBFOLDER
+            </button>
+            <button class="btn btn-sm btn-secondary" t-on-click="(ev) => this._onUploadFile(ev)">
+                UPLOAD ROOT FILE
+            </button>
+        </div>
+    </t>
+</templates>

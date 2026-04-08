@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cloud_base.PhotosSlideShowContainer" owl="1">
+    	<PhotosSlideShow t-props="getPhotosSlideShowProps()"/>
+    </t>
+
+</templates>

@@ -1,0 +1,50 @@
+$o-jstree-bg-color: #212529;
+
+.jstr-pull-right { float: right }
+// the common class for attachment box & file manager UI
+.cb-attachment-box, .jstr-panel-body {
+    .jstr-search-row {
+        display: flex;
+        align-items: flex-end;
+
+        .jstr-search-view {
+            align-items: flex-end;
+            flex: 1 1 100%;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            background-color: white;
+            padding: 0 40px 1px 0;
+            position: relative;
+            display: block;
+            margin: 0 0px 8px 8px;
+
+            .jstr-search-icon {
+                flex: 1 1 100%;
+                position: absolute;
+                top: 6px;
+                left: auto;
+                bottom: auto;
+                color: $o-jstree-bg-color;
+            }
+            .jstr-search-icon:hover {
+                cursor: pointer;
+                color: black;
+            }
+            .jstr-search-icon-search { right: 22px }
+            .jstr-search-icon-trash { right: 5px }
+            .jstr-search-input-container {
+                flex: 1 1 100%;
+                flex-flow: row wrap;
+                position: relative;
+                display: flex;
+
+                input {
+                    flex: 1 0 auto;
+                    width: 75px;
+                    border: none;
+                    padding: 4px 0 0 0;
+                }
+            }
+        }
+    }
+}

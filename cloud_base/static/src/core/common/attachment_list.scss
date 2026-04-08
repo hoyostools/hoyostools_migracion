@@ -1,0 +1,19 @@
+.o-mail-AttachmentCard-aside {
+    .btn {
+        padding: 2px 4px !important;
+        font-size: smaller;
+    }
+}
+.cb-attachment-box {
+    .jstr-selected-parent > a:not(.jstree-clicked) {
+        border: 1px dotted black !important;
+    }
+}
+.cb-attachment-link {
+    background-image: none !important;
+    i {
+        display: block;
+        text-align: center;
+        padding: 10% 0 !important;
+    }
+}

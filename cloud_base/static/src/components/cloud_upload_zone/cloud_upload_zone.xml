@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="cloud_base.CloudDropZone">
+        <div t-if="props.visible" class="o_cloud_drop_area" t-on-dragover.prevent="()=>{}" t-on-dragleave="props.hideZone" t-on-drop.prevent="onDrop">
+            <i class="fa fa-upload fa-10x"></i>
+        </div>
+    </t>
+
+</templates>

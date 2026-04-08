@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cloud_base.CloudManager" owl="1">
+        <div class="jstr-navigation-panel jstr-hide-mobile jstr-hide-tablet" t-if="records">
+            <div class="jstr-panel-content">
+                <div class="jstr-panel-selection">
+                    <div class="jstr-panel-header">
+                        <span>
+                            Selected attachments
+                            (<t t-out="records.length"/>)
+                            <i class="fa fa-ban jstr-functional-button jstr-functional-button-clear" t-on-click.prevent="() => this._onClearSelection()"></i>
+                        </span>
+                    </div>
+                    <div class="jstr-panel-body-selection w-100" t-if="records">
+                        <ul class="jstr-no-padding-ul">
+                            <t t-foreach="records" t-as="record" t-key="record.id">
+                                <li>
+                                    <span class="jstr-functional-button" title="click to remove this item from selection" t-on-click.prevent="() => this._onRemoveFromSelection(record.id)">
+                                        <t t-out="record.name"/>
+                                    </span>
+                                </li>
+                            </t>
+                        </ul>
+                    </div>
+                </div>
+                <t t-if="state.massActions">
+                    <hr class="mb8 jstr-hr"/>
+                    <div class="jstr-panel-header">
+                        <t t-if="state.massActions and props.canCreate">
+                            <t t-foreach="state.massActions" t-as="massAction" t-key="massAction.id">
+                                <div>
+                                    <span class="jstr-functional-button" t-on-click.prevent="() => this._onProceedMassAction(massAction.id)">
+                                        <i class="fa fa-play mr4"></i><t t-out="massAction.name"/>
+                                    </span>
+                                </div>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+</templates>

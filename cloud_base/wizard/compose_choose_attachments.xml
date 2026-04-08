@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="compose_choose_attachments" model="ir.ui.view">
+        <field name="name">compose.choose.attachments.form.view</field>
+        <field name="model">compose.choose.attachments</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="folder_ids" widget="many2many_tags" options="{'no_quick_create': 1, 'no_create_edit': 1}"/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'no_quick_create': 1, 'no_create_edit': 1}" groups="cloud_base.group_cloud_base_tags"/>
+                    <label for="name"/>
+                    <div>
+                        <field name="name" style="width:96%;"/>
+                        <a href="#" style="width:4%;"><i class="fa fa-search"> </i></a>
+                    </div>
+                    <label for="mimetype"/>
+                    <div>
+                        <field name="mimetype" style="width:96%;"/>
+                        <a href="#" style="width:4%;"><i class="fa fa-search"> </i></a>
+                    </div>
+                </group>
+                <notebook>
+                    <page string="Found Attachments">
+                        <field name="attachment_ids" widget="attachments_search" readonly="1" context="{'form_view_ref': 'cloud_base.ir_attachment_view_form_cloud_base'}">
+                            <kanban>
+                                <field name="id"/>
+                                <field name="cloud_tag_ids"/>
+                                <field name="mimetype"/>
+                                <field name="type"/>
+                                <field name="create_uid"/>
+                                <field name="url"/>
+                                <field name="create_date"/>
+                                <field name="name"/>
+                                <field name="cloud_key"/>
+                                <field name="color"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div class="oe_kanban_global_click" t-attf-class="#{kanban_color(record.color.raw_value)}">
+                                            <div class="oe_kanban_details d-flex flex-column justify-content-between jstr-kanban-card">
+                                                <div class="jstr-kanban-body">
+                                                    <div class="o_kanban_image jstr-kanban-image">
+                                                        <t t-set="webimage" t-value="new RegExp('image.*(gif|jpeg|jpg|png)').test(record.mimetype.value)"/>
+                                                        <div t-if="(!webimage and record.type.raw_value != 'url') or (record.type.raw_value == 'url' and record.cloud_key.raw_value)" class="o_image o_image_thumbnail jstr-kanban-img-thumbnail" t-att-data-mimetype="record.mimetype.value"/>
+                                                        <div t-elif="record.type.raw_value == 'url'" class="o_url_image fa fa-link fa-3x text-muted mt8" aria-label="Image is a link"/>
+                                                        <img t-elif="webimage" width="56" height="56" t-attf-src="/web/image/#{record.id.raw_value}" alt="File" class="o_attachment_image"/>
+                                                    </div>
+                                                    <div class="o_kanban_record_title">
+                                                        <a class="fa fa-lg fa-plus-circle jstr-pull-right" href="#"> </a>
+                                                        <strong class="jstr-overalyed">
+                                                            <field name="name"/>
+                                                            <t t-if="record.type.raw_value == 'url'">
+                                                                <a class="fa fa-external-link ml4" href="#"> </a>
+                                                            </t>
+                                                        </strong>
+                                                        <ul>
+                                                            <i class="mb8" t-if="record.clouds_folder_id.raw_value"><field name="clouds_folder_id"/></i>
+                                                            <field name="cloud_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" groups="cloud_base.group_cloud_base_tags"/>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="o_kanban_record_bottom jstr-kanban-bottom mt8">
+                                                <div class="oe_kanban_bottom_left">
+                                                    <field name="create_date" widget="date"/>
+                                                </div>
+                                                <div class="oe_kanban_bottom_right">
+                                                    <a t-attf-href="/web/content/ir.attachment/#{record.id.raw_value}/datas?download=true" download="" t-attf-class="fa fa-lg #{record.type.raw_value == 'url' and record.cloud_key.raw_value and 'fa-cloud' or record.type.raw_value != 'url' and 'fa-download' or ''} mr16 mt4" _target="_blank" title="Download"/>
+                                                    <field name="create_uid" widget="many2one_avatar_user"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                    </page>
+                    <page string="Selected Attachments">
+                        <field name="selected_attachment_ids" widget="attachments_search" readonly="1" context="{'form_view_ref': 'cloud_base.ir_attachment_view_form_cloud_base'}">
+                            <kanban>
+                                <field name="id"/>
+                                <field name="cloud_tag_ids"/>
+                                <field name="mimetype"/>
+                                <field name="type"/>
+                                <field name="create_uid"/>
+                                <field name="url"/>
+                                <field name="create_date"/>
+                                <field name="name"/>
+                                <field name="cloud_key"/>
+                                <field name="color"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div class="oe_kanban_global_click" t-attf-class="#{kanban_color(record.color.raw_value)}">
+                                            <div class="oe_kanban_details d-flex flex-column justify-content-between jstr-kanban-card">
+                                                <div class="jstr-kanban-body">
+                                                    <div class="o_kanban_image jstr-kanban-image">
+                                                        <t t-set="webimage" t-value="new RegExp('image.*(gif|jpeg|jpg|png)').test(record.mimetype.value)"/>
+                                                        <div t-if="(!webimage and record.type.raw_value != 'url') or (record.type.raw_value == 'url' and record.cloud_key.raw_value)" class="o_image o_image_thumbnail jstr-kanban-img-thumbnail" t-att-data-mimetype="record.mimetype.value"/>
+                                                        <div t-elif="record.type.raw_value == 'url'" class="o_url_image fa fa-link fa-3x text-muted mt8" aria-label="Image is a link"/>
+                                                        <img t-elif="webimage" width="56" height="56" t-attf-src="/web/image/#{record.id.raw_value}" alt="File" class="o_attachment_image"/>
+                                                    </div>
+                                                    <div class="o_kanban_record_title">
+                                                        <a class="fa fa-lg fa-times jstr-pull-right" type="delete"> </a>
+                                                        <strong class="jstr-overalyed">
+                                                            <field name="name"/>
+                                                            <t t-if="record.type.raw_value == 'url'">
+                                                                <a class="fa fa-external-link ml4" href="#"> </a>
+                                                            </t>
+                                                        </strong>
+                                                        <ul>
+                                                            <i class="mb8" t-if="record.clouds_folder_id.raw_value"><field name="clouds_folder_id"/></i>
+                                                            <field name="cloud_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" groups="cloud_base.group_cloud_base_tags"/>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="o_kanban_record_bottom jstr-kanban-bottom mt8">
+                                                <div class="oe_kanban_bottom_left">
+                                                    <field name="create_date" widget="date"/>
+                                                </div>
+                                                <div class="oe_kanban_bottom_right">
+                                                    <a t-attf-href="/web/content/ir.attachment/#{record.id.raw_value}/datas?download=true" download="" t-attf-class="fa fa-lg #{record.type.raw_value == 'url' and record.cloud_key.raw_value and 'fa-cloud' or record.type.raw_value != 'url' and 'fa-download' or ''} mr16 mt4" _target="_blank" title="Download"/>
+                                                    <field name="create_uid" widget="many2one_avatar_user"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+</odoo>

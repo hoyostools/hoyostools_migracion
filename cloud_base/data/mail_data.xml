@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="clouds_share_invitation" model="mail.template">
+            <field name="name">Share Invitation</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="model_id" ref="cloud_base.model_clouds_share"/>
+            <field name="body_html" type="html">
+<p>Hello,</p>
+<p>You are granted access to the share <a t-attf-href="/clouds/share/#{object.id}"><t t-out="object.name"/></a>.</p>
+            </field>
+        </record>
+    </data>
+</odoo>

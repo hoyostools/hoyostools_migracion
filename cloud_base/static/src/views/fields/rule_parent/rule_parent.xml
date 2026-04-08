@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="cloud_base.RuleParent" owl="1">
+        <div t-if="getResModel()" class="d-flex">
+            <div style="min-width: 50px !important;">
+                <ModelFieldSelector resModel="getResModel()" path="state.currentValue" readonly="props.readonly" isDebugMode="true" update.bind="handleChange" filter="getFieldsFilter.bind(this)"/>
+            </div>
+            <div>
+                <button t-if="state.currentValue" class="btn fa fa-times" t-on-click="clear"/>
+            </div>
+        </div>
+    </t>
+
+</templates>

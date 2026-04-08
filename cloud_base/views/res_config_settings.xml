@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.cloud.base</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Cloud Storage" string="Cloud Storage" name="cloud_base">
+                    <block title="Options">
+                        <setting help="Turn on to configure the synchronization with Google Drive storage.">
+                            <field name="module_google_drive_odoo"/>
+                            <div name="module_google_drive_odoo_hint" class="text-muted mb16">
+                                The tool <a href="https://apps.odoo.com/apps/modules/17.0/google_drive_odoo/">Google Drive Odoo Integration</a> (89 Euros extra) is required.
+                            </div>
+                        </setting>
+                        <setting help="Turn on to configure the synchronization with OneDrive or/and SharePoint storage.">
+                            <field name="module_onedrive"/>
+                            <div name="module_onedrive_hint" class="text-muted mb16">
+                                The tool <a href="https://apps.odoo.com/apps/modules/17.0/onedrive/">OneDrive / SharePoint Odoo Integration</a> (89 Euros extra) is required.
+                            </div>
+                        </setting>
+                        <setting help="Turn on to configure the synchronization with ownCloud or/and Nextcloud storage.">
+                            <field name="module_owncloud_odoo"/>
+                            <div name="module_owncloud_odoo_hint" class="text-muted mb16">
+                                The tool <a href="https://apps.odoo.com/apps/modules/17.0/owncloud_odoo/">ownCloud / Nextcloud Odoo Integration</a> (89 Euros extra) is required.
+                            </div>
+                        </setting>
+                        <setting help="Turn on to configure the synchronization with Dropbox storage.">
+                            <field name="module_dropbox"/>
+                            <div name="module_dropbox_hint" class="text-muted mb16">
+                                The tool <a href="https://apps.odoo.com/apps/modules/17.0/dropbox/">Dropbox Odoo Integration</a> (89 Euros extra) is required.
+                            </div>
+                        </setting>
+                        <setting help="Turn on to link folders with Odoo Enterprise Documents directories. Such folders might be also synced with any cloud client.">
+                            <field name="module_cloud_base_documents"/>
+                            <div name="module_cloud_base_documents_hint" class="text-muted mb16">
+                                The tool <a href="https://apps.odoo.com/apps/modules/17.0/cloud_base_documents/">Cloud Storage Solutions (Enterprise Documents)</a> (44 Euros extra) is required.
+                            </div>
+                        </setting>
+                    </block>
+                    <block title="Settings">
+                        <setting help="Turn on to allow sharing folders and attachments in Odoo's portal and publically (with access tokens)">
+                            <field name="group_cloud_base_share"/>
+                        </setting>
+                        <setting help="Turn on to introduce attachment tags and navigation by tags">
+                            <field name="group_cloud_base_tags"/>
+                        </setting>
+                        <setting help="Define how many days sync logs should be kept in Odoo. The number should not be less than 3 days.">
+                            <field name="cloud_log_days"/>
+                        </setting>
+                        <setting help="Enter comma-separated mime types without spaces which should not be synced. For example, 'application/pdf,application/vnd.google-apps.spreadsheet''. Take into account that the following mime types will not be synced disregarding this setting: 'text/html', 'text/css', 'text/javascript', 'application/javascript',  'text/xml', 'application/xml'. Besides, empty attachments (with zero size) and attachments that start with '/' would not be taken into account.">
+                            <field name="notsynced_mimetypes"/>
+                        </setting>
+                        <setting help="Define how many times a failed task should be retried. The retries are done exponentially: 1: 30 minutes; 2: 1 hour; 3: 2 hours; 4: 4 hours, 5: 8 hours, etc. The maximum time will not exceed 24 hours, however">
+                            <field name="max_retries"/>
+                        </setting>
+                        <setting help="Define how many times failed reverse and move tasks should be retried. Such tasks block any other tasks' fulfillment, so, by default, they should be retried less frequently">
+                            <field name="max_reverse_retries"/>
+                        </setting>
+                        <setting help="Define how many log lines should be prepared while exporting. If the existing logs exceed that number, earlier logs will be neglected">
+                            <field name="max_log_export"/>
+                        </setting>
+                    </block>
+                    <block title="Mass actions">
+                        <field name="cloud_ir_actions_server_ids" class="w-100" context="{'default_model_id': cloud_ir_actions_server_prm_default_model_id}"/>
+                        <field name="cloud_ir_actions_server_ids_str" invisible="1"/>
+                        <field name="cloud_ir_actions_server_prm_default_model_id" invisible="1"/>
+                    </block>
+                    <block groups="base.group_erp_manager" title="Filestore">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <h5><field name="filestore_size" readonly="1"/> Mb</h5>
+                            <button name="action_refresh_filestore_size" string="Refresh" type="object" class="oe_highlight"/>
+                        </div>
+                    </block>
+                    <block groups="base.group_erp_manager" title="Testing / Development">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <p><i class="fa fa-warning text-danger mr4"> </i> <b>Use the buttons below only for testing or development purposes!</b></p>
+                            <p>All updates assumed by the app are regular and automatic. Both folders' preparation and files' synchronization are based on Odoo's scheduled jobs. Launching those manually might interrupt running processes and, hence, lead to errors. Avoid doing that in production environments.</p>
+                        </div>
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <button name="action_test_prepare_folders"
+                                    string="Launch Folders' Update"
+                                    type="object"
+                                    class="oe_highlight"
+                                    confirm="Are you sure? This button should be used only for testing purposes!"
+                            />
+                        </div>
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <button name="action_test_sync_job"
+                                    string="Launch Sync"
+                                    type="object"
+                                    class="oe_highlight"
+                                    confirm="Are you sure? This button should be used only for testing purposes!"
+                            />
+                        </div>
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <button name="action_create_backups"
+                                    string="Prepare database backups"
+                                    type="object"
+                                    class="oe_highlight"
+                                    groups="base.group_no_one"
+                            />
+                        </div>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+    <record id="cloud_config_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'cloud_base'}</field>
+    </record>
+
+</odoo>

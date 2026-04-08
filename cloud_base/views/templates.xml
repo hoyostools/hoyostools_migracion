@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="cloud_base.error_page" name="Connection error">
+        <div>
+            <span t-out="cloud_error"/>
+        </div>
+    </template>
+    <!-- Portal entries -->
+    <template id="portal_layout" name="Portal layout: Cloud Base" inherit_id="portal.portal_breadcrumbs" priority="40">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'My Shares' or share_id" t-attf-class="breadcrumb-item #{'active ' if not article_id else ''}">
+                <a t-if="share_id and not sharetoken" t-attf-href="/clouds/shares">Shares</a>
+                <t t-else="">Shares</t>
+            </li>
+            <li t-if="share_id" class="breadcrumb-item active">
+                <t t-out="share_id.name"/>
+            </li>
+        </xpath>
+    </template>
+    <template id="portal_my_home" name="Show Shares" inherit_id="portal.portal_my_home" priority="60" customize_show="True">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="before">
+            <t t-set="portal_service_category_enable" t-value="True"/>
+        </xpath>
+        <div id="portal_service_category" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/cloud_base/static/src/img/portal.svg'"/>
+                <t t-set="title">Shares</t>
+                <t t-set="url" t-value="'/clouds/shares'"/>
+                <t t-set="text">Check and download shared attachments</t>
+                <t t-set="placeholder_count" t-value="'shares_count'"/>
+            </t>
+        </div>
+    </template>
+    <!-- Portal shares: list -->
+    <template id="cloud_base.shares_list" name="My Shares">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">My Shares</t>
+            </t>
+            <div class="row">
+                <t t-if="not share_ids">
+                    <p>There are currently no shares found by your criteria.</p>
+                </t>
+                <t t-if="share_ids" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Share</th>
+                        </tr>
+                    </thead>
+                    <t t-foreach="share_ids" t-as="share">
+                        <tr>
+                            <td>
+                                <a t-attf-href="/clouds/share/#{share.id}"><t t-esc="share.name"/></a>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+    <!-- Each Individual Attachment -->
+    <template id="cloud_base.attachment_portal" name="Attachment">
+        <div t-attf-class="cb-attachment-box row col-lg-#{cb_attachment_col} col-md-#{cb_attachment_colmd} col-sm-12 mb16">
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div t-if="attachment_id.type != 'url' or attachment_id.cloud_key" class="o_image o_image_thumbnail" t-att-data-mimetype="attachment_id.mimetype"/>
+                <div t-else="" class="o_url_image fa fa-link fa-3x text-muted mt8"/>
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10">
+                <div class="w-100 cb-title">
+                    <strong t-out="attachment_id.name"></strong>
+                </div>
+                <div t-if="show_tags and attachment_id.cloud_tag_ids" class="">
+                    <t t-foreach="attachment_id.cloud_tag_ids" t-as="tag">
+                        <span class="badge text-bg-info">
+                            <span t-field="tag.name"/>
+                        </span>
+                    </t>
+                </div>
+                <div t-if="attachment_id.type != 'url' or attachment_id.cloud_key" class="m4 mb16">
+                    <a t-attf-href="/clouds/share/upload/#{share_id.id}/ir.attachment/#{attachment_id.id}#{sharetoken and '/token/' + sharetoken  or ''}" target="_blank"><i class="fa fa-download"></i> Download</a>
+                </div>
+                <div t-else="" class="m4 mb16">
+                    <a t-attf-href="#{attachment_id.url}" target="_blank"><i class="fa fa-link"></i> Open</a>
+                </div>
+            </div>
+        </div>
+    </template>
+    <!-- Portal Share Form -->
+    <template id="cloud_base.cloud_shares" name="Share">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-set="show_left_navigation" t-value="show_folders or show_tags"/>
+            <t t-set="cb_main_col" t-value="show_left_navigation and 9 or 12"/>
+            <t t-set="cb_attachment_col" t-value="show_left_navigation and 6 or 4"/>
+            <t t-set="cb_attachment_colmd" t-value="show_left_navigation and 12 or 6"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Shared Files</t>
+            </t>
+            <div class="container cb-overview">
+                <div class="cb-share_id" t-attf-id="#{share_id.id}"/>
+                <div class="cb-sharetoken" t-attf-id="#{sharetoken}"/>
+                <div class="cb-selected-folder" t-attf-id="#{selected_folder}"/>
+                <div class="allow-add-folders" t-attf-id="#{allow_adding_folders and 1 or 0}"/>
+                <div class="attachments-domain" t-attf-id="#{full_domain}"/>
+                <div class="row mb32">
+                    <div class="col-lg-12 col-md-12 jstr-pull-right mb16">
+                        <a role="button" class="btn btn-primary jstr-pull-right mt8" t-attf-href="/clouds/share/upload/#{share_id.id}#{sharetoken and '/token/' + sharetoken  or ''}" target="_blank">
+                            <i class="fa fa-download"/> Download share as archive
+                        </a>
+                        <form t-if="selected_folder != 0" class="jstr-pull-right cb-upload-form mr8 mt8" t-attf-action="/clouds/share/add/#{share_id.id}#{sharetoken and '/token/' + sharetoken  or ''}?selected_folder=#{selected_folder}" method="POST" enctype="multipart/form-data">
+                            <label for="cb-files-input" class="btn btn-primary">
+                                <i class="fa fa-upload"></i> Upload<t t-if="show_folders"> to <span t-out="selected_folder_name"/></t>
+                            </label>
+                            <input id="cb-files-input" name="ufile" multiple="multiple" type="file" onchange="form.submit()"/>
+                        </form>
+                        <a t-if="allow_slideshow" id="start-slideshow" role="button" class="btn btn-primary jstr-pull-right mr8 mt8">
+                            <i class="fa fa-image"/> Slideshow
+                        </a>
+                    </div>
+                    <div t-if="show_left_navigation" class="d-none d-sm-none d-md-block col-lg-3 col-md-3">
+                        <div id="cb-left-navigation">
+                            <div t-if="show_folders" class="col-lg-12 col-md-12 col-sm-12 mb16" id="cb-folders-container"/>
+                            <div t-if="show_tags" class="col-lg-12 col-md-12 col-sm-12 mb16" id="cb-tags-container"/>
+                        </div>
+                    </div>
+                    <div id="cb-attachments-container" t-attf-class="col-lg-#{cb_main_col} col-md-#{cb_main_col} col-sm-12">
+                        <div t-if="not attachment_ids" t-attf-class="alert alert-info row">
+                            <span>There are no attachments found in this share. <a t-attf-href="/clouds/share/#{share_id.id}#{sharetoken and '/token/' + sharetoken  or ''}">Clear search</a></span>
+                        </div>
+                        <div t-if="attachment_ids" class="row">
+                            <div id="know_searches" t-if="done_search" class="col-lg-12 col-md-12 mt16 alert alert-info">
+                                <t t-if="done_search">
+                                    Last search: "<t t-out="done_search"/>".
+                                </t>
+                                <a t-attf-href="/clouds/share/#{share_id.id}#{sharetoken and '/token/' + sharetoken  or ''}">Clear search</a>
+                            </div>
+                            <t t-if="attachment_ids">
+                                <div class="row">
+                                    <t t-foreach="attachment_ids" t-as="attachment_id">
+                                        <t t-call="cloud_base.attachment_portal"/>
+                                    </t>
+                                </div>
+                                <div t-if="pager" class="o_portal_pager text-center mt16">
+                                    <t t-call="portal.pager"/>
+                                </div>
+                            </t>
+                        </div>
+                        <div t-if="selected_folder != 0" class="o_cloud_drop_area cb-hidden">
+                            <i class="fa fa-upload fa-10x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="share_communication" class="row" t-if="share_id.show_chatter">
+                <hr/>
+                <t t-call="portal.message_thread">
+                    <t t-set="object" t-value="share_id"/>
+                    <t t-set="token" t-value="share_id.access_token"/>
+                </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>
