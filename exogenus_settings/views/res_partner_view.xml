@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_res_partner_form" model="ir.ui.view">
+            <field name="name">view.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="person_exo" required="1"/>
+                    <field name="shareholder" force_save="1" invisible="1"/>
+                    <field name="supplier_format" force_save="1" invisible="1"/>
+                    <field name="customer_format" force_save="1" invisible="1"/>
+                    <field name="is_bank" force_save="1" invisible="1"/>
+                    <field name="is_employee" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

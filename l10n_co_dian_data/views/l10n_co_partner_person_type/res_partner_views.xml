@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_simple_form_names" model="ir.ui.view">
+        <field name="name">Add names and lastname</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_simple_form"/>
+        <field name="arch" type="xml">
+            <data>
+
+                <xpath expr="//field[@id='individual']" position="replace">
+                    <field
+                        id="individual"
+                        class="o_text_overflow"
+                        name="name" default_focus="1"
+                        placeholder="e.g. Brandom Freeman"
+                        required="type == 'contact', not is_company"
+                        readonly="type, not is_company"
+                        invisible="is_company"
+                        />
+                </xpath>
+
+                <xpath expr="//field[@id='company']" position="replace">
+                    <field
+                        id="company"
+                        class="o_text_overflow"
+                        name="name"
+                        default_focus="1"
+                        placeholder="e.g. Lumber Inc"
+                        required="type == 'contact', is_company"
+                        invisible="not is_company"
+                        />
+                </xpath>
+
+                <xpath expr="//h1//field[@name='name']/.." position="before">
+                    <group invisible="is_company">
+                        <field name="firstname"/>
+                        <field name="othernames"/>
+                        <field name="lastname"/>
+                        <field name="lastname2"/>
+                    </group>
+                </xpath>
+            </data>
+        </field>
+    </record>
+
+    <record id="view_partner_form_names" model="ir.ui.view">
+        <field name="name">Add names and surnames</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <data>
+
+                <xpath expr="//field[@id='individual']" position="replace">
+                    <field
+                        id="individual"
+                        class="o_text_overflow"
+                        name="name"
+                        default_focus="1"
+                        placeholder="e.g. Brandom Freeman"
+                        required="type == 'contact', not is_company"
+                        readonly="type == 'contact', not is_company"
+                        invisible="is_company"
+                        />
+                </xpath>
+
+                <xpath expr="//field[@id='company']" position="replace">
+                    <field
+                        id="company"
+                        class="o_text_overflow"
+                        name="name"
+                        default_focus="1"
+                        placeholder="e.g. Lumber Inc"
+                        required="type == 'contact', is_company"
+                        invisible="not is_company"
+                        />
+                </xpath>
+
+                <!-- Tipo de Persona -->
+                <xpath expr="//field[@name='company_type']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='company_type']" position="before">
+                    <field name="person_type" required="1" placeholder="- Person Type"/>
+                </xpath>
+
+                <xpath expr="//h1//field[@name='name']/.." position="after">
+                    <div class="oe_edit_only">
+                        <group invisible="is_company">
+                            <field name="firstname" />
+                            <field name="othernames"/>                            
+                            <field name="lastname"/>
+                            <field name="lastname2"/>
+                        </group>
+                    </div>
+                </xpath>
+
+                <xpath expr="//field[@name='child_ids']/form//field[@name='name']" position="after">
+                    <div class="oe_edit_only" colspan="2">
+                        <field name="is_company" invisible="True"/>
+                        <group  invisible="type != 'contact'">
+                            <field name="firstname" required="type == 'contact'"/>
+                            <field name="othernames" required="type == 'contact'"/>
+                            <field name="lastname" required="type == 'contact'" />
+                            <field name="lastname2" required="type == 'contact'" />
+                        </group>
+                    </div>
+                </xpath>
+
+            </data>
+        </field>
+    </record>
+</odoo>

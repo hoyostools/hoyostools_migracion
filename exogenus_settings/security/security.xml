@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="exogenus_settings_admin_group" model="res.groups">
+            <field name="name">Configuración Exógena</field>
+        </record>
+        <record id="exogenus_settings_account_group" model="res.groups">
+            <field name="name">Manejo Exógena</field>
+        </record>
+    </data>
+</odoo>

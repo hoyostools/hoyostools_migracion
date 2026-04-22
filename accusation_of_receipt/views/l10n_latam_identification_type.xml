@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="custom_l10n_latam_identification_type_tree_inherit_to_acuse" model="ir.ui.view">
+        <field name="name">custom.l10n_latam.identification.type.tree.inherit.to.acuse</field>
+        <field name="model">l10n_latam.identification.type</field>
+        <field name="inherit_id" ref="l10n_latam_base.view_l10n_latam_identification_type_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='active']" position="after">
+                <field name="dian_code"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="l10n_latam_base.action_l10n_latam_identification_type" model="ir.actions.act_window">        
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="generate_exogenus_view_form" model="ir.ui.view">
+            <field name="name">generate.exogenus.form</field>
+            <field name="model">generate.exogenus</field>
+            <field name="arch" type="xml">
+                <form string="Generar Formato Exogena">
+                    <group col="2">
+                        <field name="type_format_id"/>
+                        <field name="description_id" />
+                    </group>
+                    <group col="2">
+                        <field name="start_date"/>
+                        <field name="end_date" />
+                        <field name="is_details" widget="boolean_toggle"/>
+                    </group>
+                    <footer>
+                        <button name="generate_report" string="Generate" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_generate_excel" model="ir.actions.act_window">
+            <field name="name">Generate Format</field>
+            <field name="res_model">generate.exogenus</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="generate_exogenus_view_form"/>
+        </record>
+
+        <menuitem action="action_generate_excel"
+            id="menu_generate_exogenus_action"
+            parent="account_reports.account_reports_audit_reports_menu"
+            sequence="10"/>
+    </data>
+</odoo>
+
+
+
+
+   

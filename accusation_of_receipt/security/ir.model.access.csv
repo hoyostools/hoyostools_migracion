@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_acuse_group,acuse_group,model_acuse_recibo,accusation_of_receipt.report_acuse_group,1,1,1,1

@@ -1,0 +1,57 @@
+<odoo>
+  <template id="report_invoice_document_custom" inherit_id="account.report_invoice_document">
+    <xpath expr="//div[contains(@class, 'clearfix')]" position="inside">
+      <t t-if="o.dian_document_lines">
+        <t t-set="dian_doc" t-value="o.dian_document_lines[0]"/>
+        <t t-set="sequence" t-value="o.move_type == 'out_refund' and o.journal_id.refund_sequence_id or o.journal_id.sequence_id"/>
+        <t t-set="resolution_range" t-value="sequence.date_range_ids and sequence.date_range_ids[0] or False"/>
+
+        <div class="mt-4" style="page-break-inside: avoid;">
+          <div class="row">
+            <!-- Columna izquierda: QR -->
+            <div class="col-3 text-center">
+              <t t-if="dian_doc.qr_code_dian_img">
+                <img t-att-src="'data:image/png;base64,%s' % dian_doc.qr_code_dian_img" style="width:120px; height:120px;" />
+              </t>
+            </div>
+
+            <!-- Columna derecha: Datos resolución -->
+            <div class="col-9" style="font-size: 11px; line-height: 1.2;">
+              <p style="margin: 0;"><strong style="font-size: 13px;">CUFE:</strong></p>
+              <p style="margin: 0; word-break: break-word;"><span t-esc="dian_doc.cufe_cude"/></p>
+
+              <t t-if="resolution_range">
+                <p style="margin: 0;">
+                  <strong>Número de autorización de facturación:</strong>
+                  <span t-esc="resolution_range.resolution_number"/>
+                  <strong>Fecha:</strong>
+                  <span t-esc="resolution_range.date_from"/>
+                </p>
+                <p style="margin: 0;">
+                  <strong>Rango autorizado desde:</strong>
+                  <span t-esc="resolution_range.prefix"/> <span t-esc="resolution_range.number_from"/>
+                  <strong>a:</strong>
+                  <span t-esc="resolution_range.prefix"/> <span t-esc="resolution_range.number_to"/>
+                  <strong>Válido desde:</strong>
+                  <span t-esc="resolution_range.date_from"/>
+                  <strong>Hasta:</strong>
+                  <span t-esc="resolution_range.date_to"/>
+                </p>
+                <p style="margin: 0;">
+                  <strong>Representación gráfica de facturación electrónica impresa por computador con software propio por:</strong>
+                  <span t-esc="o.company_id.name"/>
+                </p>
+              <!-- Información adicional de la empresa -->
+                <p style="margin: 0;"><strong>NIT:</strong><span t-esc="o.company_id.partner_id.identification_document or ''"/><t t-if="o.company_id.partner_id.check_digit">-<span t-esc="o.company_id.partner_id.check_digit"/></t></p>
+                <p style="margin: 0;"><strong>Tipo de organización:</strong> Persona Juridica</p>
+                <p style="margin: 0;"><strong>Tipo de régimen:</strong> Impuesto sobre las ventas – IVA</p>
+                <p style="margin: 0;"><strong>Tipo de responsabilidad:</strong> No aplica – Otros</p>
+                <p style="margin: 0;"><strong>Tipo de operación:</strong> Estandar</p>
+              </t>
+            </div>
+          </div>
+        </div>
+      </t>
+    </xpath>
+  </template>
+</odoo>

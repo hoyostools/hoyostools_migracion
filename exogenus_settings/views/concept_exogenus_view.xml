@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="concept_exogenus_view_form" model="ir.ui.view">
+            <field name="name">concept.exogenus.view.form</field>
+            <field name="model">concept.exogenus</field>
+            <field name="arch" type="xml">
+                <list editable="bottom" string="create" >
+                    <field name="name"/>
+                    <field name="description_concept"/>
+                    <field name="format_exogenus_concept_id"/>
+                </list>
+            </field>
+        </record>
+    </data>
+    <record id="concept_exogenus_action" model="ir.actions.act_window">
+        <field name="name">Concept Exogenus</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">concept.exogenus</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="concept_exogenus_view_form"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record> 
+
+    <menuitem action="concept_exogenus_action"
+        id="menu_concept_exogenus_action"
+        parent="account.menu_finance_configuration"
+        sequence="11"/>
+</odoo>

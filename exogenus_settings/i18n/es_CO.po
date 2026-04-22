@@ -1,0 +1,664 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* exogenus_settings
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-25 16:10+0000\n"
+"PO-Revision-Date: 2023-05-25 16:10+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: exogenus_settings
+#: model:ir.model,name:exogenus_settings.model_account_account
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__account_id
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.format_exogenus_view_form
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: exogenus_settings
+#: model:ir.actions.act_window,name:exogenus_settings.account_exogenus_action
+#: model:ir.model,name:exogenus_settings.model_account_exogenus
+#: model:ir.ui.menu,name:exogenus_settings.menu_account_exogenus_action
+msgid "Account Exogenus"
+msgstr "Cuentas Exógena"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__name
+msgid "Account Name"
+msgstr "Cuenta"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__accumulated_value_ids
+msgid ""
+"Accumulated value of the payment or credit subject to Withholding at source"
+msgstr "Valor acumulado del pago o abono sujeto a Retención en la fuente"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_account__bank_id
+msgid "Associate Bank"
+msgstr "Banco Asociado"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__is_account_balance
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__is_balance
+msgid "Balance"
+msgstr "Saldo Total"
+
+#. module: exogenus_settings
+#: model:ir.model,name:exogenus_settings.model_res_bank
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_account__is_bank_account
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_partner__is_bank
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_users__is_bank
+msgid "Bank"
+msgstr "Banco"
+
+#. module: exogenus_settings
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.generate_exogenus_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_bank__check_digit_bank
+msgid "Check Digit"
+msgstr "Digito Verificación"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__code_format
+msgid "Code"
+msgstr "Código"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__column_id
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.format_exogenus_view_form
+msgid "Column"
+msgstr "Columna"
+
+#. module: exogenus_settings
+#: model:ir.actions.act_window,name:exogenus_settings.column_exogenus_action
+#: model:ir.model,name:exogenus_settings.model_column_exogenus
+#: model:ir.ui.menu,name:exogenus_settings.menu_column_exogenus_action
+msgid "Column Exogenus"
+msgstr "Columnas Exógena"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__concept_id
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus__name
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__concept_id
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.format_exogenus_view_form
+msgid "Concept"
+msgstr "Concepto"
+
+#. module: exogenus_settings
+#: model:ir.actions.act_window,name:exogenus_settings.concept_exogenus_action
+#: model:ir.model,name:exogenus_settings.model_concept_exogenus
+#: model:ir.ui.menu,name:exogenus_settings.menu_concept_exogenus_action
+msgid "Concept Exogenus"
+msgstr "Conceptos Exógena"
+
+#. module: exogenus_settings
+#: model:res.groups,name:exogenus_settings.exogenus_settings_admin_group
+msgid "Configuración Exógena"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__consumption_tax_ids
+msgid "Consumption Tax"
+msgstr "Impuesto al consumo"
+
+#. module: exogenus_settings
+#: model:ir.model,name:exogenus_settings.model_res_partner
+msgid "Contactos"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__create_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__create_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus__create_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_file_imp__create_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__create_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__create_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__create_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus__create_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_file_imp__create_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__create_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__is_account_credit
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__is_credit
+msgid "Credit"
+msgstr "Credito"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__is_account_debit
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__is_debit
+msgid "Debit"
+msgstr "Debito"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus__description_concept
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__description_format
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__description_id
+msgid "Description"
+msgstr "Descripción"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__discountable_tax_ids
+msgid "Discountable Tax"
+msgstr "Impuesto Descontable"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__display_name
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__display_name
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus__display_name
+#: model:ir.model.fields,field_description:exogenus_settings.field_file_imp__display_name
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__display_name
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__display_name
+msgid "Display Name"
+msgstr "Nombre"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_bank__document_type_bank_id
+msgid "Document Type"
+msgstr "Tipo Documento"
+
+#. module: exogenus_settings
+#: model:ir.model,name:exogenus_settings.model_file_imp
+msgid "Documentos para descargar"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_partner__is_employee
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_users__is_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__equity_value_ids
+msgid "Equity value shares or contributions at 12-31"
+msgstr "Valor patrimonial acciones o aportes al 31-12"
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1001
+msgid "FORMATO_1001"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1003
+msgid "FORMATO_1003"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1004
+msgid "FORMATO_1004"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1005
+msgid "FORMATO_1005"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1006
+msgid "FORMATO_1006"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1007
+msgid "FORMATO_1007"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1008
+msgid "FORMATO_1008"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1009
+msgid "FORMATO_1009"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1010
+msgid "FORMATO_1010"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1011
+msgid "FORMATO_1011"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1012
+msgid "FORMATO_1012"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1056
+msgid "FORMATO_1056"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_1647
+msgid "FORMATO_1647"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields.selection,name:exogenus_settings.selection__format_exogenus__type_format__format_2276
+msgid "FORMATO_2276"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__format_account_id
+msgid "Format Account"
+msgstr "Formato Cuentas"
+
+#. module: exogenus_settings
+#: model:ir.actions.act_window,name:exogenus_settings.format_exogenus_action
+#: model:ir.model,name:exogenus_settings.model_format_exogenus
+#: model:ir.ui.menu,name:exogenus_settings.menu_format_exogenus_action
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.format_exogenus_view_tree
+msgid "Format Exogenus"
+msgstr "Formato Exógena"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__format_exogenus_account_id
+msgid "Format Exogenus Account"
+msgstr "Cuentas Formatos Exógena"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus__format_exogenus_concept_id
+msgid "Format Exogenus Concept"
+msgstr "Conceptos Formatos Exógena"
+
+#. module: exogenus_settings
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.format_exogenus_view_form
+msgid "Formato"
+msgstr ""
+
+#. module: exogenus_settings
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.generate_exogenus_view_form
+msgid "Generar Formato Exogena"
+msgstr ""
+
+#. module: exogenus_settings
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.generate_exogenus_view_form
+msgid "Generate"
+msgstr "Generar"
+
+#. module: exogenus_settings
+#: model:ir.model,name:exogenus_settings.model_generate_exogenus
+msgid "Generate Exogenus"
+msgstr "Generar Exógena"
+
+#. module: exogenus_settings
+#: model:ir.actions.act_window,name:exogenus_settings.action_generate_excel
+#: model:ir.ui.menu,name:exogenus_settings.menu_generate_exogenus_action
+msgid "Generate Format"
+msgstr "Generar Formato Exógena"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__generated_tax_ids
+msgid "Generated Tax"
+msgstr "Impuesto Generado"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__id
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__id
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus__id
+#: model:ir.model.fields,field_description:exogenus_settings.field_file_imp__id
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__id
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__id
+msgid "ID"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_bank__identification_document_bank
+msgid "Identification Document"
+msgstr "Documento Identificaci+on"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_file_imp__filecontent
+msgid "Impresión"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__income_withholding_ids
+msgid "Income withholding tax"
+msgstr "Retención en la fuente practicada Renta"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus____last_update
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus____last_update
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus____last_update
+#: model:ir.model.fields,field_description:exogenus_settings.field_file_imp____last_update
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus____last_update
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__write_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__write_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus__write_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_file_imp__write_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__write_uid
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_account_exogenus__write_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__write_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_concept_exogenus__write_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_file_imp__write_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__write_date
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:res.groups,name:exogenus_settings.exogenus_settings_account_group
+msgid "Manejo Exógena"
+msgstr ""
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__name
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__technical_name
+msgid "Name technical"
+msgstr "Nombre Técnico"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__non_resident_vat
+msgid "Non-resident VAT withholding at source"
+msgstr "Retención en la fuente practicada IVA no domiciliados"
+
+#. module: exogenus_settings
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.format_exogenus_view_form
+msgid "Other Account"
+msgstr "Otras Cuentas"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__credit_in_deductible_ids
+msgid "Payment or credit in deductible account"
+msgstr "Pago o abono en cuenta deducible"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__account_not_deductible_ids
+msgid "Payment or credit to account not deductible"
+msgstr "Pago o abono en cuenta NO deducible"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__payments_ecclesiastical_ids
+msgid "Payments for ecclesiastical emoluments"
+msgstr "Pagos eclesiásticos"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__payments_made_electronic_ids
+msgid "Payments made with electronic or paper service vouchers"
+msgstr "Pagos realizados con bonos electrónicos"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__recognized_ids
+msgid "Recognized"
+msgstr "Auxilio de cesantías reconocido a trabajadores"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__rebates_discounts_ids
+msgid "Returns, rebates and discounts"
+msgstr "Devoluciones,  rebajas y descuentos"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__salary_payments_ids
+msgid "Salary Payments"
+msgstr "Pagos por Salarios"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__sequence
+msgid "Secuence"
+msgstr "Secuencia"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__start_date
+msgid "Start Date"
+msgstr "Fecha Inicio"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__end_date
+msgid "Start End"
+msgstr "Fecha Final"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__type_format
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__type_format_id
+msgid "Type Format"
+msgstr "Tipo Formato"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__vat_greater_value_ids
+msgid "VAT greater value of the cost or expense. deductible"
+msgstr "IVA mayor valor del costo o gasto. deducible"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__cost_non_deductible_ids
+msgid "VAT greater value of the cost or non-deductible expense"
+msgstr "IVA mayor valor del costo o gasto no deducible"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__vat_resulting_ids
+msgid "VAT resulting from returns on canceled sales. rescinded or resolved"
+msgstr "IVA resultante por devoluciones en ventas anuladas"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__source_common_ids
+msgid "VAT withholding at source Common Regime"
+msgstr "Retención en la fuente practicada IVA Régimen común"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__value_the_excess_ids
+msgid "Value of the excess of food payments"
+msgstr "Valor del exceso de los pagos por alimentación"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__value_tax_effectively_ids
+msgid "Value of the tax discount effectively requested in the taxable year"
+msgstr "Valor del descuento tributario solicitado en el año gravable"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__value_tax_discount_ids
+msgid "Value of the total tax discount for the year"
+msgstr "Valor del descuento tributario total del año"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__vat_recovered_ids
+msgid "Vat Recovered"
+msgstr "IVA recuperado en devoluciones en compras anuladas"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__withholding_at_source_ids
+msgid "Withholding at source assumed Income"
+msgstr "Retención en la fuente asumida Renta"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__withholding_ids
+msgid "Withholding that they practiced"
+msgstr "Retención que le practicaron"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_generate_exogenus__account_format_id
+msgid "account"
+msgstr "Cuenta"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__average_income_value_ids
+msgid "average income value"
+msgstr "Valor ingreso laboral-seis meses"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__charges_comissions_ids
+msgid "charges comissions"
+msgstr "Pagos por comisiones"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__contibutions_avc_ids
+msgid "contibutions avc"
+msgstr "Aportes a cuentas AVC"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__contributions_afc_ids
+msgid "contributions afc"
+msgstr "Aportes a cuentas AFC"
+
+#. module: exogenus_settings
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.account_exogenus_view_tree
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.column_exogenus_view_tree
+#: model_terms:ir.ui.view,arch_db:exogenus_settings.concept_exogenus_view_form
+msgid "create"
+msgstr "Crear"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_partner__customer_format
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_users__customer_format
+msgid "customer"
+msgstr "Cliente"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__fee_payments_ids
+msgid "fee payments"
+msgstr "Pagos por honorarios"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_column_exogenus__format_exogenus_column_id
+msgid "format"
+msgstr "Formato"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__gross_income_ids
+msgid "gross income received"
+msgstr "Ingresos brutos recibidos"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__layoffs_consigned_ids
+msgid "layoffs consigned"
+msgstr "Cesantías consignadas al fondo"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__layoffs_interest_ids
+msgid "layoffs interest"
+msgstr "Cesantías e intereses pagadas a empleado"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__mandatory_contributions_ids
+msgid "mandatory contributions"
+msgstr "Aportes obligatorios por salud"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__mandatory_pension_ids
+msgid "mandatory pension"
+msgstr "Aportes obligatorios a fondo pensiones"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__other_payments_ids
+msgid "other payments"
+msgstr "Otros pagos"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__payment_cooperative_ids
+msgid "payment cooperative"
+msgstr "Pagos por compensaciones trabajo"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__payment_food_ids
+msgid "payment food"
+msgstr "Pagos por alimentación"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__payment_services_ids
+msgid "payment services"
+msgstr "Pagos por servicios"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__payments_benefits_ids
+msgid "payments benefits"
+msgstr "Pagos por prestaciones sociales"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__payments_expenses_ids
+msgid "payments expenses"
+msgstr "Pagos por gastos de representación"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__per_diem_payment_ids
+msgid "per diem payment"
+msgstr "Pagos por viáticos"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__retirement_pensions_ids
+msgid "retirement pensions"
+msgstr "Pensiones de Jubilación"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__sales_tax_higher_ids
+msgid "sales tax higher"
+msgstr "Impuesto sobre las ventas"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__sales_tax_source_ids
+msgid "sales tax source"
+msgstr "Retención en la fuente-IVA"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_partner__supplier_format
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_users__supplier_format
+msgid "supplier"
+msgstr "Proveedor"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__total_gross_ids
+msgid "total gross"
+msgstr "Total ingresos brutos"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__value_income_payment_ids
+msgid "value income payment"
+msgstr "Valor de las retenciones en la fuente"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__value_reimbursable_ids
+msgid "value reimbursable"
+msgstr "Valor apoyos económicos no reembolsables"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__voluntary_contributions_ids
+msgid "voluntary contributions"
+msgstr "RAIS"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_format_exogenus__voluntary_pension_funds_ids
+msgid "voluntary pension"
+msgstr "Aportes a fondo pensiones voluntarios"
+
+#. module: exogenus_settings
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_partner__shareholder
+#: model:ir.model.fields,field_description:exogenus_settings.field_res_users__shareholder
+msgid "¿shareholder or partner?"
+msgstr "Socio"

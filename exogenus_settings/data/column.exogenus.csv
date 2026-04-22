@@ -1,0 +1,190 @@
+id,name,sequence,format_exogenus_column_id
+column_01,Concepto,1,FORMATO_1012
+column_02,Tipo de Documento,2,FORMATO_1012
+column_03,NIT informado,3,FORMATO_1012
+column_04,DV,4,FORMATO_1012
+column_05,Primer apellido del informado,5,FORMATO_1012
+column_06,Segundo apellido del informado,6,FORMATO_1012
+column_07,Primer nombre del informado,7,FORMATO_1012
+column_08,Otros nombres del informado,8,FORMATO_1012
+column_09,Razón social informado,9,FORMATO_1012
+column_10,País de Residencia o domicilio,10,FORMATO_1012
+column_11,Valor 31-12,11,FORMATO_1012
+column_38,Concepto,38,FORMATO_1007
+column_39,Tipo de documento,39,FORMATO_1007
+column_40,Número identificación ,40,FORMATO_1007
+column_41,Primer apellido del informado,41,FORMATO_1007
+column_42,Segundo apellido del informado,42,FORMATO_1007
+column_43,Primer nombre del informado,43,FORMATO_1007
+column_44,Otros nombres del informado,44,FORMATO_1007
+column_45,Razón social informado,45,FORMATO_1007
+column_46,País de Residencia o domicilio,46,FORMATO_1007
+column_47,Ingresos brutos recibidos,47,FORMATO_1007
+column_48,Devoluciones rebajas y descuentos,48,FORMATO_1007
+column_49,Tipo de Documento,49,FORMATO_1006
+column_50,Número identificación,50,FORMATO_1006
+column_51,DV,51,FORMATO_1006
+column_52,Primer apellido del informado,52,FORMATO_1006
+column_53,Segundo apellido del informado,53,FORMATO_1006
+column_54,Primer nombre del informado,54,FORMATO_1006
+column_55,Otros nombres del informado,55,FORMATO_1006
+column_56,Razón social informado,56,FORMATO_1006
+column_57,Impuesto generado,57,FORMATO_1006
+column_58,IVA recuperado en devoluciones en compras anuladas. rescindidas o resueltas,58,FORMATO_1006
+column_59,Impuesto al consumo,59,FORMATO_1006
+column_60,Tipo de documento,60,FORMATO_1005
+column_61,Número identificación,61,FORMATO_1005
+column_62,DV,62,FORMATO_1005
+column_63,Primer apellido del informado,63,FORMATO_1005
+column_64,Segundo apellido del informado,64,FORMATO_1005
+column_65,Primer nombre del informado,65,FORMATO_1005
+column_66,Otros nombres del informado,66,FORMATO_1005
+column_67,Razón social informado,67,FORMATO_1005
+column_68,Impuesto Descontable,68,FORMATO_1005
+column_69,IVA resultante por devoluciones en ventas anuladas. rescindidas o resueltas,69,FORMATO_1005
+
+column_115,Tipo de Documento,115,FORMATO_1010
+column_116,Número de documento,116,FORMATO_1010
+column_117,DV,117,FORMATO_1010
+column_118,Primer apellido socio o accionista,118,FORMATO_1010
+column_119,Segundo apellido socio o accionista,119,FORMATO_1010
+column_120,Primer nombre del socio o accionista,120,FORMATO_1010
+column_121,Otros nombres socio o accionista,121,FORMATO_1010
+column_122,Razón social ,122,FORMATO_1010
+column_123,Dirección,123,FORMATO_1010
+column_124,Código dpto,124,FORMATO_1010
+column_125,Código mcp,125,FORMATO_1010
+column_126,País de Residencia o domicilio,126,FORMATO_1010
+column_127,Valor patrimonial acciones o aportes al 31-12,127,FORMATO_1010
+column_128,Porcentaje de participación,128,FORMATO_1010
+column_129,Porcentaje de participación (posición decimal),129,FORMATO_1010
+column_130,Concepto,130,FORMATO_1009
+column_131,Tipo de documento,131,FORMATO_1009
+column_132,Número identificación acreedor,132,FORMATO_1009
+column_133,DV,133,FORMATO_1009
+column_134,Primer apellido acreedor,134,FORMATO_1009
+column_135,Segundo apellido acreedor,135,FORMATO_1009
+column_136,Primer nombre acreedor,136,FORMATO_1009
+column_137,Otros nombres acreedor,137,FORMATO_1009
+column_138,Razón social acreedor,138,FORMATO_1009
+column_139,Dirección,139,FORMATO_1009
+column_140,Código dpto,140,FORMATO_1009
+column_141,Código mcp,141,FORMATO_1009
+column_142,País de Residencia o domicilio,142,FORMATO_1009
+column_143,Saldo cuentas por pagar al 31-12,143,FORMATO_1009
+column_144,Concepto,144,FORMATO_1008
+column_145,Tipo de documento,145,FORMATO_1008
+column_146,Número identificación deudor,146,FORMATO_1008
+column_147,DV,147,FORMATO_1008
+column_148,Primer apellido deudor,148,FORMATO_1008
+column_149,Segundo apellido deudor,149,FORMATO_1008
+column_150,Primer nombre deudor,150,FORMATO_1008
+column_151,Otros nombres deudor,151,FORMATO_1008
+column_152,Razón social deudor,152,FORMATO_1008
+column_153,Dirección,153,FORMATO_1008
+column_154,Código mcp,154,FORMATO_1008
+column_155,Código dpto,155,FORMATO_1008
+column_156,País de Residencia o domicilio,156,FORMATO_1008
+column_157,Saldo cuentas por cobrar al 31-12,157,FORMATO_1008
+column_96,Concepto,96,FORMATO_1001
+column_97,Tipo de documento,97,FORMATO_1001
+column_98,Número identificación,98,FORMATO_1001
+column_99,Primer apellido del informado,99,FORMATO_1001
+column_100,Segundo apellido del informado,100,FORMATO_1001
+column_101,Primer nombre del informado,101,FORMATO_1001
+column_102,Otros nombres del informado,102,FORMATO_1001
+column_103,Razón social informado,103,FORMATO_1001
+column_104,Dirección,104,FORMATO_1001
+column_105,Código dpto,105,FORMATO_1001
+column_158,Código mcp,105,FORMATO_1001
+column_106,País de Residencia o domicilio,106,FORMATO_1001
+column_107,Pago o abono en cuenta deducible,107,FORMATO_1001
+column_108,Pago o abono en cuenta NO deducible,108,FORMATO_1001
+column_109,IVA mayor valor del costo o gasto. deducible,109,FORMATO_1001
+column_110,IVA mayor valor del costo o gasto no deducible,110,FORMATO_1001
+column_111,Retención en la fuente practicada Renta,111,FORMATO_1001
+column_112,Retención en la fuente asumida Renta,112,FORMATO_1001
+column_113,Retención en la fuente practicada IVA Régimen común,113,FORMATO_1001
+column_114,Retención en la fuente practicada IVA no domiciliados,114,FORMATO_1001
+column_159,Concepto,159,FORMATO_1003
+column_160,Tipo de Documento,160,FORMATO_1003
+column_161,Número identificación,161,FORMATO_1003
+column_162,DV,162,FORMATO_1003
+column_163,Primer apellido del informado,163,FORMATO_1003
+column_164,Segundo apellido del informado,164,FORMATO_1003
+column_165,Primer nombre del informado,165,FORMATO_1003
+column_166,Otros nombres del informado,166,FORMATO_1003
+column_167,Razón social informado,167,FORMATO_1003
+column_168,Dirección,168,FORMATO_1003
+column_169,Código del Departamento,169,FORMATO_1003
+column_170,Código del Municipio,170,FORMATO_1003
+column_171,Valor acumulado del pago o abono sujeto a Retención en la fuente,171,FORMATO_1003
+column_172,Retención que le practicaron,172,FORMATO_1003
+
+
+column_173,Entidad Informante,173,FORMATO_2276
+column_125,Número de Identificación del beneficiario,125,FORMATO_2276
+column_175,Tipo de documento del beneficiario,175,FORMATO_2276
+column_176,Primer Apellido del beneficiario,176,FORMATO_2276
+column_177,Segundo Apellido del beneficiario,177,FORMATO_2276
+column_178,Primer Nombre del beneficiario,178,FORMATO_2276
+column_179,Otros Nombres del beneficiario,179,FORMATO_2276
+column_180,Dirección del beneficiario,180,FORMATO_2276
+column_181,Departamento del beneficiario,181,FORMATO_2276
+column_182,Municipio del beneficiario,182,FORMATO_2276
+column_183,País del beneficiario,183,FORMATO_2276
+column_184,Pagos por Salarios,184,FORMATO_2276
+column_185,Pagos por emolumentos eclesiásticos,185,FORMATO_2276
+column_186,Pagos realizados con bonos electrónicos o de papel de servicio,186,FORMATO_2276
+column_187,Valor del exceso de los pagos por alimentación mayores a 41 UVT,187,FORMATO_2276
+column_188,Pagos por honorarios,188,FORMATO_2276
+column_189,Pagos por servicios,189,FORMATO_2276
+column_190,Pagos por comisiones,190,FORMATO_2276
+column_191,Pagos por prestaciones sociales,191,FORMATO_2276
+column_192,Pagos por viáticos,192,FORMATO_2276
+column_193,Pagos por gastos de representación,193,FORMATO_2276
+column_194,Pagos por compensaciones trabajo asociado cooperativo,194,FORMATO_2276
+column_195,Valor apoyos económicos no reembolsables o condonados,195,FORMATO_2276
+column_196,Otros pagos,196,FORMATO_2276
+column_197,Cesantías e intereses de cesantías efectivamente pagadas al empleado,197,FORMATO_2276
+column_198,Cesantías consignadas al fondo de cesantías,198,FORMATO_2276
+column_199,Auxilio de cesantías reconocido a trabajadores del régimen tradicional del Código Sustantivo del Trabajo,199,FORMATO_2276
+column_200,Pensiones de Jubilación,200,FORMATO_2276
+column_201,Total ingresos brutos por rentas de trabajo y pensión,201,FORMATO_2276
+column_202,Aportes obligatorios por salud a cargo del trabajador,202,FORMATO_2276
+column_203,Aportes obligatorios a fondos de pensiones y solidaridad pensional a cargo del trabajador,203,FORMATO_2276
+column_204,Aportes voluntarios al régimen de ahorro individual con solidaridad - RAIS,204,FORMATO_2276
+column_205,Aportes voluntarios a fondos de pensiones voluntarias,205,FORMATO_2276
+column_206,Aportes a cuentas AFC,206,FORMATO_2276
+column_207,Aportes a cuentas AVC,207,FORMATO_2276
+column_208,Valor de las retenciones en la fuente por pagos de rentas de trabajo o pensiones,208,FORMATO_2276
+column_209,Impuesto sobre las ventas – IVA. mayor valor del costo o gasto,209,FORMATO_2276
+column_210,Retención en la fuente a título de impuesto sobre las ventas – IVA.,210,FORMATO_2276
+column_211,Pagos por alimentación hasta 41 UVT,211,FORMATO_2276
+column_212,Valor ingreso laboral promedio de los últimos seis meses.,212,FORMATO_2276
+column_213,Tipo de documento del dependiente económico,213,FORMATO_2276
+column_214,Número de Identificación del dependiente económico,214,FORMATO_2276
+column_215,Identificación del fideicomiso,215,FORMATO_2276
+column_216,Tipo documento participante en contrato de colaboración,216,FORMATO_2276
+column_217,Identificación participante en contrato colaboración,217,FORMATO_2276
+
+column_218,Concepto,70,FORMATO_1004
+column_219,Tipo de documento,71,FORMATO_1004
+column_220,Número identificación,72,FORMATO_1004
+column_221,Primer apellido,73,FORMATO_1004
+column_223,Segundo apellido,74,FORMATO_1004
+column_75,Primer nombre,75,FORMATO_1004
+column_76,Otros nombres,76,FORMATO_1004
+column_77,Razón social,77,FORMATO_1004
+column_78,Dirección,78,FORMATO_1004
+column_79,Código dpto,79,FORMATO_1004
+column_218,Código mcp,218,FORMATO_1004
+column_79,Código país,79,FORMATO_1004
+column_80,Buzón. correo o dirección electrónicos,80,FORMATO_1004
+column_81,Valor del descuento tributario total del año,81,FORMATO_1004
+column_82,Valor del descuento tributario efectivamente solicitado en el año gravable,82,FORMATO_1004
+column_224,Concepto,224,FORMATO_1011
+column_225,Saldos al 31-12,225,FORMATO_1011
+
+
+

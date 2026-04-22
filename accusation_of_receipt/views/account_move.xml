@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_invoice_form">
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//form[1]/sheet[1]/notebook[1]" position="inside">
+                <page string="Acuse recibo"  invisible="move_type != 'in_invoice'">
+                <group col="1">
+                    <field name="exp_invoice_file" readonly="set_acuse_recibo_ok"></field>
+                    <field name="tipo_documento" readonly="set_acuse_recibo_ok"></field>
+                    <field name="tipo_evento_radian" readonly="set_acuse_recibo_ok"></field>
+                    <field name="tipo_de_rechazo_reclamo" readonly="set_acuse_recibo_ok" invisible="tipo_evento_radian != '031'"/>
+                    <field name="original_filename" invisible="1"></field>
+                    <field name="acuse_journal_id" widget="many2one" readonly="set_acuse_recibo_ok"></field>
+                    <field name="acuse_recibo_id" widget="many2many_tags" readonly="1"></field>
+<!--                     <field name="invoice_cufe" readonly="1"></field> -->
+                    <field name="invoice_cufe"></field>
+                    <field name="set_acuse_recibo_ok" invisible="1"></field>
+                    <field name="set_acuse_values_ok" invisible="1"></field>
+                    <field name="send_acuse_dian_ok" invisible="1"></field>
+                </group>
+                <group col="2">
+                    <field name="acuse_state_badge"  widget='html'/>
+                    <field name="reclamo_state_badge"  widget='html'/>
+                    <field name="recibo_state_badge"  widget='html'/>
+                    <field name="tacita_state_badge"  widget='html'/>
+                    <field name="expresa_state_badge"  widget='html'/>
+                </group>
+                    <button name="set_acuse_recibo" string="Evento" type="object" class="oe_highlight"/>
+                    <button name="set_acuse_values" string="Configurar" type="object" class="oe_highlight" invisible="not set_acuse_values_ok"/>
+                    <button name="send_acuse_dian" string="Enviar" type="object" class="oe_highlight" invisible="not send_acuse_dian_ok"/>                    
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_pos_pos_form_inherit_pw_update_payment" model="ir.ui.view">
+            <field name="name">pos.order.form.view.inherit.pw.update.payment</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_ids']/tree/field[@name='amount']" position="after">
+                    <button name="%(action_update_payment_method_wizard)d"
+                        class="btn btn-primary"
+                        string="Actualizar"
+                        type="action"
+                        groups="pw_pos_payment_method_update.group_pw_pos_payment_update"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

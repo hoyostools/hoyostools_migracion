@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_format_exogenus_admin_group,Format Exogenus Admin Group,model_format_exogenus,exogenus_settings_admin_group,1,1,1,1
+access_format_exogenus_account_group,Format Exogenus Account Group,model_format_exogenus,exogenus_settings_account_group,1,1,0,0
+access_generate_exogenus_admin_group,Generate Exogenus Admin Group,model_generate_exogenus,exogenus_settings_admin_group,1,1,1,1
+access_generate_exogenus_account_group,Generate Exogenus Account Group,model_generate_exogenus,exogenus_settings_account_group,1,1,1,0
+access_account_exogenus_admin_group,Account Exogenus Admin Group,model_account_exogenus,exogenus_settings_admin_group,1,1,1,1
+access_account_exogenus_account_group,Account Exogenus Account Group,model_account_exogenus,exogenus_settings_account_group,1,1,0,0
+access_column_exogenus_admin_group,Column Exogenus Admin Group,model_column_exogenus,exogenus_settings_admin_group,1,1,1,1
+access_column_exogenus_account_group,Column Exogenus Account Group,model_column_exogenus,exogenus_settings_account_group,1,1,0,0
+access_concept_exogenus_admin_group,Concept Exogenus Admin Group,model_concept_exogenus,exogenus_settings_admin_group,1,1,1,1
+access_concept_exogenus_account_group,Concept Exogenus Account Group,model_concept_exogenus,exogenus_settings_account_group,1,1,0,0
+access_file_imp_admin_group,File Import Admin Group,model_file_imp,exogenus_settings_admin_group,1,1,1,1
+access_file_imp_account_group,File Import Account Group,model_file_imp,exogenus_settings_account_group,1,1,1,0
+access_general_admin_group,General Admin Group,model_general_exogenus,exogenus_settings_admin_group,1,1,1,1
+access_general_account_group,General Account Group,model_general_exogenus,exogenus_settings_account_group,1,1,1,0

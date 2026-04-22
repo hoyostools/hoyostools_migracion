@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_credit_management" model="ir.ui.view">
+        <field name="name">res.partner.form.credit.management</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="after">
+                <page string="Gestión Crédito" name="credit_management">
+                    <group>
+                        <group>
+                            <field name="control_credit"/>
+                            <field name="credit_limit"/>
+                            <field name="credit_limit_with_conditions" readonly="1"/>
+                            <field name="risk_category_id"/>
+                        </group>
+                        <group>
+                            <button
+                                name="action_open_credit_config"
+                                type="object"
+                                string="Configurar Crédito"
+                                class="btn-primary"/>
+                        </group>
+                    </group>
+
+                    <group col="2">
+                        <!-- COLUMNA IZQUIERDA -->
+                        <group string="Resúmenes">
+                            <field name="receivable_amount" readonly="1"/>
+                            <field name="pending_reconcile_amount" readonly="1"/>
+                            <field name="sale_order_open_amount" readonly="1"/>
+                            <field name="available_credit" readonly="1"/>
+                        </group>
+                        <!-- COLUMNA DERECHA -->
+                        <group string="Configuración">
+                            <field name="credit_only_invoiced" readonly="1"/>
+                            <field name="credit_only_sales" readonly="1"/>
+                            <field name="over_quota_percent_enabled" readonly="1"/>
+                            <field name="over_quota_percent" readonly="1" invisible="not over_quota_percent_enabled"/>
+                            <field name="over_quota_percent_value" readonly="1" invisible="not over_quota_percent_enabled"/>
+                            <field name="blocking_overdue_enabled" readonly="1"/>
+                            <field name="blocking_overdue_days" readonly="1" invisible="not blocking_overdue_enabled"/>
+                            <field name="over_quota_manual_enabled" readonly="1"/>
+                            <field name="over_quota_manual_value" readonly="1" invisible="not over_quota_manual_enabled"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

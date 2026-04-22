@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="res.groups" id="report_acuse_group">
+        <field name="name">Grupo acuse recibo</field>
+    </record>
+</odoo>

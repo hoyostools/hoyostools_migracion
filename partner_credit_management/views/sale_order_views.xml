@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_credit_management" model="ir.ui.view">
+        <field name="name">sale.order.form.credit.management</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//header" position="after">
+                <div class="alert alert-danger" invisible="not credit_blocked_limit">
+                    <strong>Bloqueo por Cupo</strong><br/>
+                    Cupo asignado:
+                    <field name="credit_limit_assigned" readonly="1" class="oe_inline"/>
+                    |
+                    Cupo disponible:
+                    <field name="credit_available_at_validation" readonly="1" class="oe_inline"/>
+                </div>
+
+                <div class="alert alert-danger" invisible="not credit_blocked_overdue">
+                    <strong>Bloqueo Mora</strong><br/>
+                    Días de mora detectados:
+                    <field name="credit_overdue_days_found" readonly="1" class="oe_inline"/>
+                </div>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Seguridad Gestión Crédito" name="credit_security">
+                    <group>
+                        <field name="credit_unlock_overdue"/>
+                        <field name="credit_unlock_limit"/>
+                    </group>
+                    <group string="Estado">
+                        <field name="credit_blocked_overdue" readonly="1"/>
+                        <field name="credit_blocked_limit" readonly="1"/>
+                        <field name="credit_limit_assigned" readonly="1"/>
+                        <field name="credit_available_at_validation" readonly="1"/>
+                        <field name="credit_overdue_days_found" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

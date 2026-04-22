@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="invoice_form_payment_mean" model="ir.ui.view">
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='invoice_date']" position="after">
+                    <field
+                        name="payment_mean_id"
+                        options="{'no_create': True}"
+                        required="move_type in ('out_invoice', 'out_refund')"
+                        readonly="state != 'draft'"
+                        />
+                    <field
+                        name="payment_mean_code_id"
+                        options="{'no_create': True}" 
+                        invisible="move_type != 'out_invoice'"
+                        readonly="state != 'draft'"
+                        required="move_type == 'out_invoice'"
+                    />
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

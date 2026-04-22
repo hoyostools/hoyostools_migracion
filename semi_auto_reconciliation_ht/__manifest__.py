@@ -29,6 +29,11 @@
         'data/cruce_finalizado_data.xml',
         
     ],
+    'assets': {
+        'web.assets_backend': [
+            'semi_auto_reconciliation_ht/static/src/js/sum_auto_refresh_list.js',
+        ],
+    },
     'installable': True,
     'application': True,
     'auto_install': False,

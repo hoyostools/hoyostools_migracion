@@ -10,7 +10,8 @@
                   delete="false"
                   editable="bottom"
                   decoration-danger="is_due"
-                  decoration-warning="is_warning_due">
+                  decoration-warning="is_warning_due"
+                  js_class="refresh_sum_list">
                 <field name="company_id" optional="hide"/>
                 <field name="partner_id" readonly="1"/>
                 <field name="invoice_date" readonly="1"/>

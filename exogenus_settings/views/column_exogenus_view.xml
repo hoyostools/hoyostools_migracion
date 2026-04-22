@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="column_exogenus_view_tree" model="ir.ui.view">
+            <field name="name">column.exogenus.view.tree</field>
+            <field name="model">column.exogenus</field>
+            <field name="arch" type="xml">
+                <list editable="bottom" string="create">
+                    <field name="name" />
+                    <field name="sequence" widget="handle" />
+                    <field name="format_exogenus_column_id" invisible="1" />
+                </list>
+            </field>
+        </record>
+        <record id="column_exogenus_action" model="ir.actions.act_window">
+            <field name="name">Column Exogenus</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">column.exogenus</field>
+            <field name="view_mode">list,form</field>
+            <field name="view_id" ref="column_exogenus_view_tree"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record> 
+    
+        <menuitem action="column_exogenus_action"
+            id="menu_column_exogenus_action"
+            parent="account.menu_finance_configuration"
+            sequence="13"/>
+    </data>
+</odoo>

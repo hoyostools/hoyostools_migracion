@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_pos_order_form_inherit_cufe" model="ir.ui.view">
+        <field name="name">pos.order.form.cufe</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <field name="tomo_pedido" position="after">
+                <field name="cufe" readonly="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

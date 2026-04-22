@@ -1,0 +1,557 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Colombia Address Code -->
+        <record id="co_add_code_001" model="address.code">
+            <field name="name">Avenida Calle</field>
+            <field name="code">AC</field>
+        </record>
+
+        <record id="co_add_code_002" model="address.code">
+            <field name="name">Administración</field>
+            <field name="code">AD</field>
+        </record>
+
+        <record id="co_add_code_003" model="address.code">
+            <field name="name">Adelante</field>
+            <field name="code">ADL</field>
+        </record>
+
+        <record id="co_add_code_004" model="address.code">
+            <field name="name">Aeropuerto</field>
+            <field name="code">AER</field>
+        </record>
+
+        <record id="co_add_code_005" model="address.code">
+            <field name="name"> Agrupación</field>
+            <field name="code">AGP</field>
+        </record>
+
+        <record id="co_add_code_006" model="address.code">
+            <field name="name">Avenida carrera</field>
+            <field name="code">AK</field>
+        </record>
+
+        <record id="co_add_code_007" model="address.code">
+            <field name="name">Altillo</field>
+            <field name="code">AL</field>
+        </record>
+
+        <record id="co_add_code_008" model="address.code">
+            <field name="name">Al lado</field>
+            <field name="code">ALD</field>
+        </record>
+
+        <record id="co_add_code_009" model="address.code">
+            <field name="name">Almacén</field>
+            <field name="code">ALM</field>
+        </record>
+
+        <record id="co_add_code_010" model="address.code">
+            <field name="name">Apartamento</field>
+            <field name="code">AP</field>
+        </record>
+
+        <record id="co_add_code_011" model="address.code">
+            <field name="name">Apartado</field>
+            <field name="code">APTDO</field>
+        </record>
+
+        <record id="co_add_code_012" model="address.code">
+            <field name="name"> Atrás</field>
+            <field name="code">ATR</field>
+        </record>
+
+        <record id="co_add_code_013" model="address.code">
+            <field name="name"> Autopista</field>
+            <field name="code">AUT</field>
+        </record>
+
+        <record id="co_add_code_014" model="address.code">
+            <field name="name">Avenida</field>
+            <field name="code">AV</field>
+        </record>
+
+        <record id="co_add_code_015" model="address.code">
+            <field name="name">Anillo vial</field>
+            <field name="code">AVIAL</field>
+        </record>
+
+        <record id="co_add_code_016" model="address.code">
+            <field name="name">Bodega</field>
+            <field name="code">BG</field>
+        </record>
+
+        <record id="co_add_code_017" model="address.code">
+            <field name="name">Bloque</field>
+            <field name="code">BL</field>
+        </record>
+
+        <record id="co_add_code_018" model="address.code">
+            <field name="name">Boulevard</field>
+            <field name="code">BLV</field>
+        </record>
+
+        <record id="co_add_code_019" model="address.code">
+            <field name="name">Barrio</field>
+            <field name="code">BRR</field>
+        </record>
+
+        <record id="co_add_code_020" model="address.code">
+            <field name="name">Corregimiento</field>
+            <field name="code">C</field>
+        </record>
+
+        <record id="co_add_code_021" model="address.code">
+            <field name="name"> Casa</field>
+            <field name="code">CA</field>
+        </record>
+
+        <record id="co_add_code_022" model="address.code">
+            <field name="name">Caserío</field>
+            <field name="code">CAS</field>
+        </record>
+
+        <record id="co_add_code_023" model="address.code">
+            <field name="name">Centro comercial</field>
+            <field name="code">CC</field>
+        </record>
+
+        <record id="co_add_code_024" model="address.code">
+            <field name="name">Ciudadela</field>
+            <field name="code">CD</field>
+        </record>
+
+        <record id="co_add_code_025" model="address.code">
+            <field name="name">Célula</field>
+            <field name="code">CEL</field>
+        </record>
+
+        <record id="co_add_code_026" model="address.code">
+            <field name="name">Centro</field>
+            <field name="code">CEN</field>
+        </record>
+
+        <record id="co_add_code_027" model="address.code">
+            <field name="name">Circular</field>
+            <field name="code">CIR</field>
+        </record>
+
+        <record id="co_add_code_028" model="address.code">
+            <field name="name">Calle</field>
+            <field name="code">CL</field>
+        </record>
+
+        <record id="co_add_code_029" model="address.code">
+            <field name="name">Callejón</field>
+            <field name="code">CLJ</field>
+        </record>
+
+        <record id="co_add_code_030" model="address.code">
+            <field name="name">Camino</field>
+            <field name="code">CN</field>
+        </record>
+
+        <record id="co_add_code_031" model="address.code">
+            <field name="name">Conjunto residencial</field>
+            <field name="code">CON</field>
+        </record>
+
+        <record id="co_add_code_032" model="address.code">
+            <field name="name">Conjunto</field>
+            <field name="code">CONJ</field>
+        </record>
+
+        <record id="co_add_code_033" model="address.code">
+            <field name="name">Carrera</field>
+            <field name="code">CR</field>
+        </record>
+
+        <record id="co_add_code_034" model="address.code">
+            <field name="name">Carretera</field>
+            <field name="code">CRT</field>
+        </record>
+
+        <record id="co_add_code_035" model="address.code">
+            <field name="name">Circunvalar</field>
+            <field name="code">CRV</field>
+        </record>
+
+        <record id="co_add_code_036" model="address.code">
+            <field name="name">Consultorio</field>
+            <field name="code">CS</field>
+        </record>
+
+        <record id="co_add_code_037" model="address.code">
+            <field name="name">Diagonal</field>
+            <field name="code">DG</field>
+        </record>
+
+        <record id="co_add_code_038" model="address.code">
+            <field name="name">Depósito</field>
+            <field name="code">DP</field>
+        </record>
+
+        <record id="co_add_code_039" model="address.code">
+            <field name="name">Departamento</field>
+            <field name="code">DPTO</field>
+        </record>
+
+        <record id="co_add_code_040" model="address.code">
+            <field name="name">Depósito sótano</field>
+            <field name="code">DS</field>
+        </record>
+
+        <record id="co_add_code_041" model="address.code">
+            <field name="name">Edificio</field>
+            <field name="code">ED</field>
+        </record>
+
+        <record id="co_add_code_042" model="address.code">
+            <field name="name">Entrada</field>
+            <field name="code">EN</field>
+        </record>
+
+        <record id="co_add_code_043" model="address.code">
+            <field name="name">Escalera</field>
+            <field name="code">ES</field>
+        </record>
+
+        <record id="co_add_code_044" model="address.code">
+            <field name="name">Esquina</field>
+            <field name="code">ESQ</field>
+        </record>
+
+        <record id="co_add_code_045" model="address.code">
+            <field name="name">Este</field>
+            <field name="code">ESTE</field>
+        </record>
+
+        <record id="co_add_code_046" model="address.code">
+            <field name="name">Etapa</field>
+            <field name="code">ET</field>
+        </record>
+
+        <record id="co_add_code_047" model="address.code">
+            <field name="name">Exterior</field>
+            <field name="code">EX</field>
+        </record>
+
+        <record id="co_add_code_048" model="address.code">
+            <field name="name">Finca</field>
+            <field name="code">FCA</field>
+        </record>
+
+        <record id="co_add_code_049" model="address.code">
+            <field name="name">Garaje</field>
+            <field name="code">GJ</field>
+        </record>
+
+        <record id="co_add_code_050" model="address.code">
+            <field name="name">Garaje sótano</field>
+            <field name="code">GS</field>
+        </record>
+
+        <record id="co_add_code_051" model="address.code">
+            <field name="name">Glorieta</field>
+            <field name="code">GT</field>
+        </record>
+
+        <record id="co_add_code_052" model="address.code">
+            <field name="name">Hacienda</field>
+            <field name="code">HC</field>
+        </record>
+
+        <record id="co_add_code_053" model="address.code">
+            <field name="name">Hangar</field>
+            <field name="code">HG</field>
+        </record>
+
+        <record id="co_add_code_054" model="address.code">
+            <field name="name">Interior</field>
+            <field name="code">IN</field>
+        </record>
+
+        <record id="co_add_code_055" model="address.code">
+            <field name="name">Inspección de Policía</field>
+            <field name="code">IP</field>
+        </record>
+
+        <record id="co_add_code_056" model="address.code">
+            <field name="name">Inspección Departamental</field>
+            <field name="code">IPD</field>
+        </record>
+
+        <record id="co_add_code_057" model="address.code">
+            <field name="name">Inspección Municipal</field>
+            <field name="code">IPM</field>
+        </record>
+
+        <record id="co_add_code_058" model="address.code">
+            <field name="name">Kilómetro</field>
+            <field name="code">KM</field>
+        </record>
+
+        <record id="co_add_code_059" model="address.code">
+            <field name="name">Local</field>
+            <field name="code">LC</field>
+        </record>
+
+        <record id="co_add_code_060" model="address.code">
+            <field name="name">Local mezzanine</field>
+            <field name="code">LM</field>
+        </record>
+
+        <record id="co_add_code_061" model="address.code">
+            <field name="name">Lote</field>
+            <field name="code">LT</field>
+        </record>
+
+        <record id="co_add_code_062" model="address.code">
+            <field name="name">Módulo</field>
+            <field name="code">MD</field>
+        </record>
+
+        <record id="co_add_code_063" model="address.code">
+            <field name="name">Mojón</field>
+            <field name="code">MJ</field>
+        </record>
+
+        <record id="co_add_code_064" model="address.code">
+            <field name="name">Muelle</field>
+            <field name="code">MLL</field>
+        </record>
+
+        <record id="co_add_code_065" model="address.code">
+            <field name="name">Mezzanine</field>
+            <field name="code">MN</field>
+        </record>
+
+        <record id="co_add_code_066" model="address.code">
+            <field name="name">Manzana</field>
+            <field name="code">MZ</field>
+        </record> 
+
+        <record id="co_add_code_067" model="address.code">
+            <field name="name">Vías de nombre común</field>
+            <field name="code">NOMBRE VIA</field>
+        </record>
+
+        <record id="co_add_code_068" model="address.code">
+            <field name="name">Norte</field>
+            <field name="code">NORTE</field>
+        </record>
+
+        <record id="co_add_code_069" model="address.code">
+            <field name="name">Oriente</field>
+            <field name="code">O</field>
+        </record>
+
+        <record id="co_add_code_070" model="address.code">
+            <field name="name">Occidente</field>
+            <field name="code">OCC</field>
+        </record>
+
+        <record id="co_add_code_071" model="address.code">
+            <field name="name">Oeste</field>
+            <field name="code">OESTE</field>
+        </record>
+
+        <record id="co_add_code_072" model="address.code">
+            <field name="name">Oficina</field>
+            <field name="code">OF</field>
+        </record>
+
+        <record id="co_add_code_073" model="address.code">
+            <field name="name">Piso</field>
+            <field name="code">P</field>
+        </record>
+
+        <record id="co_add_code_074" model="address.code">
+            <field name="name">Parcela</field>
+            <field name="code">PA</field>
+        </record>
+
+        <record id="co_add_code_075" model="address.code">
+            <field name="name">Parque</field>
+            <field name="code">PAR</field>
+        </record>
+
+        <record id="co_add_code_076" model="address.code">
+            <field name="name">Predio</field>
+            <field name="code">PD</field>
+        </record>
+
+        <record id="co_add_code_077" model="address.code">
+            <field name="name">Penthouse</field>
+            <field name="code">PH</field>
+        </record>
+
+        <record id="co_add_code_078" model="address.code">
+            <field name="name">Pasaje</field>
+            <field name="code">PJ</field>
+        </record>
+
+        <record id="co_add_code_079" model="address.code">
+            <field name="name">Planta</field>
+            <field name="code">PL</field>
+        </record>
+
+        <record id="co_add_code_080" model="address.code">
+            <field name="name">Puente</field>
+            <field name="code">PN</field>
+        </record>
+
+        <record id="co_add_code_081" model="address.code">
+            <field name="name">Portería</field>
+            <field name="code">POR</field>
+        </record>
+
+        <record id="co_add_code_082" model="address.code">
+            <field name="name">Poste</field>
+            <field name="code">POS</field>
+        </record>
+
+        <record id="co_add_code_083" model="address.code">
+            <field name="name">Parqueadero</field>
+            <field name="code">PQ</field>
+        </record>
+
+        <record id="co_add_code_084" model="address.code">
+            <field name="name">Paraje</field>
+            <field name="code">PRJ</field>
+        </record>
+
+        <record id="co_add_code_085" model="address.code">
+            <field name="name">Paseo</field>
+            <field name="code">PS</field>
+        </record>
+
+        <record id="co_add_code_086" model="address.code">
+            <field name="name">Puesto</field>
+            <field name="code">PT</field>
+        </record>
+
+        <record id="co_add_code_087" model="address.code">
+            <field name="name">Park Way</field>
+            <field name="code">PW</field>
+        </record>
+
+        <record id="co_add_code_088" model="address.code">
+            <field name="name">Round Point</field>
+            <field name="code">RP</field>
+        </record>
+
+        <record id="co_add_code_089" model="address.code">
+            <field name="name">Salón</field>
+            <field name="code">SA</field>
+        </record>
+
+        <record id="co_add_code_090" model="address.code">
+            <field name="name">Salón comunal</field>
+            <field name="code">SC</field>
+        </record>
+
+        <record id="co_add_code_091" model="address.code">
+            <field name="name">Salida</field>
+            <field name="code">SD</field>
+        </record>
+
+        <record id="co_add_code_092" model="address.code">
+            <field name="name">Sector</field>
+            <field name="code">SEC</field>
+        </record>
+
+        <record id="co_add_code_093" model="address.code">
+            <field name="name">Solar</field>
+            <field name="code">SL</field>
+        </record>
+
+        <record id="co_add_code_094" model="address.code">
+            <field name="name">Súper manzana</field>
+            <field name="code">SM</field>
+        </record>
+
+        <record id="co_add_code_095" model="address.code">
+            <field name="name">Semisótano</field>
+            <field name="code">SS</field>
+        </record>
+
+        <record id="co_add_code_096" model="address.code">
+            <field name="name">Sótano</field>
+            <field name="code">ST</field>
+        </record>
+
+        <record id="co_add_code_097" model="address.code">
+            <field name="name">Suite</field>
+            <field name="code">SUITE</field>
+        </record>
+
+        <record id="co_add_code_098" model="address.code">
+            <field name="name">Sur</field>
+            <field name="code">SUR</field>
+        </record>
+
+        <record id="co_add_code_099" model="address.code">
+            <field name="name">Terminal</field>
+            <field name="code">TER</field>
+        </record>
+
+        <record id="co_add_code_100" model="address.code">
+            <field name="name">Terraplén</field>
+            <field name="code">TERPLN</field>
+        </record>
+
+        <record id="co_add_code_101" model="address.code">
+            <field name="name">Torre</field>
+            <field name="code">TO</field>
+        </record>
+
+        <record id="co_add_code_102" model="address.code">
+            <field name="name">Transversal</field>
+            <field name="code">TV</field>
+        </record>
+
+        <record id="co_add_code_103" model="address.code">
+            <field name="name">Terraza</field>
+            <field name="code">TZ</field>
+        </record>
+
+        <record id="co_add_code_104" model="address.code">
+            <field name="name">Unidad</field>
+            <field name="code">UN</field>
+        </record>
+
+        <record id="co_add_code_105" model="address.code">
+            <field name="name">Unidad residencial</field>
+            <field name="code">UR</field>
+        </record>
+
+        <record id="co_add_code_106" model="address.code">
+            <field name="name">Urbanización</field>
+            <field name="code">URB</field>
+        </record>
+
+        <record id="co_add_code_107" model="address.code">
+            <field name="name">Vereda</field>
+            <field name="code">VRD</field>
+        </record>
+
+        <record id="co_add_code_108" model="address.code">
+            <field name="name">Variante</field>
+            <field name="code">VTE</field>
+        </record>
+
+        <record id="co_add_code_109" model="address.code">
+            <field name="name">Zona franca</field>
+            <field name="code">ZF</field>
+        </record>
+
+        <record id="co_add_code_110" model="address.code">
+            <field name="name">Zona</field>
+            <field name="code">ZN</field>
+        </record>
+    </data>
+</odoo>
+

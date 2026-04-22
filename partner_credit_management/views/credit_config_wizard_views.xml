@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_credit_config_wizard_form" model="ir.ui.view">
+        <field name="name">credit.config.wizard.form</field>
+        <field name="model">credit.config.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Configurar Crédito">
+                <group>
+                    <field name="partner_id" readonly="1"/>
+                </group>
+
+                <group string="Modo de Control">
+                    <field name="credit_only_invoiced"/>
+                    <field name="credit_only_sales"/>
+                </group>
+
+                <group string="Saldos">
+                    <field name="receivable_amount" readonly="1"/>
+                    <field name="pending_reconcile_amount" readonly="1"/>
+                    <field name="sale_order_open_amount" readonly="1"/>
+                    <field name="available_credit" readonly="1"/>
+                </group>
+
+                <group string="Sobre Cupo">
+                    <field name="over_quota_percent_enabled"/>
+                    <field name="over_quota_percent" invisible="not over_quota_percent_enabled"/>
+                    <field name="over_quota_percent_value" readonly="1" invisible="not over_quota_percent_enabled"/>
+
+                    <field name="over_quota_manual_enabled"/>
+                    <field name="over_quota_manual_value" invisible="not over_quota_manual_enabled"/>
+                </group>
+
+                <group string="Mora">
+                    <field name="blocking_overdue_enabled"/>
+                    <field name="blocking_overdue_days" invisible="not blocking_overdue_enabled"/>
+                </group>
+
+                <footer>
+                    <button name="action_save" type="object" string="Guardar" class="btn-primary"/>
+                    <button string="Cancelar" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

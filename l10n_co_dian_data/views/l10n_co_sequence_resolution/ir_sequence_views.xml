@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sequence_view_resolution" model="ir.ui.view">
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view"/>
+            <field name="arch" type="xml">
+
+                <field name="use_date_range" position="after">
+                    <field name="use_dian_control"/>
+                    <field name="dian_type" required="use_dian_control" invisible="not use_dian_control" />
+                </field>
+
+                <field name="implementation" position="attributes">
+                    <attribute name="invisible">'use_dian_control'</attribute>
+                </field>
+
+                <field name="suffix" position="attributes">
+                    <attribute name="invisible">'use_dian_control'</attribute>
+                </field>
+
+                <field name="use_date_range" position="attributes">
+                    <attribute name="invisible">'use_dian_control'</attribute>
+                </field>
+
+                <field name="padding" position="attributes">
+                    <attribute name="invisible">'use_dian_control'</attribute>
+                </field>
+
+                <field name="number_increment" position="attributes">
+                    <attribute name="invisible">'use_dian_control'</attribute>
+                </field>
+
+                <xpath expr="//page/group/group[1]" position="after">
+                    <group string="Warn From" invisible="not use_dian_control">
+                        <field name="remaining_numbers" required="use_dian_control"/>
+                        <field name="remaining_days" required="use_dian_control"/>
+                    </group>
+                </xpath>
+
+                <field name="date_from" position="before">
+                    <field name="use_dian_control" readonly="1" invisible="1"/>
+                    <field name="prefix" readonly="1"/>
+                    <field name="resolution_number" required="use_dian_control" />
+                </field>
+
+                <field name="date_to" position="after">
+                    <field name="number_from" required="use_dian_control" />
+                    <field name="number_to" required="use_dian_control" />
+                    <field name="active_resolution" readonly="1"/>
+                </field>
+
+            </field>
+        </record>
+    </data>
+</odoo>

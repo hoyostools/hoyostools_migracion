@@ -1,0 +1,52 @@
+id,name,description_concept,format_exogenus_concept_id
+concept_01,Concepto 5007,Compra de activos movibles . El vlor acumulado pagado o abonado en cuenta,FORMATO_1001
+concept_02,Concepto 5020,Compra de activos fijos reales productivos sobre los cuales solicitó deducción. Este valor no debe incluirse en el Concepto 5008,FORMATO_1001
+concept_03,Concepto 5008,Compra de activos fijos (E.T. art 60 ). El valor acumulado pagado o abonado en cuenta,FORMATO_1001
+concept_04,Concepto 5026,El valor acumulado de los pagos o abono en cuenta al exterior por regalias,FORMATO_1001
+concept_05,Concepto 5024,El valor acumulado de los pagos o abono en cuenta al exterior por regalias,FORMATO_1001
+concept_06,Concepto 5025,El valor acumulado de los pagos o abono en cuenta al exterior por patentes,FORMATO_1001
+concept_07,Concepto 5034,Gastos pagados por anticipado por intereses y rendimientos financieros.El valor acumulado o abonado en cuenta,FORMATO_1001
+concept_08,Concepto 5030,Gastos pagados por anticipado por Honorarios.El valor acumulado pagado o abonado en cuenta .No debe incluir valores de rentas de trabajo y de pensiones,FORMATO_1001
+concept_09,Concepto 5031,Gastos pagados por anticipado por Comisiones.El valor acumulado pagado o abonado en cuenta .No debe incluir valores de rentas de trabajo y de pensiones,FORMATO_1001
+concept_10,Concepto 5035,Gastos pagados por anticipado por otros conceptos: El valor cumulado pagado o abonado en cuenta,FORMATO_1001
+concept_11,Concepto 5033,Gastos pagados por anticipado por arrendamientos.  El valor acumulado pagado o abonado en cuenta,FORMATO_1001
+concept_12,Concepto 5032,Gastos pagados por anticipado por Servicios:El valor acumulado pagado o abonado en cuenta. No debe incluir valores de renta de trabajo y de pensiones,FORMATO_1001
+concept_13,Concepto 5016,Los demás costos y deducciones,FORMATO_1001
+concept_14,Concepto 5019,El monto de las amortizaciones realizadas,FORMATO_1001
+concept_15,Concepto 5029,Gastos pagados por anticipado por Compras. El valor acumulado pagado o abonado en cuenta,FORMATO_1001
+concept_16,Concepto 5057,Viaticos,FORMATO_1001
+concept_17,Concepto 5043,Valor de las participaciones o dividendos pagados o abonados en cuenta en calidad de exigibles. El cual se reporta en el formato 1001,FORMATO_1001
+concept_18,Concepto 5028,El valor acumulado de la devolución de pagos o abonos en cuenta y retenciones correspoondientes a operaciones en años anteriores,FORMATO_1001
+concept_19,Concepto 5002,Honorarios: el valor acumulado pagado o abonado en cuenta. No debe incluir valores de retnas de trabajo y pensiones,FORMATO_1001
+concept_20,Concepto 5003,Comisiones: el valor acumulado pagado o abonado en cuenta. No debe incluir valores de retnas de trabajo y pensiones,FORMATO_1001
+concept_21,Concepto 5004,Servicios: el valor acumulado pagado o abonado en cuenta. No debe incluir valores de rentas de trabajo y pensiones,FORMATO_1001
+concept_22,Concepto 5005,Arrendamientos: El valor acumulado pagado o abonado en cuenta,FORMATO_1001
+concept_23,Concepto 5006,Intereses y rendimienntos financieros causados: El valor acumulado abonado en cuenta,FORMATO_1001
+concept_24,Concepto 5044,El pago de loterias. rifas y apuestas similares,FORMATO_1001
+concept_25,Concepto 5046,Enajenación de activos fijos de personas naturales ante oficinas de tránsito y otras entidades autorizadas,FORMATO_1001
+concept_26,Concepto 5053,Retenciones practicadas a titutlo de timbre,FORMATO_1001
+concept_27,Concepto 5054,La devolución de retenciones a título de impuesto de timbre. correspondiente a operaciones de años anteriores,FORMATO_1001
+concept_28,Concepto 5055,Viáticos: El valor acumulado efectivamente pagado que no constituye ingreso para el trabajador,FORMATO_1001
+concept_29,Concepto 5011,Los pagos o abonos en cuenta efectuados a las empresas promotoras de salud EPS y los aportes al sitema de reisgos laborales. incluídos los aportes del trabajador,FORMATO_1001
+concept_30,Concepto 5012,Los pagos o abonos en cuenta por concepto de aportes obligatorios para pensiones efectuados a los fondos de pensiones. incluidos los aportes del trabajador,FORMATO_1001
+concept_31,Concepto 5010,Los pagos o abonos en cuenta por concepto de aportes parafiscales al sena. a las cajas de compensación familiar y al Instituto Colombiano de Bienestar Familiar,FORMATO_1001
+concept_32,Concepto 5027,El valor acumulado de los pagos o abonos en cuenta al exterior por servicios técnicos,FORMATO_1001
+concept_33,Concepto 5067,El valor acumulado de los pagos o abonos en cuenta al exterior por consultorías,FORMATO_1001
+concept_34,Concepto 5015,El valor de los impuestos solicitados como deducción,FORMATO_1001
+concept_35,Concepto 5058,El valor de los aportes. tasas y contribuciones solicitadas como deducción,FORMATO_1001
+concept_36,Concepto 5056,Gastos de representación: El valor acumulado efectivamente pagado que no constituye ingresos para el trabajador,FORMATO_1001
+concept_37,Concepto 5066,El valor del impuesto nacional al consumo solicitado como deducción,FORMATO_1001
+concept_38,Concepto 5023,El valor acumulado de los pagos o abonos en cuenta al exterior por asistencia técnica,FORMATO_1001
+concept_39,Concepto 5013,Las donaciones en dinero efectuadas a las entidades señaladas en los art 125 125-4. 126-2 y 158-1 del Estatuto tributario y lo establecido en el articulo 16 de la ley 814 de 2003 y demas que determine la ley,FORMATO_1001
+concept_40,Concepto 5014,Las donaciones en activos derentes a ddinero efectuadas a las entidades señaladdas en los articulos 125 125-4 126-2 y 158-1 del estatuto tributario y lo establecido en el articulo 16 de la ley 814 de 2003 y demmas que determine la ley,FORMATO_1001
+concept_41,Concepto 5014,Las donaciones en activos derentes a ddinero efectuadas a las entidades señaladdas en los articulos 125 125-4 126-2 y 158-1 del estatuto tributario y lo establecido en el articulo 16 de la ley 814 de 2003 y demmas que determine la ley,FORMATO_1001
+concept_42,Concepto 1105,Caja,FORMATO_1011
+concept_43,Concepto 1502,Vehículos maquinaria y equipo,FORMATO_1011
+concept_44,Concepto 1512,Activos fijos intangibles,FORMATO_1011
+concept_45,Concepto 1513,Activos fijos agotables,FORMATO_1011
+concept_46,Concepto 1526,Activos biológicos,FORMATO_1011
+
+
+
+
+

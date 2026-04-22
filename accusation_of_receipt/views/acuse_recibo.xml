@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Vista formulario -->
+        <record id="view_acuse_recibo_form" model="ir.ui.view">
+            <field name="name">acuse.recibo.form</field>
+            <field name="model">acuse.recibo</field>
+            <field name="arch" type="xml">
+                <form string="Acuse de Recibo">
+                    <sheet>
+                        <group>
+                            <field name="cufe_cude"/>
+                            <field name="send_cufe_cude"/>
+                            <field name="uncoded_send_cufe_cude"/>
+                            <field name="company_id"/>
+                            <field name="exp_accepted_file"/>
+                            <field name="xml_filename"/>
+                            <field name="zipped_filename"/>
+                            <field name="tipo_documento"/>
+                            <field name="tipo_evento_radian"/>
+                            <field name="tipo_de_rechazo_reclamo"/>
+                            <field name="invoice"/>
+                            <field name="journal_id"/>
+                            <field name="dian_response_text"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vista lista -->
+        <record id="view_acuse_recibo_tree" model="ir.ui.view">
+            <field name="name">acuse.recibo.tree</field>
+            <field name="model">acuse.recibo</field>
+            <field name="arch" type="xml">
+                <tree string="Eventos RADIAN">
+                    <field name="cufe_cude" invisible="1"/>
+                    <field name="send_cufe_cude" invisible="1"/>
+                    <field name="uncoded_send_cufe_cude" invisible="1"/>
+                    <field name="company_id"/>
+                    <field name="exp_accepted_file" invisible="1"/>
+                    <field name="xml_filename" invisible="1"/>
+                    <field name="zipped_filename" invisible="1"/>
+                    <field name="tipo_documento"/>
+                    <field name="tipo_evento_radian"/>
+                    <field name="tipo_de_rechazo_reclamo"/>
+                    <field name="invoice"/>
+                    <field name="journal_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Acción -->
+        <record id="acuse_action_form_view" model="ir.actions.act_window">
+            <field name="name">Acuse Recibo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">acuse.recibo</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menú -->
+        <menuitem 
+            id="acuse_action_menu"
+            name="Acuse Recibo"
+            action="acuse_action_form_view"
+            parent="account.menu_finance_payables"
+            sequence="3"
+        />
+
+    </data>
+</odoo>
+
