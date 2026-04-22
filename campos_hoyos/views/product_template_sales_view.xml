@@ -10,6 +10,7 @@
                 <xpath expr="//field[@name='pos_categ_ids']" position="after">
                     <field name="average_ptv"/>
                     <field name="average_retail"/>
+                    <field name="stand_ptv"/>
                 </xpath>
             </field>
         </record>

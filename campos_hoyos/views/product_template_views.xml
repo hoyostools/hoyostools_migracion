@@ -34,10 +34,6 @@
                 <xpath expr="//page[@name='general_information']/group/group/field[@name='uom_id']" position="before">
                     <field name="cant_pack"/>
                 </xpath>
-
-                <xpath expr="//field[@name='average_retail']" position="after">
-                    <field name="stand_ptv"/>
-                </xpath>
             </field>
         </record>
 
