@@ -1,0 +1,38 @@
+<odoo>
+    <record id="view_motivo_ajuste_form" model="ir.ui.view">
+        <field name="name">motivo.ajuste.form</field>
+        <field name="model">stock.inventory.adjustment.reason</field>
+        <field name="arch" type="xml">
+            <form string="Motivo de Ajuste">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_motivo_ajuste_tree" model="ir.ui.view">
+        <field name="name">motivo.ajuste.tree</field>
+        <field name="model">stock.inventory.adjustment.reason</field>
+        <field name="arch" type="xml">
+            <tree string="Motivos de Ajuste">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_inventory_adjustment_reason" model="ir.actions.act_window">
+        <field name="name">Motivos de Ajuste</field>
+        <field name="res_model">stock.inventory.adjustment.reason</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_inventory_adjustment_reason"
+        name="Motivos de Ajuste"
+        parent="stock.menu_stock_config_settings"
+        action="action_inventory_adjustment_reason"
+        sequence="30"/>
+</odoo>

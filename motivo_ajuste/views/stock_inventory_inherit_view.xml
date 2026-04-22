@@ -1,0 +1,14 @@
+<odoo>
+    <record id="stock_inventory_adjustment_name_form_inherit_reason" model="ir.ui.view">
+        <field name="name">stock.inventory.adjustment.name.form.inherit.reason</field>
+        <field name="model">stock.inventory.adjustment.name</field>
+        <field name="inherit_id" ref="stock.stock_inventory_adjustment_name_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/field[@name='inventory_adjustment_name']" position="before">
+                <field name="adjustment_reason_id" 
+                    options="{'no_create': True, 'no_create_edit': True}"/>
+                <field name="observacion"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

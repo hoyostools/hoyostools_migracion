@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Reconcile Outstanding Payments</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="oe_styling_v8">
+		<br/>
+		<div style="background:#efefef; font-family:LatoOpen Sans !important; color:black;">
+			<section class="oe_container oe_dark">
+				<div style="border-top:#252E64 solid 10px;"></div>
+				<div>
+				<center>
+				<span class="btn btn-sm mb-2 mb-lg-0" style="font-size:14px; font-weight:500; background-color:#159bd7; color:#fff"> Supported for</span>
+                        <span class="btn btn-sm mb-2 mb-lg-0" style="font-size:14px; font-weight:500; background-color:#252E64; color:#fff"><i class="fa fa-check"></i> Community</span>
+                        <span class="btn btn-sm mb-2 mb-lg-0" style="font-size:14px; font-weight:500; background-color:#252E64; color:#fff"><i class="fa fa-check"></i> Enterprise</span>
+                        <span class="btn btn-sm mb-2 mb-lg-0" style="font-size:14px; font-weight:500; background-color:#252E64; color:#fff"><i class="fa fa-check"></i> Odoo.sh</span>
+                    </center>
+                    <br/>
+				    <h2 style="padding-top: 0%;font-weight: 500;color: #252e64 !important;margin-bottom:18px;">
+	                    <center>Reconcile Outstanding Payments</center><br/>
+	                </h2>
+	                
+				    <center><div style="width: 50%; border-top:#252E64 solid 10px;"></div></center>
+				    <div class="oe_slogan" style="margin:5px 0 !important;">
+                        <a href="https://www.omaxinformatics.com" target="new">
+                            <img src="omax.png" style="width: 190px; margin-bottom: 0px;" class="center-block">
+                        </a>
+                    </div>
+				    
+				</div>
+				<div style="border-top:#252E64 solid 10px;"></div>
+			</section>
+		</div>
+
+        <section class="oe_container">
+		    <div >
+		        <h2 class="oe_slogan" style="font-size:30px;"><b><u>Overview</u></b></h2>
+		        <p style="font-size: 20px;">
+		            This Odoo app helps Accountants to do <b>multiple reconcile outstanding Payments</b> against with multiple Invoices, Credit Notes, Bills, Refunds in the same Wizard/Pop Up. It's also allow to reconcile invoices with credit notes and vice versa &amp; Bills with Refunds and vice versa. Accountants can get all needed information in wizard to easily perform reconciliation process.
+		        </p>
+		    </div>
+	    </section>
+
+	    <section class="oe_container ">
+		    <div>
+			    <h2 class="oe_slogan"><b><u>Features</u></b></h2>
+			    <h4><div>
+	                <b>*</b> Users can <b>Reconcile/adjust multiple Invoices</b> against with multiple Outstanding Payments/Credits in single operation.<br/><br/>
+	                <b>*</b> Users can <b>Reconcile/adjust multiple Outstanding Debits</b> against with multiple Customer Credit Notes.<br/><br/>
+	                <b>*</b> <b>Multiple Vendor Bills</b> reconcile with Outstanding debits.<br/><br/>
+	                <b>*</b> <b>Multiple Refunds</b> reconcile with related Outstanding credits.<br/><br/>
+	                <b>*</b> Reconciliation will be in sequence from top to bottom records.<br/><br/>
+	                <b>*</b> <b>Selection option available for payments.</b> Only selected payments will reconcile with related records.<br/><br/>
+	                <b>*</b> <b>Selection option available for Invoices,bills,credit notes,refunds</b>. Only selected records will reconcile with outstanding payments.<br/><br/>
+	                <b>*</b> <b>Option to set Partial amount</b>. Users can change/update <b>To be Paid Amount</b> value in list of Invoices,bills,credit notes,refunds.<br/><br/>
+	                <b>*</b> <b>Remaining Amount</b> available of Outstanding Credits/Debits So Users get the idea of the amount that can be used in transactions.<br/>
+	                        <b>&nbsp;&nbsp;&nbsp;The bifurcation for outstanding payments</b> like whether it is a Payment or Credit Note or Bill or refund.<br/>
+	                        <b>&nbsp;&nbsp;&nbsp;To be Paid Total Amount</b> : it show the total amount that will be reconcile.<br/><br/>
+	                <!--i class="fa fa-check" style="color: #252E64;">Please check below instructions and <i class="fa-brands fa-youtube"><a href="https://youtu.be/CFd6npFTzC8">Video<a> for more Details</i></i></li-->
+
+		        </div></h4>
+		    </div>
+	    </section>
+
+        <section class="oe_container">
+		    <div>
+		        <h2 class="oe_slogan" style="font-size:30px;"><b><u>How It Works</u></b></h2>
+                <div class="oe_bg_img">
+                    <center><span style="font-size:25px;color:#252E64;font-weight:bold;">Access Rights</span></center>
+                    <center><img src="1.png" style="width:100%;border:5px solid #252E64;"></center>
+                    <br/><br/>
+
+                    <h4> We have two option to do it.<br/>
+                    <b style="font-size:20px;color:red;">OPTION - 1 :</b> <span style="font-size:20px;color:#252E64;">"Action Reconcile Outstanding Payment" in Invoice List view and invoice Form view.</span><br/>
+                    Let's Add Outstanding credits for invoices.<br/>
+                    We have 4 invoices of customer <b>Deco Addict</b> and its total due amount is <b>$10,000</b>. All invoice are posted and it's payment status is Not Pad.</h4>
+                    <center><img src="2.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                    <h4>We have received 3 payments from customer Deco Addict as below.</h4>
+                    <center><img src="3.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                    <h4>We have 2 customer-credit-note for Deco Addict as below.</h4>
+                    <center><img src="4.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                    <h4>Select invoices which need to reconcile with Payments and Credit notes and open a wizard from Action Menu.</h4>
+                    <center><img src="5.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                    <h4><center><span style="font-size:25px;color:#252E64;font-weight:bold;">Wizard Explanation</span></center></h4>
+                    <center><img src="6.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+                    
+                    <h4><b>Outstanding credits Section:</b></h4>
+                        &nbsp;Customer Payments and customer credit notes available in the this list. Firstly Customer Payments will set here with sorting by Date and after Credit-Notes will set with sorting by date(Invoice Date field).<br/>
+                        &nbsp;<b>Delete option</b> available if user want to delete a record from the available outstanding credits list.<br/>
+                        &nbsp;User can <b>Hide/Show the cloumns</b> of Date,Reference,Journal,Payment,Credit Note fields.<br/><br/>
+                        &nbsp;<b>Fields Description</b><br/>
+                        &nbsp;1. <b>Select</b>: Its optional field. If User want to reconcile only selective records, User have option to do that Otherwise Reconciliation will start from very first line, one by one record.<br/>
+                        &nbsp;2. <b>Number</b>: Its number of the Payment or credit note.<br/>
+                        &nbsp;3. <b>Date</b> : Its Date of Payment. Invoice Date if its Credit note.<br/>
+                        &nbsp;4. <b>Reference</b>: It's Memo of customer-payment or its Customer Reference of credit note.<br/>
+                        &nbsp;5. <b>Journal</b>: Name of the related Journal.<br/>
+                        &nbsp;6. <b>Amount</b>: amount of payment or Credit Note.<br/>
+                        &nbsp;7. <b>Remaining Amount</b>: Remaining amount that will be use for the adjustment against the invoices.<br/>
+                        &nbsp;8. <b>Payment</b>: its indicate that this record is a customer payment.<br/>
+                        &nbsp;9. <b>Credit Note</b>: its indicate that this record is a customer credit note.<br/><br/>
+                        
+                    <h4><b>To be reconcile with below Invoices Section:</b></h4>
+                        &nbsp;<b>*</b>Selected invoices from the invoice-list-view will visible here. Its sort by Invoice Date.<br/>
+                        &nbsp;<b>*</b> Delete option available if user want to delete a invoice from the To be reconcile with below Invoices Section.<br/>
+                        &nbsp;<b>*</b>User can Hide/Show the cloumns of Reference, Due Date, Untaxed Amount fields.<br/><br/>
+                        
+                        &nbsp;<b>Fields Description</b><br/>
+                        &nbsp;1. <b>Select: Its optional field. If User want to reconcile only selective invoices, User have option to do that Otherwise Reconciliation will start from very first line, one by one record.<br/>
+                        &nbsp;2. <b>Number</b>: Number of invoice.<br/>
+                        &nbsp;3. <b>Reference</b>: Customer Reference of invoice.<br/>
+                        &nbsp;4. <b>Date</b>: Invoice Date of invoice.<br/>
+                        &nbsp;5. <b>Due Date</b>: Due Date of invoice.<br/>
+                        &nbsp;6. <b>Total Amount</b>: Total of invoice.<br/>
+                        &nbsp;7. <b>Amount Due</b>: Due Amount of invoice.<br/>
+                        &nbsp;8.<b>To be Paid Amount</b>: Its Editalble field. Due amount will set by default. User can change the amount here if needed. validation set here if User update greater amount than due amount.<br/>
+                        &nbsp;<b>To be Paid Total Amount</b>: Its sum of <b>To be Paid Amount</b> column. User can get the idea of total amount of invoices that to be reconcile with payments or credit note.<br/><br/>
+
+                        <b>RECONCILE PAYMENT BUTTON:</b> This button will reconcile the payments/credit note to invoices.<br/><br/><br/>
+
+                        <center><span style="font-size:25px;color:#252E64;font-weight:bold;">CASE: 1</span></center>
+                        If user want to auto reconcile all records. Here we have not selected any payment or any invoice in this wizard.</br>
+                        Outstanding credits (PBNK1/2023/00001,PBNK1/2023/00002,PBNK1/2023/00003,CN-INV/2023/1,CN-INV/2023/2) will reconcile <b>respectively with</b> Invoices (INV/2023/00001,INV/2023/00002,INV/2023/00003,INV/2023/00004).<br/>
+                        * <b>PBNK1/2023/00001 $2,200</b> will reconcile with INV/2023/00001 $1000, INV/2023/00002 $1200<br/>
+                        * <b>PBNK1/2023/00002 $3,200</b> will reconcile with INV/2023/00002 $800,  INV/2023/00003 $2400<br/>
+                        * <b>PBNK1/2023/00003 $4,300</b> will reconcile with INV/2023/00003 $600,  INV/2023/00004 $3700<br/>
+                        * <b>CN-INV/2023/1      $120</b> will reconcile with INV/2023/00004 $120<br/>
+                        * <b>CN-INV/2023/2      $180</b> will reconcile with INV/2023/00004 $180<br/><br/><br/>
+
+                        <h4>Lets RECONCILE PAYMENT and check the result.</h4>
+                        All invoice are now <b>PAID</b> and Amount Due is 0.00.
+                        <center><img src="7.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                        <h4>CN-INV/2023/1 and CN-INV/2023/2 are now PAID and Amount Due is 0.00</h4>
+                        <center><img src="7_1.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+                        
+                        <h4>PBNK1/2023/00001, PBNK1/2023/00002, PBNK1/2023/00003 are now reconciled.</h4>
+                        <center><img src="7_2.png" style="width:100%;border:5px solid #252E64;"></center><br/><br/>
+
+                        <h4><b>Let's check reconcile result in invoices.</b></h4>
+                        <b>PBNK1/2023/00001 $2,200</b><br/>
+                        reconcile with invoice INV/2023/00001 with $1000.<br/>
+                        $2,200 - $1000 = $1200 Remaining Amount<br/>
+                        <center><img src="8.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+                        <h4>Remaining amount $1200 of PBNK1/2023/00001 reconcile with invoice INV/2023/00002.</h4>
+                        <center><img src="9.png" style="width:100%;border:5px solid #252E64;"></center><br/><br/>
+                        
+                        <b>PBNK1/2023/00002 $3,200</b><br/>
+                        reconcile with invoice INV/2023/00002 with $800.<br/>
+                        $3,200 - $800 = $2400 Remaining Amount<br/>
+                        <center><img src="10.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                        <h4>Remaining amount $2400 of PBNK1/2023/00002 reconcile with invoice INV/2023/00003.</h4>
+                        <center><img src="11.png" style="width:100%;border:5px solid #252E64;"></center><br/><br/>
+
+                        <b>PBNK1/2023/00003 $4,300</b><br/>
+                        reconcile with invoice INV/2023/00003 with $600.<br/>
+                        $4,300 - $600 = $3700 Remaining Amount<br/>
+                        <center><img src="12.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                        <h4>Remaining amount $3700 of PBNK1/2023/00003 reconcile with invoice INV/2023/00004.</h4>
+                        <center><img src="13.png" style="width:100%;border:5px solid #252E64;"></center><br/><br/>
+
+                        <h4>CN-INV/2023/1 $120</h4>
+                        reconcile with invoice INV/2023/00004 with $120.<br/>
+                        <center><img src="14.png" style="width:100%;border:5px solid #252E64;"></center><br/><br/>
+
+                        <h4>CN-INV/2023/2  $180</h4>
+                        reconcile with invoice INV/2023/00004 with $180<br/>
+                        <center><img src="15.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+                        <h4>We can see here all the records performed successfully.</h4> <br/>
+                        <center><span style="font-size:25px;color:#252E64;font-weight:bold;">
+                        .........................................................................................................................................................................................</span></center><br/>
+                        <center><h4>Now Lets Check the feature with Case 2.</h4></center>
+                        <center><span style="font-size:25px;color:#252E64;font-weight:bold;">CASE: 2</span></center>
+                        <h4>Here We will do reconcile with <b>selective Payments to selective Invoices.</b><br/>
+                        With this option, User can select those payments and invoice which needed for reconciliation.</h4>
+                        <center><img src="16.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+                        
+                        * Payment <b>PBNK1/2023/00004 4,200.00</b> will be reconcile with Invoices INV/2023/00006 and INV/2023/00008.<br/>
+                        <h4><b>Let's check reconcile result in invoices.</b></h4>
+
+                        <b>PBNK1/2023/00004 4,200.00</b><br/>
+                        reconcile with invoice INV/2023/00006 with $1500.<br/>
+                        <center><img src="17.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                        <h4>reconcile with invoice INV/2023/00008 with $2500.</h4>
+                        <center><img src="18.png" style="width:100%;border:5px solid #252E64;"></center><br/><br/>
+
+                        <center><span style="font-size:25px;color:#252E64;font-weight:bold;">User Validation</span></center>
+                        <center><img src="v0.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+                        <h4>We can see here selected records performed successfully.</h4><br/>
+                        <center><span style="font-size:25px;color:red;font-weight:bold;">
+                        .................................................................................................................................................................................................</span></center><br/>
+                        
+                        <center><span style="font-size:25px;color:#252E64;font-weight:bold;">Reconciliation from the Payments</span></center>
+                        <b style="font-size:20px;color:red;">OPTION - 2 :</b> <span style="font-size:20px;color:#252E64;">Action "Reconcile Payment" in Payment List view and Payment Form view</span><br/>
+                        Use can also reconcile the payments to invoices from the Payment view.<br/>
+                        <center><span style="font-size:25px;color:#252E64;font-weight:bold;">User Validation</span></center>
+                        <h4>If user select the already reconciled payment,</h4>
+                        <center><img src="v1.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                        <h4>If user select draft payment,</h4>
+                        <center><img src="v2.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                        <h4>If user select sent payment for reconcile with customer invoices,</h4>
+                        <center><img src="v3.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                        <h4>if user select records with multiple payment currency,</h4>
+                        <center><img src="v4.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                        <h4>If there is not available any invoice to reconcile,</h4>
+                        <center><img src="v5.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+                        
+                        <h4>Lets RECONCILE PAYMENT and check the result.</h4>
+                        <center><img src="20.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+                        <b>PBNK1/2023/00004 Remaining Amount is 200</b> because 4000 amount already reconcile with INV/2023/00006 and INV/2023/00008.<br/><br/>
+
+                        * <b>PBNK1/2023/00005 $1250</b> will reconcile with INV/2023/00007 $1250<br/>
+                        * <b>PBNK1/2023/00006 $550</b> will reconcile with INV/2023/00007 $550<br/>
+                        * <b>PBNK1/2023/00004 $100</b> will reconcile with INV/2023/00007 $100<br/>
+
+                        Total amount of $1900 will reconcile as we <b>select only invoice INV/2023/00007</b> and also <b>change-edit the Paid Amount 1900</b> in the wizard.<br/>
+                        <b>Note</b>: INV/2023/00007 due amount is 2000.
+
+
+                        <h4>Let's check Payments.</h4>
+                        <center><img src="21.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+
+                        <h4>Let's check reconcile result in invoice INV/2023/00007.</h4>
+                        <center><img src="22.png" style="width:100%;border:5px solid #252E64;"></center><br/>
+                        <h4>We can see here selected records performed successfully.</h4><br/><br/>
+                        
+                        <center><span style="font-size:25px;color:#252E64;font-weight:bold;">Action Reconcile Outstanding Payment in CREDIT NOTE</span></center>
+                        <center><h4>Wizard will looks like below screenshot.</h4></center>
+                        <center><img src="23.png" style="width:100%;border:5px solid #252E64;"></center><br/><br/>
+
+                        <center><span style="font-size:25px;color:#252E64;font-weight:bold;">Action Reconcile Outstanding Payment in VENDOR BILLS</span></center>
+                        <center><h4>Wizard will looks like below screenshot.</h4></center>
+                        <center><img src="24.png" style="width:100%;border:5px solid #252E64;"></center><br/><br/>
+                        
+                        <center><span style="font-size:25px;color:#252E64;font-weight:bold;">Action Reconcile Outstanding Payment in REFUNDS</span></center>
+                        <center><h4>Wizard will looks like below screenshot.</h4></center>
+                        <center><img src="25.png" style="width:100%;border:5px solid #252E64;"></center><br/><br/>
+                </div>
+            </div>
+	    </section>
+
+	    <section class="oe_container ">
+		    <div class="oe_row oe_spaced">
+			    <h2 class="oe_slogan" style="font-size:30px;"><b><u>Free Support</u></b></h2>
+			    <div style="font-size: 16px;">
+				    <ul class="list-unstyled mr32 ml32">
+                        <center>You will get <b>100 Days</b> free support incase any bugs or issue (Except data recovery).</center><br/>
+                    </ul>
+			    </div>
+		    </div>
+	    </section>
+	    <section class="oe_container ">
+		    <div class="oe_row oe_spaced">
+			    <h2 class="oe_slogan" style="font-size:30px;"><b><u>Get In Touch</u></b></h2>
+			    <div style="border-top:#252E64 solid 10px;"></div>
+			    <div class="oe_slogan" style="margin-top:10px !important;">
+                    <a href="https://www.omaxinformatics.com" target="new">
+                        <img src="omax.png" style="width: 190px; margin-bottom: 20px;" class="center-block">
+                    </a>
+                </div>
+                <div class="oe_slogan" style="margin-top:10px !important;">
+                    <a class="btn btn-primary btn-lg mt8" style="color: #FFFFFF !important; background-color: #252E64;"
+                       target="new" href="https://www.youtube.com/@omaxinformatics7137/videos">
+                        <i class="fa fa-check-square"></i> Video Tutorial
+                    </a>
+                    <a class="btn btn-primary btn-lg mt8" style="color: #FFFFFF !important; background-color: #252E64;"
+                       target="new"
+                       href="https://apps.odoo.com/apps/modules/browse?order=Best+Sellers&search=OMAX+Informatics">
+                        <i class="fa fa-binoculars"></i> More Apps
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody>
+	                        <tr>
+		                        <td colspan="2" style="font-size:16px; font-weight:bold;" width="100%" align="center">
+		                            <span class="fa fa-certificate fa-1x"> Our Odoo Services</span>
+		                        </td>
+	                        </tr>
+				        </tbody>
+                    </table>
+                    <table class="table" cellpadding="0" cellspacing="0" border="0" width="100%">
+				        <tbody>
+					        <tr>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Implementation</span></center></td>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Development</span></center></td>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Customization</span></center></td>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Migration</span></center></td>
+					        </tr>
+					        <tr>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Integration</span></center></td>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Training</span></center></td>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Support</span></center></td>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> Hire Developer</span></center></td>
+					        </tr>
+				        </tbody>
+			        </table>
+                    <br/>
+                    <table class="table" cellpadding="0" cellspacing="0" border="0" width="100%">
+                        <tbody>
+	                        <tr>
+		                        <td colspan="2" style="font-size:16px; font-weight:bold;" width="100%" align="center">
+		                            <span class="fa fa-certificate fa-1x"> For support, query and question contact us.</span>
+		                        </td>
+	                        </tr>
+				        </tbody>
+                    </table>
+                    <table class="table" cellpadding="0" cellspacing="0" border="0" width="100%">
+				        <tbody>
+					        <tr>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-envelope fa-1x"> contact@omaxinformatics.com</span></center></td>
+						        <td style="background-color: #252E64; color:white; border-radius: 15px; font-weight: bold;"><center><span class="fa fa-globe fa-1x"> www.omaxinformatics.com</span></center></td>
+					        </tr>
+				        </tbody>
+			        </table>
+                </div>
+                <br/>
+                <div style="border-top:#252E64 solid 10px;"></div>
+		    </div>
+	    </section>
+	    <section class="oe_container ">
+		    <div class="oe_row oe_spaced">
+			    <h2 class="oe_slogan" style="font-size:30px; color:#252E64"><b>Thank you for visiting</b></h2>
+		    </div>
+	    </section>
+
+
+	</div>
+</body>
+</html>
+
+
