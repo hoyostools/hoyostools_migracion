@@ -28,7 +28,7 @@ class SaleOrderLine(models.Model):
             if self.product_uom_qty < valor_b:
                 self.discount = self.discount
 
-    @api.onchange('product_uom_qty')
+    # @api.onchange('product_uom_qty')
     def calculate_discount(self):
         self.ensure_one()
         if self.product_template_id and self.product_template_id.applicable_sale_order and not self.order_id.skip_calculate_discount:
@@ -75,7 +75,7 @@ class SaleOrderLine(models.Model):
         res = super(SaleOrderLine, self).write(values)
         return res
 
-    @api.onchange('discount')
+    # @api.onchange('discount')
     def maximum_discount(self):
         self.ensure_one()
         discount_permission_group = self.verify_group_discount()
@@ -106,7 +106,7 @@ class SaleOrder(models.Model):
                 ov.skip_calculate_discount = True
         return super().action_unlock()
 
-    @api.onchange('pricelist_id')
+    # @api.onchange('pricelist_id')
     def _onchange_pricelist_id_show_update_prices(self):
         self.ensure_one()
         self.show_update_pricelist = False
@@ -115,7 +115,7 @@ class SaleOrder(models.Model):
             self._origin._recompute_prices()
             self._recompute_prices()
 
-    @api.onchange('order_line')
+    # @api.onchange('order_line')
     def compute_order_line_discount(self):
         for record in self:
             for rec in record.order_line:
