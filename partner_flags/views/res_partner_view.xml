@@ -11,7 +11,7 @@
                 <field name="is_customer"/>
             </xpath>
 
-            <xpath expr="//group[@name='purchase']/field[@name='property_supplier_payment_term_id']" position="before">
+            <xpath expr="//group[@name='purchase']/field[@name='buyer_id']" position="before">
                 <field name="is_supplier"/>
             </xpath>
 
