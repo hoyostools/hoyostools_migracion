@@ -514,8 +514,7 @@
             <thead>
             <tr>
             <td>Etapa</td>
-            <td style="background-color: #25333e;"
-                t-if="!empleado.funcion.includes('montacargas')">Documentos</td>
+            <td t-if="!empleado.funcion.includes('montacargas')">Documentos</td>
             <td>Productos</td>
             <td t-if="!empleado.funcion.includes('montacargas')">Valor</td>
             </tr>
