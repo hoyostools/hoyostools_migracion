@@ -298,18 +298,49 @@
                 <t t-set="contador" t-value="1"/>
                 <t t-set="prev_grupo" t-value="''"/>
 
-                <t t-foreach="state.valores_empleados" t-as="empleado" t-key="empleado.id">
+                <t t-set="empleados_ordenados"
+                t-value="[...state.valores_empleados].sort((a,b)=>{
 
-                    <!-- Detectar grupo -->
+                const grupo = (f)=>{
+                    if(!f) return 0;
+                    f = f.toLowerCase();
+                    if(f.includes('empaque')) return 1;
+                    if(f.includes('montacargas')) return 2;
+                    return 0;
+                };
+
+                return grupo(a.funcion) - grupo(b.funcion);
+
+                })"/>
+
+
+                <t t-foreach="empleados_ordenados" t-as="empleado" t-key="empleado.id">
+
                     <t t-set="grupo_actual" t-value="'OTROS'"/>
 
                     <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('empaque')">
-                        <t t-set="grupo_actual" t-value="'EMPAQUE'"/>
+                    <t t-set="grupo_actual" t-value="'EMPAQUE'"/>
                     </t>
 
                     <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('montacargas')">
-                        <t t-set="grupo_actual" t-value="'MONTACARGAS'"/>
+                    <t t-set="grupo_actual" t-value="'MONTACARGAS'"/>
                     </t>
+
+
+                    <t t-if="contador == 1 or grupo_actual != prev_grupo">
+
+                    <div class="col-12">
+                    <h3 style="color:#01579b;">
+                    <strong>
+                    FUNCION: <t t-esc="grupo_actual"/>
+                    </strong>
+                    </h3>
+                    <hr/>
+                    </div>
+
+                    </t>
+
+                    <t t-set="prev_grupo" t-value="grupo_actual"/>
 
 
                     <!-- Mostrar separador solo cuando cambia el grupo -->
