@@ -306,7 +306,7 @@
 
             <t t-foreach="state.valores_empleados" t-as="empleado" t-key="'otros_'+empleado.id">
 
-            <t t-if="not (empleado.funcion and (empleado.funcion.toLowerCase().includes('empaque') or empleado.funcion.toLowerCase().includes('montacargas')))">
+            <t t-if="!(empleado.funcion and (empleado.funcion.toLowerCase().includes('empaque') or empleado.funcion.toLowerCase().includes('montacargas')))">
 
             <t t-if="!grupo_otro_mostrado">
 
