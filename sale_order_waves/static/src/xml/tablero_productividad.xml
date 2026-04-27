@@ -300,6 +300,28 @@
 
             <t t-foreach="state.valores_empleados" t-as="empleado" t-key="empleado.id">
 
+                <t t-set="grupo_actual"
+                t-value="
+                empleado.funcion and (
+                'EMPAQUE' if empleado.funcion.lower().includes('empaque')
+                else 'MONTACARGAS' if empleado.funcion.lower().includes('montacargas')
+                else 'OTROS'
+                )"/>
+
+                <t t-if="contador == 1 or grupo_actual != prev_grupo">
+
+                <div class="col-12">
+                <h3 style="color:#01579b;">
+                <strong>
+                FUNCION: <t t-esc="grupo_actual"/>
+                </strong>
+                </h3>
+                <hr/>
+                </div>
+
+                </t>
+
+                <t t-set="prev_grupo" t-value="grupo_actual"/>
                 <!-- Separador por función -->
                 <t t-if="contador == 1 or prev_funcion != empleado.funcion">
                     <div class="col-12">
