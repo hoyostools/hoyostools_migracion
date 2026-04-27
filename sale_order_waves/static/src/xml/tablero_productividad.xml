@@ -295,205 +295,231 @@
             <br/>
             <div class="row">
 
-                <t t-set="contador" t-value="1"/>
-                <t t-set="prev_grupo" t-value="''"/>
+            <t t-set="contador" t-value="1"/>
 
-                <t t-set="empleados_ordenados"
-                t-value="[...state.valores_empleados].sort((a,b)=>{
-
-                const grupo = (f)=>{
-                    if(!f) return 0;
-                    f = f.toLowerCase();
-                    if(f.includes('empaque')) return 1;
-                    if(f.includes('montacargas')) return 2;
-                    return 0;
-                };
-
-                return grupo(a.funcion) - grupo(b.funcion);
-
-                })"/>
+            <t t-set="grupo_otro_mostrado" t-value="false"/>
+            <t t-set="grupo_empaque_mostrado" t-value="false"/>
+            <t t-set="grupo_montacargas_mostrado" t-value="false"/>
 
 
-                <t t-foreach="empleados_ordenados" t-as="empleado" t-key="empleado.id">
+            <!-- ================= OTROS ================= -->
 
-                    <t t-set="grupo_actual" t-value="'OTROS'"/>
+            <t t-foreach="state.valores_empleados" t-as="empleado" t-key="'otros_'+empleado.id">
 
-                    <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('empaque')">
-                    <t t-set="grupo_actual" t-value="'EMPAQUE'"/>
-                    </t>
+            <t t-if="not (empleado.funcion and (empleado.funcion.toLowerCase().includes('empaque') or empleado.funcion.toLowerCase().includes('montacargas')))">
 
-                    <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('montacargas')">
-                    <t t-set="grupo_actual" t-value="'MONTACARGAS'"/>
-                    </t>
+            <t t-if="not grupo_otro_mostrado">
 
+            <div class="col-12">
+            <h3 style="color:#01579b;">
+            <strong>FUNCION: OTROS</strong>
+            </h3>
+            <hr/>
+            </div>
 
-                    <t t-if="contador == 1 or grupo_actual != prev_grupo">
+            <t t-set="grupo_otro_mostrado" t-value="true"/>
 
-                    <div class="col-12">
-                    <h3 style="color:#01579b;">
-                    <strong>
-                    FUNCION: <t t-esc="grupo_actual"/>
-                    </strong>
-                    </h3>
-                    <hr/>
-                    </div>
-
-                    </t>
-
-                    <t t-set="prev_grupo" t-value="grupo_actual"/>
+            </t>
 
 
-                    <!-- Mostrar separador solo cuando cambia el grupo -->
-                    <t t-if="contador == 1 or grupo_actual != prev_grupo">
+            <!-- CARD ORIGINAL -->
 
-                        <div class="col-12">
-                            <h3 style="color:#01579b;">
-                                <strong>
-                                    FUNCION: <t t-esc="grupo_actual"/>
-                                </strong>
-                            </h3>
-                            <hr/>
-                        </div>
+            <div class="col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
+            <div class="border border-2 card shadow borderless w-100"
+            style="border:0px; background-color: #25333e !important; color:white">
 
-                    </t>
+            <t t-esc="contador"/>
 
-                    <t t-set="prev_grupo" t-value="grupo_actual"/>
+            <div class="card-body rounded">
+
+            <div class="row">
+
+            <div class="col">
+
+            <img class="square-image col rounded mb-3 pd-2"
+            t-attf-src="data:image/jpg;base64,#{empleado.image_1920}"/>
+
+            </div>
 
 
-                <!-- Card original (SIN CAMBIOS) -->
-                <div class="col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
-                    <div class="border border-2 card shadow borderless w-100"
-                        style="border:0px; background-color: #25333e !important; color:white">
+            <div class="col">
 
-                        <t t-esc="contador"/>
+            <table class="table table-borderless"
+            style="font-size:13px; color:white">
 
-                        <div class="card-body rounded"
-                            style="padding-right: calc(var(--gutter-x)* .3);
-                                    padding-left: calc(var(--gutter-x)* .3);
-                                    padding-top: calc(var(--gutter-y)* .1);
-                                    padding-bottom: calc(var(--gutter-y)* .0);
-                                    background-color: #25333e !important;">
+            <thead>
 
-                            <div class="row"
-                                style="padding-right: calc(var(--gutter-x)* .1);
-                                        padding-left: calc(var(--gutter-x)* .1);
-                                        display:flex !important">
+            <tr>
 
-                                <div class="col"
-                                    style="padding-right: calc(var(--gutter-x)* .1);
-                                            padding-left: calc(var(--gutter-x)* .1);
-                                            flex:auto !important;
-                                            width:20% !important">
+            <td>Etapa</td>
 
-                                    <img class="square-image col rounded mb-3 pd-2"
-                                        t-attf-src="data:image/jpg;base64,#{empleado.image_1920}"
-                                        style="width: 80px;
-                                                height: 80px;
-                                                object-fit: cover;
-                                                aspect-ratio: 1 / 1;"/>
-                                </div>
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            Documentos
+            </td>
 
-                                <div class="col"
-                                    style="padding-right: calc(var(--gutter-x)* .1);
-                                            padding-left: calc(var(--gutter-x)* .1);
-                                            flex:auto !important;
-                                            width:80% !important">
+            <td>Productos</td>
 
-                                    <table class="table table-borderless"
-                                        style="font-size:13px; color:white">
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            Valor
+            </td>
 
-                                        <thead>
-                                            <tr>
-                                                <td>Etapa</td>
-                                                <td t-if="!empleado.funcion.includes('montacargas')">
-                                                    Documentos
-                                                </td>
-                                                <td>Productos</td>
-                                                <td t-if="!empleado.funcion.includes('montacargas')">
-                                                    Valor
-                                                </td>
-                                            </tr>
-                                        </thead>
+            </tr>
 
-                                        <tbody>
+            </thead>
 
-                                            <tr>
-                                                <td style="color:#CBC3E3">
-                                                    Asignación Odoo
-                                                </td>
 
-                                                <td t-if="!empleado.funcion.includes('montacargas')">
-                                                    <t t-esc="empleado.documentos"/>
-                                                </td>
+            <tbody>
 
-                                                <td>
-                                                    <t t-esc="empleado.productos"/>
-                                                </td>
+            <tr>
 
-                                                <td t-if="!empleado.funcion.includes('montacargas')">
-                                                    $<t t-esc="empleado.valor"/>
-                                                </td>
-                                            </tr>
+            <td style="color:#CBC3E3">
+            Asignación Odoo
+            </td>
 
-                                            <tr>
-                                                <td style="color:lightblue">
-                                                    En Proceso
-                                                </td>
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            <t t-esc="empleado.documentos"/>
+            </td>
 
-                                                <td t-if="!empleado.funcion.includes('montacargas')">
-                                                    <t t-esc="empleado.en_proceso"/>
-                                                </td>
+            <td>
+            <t t-esc="empleado.productos"/>
+            </td>
 
-                                                <td>
-                                                    <t t-esc="empleado.productos_en_proceso"/>
-                                                </td>
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            $<t t-esc="empleado.valor"/>
+            </td>
 
-                                                <td t-if="!empleado.funcion.includes('montacargas')">
-                                                    $<t t-esc="empleado.valor_en_proceso"/>
-                                                </td>
-                                            </tr>
+            </tr>
 
-                                            <tr>
-                                                <td style="color:lightgreen">
-                                                    Procesado
-                                                </td>
 
-                                                <td t-if="!empleado.funcion.includes('montacargas')">
-                                                    <t t-esc="empleado.procesado"/>
-                                                </td>
+            <tr>
 
-                                                <td>
-                                                    <t t-esc="empleado.productos_procesado"/>
-                                                </td>
+            <td style="color:lightblue">
+            En Proceso
+            </td>
 
-                                                <td t-if="!empleado.funcion.includes('montacargas')">
-                                                    $<t t-esc="empleado.valor_procesado"/>
-                                                </td>
-                                            </tr>
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            <t t-esc="empleado.en_proceso"/>
+            </td>
 
-                                        </tbody>
+            <td>
+            <t t-esc="empleado.productos_en_proceso"/>
+            </td>
 
-                                    </table>
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            $<t t-esc="empleado.valor_en_proceso"/>
+            </td>
 
-                                </div>
-                            </div>
-                        </div>
+            </tr>
 
-                        <div class="card-footer">
-                            <strong style="font-size: 12px;">
-                                <t t-esc="empleado.user_id[1]"/>
-                            </strong>
 
-                            <strong style="float:right; font-size:14px;">
-                                Función:
-                                <t t-esc="empleado.funcion"/>
-                            </strong>
-                        </div>
+            <tr>
 
-                    </div>
-                </div>
+            <td style="color:lightgreen">
+            Procesado
+            </td>
 
-                <t t-set="contador" t-value="contador + 1"/>
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            <t t-esc="empleado.procesado"/>
+            </td>
+
+            <td>
+            <t t-esc="empleado.productos_procesado"/>
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            $<t t-esc="empleado.valor_procesado"/>
+            </td>
+
+            </tr>
+
+            </tbody>
+
+            </table>
+
+            </div>
+
+            </div>
+
+            </div>
+
+
+            <div class="card-footer">
+
+            <strong style="font-size: 12px;">
+            <t t-esc="empleado.user_id[1]"/>
+            </strong>
+
+            <strong style="float:right; font-size:14px;">
+            Función:
+            <t t-esc="empleado.funcion"/>
+            </strong>
+
+            </div>
+
+            </div>
+
+            </div>
+
+
+            <t t-set="contador" t-value="contador + 1"/>
+
+            </t>
+
+            </t>
+
+
+            <!-- ================= EMPAQUE ================= -->
+
+            <t t-foreach="state.valores_empleados" t-as="empleado" t-key="'empaque_'+empleado.id">
+
+            <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('empaque')">
+
+            <t t-if="not grupo_empaque_mostrado">
+
+            <div class="col-12">
+            <h3 style="color:#01579b;">
+            <strong>FUNCION: EMPAQUE</strong>
+            </h3>
+            <hr/>
+            </div>
+
+            <t t-set="grupo_empaque_mostrado" t-value="true"/>
+
+            </t>
+
+
+            <!-- MISMA CARD -->
+
+            <t t-call="productivity_dashboard_employee_card"/>
+
+            </t>
+
+            </t>
+
+
+            <!-- ================= MONTACARGAS ================= -->
+
+            <t t-foreach="state.valores_empleados" t-as="empleado" t-key="'montacargas_'+empleado.id">
+
+            <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('montacargas')">
+
+            <t t-if="not grupo_montacargas_mostrado">
+
+            <div class="col-12">
+            <h3 style="color:#01579b;">
+            <strong>FUNCION: MONTACARGAS</strong>
+            </h3>
+            <hr/>
+            </div>
+
+            <t t-set="grupo_montacargas_mostrado" t-value="true"/>
+
+            </t>
+
+
+            <t t-call="productivity_dashboard_employee_card"/>
+
+            </t>
 
             </t>
 
