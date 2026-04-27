@@ -372,7 +372,7 @@
 
             <tr>
 
-            <td style="color:#CBC3E3">
+            <td style="background-color: #25333e; color:#CBC3E3">
             Asignación Odoo
             </td>
 
@@ -393,7 +393,7 @@
 
             <tr>
 
-            <td style="color:lightblue">
+            <td style="background-color: #25333e; color:lightblue">
             En Proceso
             </td>
 
@@ -414,7 +414,7 @@
 
             <tr>
 
-            <td style="color:lightgreen">
+            <td style="background-color: #25333e; color:lightgreen">
             Procesado
             </td>
 
