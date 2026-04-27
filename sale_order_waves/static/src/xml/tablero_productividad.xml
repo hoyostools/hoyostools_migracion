@@ -312,7 +312,7 @@
 
             <div class="col-12">
             <h3 style="color:#01579b;">
-            <strong>FUNCION: OTROS</strong>
+            <strong>FUNCION: SEPARADORES</strong>
             </h3>
             <hr/>
             </div>
@@ -345,7 +345,7 @@
             <div class="col">
 
             <table class="table table-borderless"
-            style="font-size:13px; color:white">
+            style="font-size:13px; background-color: #25333e; color:white;">
 
             <thead>
 
@@ -632,7 +632,7 @@
             <div class="col">
 
             <table class="table table-borderless"
-            style="font-size:13px; color:white">
+            style="font-size:13px; background-color: #25333e; color:white;">
 
 
             <thead>
