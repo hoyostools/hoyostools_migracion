@@ -308,9 +308,11 @@
             <hr/>
             </div>
 
-            <t t-foreach="state.valores_empleados.filter(e => e.funcion && e.funcion.toLowerCase().includes('pasillo'))"
-            t-as="empleado"
-            t-key="'pasillo_'+empleado.id">
+            <t t-foreach="state.valores_empleados" t-as="empleado" t-key="'pasillo_'+empleado.id">
+            <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('pasillo')">
+
+            <t t-call="employee_card"/>
+            <t t-set="contador" t-value="contador + 1"/>
 
             <div class="col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
 
@@ -473,9 +475,12 @@
 
             <!-- ================= EMPAQUE ================= -->
 
-            <t t-foreach="state.valores_empleados.filter(e => e.funcion && e.funcion.toLowerCase().includes('empaque'))"
-            t-as="empleado"
-            t-key="'empaque_'+empleado.id">
+            <t t-foreach="state.valores_empleados" t-as="empleado" t-key="'empaque_'+empleado.id">
+            <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('empaque')">
+
+            <t t-call="employee_card"/>
+
+            <t t-set="contador" t-value="contador + 1"/>
             <div class="col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
 
             <div class="border border-2 card shadow borderless w-100"
@@ -639,9 +644,11 @@
 
             <!-- ================= MONTACARGAS ================= -->
 
-            <t t-foreach="state.valores_empleados.filter(e => e.funcion && e.funcion.toLowerCase().includes('montacargas'))"
-            t-as="empleado"
-            t-key="'montacargas_'+empleado.id">
+            <t t-foreach="state.valores_empleados" t-as="empleado" t-key="'montacargas_'+empleado.id">
+            <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('montacargas')">
+
+            <t t-call="employee_card"/>
+            <t t-set="contador" t-value="contador + 1"/>
 
             <div class="col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
 
