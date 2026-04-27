@@ -488,9 +488,123 @@
             </t>
 
 
-            <!-- MISMA CARD -->
+            <div class="col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
+            <div class="border border-2 card shadow borderless w-100"
+            style="border:0px; background-color: #25333e !important; color:white">
 
-            <t t-call="productivity_dashboard_employee_card"/>
+            <t t-esc="contador"/>
+
+            <div class="card-body rounded">
+
+            <div class="row">
+
+            <div class="col">
+
+            <img class="square-image col rounded mb-3 pd-2"
+            t-attf-src="data:image/jpg;base64,#{empleado.image_1920}"/>
+
+            </div>
+
+
+            <div class="col">
+
+            <table class="table table-borderless"
+            style="font-size:13px; color:white">
+
+            <thead>
+
+            <tr>
+
+            <td>Etapa</td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            Documentos
+            </td>
+
+            <td>Productos</td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            Valor
+            </td>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            <tr>
+
+            <td style="color:#CBC3E3">
+            Asignación Odoo
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            <t t-esc="empleado.documentos"/>
+            </td>
+
+            <td>
+            <t t-esc="empleado.productos"/>
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            $<t t-esc="empleado.valor"/>
+            </td>
+
+            </tr>
+
+
+            <tr>
+
+            <td style="color:lightblue">
+            En Proceso
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            <t t-esc="empleado.en_proceso"/>
+            </td>
+
+            <td>
+            <t t-esc="empleado.productos_en_proceso"/>
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            $<t t-esc="empleado.valor_en_proceso"/>
+            </td>
+
+            </tr>
+
+
+            <tr>
+
+            <td style="color:lightgreen">
+            Procesado
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            <t t-esc="empleado.procesado"/>
+            </td>
+
+            <td>
+            <t t-esc="empleado.productos_procesado"/>
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            $<t t-esc="empleado.valor_procesado"/>
+            </td>
+
+            </tr>
+
+            </tbody>
+
+            </table>
+
+            </div>
+
+            </div>
+
+            </div>
 
             </t>
 
@@ -517,7 +631,123 @@
             </t>
 
 
-            <t t-call="productivity_dashboard_employee_card"/>
+            <div class="col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
+            <div class="border border-2 card shadow borderless w-100"
+            style="border:0px; background-color: #25333e !important; color:white">
+
+            <t t-esc="contador"/>
+
+            <div class="card-body rounded">
+
+            <div class="row">
+
+            <div class="col">
+
+            <img class="square-image col rounded mb-3 pd-2"
+            t-attf-src="data:image/jpg;base64,#{empleado.image_1920}"/>
+
+            </div>
+
+
+            <div class="col">
+
+            <table class="table table-borderless"
+            style="font-size:13px; color:white">
+
+            <thead>
+
+            <tr>
+
+            <td>Etapa</td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            Documentos
+            </td>
+
+            <td>Productos</td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            Valor
+            </td>
+
+            </tr>
+
+            </thead>
+
+
+            <tbody>
+
+            <tr>
+
+            <td style="color:#CBC3E3">
+            Asignación Odoo
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            <t t-esc="empleado.documentos"/>
+            </td>
+
+            <td>
+            <t t-esc="empleado.productos"/>
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            $<t t-esc="empleado.valor"/>
+            </td>
+
+            </tr>
+
+
+            <tr>
+
+            <td style="color:lightblue">
+            En Proceso
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            <t t-esc="empleado.en_proceso"/>
+            </td>
+
+            <td>
+            <t t-esc="empleado.productos_en_proceso"/>
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            $<t t-esc="empleado.valor_en_proceso"/>
+            </td>
+
+            </tr>
+
+
+            <tr>
+
+            <td style="color:lightgreen">
+            Procesado
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            <t t-esc="empleado.procesado"/>
+            </td>
+
+            <td>
+            <t t-esc="empleado.productos_procesado"/>
+            </td>
+
+            <td t-if="!empleado.funcion.includes('montacargas')">
+            $<t t-esc="empleado.valor_procesado"/>
+            </td>
+
+            </tr>
+
+            </tbody>
+
+            </table>
+
+            </div>
+
+            </div>
+
+            </div>
 
             </t>
 
