@@ -299,7 +299,7 @@
 
             <!-- ================= PASILLO ================= -->
 
-            <t t-if="state.valores_empleados.some(e => e.funcion && e.funcion.toLowerCase().includes('pasillo'))">
+            <t t-if="state.valores_empleados.some(e => e.funcion and e.funcion.toLowerCase().includes('pasillo'))">
 
             <div class="col-12">
             <h3 style="color:#01579b;">
