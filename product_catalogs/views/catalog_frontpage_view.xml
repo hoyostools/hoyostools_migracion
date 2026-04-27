@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="view_catalog_frontpage_tree" model="ir.ui.view">
+        <field name="name">catalog.frontpage.tree</field>
+        <field name="model">catalog.frontpage</field>
+        <field name="arch" type="xml">
+            <tree string="Catalog Frontpage">
+                <field name="name"/>
+                <field name="frontpage"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_catalog_frontpage_form" model="ir.ui.view">
+        <field name="name">catalog.frontpage.form</field>
+        <field name="model">catalog.frontpage</field>
+        <field name="arch" type="xml">
+            <form string="Catalog Frontpage">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="frontpage" widget="image"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_catalog_frontpage" model="ir.actions.act_window">
+        <field name="name">Catalog Frontpage</field>
+        <field name="res_model">catalog.frontpage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="menu_catalog_frontpage" sequence="99" name="Catalog Frontpage" parent="sale.menu_sale_config" action="action_catalog_frontpage"/>
+</odoo>

@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		 <record id="product_catalog_paperformat" model="report.paperformat">
+            <field name="name">Product Catalog Paper Format</field>
+            <field name="default" eval="False"/>
+            <field name="margin_top">10.00</field>
+            <field name="margin_bottom">20.00</field>
+            <field name="margin_left">7.00</field>
+            <field name="margin_right">7.00</field>
+            <field name="header_spacing">35</field>
+            <field name="orientation">Portrait</field>
+        </record>
+		<record id="action_product_catalogs_report" model="ir.actions.report">
+			<field name="name">Product Catalogs</field>
+			<field name="model">product.catalogs</field>
+			<field name="report_type">qweb-pdf</field>
+			 <field name="paperformat_id" ref="product_catalogs.product_catalog_paperformat"/>
+			<field name="report_name">product_catalogs.action_product_catalog</field>
+			<field name="binding_type">report</field>
+		</record>
+		<record id="action_check_product_catalogs" model="ir.actions.server">
+			<field name="name">Product Catalogs</field>
+			<field name="model_id" ref="product.model_product_template"/>
+			<field name="binding_model_id" ref="product.model_product_template"/>
+			<field name="binding_view_types">list</field>
+			<field name="state">code</field>
+			<field name="code">
+					action=records.open_wizard()
+            </field>
+		</record>
+
+		<template id="product_catalogs.external_layout_standard_catalog">
+			<t t-name="product_catalogs.external_layout_standard_catalog">
+
+				<div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+					<div class="pt-5">
+						<!-- This div ensures that the address is not cropped by the header. -->
+						<t t-call="web.address_layout"/>
+					</div>
+					<t t-out="0"/>
+				</div>
+
+				<div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+					<div class="text-center" style="border-top: 1px solid black;">
+						<ul class="list-inline mb4">
+						   <!-- <div t-field="company.report_footer"/>-->
+						</ul>
+
+						<div t-if="report_type == 'pdf'" class="text-muted">
+							Page: <span class="page"/> / <span class="topage"/>
+						</div>
+						<div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+							<span t-field="o.name"/>
+						</div>
+					</div>
+				</div>
+			</t>
+		</template>
+
+		<template id="product_catalogs.external_catalog_layout">
+			<t t-name="product_catalogs.external_catalog_layout">
+				<t t-if="not o" t-set="o" t-value="doc"/>
+
+				<t t-if="not company">
+					<!-- Multicompany -->
+					<t t-if="company_id">
+						<t t-set="company" t-value="company_id"/>
+					</t>
+				   <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+						<t t-set="company" t-value="o.company_id.sudo()"/>
+					</t>
+					<t t-else="else">
+						<t t-set="company" t-value="res_company"/>
+					</t>
+				</t>
+
+				<t t-if="company.external_report_layout_id" t-call="product_catalogs.external_layout_standard_catalog"><t t-out="0"/></t>
+				<t t-else="else" t-call="product_catalogs.external_layout_standard_catalog"><t t-out="0"/></t>
+
+			</t>
+		</template>
+
+
+		<template id="action_product_catalog">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="product_catalogs.external_catalog_layout">
+						<div class="page">
+						  <t t-if="doc.frontpage == True">
+								<div class="container">
+                  <div align="center">
+										<img t-if="doc.catalog_frontpage_id" t-att-src="image_data_uri(doc.catalog_frontpage_id.frontpage)" style="height: 1100px;width: 900px;"/>
+									</div>
+								</div>
+							</t>
+							<t t-if="doc.style=='list'">
+								<t t-if="doc.catalog_type=='product'">
+									<t t-if="doc.display_title == True">
+										<h3 style="text-align:center;"><span t-esc="doc.frontpage_title"/></h3>
+									</t>
+									<table style=" font-family: arial, sans-serif;border-collapse: collapse;width: 100%;">
+										<tr style=" border: 1px solid #dddddd;padding:8px;">
+											<th style="padding:8px;background-color: #dddddd;">Sr No.</th>
+											<th style="padding:8px;background-color: #dddddd;">Image</th>
+											<t t-if="doc.product_internal_reference==True">
+												<th style="padding:8px;background-color: #dddddd;">Internal Reference</th>
+											</t>
+											<th style="padding:8px;background-color: #dddddd;">Product Name</th>
+											<th style="padding:8px;background-color: #dddddd;">Price</th>
+											<t t-if="doc.product_description==True">
+												<th style="padding:8px;background-color: #dddddd;">Description</th>
+											</t>
+										</tr>
+										<t t-set="sr_no" t-value="0"/>
+										<t t-foreach="doc.product_ids" t-as="product">
+											<t t-set="sr_no" t-value="sr_no+1"/>
+											<tr style=" border: 1px solid #dddddd;padding:8px;">
+												<td style="text-align: left;padding:8px;">
+													<t t-esc="sr_no"/>
+												</td>
+												<td style="text-align: left;padding:8px;">
+													<img t-if="product.image_1920" t-att-src="image_data_uri(product.image_1920)" style="max-height: 45px;" alt="Logo"/>
+												</td>
+												<t t-if="doc.product_internal_reference==True">
+													<td style="text-align: left;padding:8px;">
+														<span t-field="product.default_code"/>
+													</td>
+												</t>
+												<td style="text-align: left;padding:8px;color:#3CB371;">
+												  <t t-if="doc.show_link == True">
+  													<t t-set="website_url" t-value="product.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+  													<t t-set="website_url" t-value="website_url+product.website_url"/>
+  													<a t-att-href="website_url">
+  														<span t-field="product.name"/>
+  													</a>
+  												</t>
+  												<t t-if="doc.show_link == False">
+  												  <span t-field="product.name"/>
+  												</t>
+												</td>
+												<td style="text-align: left;padding:8px;">
+												  <t t-if="doc.show_price == True">
+												    <t t-if="doc.product_pricelist_id">
+															<t t-set="price" t-value="product._get_combination_info(pricelist=doc.product_pricelist_id)['price']"/>
+															<t t-set="pricewithtax" t-value="product._construct_tax_string(price)"/>
+														</t>
+														<t t-else="not doc.product_pricelist_id">
+																<t t-set="price" t-value="product.list_price"/>
+																<t t-set="pricewithtax" t-value="product._construct_tax_string(price)"/>
+														</t>
+													  <span t-field="product.currency_id.symbol"/>
+													  <span t-esc="price" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/>
+													  <span t-esc="pricewithtax"/>
+													 </t>
+												</td>
+												<t t-if="doc.product_description==True">
+													<td style="text-align: left;padding:8px;">
+														<span t-field="product.description_sale"/>
+													</td>
+												</t>
+											</tr>
+										</t>
+									</table>
+								</t>
+								<t t-if="doc.catalog_type=='category'">
+									<t t-if="doc.display_title == True">
+										<h3 style="text-align:center;"><span t-esc="doc.frontpage_title"/></h3>
+									</t>
+									<t t-foreach="doc.product_category_ids" t-as="category">
+										<h3 style="text-align:center;">
+											<t t-esc="category.name"/>
+										</h3>
+										<table style=" font-family: arial, sans-serif;border-collapse: collapse;width: 100%;page-break-after:always;">
+											<tr style=" border: 1px solid #dddddd;padding:8px;">
+												<th style="padding:8px;background-color: #dddddd;">Sr No.</th>
+												<th style="padding:8px;background-color: #dddddd;">Image</th>
+												<t t-if="doc.product_internal_reference==True">
+													<th style="padding:8px;background-color: #dddddd;">Internal Reference</th>
+												</t>
+												<th style="padding:8px;background-color: #dddddd;">Product Name</th>
+												<th style="padding:8px;background-color: #dddddd;">Price</th>
+												<t t-if="doc.product_description==True">
+													<th style="padding:8px;background-color: #dddddd;">Description</th>
+												</t>
+											</tr>
+											<t t-set="sr_no" t-value="0"/>
+											<t t-set="pr_value" t-value="env['product.template'].search(                 [('categ_id', '=', category.id)])"/>
+											<t t-foreach="pr_value" t-as="product">
+												<t t-set="sr_no" t-value="sr_no+1"/>
+												<tr style=" border: 1px solid #dddddd;padding:8px;">
+													<td style="text-align: left;padding:8px;">
+														<t t-esc="sr_no"/>
+													</td>
+													<td style="text-align: left;padding:8px;">
+														<img t-if="product.image_1920" t-att-src="image_data_uri(product.image_1920)" style="max-height: 45px;" alt="Logo"/>
+													</td>
+													<t t-if="doc.product_internal_reference==True">
+														<td style="text-align: left;padding:8px;">
+															<span t-field="product.default_code"/>
+														</td>
+													</t>
+													<td style="text-align: left;padding:8px;color:#3CB371;">
+														<t t-if="doc.show_link == True">
+    													<t t-set="website_url" t-value="product.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+    													<t t-set="website_url" t-value="website_url+product.website_url"/>
+    													<a t-att-href="website_url">
+    														<span t-field="product.name"/>
+    													</a>
+    												</t>
+    												<t t-if="doc.show_link == False">
+    												  <span t-field="product.name"/>
+    												</t>
+													</td>
+													<td style="text-align: left;padding:8px;">
+														<t t-if="doc.show_price == True">
+												    <t t-if="doc.product_pricelist_id">
+															<t t-set="price" t-value="product._get_combination_info(pricelist=doc.product_pricelist_id)['price']"/>
+															<t t-set="pricewithtax" t-value="product._construct_tax_string(price)"/>
+														</t>
+														<t t-else="not doc.product_pricelist_id">
+																<t t-set="price" t-value="product.list_price"/>
+																<t t-set="pricewithtax" t-value="product._construct_tax_string(price)"/>
+														</t>
+													  <span t-field="product.currency_id.symbol"/>
+													  <span t-esc="price" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/>
+													  <span t-esc="pricewithtax"/>
+													 </t>
+													</td>
+													<t t-if="doc.product_description==True">
+														<td style="text-align: left;padding:8px;">
+															<span t-field="product.description_sale"/>
+														</td>
+													</t>
+												</tr>
+											</t>
+										</table>
+									</t>
+								</t>
+							</t>
+							<t t-else="doc.style=='card' ">
+								<t t-if="doc.image_size=='large' and doc.catalog_type=='product'">
+									<t t-if="doc.display_title == True">
+										<h3 style="text-align:center;"><span t-esc="doc.frontpage_title"/></h3>
+									</t>
+									<div class="container">
+										<t t-set="sr_no" t-value="0"/>
+										<t t-foreach="doc.product_ids" t-as="product">
+											<div style="float:left;padding: 5px 10px;width:50%;page-break-inside: avoid;">
+												<div class="card bg-light" style="max-width: 25rem;height: 28rem;background-color:light-grey;border: 1px solid #EBEBEB;                box-sizing: border-box;">
+													<img class="card-img-top" t-if="product.image_1920" t-att-src="image_data_uri(product.image_1920)" style="max-height:50%;max-width:95%;background-color:light-grey;padding-left:40px;padding-top:30px;padding-bottom:30px;padding-right:20px;" alt="Logo"/>
+													<br/>
+													<br/>
+													<div class="card-body">
+														<t t-if="doc.product_internal_reference==True and product.default_code">
+															<b>
+															<span style="background-color:#E7F2F8;padding:5px 5px 5px 5px;font-size:10px;" t-field="product.default_code"/>
+															</b>
+														</t>
+														<b>
+														<span style="background-color:#E7F2F8;margin-left:5px;padding:5px 5px 5px 5px;font-size:10px;" t-field="product.categ_id.name"/>
+														</b>
+														<br/>
+														<t t-if="doc.show_link == True">
+    													<t t-set="website_url" t-value="product.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+    													<t t-set="website_url" t-value="website_url+product.website_url"/>
+    													<a class="card-title" t-att-href="website_url" style="font-size:19px;color:black;">
+  															<span t-field="product.name"/>
+  														</a>
+    												</t>
+    												<t t-if="doc.show_link == False">
+    												  <span t-field="product.name"/>
+    												</t>
+														<span style="float:right;">
+														  <t t-if="doc.show_price == True">
+    												    <t t-if="doc.product_pricelist_id">
+    															<t t-set="price" t-value="product._get_combination_info(pricelist=doc.product_pricelist_id)['price']"/>
+    															<t t-set="pricewithtax" t-value="product._construct_tax_string(price)"/>
+    														</t>
+    														<t t-else="not doc.product_pricelist_id">
+    																<t t-set="price" t-value="product.list_price"/>
+    																<t t-set="pricewithtax" t-value="product._construct_tax_string(price)"/>
+    														</t>
+    													  <span t-field="product.currency_id.symbol"/>
+    													  <span t-esc="price" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/>
+    													  <span t-esc="pricewithtax"/>
+    													 </t>
+														</span>
+														<br/>
+														<t t-if="doc.product_description==True and product.description_sale">
+															<div class="box" style="max-width: 300px;max-height: 100px;" t-field="product.description_sale"/>
+														</t>
+														<br/>
+														<t t-if="doc.show_link == True">
+  														<t t-set="website_url" t-value="product.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+  														<t t-set="website_url" t-value="website_url+product.website_url"/>
+  														<a t-att-href="website_url" style="border:2px solid #20143A;padding:3px 150px 3px 135px;color:#FFFFFF;                  background: #20143A;position:absolute;                     bottom:10px;font-size:12px;">Read More</a>
+  													</t>
+													</div>
+												</div>
+											</div>
+										</t>
+									</div>
+								</t>
+								<t t-if="doc.catalog_type=='product' and doc.image_size=='medium'">
+									<t t-if="doc.display_title == True">
+										<h3 style="text-align:center;"><span t-esc="doc.frontpage_title"/></h3>
+									</t>
+									<div class="container">
+										<t t-foreach="doc.product_ids" t-as="product_medium">
+											<div style="float:left;padding: 20px 28px;width:33%;page-break-inside: avoid;">
+												<div class="card bg-light" style="width: 16rem;height: 25rem;">
+													<img class="card-img-top" t-if="product_medium.image_1920" t-att-src="image_data_uri(product_medium.image_1920)" style="height: 150px;width: 150px;margin-left:25%;padding-top:5%;" alt="Logo"/>
+													<br/>
+													<br/>
+													<div class="">
+														<t t-if="doc.product_internal_reference==True and product_medium.default_code">
+															<b>
+															<span style="background-color:#E7F2F8;margin-left:10px;padding:5px 5px 5px 5px;text-align:center;font-size:12px;" t-field="product_medium.default_code"/>
+															</b>
+														</t>
+
+														<b>
+														<span style="background-color:#E7F2F8;padding:5px 5px 5px 5px;text-align:center;font-size:12px;" t-field="product_medium.categ_id.name"/>
+														</b>
+														<br/>
+														<br/>
+														<t t-if="doc.show_link == True">
+  														<t t-set="website_url" t-value="product_medium.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+  														<t t-set="website_url" t-value="website_url+product_medium.website_url"/>
+
+  														<strong>
+  															<a class="card-title" t-att-href="website_url" style="font-size:15px;color:black;margin-left:2%;">
+  																<span t-field="product_medium.name"/>
+  															</a>
+  														</strong>
+  													</t>
+  													<t t-if="doc.show_link == False">
+  													  <span t-field="product_medium.name"/>
+  													</t>
+														<strong>
+															<span style="float:right;">
+																<t t-if="doc.show_price == True">
+      												    <t t-if="doc.product_pricelist_id">
+      															<t t-set="price" t-value="product_medium._get_combination_info(pricelist=doc.product_pricelist_id)['price']"/>
+      															<t t-set="pricewithtax" t-value="product_medium._construct_tax_string(price)"/>
+      														</t>
+      														<t t-else="not doc.product_pricelist_id">
+      																<t t-set="price" t-value="product_medium.list_price"/>
+      																<t t-set="pricewithtax" t-value="product_medium._construct_tax_string(price)"/>
+      														</t>
+      													  <span t-field="product_medium.currency_id.symbol"/>
+      													  <span t-esc="price" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/>
+      													  <span t-esc="pricewithtax"/>
+    													  </t>
+															</span>
+														</strong>
+														<t t-if="doc.product_description==True and product_medium.description_sale">
+															<div class="box" style="max-height: 200px;margin-left:2%;" t-field="product_medium.description_sale"/>
+														</t>
+														<br/>
+														<t t-if="doc.show_link == True">
+  														<t t-set="website_url" t-value="product_medium.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+  														<t t-set="website_url" t-value="website_url+product_medium.website_url"/>
+  														<a t-att-href="website_url" style="border:2px solid #20143A;padding:3px 100px 3px 75px;color:#FFFFFF;                  background: #20143A;                  position:absolute;                     bottom:10px;text-align:center;font-size:12px;margin-left:3%;">
+  																	Read More</a>
+  													 </t>
+													</div>
+												</div>
+											</div>
+										</t>
+									</div>
+									<br/>
+								</t>
+								<t t-if="doc.catalog_type=='product' and doc.image_size=='small'">
+									<t t-if="doc.display_title == True">
+										<h3 style="text-align:center;"><span t-esc="doc.frontpage_title"/></h3>
+									</t>
+									<div class="container">
+										<t t-foreach="doc.product_ids" t-as="product_medium">
+											<div style="float:left;padding:17px 2px;width:20%;page-break-inside: avoid;">
+												<div class="card bg-light" style="width: 10rem;height: 25rem;">
+													<img class="card-img-top" t-if="product_medium.image_1920" t-att-src="image_data_uri(product_medium.image_1920)" style="height: 120px;width: 100px;margin-left:25%;padding-top:5%;" alt="Logo"/>
+													<br/>
+													<br/>
+													<div style="">
+														<t t-if="doc.product_internal_reference==True and product_medium.default_code">
+															<b>
+															<span style="background-color:#E7F2F8;padding:5px 3px 5px 3px;font-size:11px;margin-left:3%;" t-field="product_medium.default_code"/>
+															</b>
+														</t>
+														<b>
+														<span style="background-color:#E7F2F8;margin-left:1%;padding:5px 0px 5px 3px;font-size:11px;" t-field="product_medium.categ_id.name"/>
+														</b>
+														<br/>
+														<b>
+															<p style="font-size:12px;color:black;margin-left:3%;margin-top:4%;">
+																<span t-field="product_medium.name"/>
+															</p>
+														</b>
+														<br/>
+														<b>
+															<p style="float:right;font-size:11px;margin-top:-22%;font-weight:600;">
+															  <t t-if="doc.show_price == True">
+      												    <t t-if="doc.product_pricelist_id">
+      															<t t-set="price" t-value="product_medium._get_combination_info(pricelist=doc.product_pricelist_id)['price']"/>
+      															<t t-set="pricewithtax" t-value="product_medium._construct_tax_string(price)"/>
+      														</t>
+      														<t t-else="not doc.product_pricelist_id">
+      																<t t-set="price" t-value="product_medium.list_price"/>
+      																<t t-set="pricewithtax" t-value="product_medium._construct_tax_string(price)"/>
+      														</t>
+      													  <span t-field="product_medium.currency_id.symbol"/>
+      													  <span t-esc="price" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/>
+      													  <span t-esc="pricewithtax"/>
+    													  </t>
+															</p>
+														</b>
+														<br/>
+														<t t-if="doc.product_description==True and product_medium.description_sale">
+															<div class="box" style="max-width: 300px;max-height: 100px;font-size:14px;margin-left:2%;" t-field="product_medium.description_sale"/>
+														</t>
+														<br/>
+														<t t-if="doc.show_link == True">
+														  <t t-set="website_url" t-value="product_medium.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+														  <t t-set="website_url" t-value="website_url+product_medium.website_url"/>
+														  <a t-att-href="website_url" style="border:2px solid #20143A;padding:0px 38px 0px 30px;color:white;                 background: #20143A;margin-left:5%;position:absolute; bottom:10px; display: inline-block;font-size:14px;">Read More</a>
+														</t>
+													</div>
+												</div>
+											</div>
+										</t>
+									</div>
+								</t>
+								<t t-if="doc.catalog_type=='category' and doc.image_size=='large'">
+									<t t-if="doc.display_title == True">
+										<h3 style="text-align:center;"><span t-esc="doc.frontpage_title"/></h3>
+									</t>
+									<t t-foreach="doc.product_category_ids" t-as="category">
+										<h3 style="text-align:center;">
+											<t t-esc="category.name"/>
+										</h3>
+										<div class="container" style="page-break-after:always;">
+											<t t-set="pr_value" t-value="env['product.template'].search(                           [('categ_id', '=', category.id)])"/>
+											<t t-foreach="pr_value" t-as="product">
+												<div style="float:left;padding: 5px 10px;width:50%;page-break-inside:avoid;">
+													<div class="card bg-light" style="max-width: 25rem;height: 28rem;background-color:light-grey;border: 1px solid #EBEBEB;                  box-sizing: border-box;">
+														<img class="card-img-top" t-if="product.image_1920" t-att-src="image_data_uri(product.image_1920)" style="max-height:50%;max-width:95%;background-color:light-grey;padding-left:40px;padding-top:30px;padding-bottom:30px;padding-right:20px;" alt="Logo"/>
+														<br/>
+														<br/>
+														<div class="card-body">
+															<t t-if="doc.product_internal_reference==True and product.default_code">
+																<b>
+																<span style="background-color:#E7F2F8;padding:5px 5px 5px 5px;font-size:10px;" t-field="product.default_code"/>
+																</b>
+															</t>
+															<b>
+															<span style="background-color:#E7F2F8;margin-left:5px;padding:5px 5px 5px 5px;font-size:10px;" t-field="product.categ_id.name"/>
+															</b>
+															<br/>
+															<t t-if="doc.show_link == True">
+  															<t t-set="website_url" t-value="product.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+  															<t t-set="website_url" t-value="website_url+product.website_url"/>
+  															<a class="card-title" t-att-href="website_url" style="font-size:19px;color:black;">
+  																<span t-field="product.name"/>
+  															</a>
+  														</t>
+  														<t t-if="doc.show_link == False">
+  														   <span t-field="product.name"/>
+  														</t>
+															<span style="float:right;">
+																<t t-if="doc.show_price == True">
+      												    <t t-if="doc.product_pricelist_id">
+      															<t t-set="price" t-value="product._get_combination_info(pricelist=doc.product_pricelist_id)['price']"/>
+      															<t t-set="pricewithtax" t-value="product._construct_tax_string(price)"/>
+      														</t>
+      														<t t-else="not doc.product_pricelist_id">
+      																<t t-set="price" t-value="product.list_price"/>
+      																<t t-set="pricewithtax" t-value="product._construct_tax_string(price)"/>
+      														</t>
+      													  <span t-field="product.currency_id.symbol"/>
+      													  <span t-esc="price" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/>
+      													  <span t-esc="pricewithtax"/>
+    													  </t>
+															</span>
+															<br/>
+															<t t-if="doc.product_description==True and product.description_sale">
+																<div class="box" style="max-width: 300px;max-height: 100px;" t-field="product.description_sale"/>
+															</t>
+															<br/>
+															<t t-if="doc.show_link == True">
+															  <t t-set="website_url" t-value="product.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+															  <t t-set="website_url" t-value="website_url+product.website_url"/>
+															  <a t-att-href="website_url" style="border:2px solid #20143A;padding:3px 150px 3px 135px;color:#FFFFFF;                  background: #20143A;position:absolute;                     bottom:10px;font-size:12px;">Read More</a>
+															</t>
+														</div>
+													</div>
+												</div>
+											</t>
+										</div>
+									</t>
+								</t>
+								<t t-if="doc.catalog_type=='category' and doc.image_size=='medium'">
+									<t t-if="doc.display_title == True">
+										<h3 style="text-align:center;"><span t-esc="doc.frontpage_title"/></h3>
+									</t>
+									<t t-foreach="doc.product_category_ids" t-as="category">
+										<h3 style="text-align:center;">
+											<t t-esc="category.name"/>
+										</h3>
+										<div class="container" style="page-break-after:always;">
+											<t t-set="pr_value" t-value="env['product.template'].search(                           [('categ_id', '=', category.id)])"/>
+											<t t-foreach="pr_value" t-as="product_medium">
+												<div style="float:left;padding: 20px 28px;width:33%;page-break-inside: avoid;">
+													<div class="card bg-light" style="width: 16rem;height: 25rem;">
+														<img class="card-img-top" t-if="product_medium.image_1920" t-att-src="image_data_uri(product_medium.image_1920)" style="height: 150px;width: 150px;margin-left:25%;padding-top:5%;" alt="Logo"/>
+														<br/>
+														<br/>
+														<div class="">
+															<t t-if="doc.product_internal_reference==True and product_medium.default_code">
+																<b>
+																<span style="background-color:#E7F2F8;margin-left:10px;padding:5px 5px 5px 5px;text-align:center;font-size:12px;" t-field="product_medium.default_code"/>
+																</b>
+															</t>
+															<b>
+															<span style="background-color:#E7F2F8;padding:5px 5px 5px 5px;text-align:center;font-size:12px;" t-field="product_medium.categ_id.name"/>
+															</b>
+															<br/>
+															<br/>
+															<t t-if="doc.show_link == True">
+  															<t t-set="website_url" t-value="product_medium.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+  															<t t-set="website_url" t-value="website_url+product_medium.website_url"/>
+  															<strong>
+  																<a class="card-title" t-att-href="website_url" style="font-size:15px;color:black;margin-left:2%;">
+  																	<span t-field="product_medium.name"/>
+  																</a>
+  															</strong>
+  														</t>
+  														<t t-if="doc.show_link == False">
+  														  <span t-field="product_medium.name"/>
+  														</t>
+															<strong>
+																<span style="float:right;">
+																	<t t-if="doc.show_price == True">
+        												    <t t-if="doc.product_pricelist_id">
+        															<t t-set="price" t-value="product_medium._get_combination_info(pricelist=doc.product_pricelist_id)['price']"/>
+        															<t t-set="pricewithtax" t-value="product_medium._construct_tax_string(price)"/>
+        														</t>
+        														<t t-else="not doc.product_pricelist_id">
+        																<t t-set="price" t-value="product_medium.list_price"/>
+        																<t t-set="pricewithtax" t-value="product_medium._construct_tax_string(price)"/>
+        														</t>
+        													  <span t-field="product_medium.currency_id.symbol"/>
+        													  <span t-esc="price" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/>
+        													  <span t-esc="pricewithtax"/>
+    													    </t>
+																</span>
+															</strong>
+															<t t-if="doc.product_description==True and product_medium.description_sale">
+																<div class="box" style="max-height: 200px;margin-left:2%;" t-field="product_medium.description_sale"/>
+															</t>
+															<br/>
+															<t t-if="doc.show_link == True">
+  															<t t-set="website_url" t-value="product_medium.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+  															<t t-set="website_url" t-value="website_url+product_medium.website_url"/>
+  															<a t-att-href="website_url" style="border:2px solid #20143A;padding:3px 100px 3px 75px;color:#FFFFFF;                  background: #20143A;                  position:absolute;                     bottom:10px;text-align:center;font-size:12px;margin-left:3%;">
+  																	Read More</a>
+  														</t>
+														</div>
+													</div>
+												</div>
+											</t>
+										</div>
+									</t>
+								</t>
+								<t t-if="doc.catalog_type=='category' and doc.image_size=='small'">
+									<t t-if="doc.display_title == True">
+										<h3 style="text-align:center;"><span t-esc="doc.frontpage_title"/></h3>
+									</t>
+									<t t-foreach="doc.product_category_ids" t-as="category">
+										<h3 style="text-align:center;">
+											<t t-esc="category.name"/>
+										</h3>
+										<div class="container" style="page-break-after:always;">
+											<t t-set="pr_value" t-value="env['product.template'].search(                           [('categ_id', '=', category.id)])"/>
+											<t t-foreach="pr_value" t-as="product_medium">
+											<div style="float:left;padding:17px 2px;width:20%;page-break-inside: avoid;">
+												<div class="card bg-light" style="width: 10rem;height: 25rem;">
+													<img class="card-img-top" t-if="product_medium.image_1920" t-att-src="image_data_uri(product_medium.image_1920)" style="height: 120px;width: 100px;margin-left:25%;padding-top:5%;" alt="Logo"/>
+													<br/>
+													<br/>
+													<div style="">
+														<t t-if="doc.product_internal_reference==True and product_medium.default_code">
+															<span style="background-color:#E7F2F8;padding:5px 3px 5px 3px;font-size:11px;margin-left:3%;" t-field="product_medium.default_code"/>
+														</t>
+														<span style="background-color:#E7F2F8;margin-left:1%;padding:5px 0px 5px 3px;font-size:11px;" t-field="product_medium.categ_id.name"/>
+														<br/>
+														<b>
+															<p style="font-size:12px;color:black;margin-left:3%;margin-top:4%;">
+																<span t-field="product_medium.name"/>
+															</p>
+														</b>
+														<br/>
+														<b>
+															<p style="float:right;font-size:11px;margin-top:-22%;font-weight:600;">
+																<t t-if="doc.show_price == True">
+        												    <t t-if="doc.product_pricelist_id">
+        															<t t-set="price" t-value="product_medium._get_combination_info(pricelist=doc.product_pricelist_id)['price']"/>
+        															<t t-set="pricewithtax" t-value="product_medium._construct_tax_string(price)"/>
+        														</t>
+        														<t t-else="not doc.product_pricelist_id">
+        																<t t-set="price" t-value="product_medium.list_price"/>
+        																<t t-set="pricewithtax" t-value="product_medium._construct_tax_string(price)"/>
+        														</t>
+        													  <span t-field="product_medium.currency_id.symbol"/>
+        													  <span t-esc="price" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 2}"/>
+        													  <span t-esc="pricewithtax"/>
+    													    </t>
+															</p>
+														</b>
+														<br/>
+														<t t-if="doc.product_description==True and product_medium.description_sale">
+															<div class="box" style="max-width: 300px;max-height: 100px;font-size:14px;margin-left:2%;" t-field="product_medium.description_sale"/>
+														</t>
+														<br/>
+														<t t-if="doc.show_link == True">
+														  <t t-set="website_url" t-value="product_medium.env['ir.config_parameter'].sudo().get_param('web.base.url')"/>
+														  <t t-set="website_url" t-value="website_url+product_medium.website_url"/>
+														  <a t-att-href="website_url" style="border:2px solid #20143A;padding:0px 38px 0px 30px;color:white;               background: #20143A;margin-left:5%;position:absolute; bottom:10px; display: inline-block;font-size:14px;">Read More</a>
+														</t>
+													</div>
+												</div>
+											</div>
+											</t>
+										</div>
+									</t>
+								</t>
+							</t>
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

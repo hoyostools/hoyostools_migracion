@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record id="view_product_catalogs_form" model="ir.ui.view">
+            <field name="name">Product Catalogs Form</field>
+            <field name="model">product.catalogs</field>
+            <field name="arch" type="xml">
+                <form string="Product Catalogs">     
+                    <group>
+                        <group string="Product Catalogs">
+                            <field name="catalog_type" widget="radio" options="{'vertical': True}"/>
+                            <field name="product_ids" widget="many2many_tags" invisible="context.get('show_product_ids', False)"/>
+                            <field name="product_category_ids" widget="many2many_tags" invisible="context.get('show_product_category_ids', False)"/>
+                            <field name="frontpage"/>
+                            <field name="catalog_frontpage_id"/>
+                            <field name="display_title"/>
+                            <field name="frontpage_title"/>
+                        </group>
+                        <group string="Product Details">
+                            <field name="style" widget="radio" options="{'vertical': True}"/>
+                            <field name="image_size" widget="radio" options="{'vertical': True}" invisible="context.get('show_image_size', False)"/>
+                            <field name="product_description"/>
+                            <field name="product_internal_reference"/>
+                            <field name="show_link"/>
+                            <field name="show_price"/>
+                            <field name="product_pricelist_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="print_catalog" string="Print" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_catalogs" model="ir.actions.act_window">
+            <field name="name">Generate Product Catalog</field>
+            <field name="res_model">product.catalogs</field>
+            <field name="view_id" ref="view_product_catalogs_form"/>
+            <field name="binding_model_id" eval="False"/>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="product_catalogs_submenu" parent="sale.product_menu_catalog" sequence="3" name="Product Catalog" groups="base.group_user"/>
+        <menuitem id="product_catalogs_submenu1" action="action_product_catalogs" parent="product_catalogs_submenu" sequence="1" name="Generate Product Catalog" groups="base.group_user"/>     
+    </data>
+</odoo>
