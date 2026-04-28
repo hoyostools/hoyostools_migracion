@@ -676,6 +676,73 @@
 
 
             </tbody>
+            
+            <tr style="background-color:#25333e;">
+
+            <td style="padding:0px;">Hora Primer Pedido</td>
+
+            <td style="padding:0px;">
+            <t t-esc="empleado.hora_inicio"/>
+            </td>
+
+            <t t-set="cumplimiento_promedio"
+            t-value="Math.round((cumplimiento_valor + empleado.cumplimiento + cumplimiento_productos) / 3)"/>
+
+            <t t-if="empleado.funcion.includes('montacargas')">
+
+            <t t-set="cumplimiento_promedio"
+            t-value="Math.round(cumplimiento_productos)"/>
+
+            </t>
+
+
+            <t t-if="cumplimiento_promedio &lt; 50">
+
+            <td rowspan="2" colspan="2"
+            style="padding:0px;background-color:red;text-align:center;vertical-align:middle;">
+
+            <t t-esc="cumplimiento_promedio"/> %
+
+            </td>
+
+            </t>
+
+
+            <t t-if="cumplimiento_promedio &gt; 49 &amp;&amp; cumplimiento_promedio &lt; 100">
+
+            <td rowspan="2" colspan="2"
+            style="padding:0px;background-color:gold;text-align:center;vertical-align:middle;">
+
+            <t t-esc="cumplimiento_promedio"/> %
+
+            </td>
+
+            </t>
+
+
+            <t t-if="cumplimiento_promedio == 100">
+
+            <td rowspan="2" colspan="2"
+            style="padding:0px;background-color:green;text-align:center;vertical-align:middle;">
+
+            <t t-esc="cumplimiento_promedio"/> %
+
+            </td>
+
+            </t>
+
+            </tr>
+
+
+            <tr style="background-color:#25333e;">
+
+            <td style="padding:0px;">Hora Último Pedido</td>
+
+            <td style="padding:0px;">
+            <t t-esc="empleado.hora_fin"/>
+            </td>
+
+            </tr>            
 
             </table>
 
