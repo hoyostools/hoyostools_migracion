@@ -7,7 +7,10 @@ class ProductTemplate(models.Model):
     manufacturer_id = fields.Many2one(
         "res.partner",
         string="Fabricante",
-        domain=[("type", "=", "contact")],
+        domain=[
+            ("type", "=", "contact"),
+            ("is_supplier", "=", True),
+        ]
     )
 
     manufacturer_pname = fields.Char(

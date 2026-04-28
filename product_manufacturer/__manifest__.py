@@ -4,7 +4,7 @@
     "category": "Product",
     "summary": "Adds manufacturer fields to product template",
     "author": "Brawil Solutions Sas",
-    "depends": ["product", "contacts"],
+    "depends": ["product", "contacts", "partner_flags"],
     "data": [
         "views/product_template_views.xml",
     ],
