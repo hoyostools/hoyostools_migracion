@@ -584,7 +584,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
                             "move": credit_note,
                             "move_id": credit_note.id,
                             "payment_id": False,
-                            "amount": -discount_amount,
+                            "amount": -discount_pct,
                             "label": credit_note.name,
                         })
 
