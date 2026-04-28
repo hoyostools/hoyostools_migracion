@@ -560,9 +560,8 @@ class SemiAutoReconciliationLine(models.TransientModel):
                 discount_pct = getattr(inv, "discount", 0.0)
 
                 if discount_pct:
-                    discount_amount = take * (discount_pct / 100.0)
 
-                    if not float_is_zero(discount_amount, precision_digits=precision) and inv.amount_to_apply == (inv.debit-discount_amount):
+                    if not float_is_zero(discount_pct, precision_digits=precision) and inv.amount_to_apply == (inv.debit-discount_pct):
                         credit_note = self.env['account.move'].create({
                             'move_type': 'out_refund',
                             'partner_id': partner_id,
@@ -573,7 +572,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
                             'invoice_line_ids': [(0, 0, {
                                 'name': 'Descuento aplicado',
                                 'quantity': 1,
-                                'price_unit': discount_amount,
+                                'price_unit': discount_pct,
                                 'account_id': inv.move_id.line_ids[0].account_id.id,
                             })]
                         })
