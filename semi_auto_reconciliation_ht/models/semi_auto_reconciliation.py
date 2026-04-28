@@ -567,7 +567,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
                             'move_type': 'out_refund',
                             'partner_id': partner_id,
                             'invoice_date': cruce_date,
-                            'journal_id': 1774,
+                            'journal_id': 1854,
                             'date': cruce_date,
                             'ref': f"Descuento {inv.move_id.name}",
                             'invoice_line_ids': [(0, 0, {
