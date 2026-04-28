@@ -472,7 +472,7 @@
 
             <t t-foreach="state.valores_empleados" t-as="empleado" t-key="'empaque_'+empleado.id">
 
-            <t t-if="empleado.funcion && empleado.funcion.toLowerCase().includes('empaque')">
+            <t t-if="empleado.funcion &amp;&amp; empleado.funcion.toLowerCase().includes('empaque')">
 
             <t t-if="!grupo_empaque_mostrado">
 
@@ -487,8 +487,6 @@
 
             </t>
 
-
-            <!-- CARD ORIGINAL RESTAURADA -->
 
             <div class="col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
 
@@ -539,11 +537,9 @@
 
             <tr>
             <td style="padding:0px;">Etapa</td>
-            <td style="padding:0px;"
-            t-if="!empleado.funcion.includes('montacargas')">Documentos</td>
+            <td style="padding:0px;" t-if="!empleado.funcion.includes('montacargas')">Documentos</td>
             <td style="padding:0px;">Productos</td>
-            <td style="padding:0px;"
-            t-if="!empleado.funcion.includes('montacargas')">Valor</td>
+            <td style="padding:0px;" t-if="!empleado.funcion.includes('montacargas')">Valor</td>
             </tr>
 
             </thead>
@@ -588,28 +584,26 @@
             </tr>
 
 
-            <!-- % CUMPLIMIENTO ORIGINAL -->
-
             <tr style="background-color:#25333e;">
 
             <td style="padding:0px;">% Cumplimiento</td>
 
 
-            <t t-if="empleado.cumplimiento &lt; 50 && !empleado.funcion.includes('montacargas')">
+            <t t-if="empleado.cumplimiento &lt; 50 &amp;&amp; !empleado.funcion.includes('montacargas')">
             <td style="padding:0px;color:red;">
             <t t-esc="empleado.cumplimiento"/> %
             </td>
             </t>
 
 
-            <t t-if="empleado.cumplimiento &gt; 49 && empleado.cumplimiento &lt; 100 && !empleado.funcion.includes('montacargas')">
+            <t t-if="empleado.cumplimiento &gt; 49 &amp;&amp; empleado.cumplimiento &lt; 100 &amp;&amp; !empleado.funcion.includes('montacargas')">
             <td style="padding:0px;color:gold">
             <t t-esc="empleado.cumplimiento"/> %
             </td>
             </t>
 
 
-            <t t-if="empleado.cumplimiento == 100 && !empleado.funcion.includes('montacargas')">
+            <t t-if="empleado.cumplimiento == 100 &amp;&amp; !empleado.funcion.includes('montacargas')">
             <td style="padding:0px;color:green">
             <t t-esc="empleado.cumplimiento"/> %
             </td>
@@ -633,7 +627,7 @@
             </t>
 
 
-            <t t-if="cumplimiento_productos &gt; 50 && cumplimiento_productos &lt; 100">
+            <t t-if="cumplimiento_productos &gt; 50 &amp;&amp; cumplimiento_productos &lt; 100">
             <td style="padding:0px;color:gold">
             <t t-esc="cumplimiento_productos"/> %
             </td>
@@ -647,7 +641,7 @@
             </t>
 
 
-            <t t-if="empleado.valor_real &gt; 0 && !empleado.funcion.includes('montacargas')">
+            <t t-if="empleado.valor_real &gt; 0 &amp;&amp; !empleado.funcion.includes('montacargas')">
             <t t-set="cumplimiento_valor"
             t-value="Math.round((empleado.valor_procesado_real / empleado.valor_real)*100)"/>
             </t>
@@ -657,21 +651,21 @@
             </t>
 
 
-            <t t-if="cumplimiento_valor &lt; 50 && !empleado.funcion.includes('montacargas')">
+            <t t-if="cumplimiento_valor &lt; 50 &amp;&amp; !empleado.funcion.includes('montacargas')">
             <td style="padding:0px;color:red;">
             <t t-esc="cumplimiento_valor"/> %
             </td>
             </t>
 
 
-            <t t-if="cumplimiento_valor &gt; 50 && cumplimiento_valor &lt; 100 && !empleado.funcion.includes('montacargas')">
+            <t t-if="cumplimiento_valor &gt; 50 &amp;&amp; cumplimiento_valor &lt; 100 &amp;&amp; !empleado.funcion.includes('montacargas')">
             <td style="padding:0px;color:gold">
             <t t-esc="cumplimiento_valor"/> %
             </td>
             </t>
 
 
-            <t t-if="cumplimiento_valor == 100 && !empleado.funcion.includes('montacargas')">
+            <t t-if="cumplimiento_valor == 100 &amp;&amp; !empleado.funcion.includes('montacargas')">
             <td style="padding:0px;color:green">
             <t t-esc="cumplimiento_valor"/> %
             </td>
@@ -679,6 +673,42 @@
 
 
             </tr>
+
+
+            </tbody>
+
+            </table>
+
+            </div>
+
+            </div>
+
+            </div>
+
+
+            <div class="card-footer">
+
+            <strong style="font-size:12px;">
+            <t t-esc="empleado.user_id[1]"/>
+            </strong>
+
+            <strong style="float:right;font-size:14px;">
+            Función:
+            <t t-esc="empleado.funcion"/>
+            </strong>
+
+            </div>
+
+            </div>
+
+            </div>
+
+
+            <t t-set="contador" t-value="contador + 1"/>
+
+            </t>
+
+            </t>
 
 
             <!-- ================= MONTACARGAS ================= -->
