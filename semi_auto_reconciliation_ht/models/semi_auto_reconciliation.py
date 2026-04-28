@@ -340,7 +340,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
             #  - NO concilia liquidez (clearing) porque cuentas bank/cash suelen
             #    no permitir reconcile. El neto queda en 0.
             # -----------------------------------------------------------------
-            def _process_single_cruce(cruce_date, normalized_lines):
+            def _process_single_cruce(cruce_date, normalized_lines,discount_pct=0):
                 debit_total = 0.0
                 credit_total = 0.0
                 for item in normalized_lines:
@@ -350,7 +350,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
                     else:
                         credit_total += abs(amt)
 
-                if float_compare(debit_total, credit_total, precision_digits=precision) != 0:
+                if float_compare(debit_total, credit_total-discount_pct, precision_digits=precision) != 0:
                     raise UserError(
                         f"⚠️ El total del débito ({debit_total}) y crédito ({credit_total}) no coincide para la fecha {cruce_date}."
                     )
@@ -617,7 +617,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
                             "label": label,
                         })
 
-                _process_single_cruce(cruce_date, normalized_lines)
+                _process_single_cruce(cruce_date, normalized_lines, discount_pct)
 
         # ---------------------------------------------------------------------
         # 6) Limpiar transient (wizard) y recargar vista
