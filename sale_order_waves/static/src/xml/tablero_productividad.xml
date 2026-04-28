@@ -472,7 +472,7 @@
 
             <t t-foreach="state.valores_empleados" t-as="empleado" t-key="'empaque_'+empleado.id">
 
-            <t t-if="empleado.funcion and empleado.funcion.toLowerCase().includes('empaque')">
+            <t t-if="empleado.funcion && empleado.funcion.toLowerCase().includes('empaque')">
 
             <t t-if="!grupo_empaque_mostrado">
 
@@ -488,104 +488,197 @@
             </t>
 
 
+            <!-- CARD ORIGINAL RESTAURADA -->
+
             <div class="col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
+
             <div class="border border-2 card shadow borderless w-100"
-            style="border:0px; background-color: #25333e !important; color:white">
+            style="border:0px; background-color:#25333e !important; color:white">
 
             <t t-esc="contador"/>
 
-            <div class="card-body rounded">
 
-            <div class="row">
+            <div class="card-body rounded"
+            style="padding-right: calc(var(--gutter-x)* .3);
+            padding-left: calc(var(--gutter-x)* .3);
+            padding-top: calc(var(--gutter-y)* .1);
+            padding-bottom: calc(var(--gutter-y)* .0);
+            background-color:#25333e !important;">
 
-            <div class="col">
+
+            <div class="row"
+            style="padding-right: calc(var(--gutter-x)* .1);
+            padding-left: calc(var(--gutter-x)* .1);
+            display:flex !important">
+
+
+            <div class="col"
+            style="padding-right: calc(var(--gutter-x)* .1);
+            padding-left: calc(var(--gutter-x)* .1);
+            flex:auto !important;
+            width:20% !important">
 
             <img class="square-image col rounded mb-3 pd-2"
-            t-attf-src="data:image/jpg;base64,#{empleado.image_1920}"/>
+            t-attf-src="data:image/jpg;base64,#{empleado.image_1920}"
+            style="width:80px;height:80px;object-fit:cover;aspect-ratio:1/1;"/>
 
             </div>
 
 
-            <div class="col">
+            <div class="col"
+            style="padding-right: calc(var(--gutter-x)* .1);
+            padding-left: calc(var(--gutter-x)* .1);
+            flex:auto !important;
+            width:80% !important">
+
 
             <table class="table table-borderless"
-            style="font-size:13px; background-color: #25333e; color:white;">
+            style="font-size:13px;color:white">
 
             <thead>
+
             <tr>
-            <td>Etapa</td>
-            <td t-if="!empleado.funcion.includes('montacargas')">Documentos</td>
-            <td>Productos</td>
-            <td t-if="!empleado.funcion.includes('montacargas')">Valor</td>
+            <td style="padding:0px;">Etapa</td>
+            <td style="padding:0px;"
+            t-if="!empleado.funcion.includes('montacargas')">Documentos</td>
+            <td style="padding:0px;">Productos</td>
+            <td style="padding:0px;"
+            t-if="!empleado.funcion.includes('montacargas')">Valor</td>
             </tr>
+
             </thead>
+
 
             <tbody>
 
-            <tr>
-            <td style="color:#CBC3E3">Asignación Odoo</td>
-            <td t-if="!empleado.funcion.includes('montacargas')">
+
+            <tr style="background-color:#25333e;">
+            <td style="padding:0px;color:#CBC3E3">Asignación Odoo</td>
+            <td t-if="!empleado.funcion.includes('montacargas')" style="padding:0px;">
             <t t-esc="empleado.documentos"/>
             </td>
-            <td><t t-esc="empleado.productos"/></td>
-            <td t-if="!empleado.funcion.includes('montacargas')">
+            <td style="padding:0px;"><t t-esc="empleado.productos"/></td>
+            <td t-if="!empleado.funcion.includes('montacargas')" style="padding:0px;">
             $<t t-esc="empleado.valor"/>
             </td>
             </tr>
 
-            <tr>
-            <td style="color:lightblue">En Proceso</td>
-            <td t-if="!empleado.funcion.includes('montacargas')">
+
+            <tr style="background-color:#25333e;">
+            <td style="padding:0px;color:lightblue">En Proceso</td>
+            <td t-if="!empleado.funcion.includes('montacargas')" style="padding:0px;">
             <t t-esc="empleado.en_proceso"/>
             </td>
-            <td><t t-esc="empleado.productos_en_proceso"/></td>
-            <td t-if="!empleado.funcion.includes('montacargas')">
+            <td style="padding:0px;"><t t-esc="empleado.productos_en_proceso"/></td>
+            <td t-if="!empleado.funcion.includes('montacargas')" style="padding:0px;">
             $<t t-esc="empleado.valor_en_proceso"/>
             </td>
             </tr>
 
-            <tr>
-            <td style="color:lightgreen">Procesado</td>
-            <td t-if="!empleado.funcion.includes('montacargas')">
+
+            <tr style="background-color:#25333e;">
+            <td style="padding:0px;color:lightgreen">Procesado</td>
+            <td t-if="!empleado.funcion.includes('montacargas')" style="padding:0px;">
             <t t-esc="empleado.procesado"/>
             </td>
-            <td><t t-esc="empleado.productos_procesado"/></td>
-            <td t-if="!empleado.funcion.includes('montacargas')">
+            <td style="padding:0px;"><t t-esc="empleado.productos_procesado"/></td>
+            <td t-if="!empleado.funcion.includes('montacargas')" style="padding:0px;">
             $<t t-esc="empleado.valor_procesado"/>
             </td>
             </tr>
 
-            </tbody>
 
-            </table>
+            <!-- % CUMPLIMIENTO ORIGINAL -->
 
-            </div>
+            <tr style="background-color:#25333e;">
 
-            </div>
+            <td style="padding:0px;">% Cumplimiento</td>
 
-            </div>
 
-            <div class="card-footer">
-
-            <strong style="font-size: 12px;">
-            <t t-esc="empleado.user_id[1]"/>
-            </strong>
-
-            <strong style="float:right; font-size:14px;">
-            Función:
-            <t t-esc="empleado.funcion"/>
-            </strong>
-
-            </div>
-
-            </div>
-            </div>
-
-            <t t-set="contador" t-value="contador + 1"/>
-
+            <t t-if="empleado.cumplimiento &lt; 50 && !empleado.funcion.includes('montacargas')">
+            <td style="padding:0px;color:red;">
+            <t t-esc="empleado.cumplimiento"/> %
+            </td>
             </t>
 
+
+            <t t-if="empleado.cumplimiento &gt; 49 && empleado.cumplimiento &lt; 100 && !empleado.funcion.includes('montacargas')">
+            <td style="padding:0px;color:gold">
+            <t t-esc="empleado.cumplimiento"/> %
+            </td>
             </t>
+
+
+            <t t-if="empleado.cumplimiento == 100 && !empleado.funcion.includes('montacargas')">
+            <td style="padding:0px;color:green">
+            <t t-esc="empleado.cumplimiento"/> %
+            </td>
+            </t>
+
+
+            <t t-if="empleado.productos &gt; 0">
+            <t t-set="cumplimiento_productos"
+            t-value="Math.round((empleado.productos_procesado / empleado.productos ) *100)"/>
+            </t>
+
+            <t t-if="empleado.productos == 0">
+            <t t-set="cumplimiento_productos" t-value="0"/>
+            </t>
+
+
+            <t t-if="cumplimiento_productos &lt; 50">
+            <td style="padding:0px;color:red;">
+            <t t-esc="cumplimiento_productos"/> %
+            </td>
+            </t>
+
+
+            <t t-if="cumplimiento_productos &gt; 50 && cumplimiento_productos &lt; 100">
+            <td style="padding:0px;color:gold">
+            <t t-esc="cumplimiento_productos"/> %
+            </td>
+            </t>
+
+
+            <t t-if="cumplimiento_productos == 100">
+            <td style="padding:0px;color:green">
+            <t t-esc="cumplimiento_productos"/> %
+            </td>
+            </t>
+
+
+            <t t-if="empleado.valor_real &gt; 0 && !empleado.funcion.includes('montacargas')">
+            <t t-set="cumplimiento_valor"
+            t-value="Math.round((empleado.valor_procesado_real / empleado.valor_real)*100)"/>
+            </t>
+
+            <t t-else="">
+            <t t-set="cumplimiento_valor" t-value="0"/>
+            </t>
+
+
+            <t t-if="cumplimiento_valor &lt; 50 && !empleado.funcion.includes('montacargas')">
+            <td style="padding:0px;color:red;">
+            <t t-esc="cumplimiento_valor"/> %
+            </td>
+            </t>
+
+
+            <t t-if="cumplimiento_valor &gt; 50 && cumplimiento_valor &lt; 100 && !empleado.funcion.includes('montacargas')">
+            <td style="padding:0px;color:gold">
+            <t t-esc="cumplimiento_valor"/> %
+            </td>
+            </t>
+
+
+            <t t-if="cumplimiento_valor == 100 && !empleado.funcion.includes('montacargas')">
+            <td style="padding:0px;color:green">
+            <t t-esc="cumplimiento_valor"/> %
+            </td>
+            </t>
+
+
+            </tr>
 
 
             <!-- ================= MONTACARGAS ================= -->
