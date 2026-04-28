@@ -94,8 +94,9 @@ class SemiAutoReconciliationLine(models.TransientModel):
     @api.onchange('amount_to_apply')
     def _onchange_amount_to_apply(self):
         precision = self.env['decimal.precision'].precision_get('Account')
-        if self.debit and float_compare(self.amount_to_apply, self.debit, precision_digits=precision) > 0:
-            self.amount_to_apply = self.debit
+        if self.debit and float_compare(self.amount_to_apply, (self.debit - self.discount),
+                                        precision_digits=precision) > 0:
+            self.amount_to_apply = self.debit - self.discount
         elif self.credit and float_compare(self.amount_to_apply, self.credit, precision_digits=precision) > 0:
             self.amount_to_apply = self.credit
 
