@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_pricelist_page_inherit"
+              inherit_id="product.report_pricelist_page">
+
+        <xpath expr="//table/thead/tr/th[1]" position="before">
+            <th class="px-1">Imagen</th>
+<!--            <th class="px-1">Referencia</th>-->
+        </xpath>
+
+        <xpath expr="//table/tbody/t/tr[1]/td[1]" position="before">
+            <td class="px-1" style="width:50px;">
+                <img t-if="product.get('image_1920')"
+                     t-att-src="image_data_uri(product.get('image'))"
+                     style="height:40px; width:40px; object-fit:cover; border-radius:6px;"/>
+            </td>
+<!--            <td class="px-1 text-muted small" style="white-space:nowrap;">-->
+<!--                <span t-if="product.get('reference')" t-out="product.get('reference')"/>-->
+<!--            </td>-->
+        </xpath>
+
+        <!-- ✅ Agregar precios con IVA por cantidad, después de los precios originales -->
+<!--        <xpath expr="//table/tbody/t/tr[1]/t[1]" position="replace">-->
+<!--            <t t-foreach="quantities" t-as="qty">-->
+<!--                <td class="text-end px-1">-->
+<!--                    <t t-set="price_with_tax" t-value="product['price_with_tax'].get(qty)"/>-->
+<!--                    <span t-if="price_with_tax is not none"-->
+<!--                          t-options="{'widget': 'monetary', 'display_currency': pricelist.currency_id}"-->
+<!--                          t-esc="price_with_tax"/>-->
+<!--                </td>-->
+<!--            </t>-->
+<!--        </xpath>-->
+
+    </template>
+</odoo>

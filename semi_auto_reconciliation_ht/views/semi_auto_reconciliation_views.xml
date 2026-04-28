@@ -23,6 +23,7 @@
                 <field name="is_warning_due" optional="hide"/>
                 <field name="date" readonly="1"/>
                 <field name="payment_id" readonly="1"/>
+                <field name="discount" readonly="1"/>
                 <field name="debit" sum="Débito" readonly="1"/>
                 <field name="credit" sum="Crédito" readonly="1"/>
                 <field name="reconcile_full" widget="boolean_toggle"/>

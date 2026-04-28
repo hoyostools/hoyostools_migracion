@@ -52,6 +52,14 @@ class SemiAutoReconciliationLine(models.TransientModel):
     )
     currency_id = fields.Many2one('res.currency', string='Moneda')
     company_id = fields.Many2one('res.company', string='Compañía', default=lambda self: self.env.company, readonly=True)
+    discount = fields.Monetary(string='Descuento financiero', compute='_compute_discount')
+
+    def _compute_discount(self):
+        for record in self:
+            record.discount = 0.0
+            if record.due_date:
+                if record.due_date > date.today():
+                    record.discount = record.debit * (record.invoice_payment_term_id.discount_percentage / 100)
 
     # ==============================
     # CÁLCULO DE ESTADO DE VENCIMIENTO
@@ -96,7 +104,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
         for rec in self:
             if rec.reconcile_full:
                 if rec.document_type in ['invoice']:
-                    rec.amount_to_apply = rec.debit
+                    rec.amount_to_apply = rec.debit - rec.discount
                 elif rec.document_type in ['credit_note', 'payment']:
                     rec.amount_to_apply = -rec.credit
                 else:
@@ -548,6 +556,37 @@ class SemiAutoReconciliationLine(models.TransientModel):
                         "label": inv.move_id.name,
                     })
 
+                discount_pct = getattr(inv, "discount", 0.0)
+
+                if discount_pct:
+                    discount_amount = take * (discount_pct / 100.0)
+
+                    if not float_is_zero(discount_amount, precision_digits=precision) and inv.amount_to_apply == inv.debit-discount_amount:
+                        credit_note = self.env['account.move'].create({
+                            'move_type': 'out_refund',
+                            'partner_id': partner_id,
+                            'invoice_date': cruce_date,
+                            'date': cruce_date,
+                            'ref': f"Descuento {inv.move_id.name}",
+                            'invoice_line_ids': [(0, 0, {
+                                'name': 'Descuento aplicado',
+                                'quantity': 1,
+                                'price_unit': discount_amount,
+                                'account_id': inv.move_id.line_ids[0].account_id.id,
+                            })]
+                        })
+
+                        credit_note.action_post()
+
+                        normalized_lines.append({
+                            "document_type": "credit_note",
+                            "move": credit_note,
+                            "move_id": credit_note.id,
+                            "payment_id": False,
+                            "amount": -discount_amount,
+                            "label": credit_note.name,
+                        })
+
                 if not float_is_zero(needed, precision_digits=precision):
                     raise UserError(
                         f"No hay suficiente saldo de facturas seleccionadas para cubrir el cruce del {cruce_date} por {group_total}."
@@ -585,3 +624,25 @@ class SemiAutoReconciliationLine(models.TransientModel):
         self.search([]).unlink()
         _logger.info("Fin de la conciliación")
         return {"type": "ir.actions.client", "tag": "reload"}
+
+    def _create_discount_credit_note(self, invoice, partner_id, discount_amount, date):
+        if float_is_zero(discount_amount):
+            return None
+
+        credit_note = self.env['account.move'].create({
+            'move_type': 'out_refund',
+            'partner_id': partner_id,
+            'invoice_date': date,
+            'date': date,
+            'ref': f"Descuento factura {invoice.name}",
+            'invoice_line_ids': [(0, 0, {
+                'name': 'Descuento aplicado',
+                'quantity': 1,
+                'price_unit': discount_amount,
+                'account_id': invoice.line_ids[0].account_id.id,
+            })]
+        })
+
+        credit_note.action_post()
+        return credit_note
+
