@@ -579,14 +579,16 @@ class SemiAutoReconciliationLine(models.TransientModel):
 
                         credit_note.action_post()
 
-                        normalized_lines.append({
-                            "document_type": "credit_note",
-                            "move": credit_note,
-                            "move_id": credit_note.id,
-                            "payment_id": False,
-                            "amount": -discount_pct,
-                            "label": credit_note.name,
-                        })
+                        inv_line = inv.move_id.line_ids.filtered(
+                            lambda l: l.account_id.account_type == "asset_receivable" and not l.reconciled
+                        )[:1]
+
+                        cn_line = credit_note.line_ids.filtered(
+                            lambda l: l.account_id.account_type == "asset_receivable" and not l.reconciled
+                        )[:1]
+
+                        if inv_line and cn_line:
+                            (inv_line + cn_line).reconcile()
 
                 if not float_is_zero(needed, precision_digits=precision):
                     raise UserError(
