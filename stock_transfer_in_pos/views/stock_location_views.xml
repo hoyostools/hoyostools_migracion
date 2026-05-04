@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <!-- Inherit Form View to Modify it -->
+       <record id="view_location_form_inherit" model="ir.ui.view">
+           <field name="name">view.location.form.inherit</field>
+           <field name="model">stock.location</field>
+           <field name="inherit_id" ref="stock.view_location_form"/>
+           <field name="arch" type="xml">
+
+               <xpath expr="//field[@name='replenish_location']" position="after">
+                   <!-- Add your fields or attributes here -->
+                   <field name="load_default_origin_pos"/>
+                   <field name="load_default_dest_pos"/>
+               </xpath>
+
+           </field>
+       </record>
+
+    </data>
+</odoo>

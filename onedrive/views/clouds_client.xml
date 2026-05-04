@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="clouds_client_view_form" model="ir.ui.view">
+        <field name="name">clouds.client.form.onedrive</field>
+        <field name="model">clouds.client</field>
+        <field name="inherit_id" ref="cloud_base.clouds_client_view_form"/>
+        <field name="arch" type="xml">
+            <group name="main_setting" position="after">
+                <group name="onedrive_settings" invisible="cloud_client not in ('onedrive', 'sharepoint',)">
+                    <field name="onedrive_client_id" readonly="state != 'draft'" required="cloud_client in ('onedrive', 'sharepoint',)" string="App client ID"/>
+                    <field name="onedrive_client_secret"
+                           password="True"
+                           readonly="state not in ('draft', 'reconnect',)"
+                           required="cloud_client in ('onedrive', 'sharepoint',)"
+                           string="App client secret"
+                    />
+                    <field name="onedrive_redirect_uri"
+                           readonly="state not in ('draft', 'reconnect',)"
+                           required="cloud_client in ('onedrive', 'sharepoint',)"
+                           placeholder="https://yourodoodomain/one_drive_token"
+                           string="Redirect URL"
+                    />
+                    <field name="onedrive_sharepoint_base_url"
+                           invisible="cloud_client != 'sharepoint'"
+                           required="cloud_client == 'sharepoint'"
+                           readonly="state not in ('draft', 'reconnect',)"
+                           placeholder="https://company.sharepoint.com/"
+                    />
+                    <field name="onedrive_sharepoint_site_name"
+                           invisible="cloud_client != 'sharepoint'"
+                           required="cloud_client == 'sharepoint'"
+                           readonly="state not in ('draft', 'reconnect',)"
+                           placeholder="sites/mycompany"
+                    />
+                    <field name="onedrive_sharepoint_drive"
+                           invisible="cloud_client != 'sharepoint'"
+                           required="cloud_client == 'sharepoint'"
+                           readonly="state not in ('draft', 'reconnect',)"
+                           placeholder="Documents"
+                    />
+                </group>
+                <group name="onedrive_tech" groups="base.group_no_one" invisible="1">
+                    <field name="onedrive_session"/>
+                    <field name="onedrive_key" invisible="cloud_client != 'sharepoint'"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>
