@@ -7,7 +7,7 @@
     'license': 'LGPL-3',
     'depends': [
         'base',
-        'l10n_co_location',
+        # 'l10n_co_location',
         # 'th360_erp',
         'sale',
         'stock',
