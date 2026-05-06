@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ACCIÓN -->
+    <record id="action_elementos_tarifa" model="ir.actions.act_window">
+        <field name="name">Elementos de tarifa</field>
+        <field name="res_model">product.pricelist.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- MENÚ -->
+    <menuitem
+        id="menu_elementos_tarifa"
+        name="Elementos de tarifa"
+        parent="sale.sale_menu_root"
+        action="action_elementos_tarifa"
+        sequence="35"
+        groups="product.group_sale_pricelist"
+    />
+
+</odoo>

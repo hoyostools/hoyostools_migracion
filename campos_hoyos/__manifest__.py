@@ -22,6 +22,7 @@
         'point_of_sale'
     ],
     'data': [
+        'views/menu_elementos_tarifa.xml',
         'views/product_template_views.xml',
         'views/sale_order_views.xml',
         'report/purchase_order_report.xml',
