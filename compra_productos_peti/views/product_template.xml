@@ -12,10 +12,8 @@
 
                     <group string="COMPRA" col="4">
 
-                        <group>
                             <field name="orden_compra" widget="many2many_tags"/>
                             <field name="fecha_recepcion"/>
-                        </group>
 
                     </group>
 
