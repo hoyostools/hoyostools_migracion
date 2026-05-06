@@ -10,7 +10,7 @@
                 <!-- Agregar grupo COMPRA antes de seller_ids -->
                 <xpath expr="//page[@name='purchase']//field[@name='seller_ids']" position="before">
 
-                    <group string="COMPRA" col="4">
+                    <group string="COMPRA">
 
                             <field name="orden_compra" widget="many2many_tags"/>
                             <field name="fecha_recepcion"/>
