@@ -12,7 +12,7 @@
     <menuitem
         id="menu_elementos_tarifa"
         name="Elementos de tarifa"
-        parent="sale.sale_menu_root"
+        parent="sale.product_menu_catalog"
         action="action_elementos_tarifa"
         sequence="35"
         groups="product.group_sale_pricelist"
