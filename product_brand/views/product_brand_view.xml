@@ -206,6 +206,7 @@
         name="Product Brands"
         id="menu_product_brand"
         action="action_product_brand"
-        parent="	stock.menu_stock_config_settings"
+        parent="stock.menu_stock_inventory_control"
+        sequence="103"
     />
 </odoo>
