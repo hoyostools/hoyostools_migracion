@@ -1,0 +1,24 @@
+.pos {
+	.orderline {
+		.bin-icon {
+			margin-left: 12px !important;
+			cursor: pointer;
+			color: darkgreen;
+
+			// Increase the size of the trash icon
+            i.fa-trash-o {
+                font-size: 1.5em; // Adjust the size as needed (1.5em is an example)
+            }
+
+			&:hover {
+				color: darkred;
+
+				// Optional: Increase the size further on hover for emphasis
+                i.fa-trash-o {
+                    font-size: 1.8em; // Slightly larger on hover
+                }
+			}
+		}
+	}
+}
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="mh_remove_pos_orderline.ProductScreen" t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
+        <xpath expr="//Orderline" position="inside">
+            <t t-set-slot="mh-product-price-slot">
+                <span>
+                    <span class="bin-icon" t-on-click="() => currentOrder.removeOrderline(line)">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </span>
+                </span>
+            </t>
+        </xpath>
+    </t>
+
+    <!-- Template for adding clear all button in pos -->
+    <t t-name="mh_remove_pos_orderline.OrderLineClearALL" owl="1">
+       <button class="control-button btn btn-light text-bg-danger rounded-0 fw-bolder" t-on-click="() => this.onClick()">
+           <i class="fa fa-trash-o"> </i>
+           <span> </span>
+           <span>Clear Cart</span>
+       </button>
+   </t>
+</templates>

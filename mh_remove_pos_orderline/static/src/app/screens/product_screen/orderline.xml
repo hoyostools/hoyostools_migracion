@@ -1,0 +1,7 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="mh_remove_pos_orderline.Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('price')]" position="after">
+            <t t-slot="mh-product-price-slot"/>
+        </xpath>
+    </t>
+</templates>
