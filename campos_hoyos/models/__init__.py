@@ -4,7 +4,7 @@ from . import logistic_service
 # from . import stock_return_request
 from . import stock_warehouse_orderpoint
 from . import stock_picking
-# from . import account_move
+from . import account_move
 from . import product_pricelist_item
 from . import product_product
 from . import b4b_sale_order
