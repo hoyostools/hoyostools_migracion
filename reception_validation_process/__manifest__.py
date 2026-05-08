@@ -9,7 +9,8 @@
           no se permitirá realizar la validación de los albaranes.
   ''',
   'summary' : 'Verificación proceso de recepción desde compras.',
-  'depends' :  ['purchase', 'stock', 'l10n_trading_ec'],
+  # 'depends' :  ['purchase', 'stock', 'l10n_trading_ec'],
+  'depends' :  ['purchase', 'stock'],
   'data' :  [
        'views/purchase_order_views.xml',
       ],
