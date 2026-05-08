@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- FORM VIEW -->
+    <record id="stock_location_form_view_product_restriction" model="ir.ui.view">
+        <field name="name">stock.location.form.product.restriction</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Alert message -->
+            <div name="button_box" position="after">
+                <div
+                    class="alert alert-danger"
+                    role="alert"
+                    invisible="restriction_violation_message == False"
+                >
+                    <field name="restriction_violation_message"/>
+                </div>
+            </div>
+
+            <!-- Restrictions group -->
+            <xpath expr="//group[last()]" position="after">
+                <group name="restrictions" string="Restricciones">
+                    <field name="product_restriction"/>
+                    <field name="specific_product_restriction"/>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+    <record id="stock_location_search_view_product_restriction" model="ir.ui.view">
+        <field name="name">stock.location.search.product.restriction</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_search"/>
+        <field name="arch" type="xml">
+            <filter name="inactive" position="after">
+                <filter
+                    string="Con violación de restricción"
+                    name="has_restriction_violation"
+                    domain="[('has_restriction_violation','=',True)]"
+                />
+            </filter>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="stock_location_tree_view_product_restriction" model="ir.ui.view">
+        <field name="name">stock.location.tree.product.restriction</field>
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_tree2"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="before">
+                <field name="has_restriction_violation"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
