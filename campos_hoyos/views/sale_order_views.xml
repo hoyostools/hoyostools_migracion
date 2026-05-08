@@ -15,12 +15,29 @@
 						<group>
 							<field name="margin_exception" widget="boolean_toggle"/>
 							<field name="aurorizar_recogen" widget="boolean_toggle"/>
+                            <field name="freight_authorized" widget="boolean_toggle"/>
 						</group>
 					</page>
 				</xpath>
 			</field>
         </record>
 
+        <record id="add_fields_to_sale_order_form_view" model="ir.ui.view">
+            <field name="name">add.fields.to.sale.order.form.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="servicio_logistico" readonly="1"/>
+                </xpath>
+                <xpath expr="//field[@name='date_order']" position="after">
+                    <field name="warehouse_id" readonly="1" options="{'no_open': True}"/>
+                </xpath>
+
+            </field>
+        </record>
+        
 		<record id="view_order_form_inherit" model="ir.ui.view">
             <field name="name">sale_exception.view_order_form_inherit</field>
             <field name="model">sale.order</field>

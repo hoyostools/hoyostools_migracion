@@ -9,6 +9,7 @@ class SaleOrder(models.Model):
     margin_exception = fields.Boolean(string="Excepción Margen")
     aurorizar_recogen = fields.Boolean(string="Autorizar Recogen")
     error_excepciones = fields.Char(string="Error Excepciones")
+    freight_authorized = fields.Boolean(string="Autoriza Flete")
     can_edit_d = fields.Boolean(compute='_compute_can_edit_')
     is_user_gerencial = fields.Boolean(compute="_compute_is_user_gerencial", store=False)
     total_packs_order = fields.Integer(string='Total Pacas del Pedido', compute='_compute_total_packs_order')
