@@ -15,11 +15,11 @@ class SaleOrder(models.Model):
     credit_available_at_validation = fields.Float(string="Cupo Disponible Validación", readonly=True, copy=False)
     credit_overdue_days_found = fields.Float(string="Días Mora Detectados", readonly=True, copy=False)
     
-    credit_limit = fields.Float(string="Cupo Autorizado", readonly=True, copy=False)
-    amount_due = fields.Float(string="Cupo Usado", readonly=True, copy=False)
+    credit_limit = fields.Float(string="Cupo Autorizado", compute="_compute_partner_credit_values", store=True, readonly=True,)
+    amount_due = fields.Float(string="Cupo Usado", compute="_compute_partner_credit_values", store=True, readonly=True,)
     
-    @api.onchange("partner_id")
-    def _onchange_partner_credit_values(self):
+    @api.depends("partner_id")
+    def _compute_partner_credit_values(self):
 
         for order in self:
 
