@@ -23,6 +23,11 @@
                 </div>
             </xpath>
 
+            <xpath expr="//field[@name='commitment_date']" position="after">
+                <field name="credit_limit" readonly="1"/>
+                <field name="amount_due" readonly="1"/>
+            </xpath>
+
             <xpath expr="//notebook" position="inside">
                 <page string="Seguridad Gestión Crédito" name="credit_security">
                     <group>

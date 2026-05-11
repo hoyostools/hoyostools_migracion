@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import _, fields, models
+from odoo import _, fields, models, api
 
 
 class SaleOrder(models.Model):
@@ -14,6 +14,25 @@ class SaleOrder(models.Model):
     credit_limit_assigned = fields.Float(string="Cupo Asignado", readonly=True, copy=False)
     credit_available_at_validation = fields.Float(string="Cupo Disponible Validación", readonly=True, copy=False)
     credit_overdue_days_found = fields.Float(string="Días Mora Detectados", readonly=True, copy=False)
+    
+    credit_limit = fields.Float(string="Cupo Autorizado", readonly=True, copy=False)
+    amount_due = fields.Float(string="Cupo Usado", readonly=True, copy=False)
+    
+    @api.onchange("partner_id")
+    def _onchange_partner_credit_values(self):
+
+        for order in self:
+
+            order.credit_limit = 0.0
+            order.amount_due = 0.0
+
+            if not order.partner_id:
+                continue
+
+            partner = order.partner_id.commercial_partner_id
+
+            order.credit_limit = partner.credit_limit
+            order.amount_due = partner.receivable_amount
 
     def _build_credit_block_action(self, message):
         self.ensure_one()
