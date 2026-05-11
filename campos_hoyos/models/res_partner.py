@@ -4,19 +4,19 @@ from odoo import models, fields, api
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    def create(self, vals):
-        res = super(ResPartner, self).create(vals)
-        if not res.company_type and res.l10n_latam_identification_type_id.name == 'NIT':
-            res.company_type = 'company'
-        elif not res.company_type and res.l10n_latam_identification_type_id.name == 'Cédula de ciudadanía':
-            res.company_type = 'person'
-        if not res.organization_type_id and res.company_type == 'company':
-            res.organization_type_id = self.env["dian.companytype"].search([("name", "=", "Persona Juridica")])
-        elif not res.organization_type_id and res.company_type == 'person':
-            res.organization_type_id = self.env["dian.companytype"].search([("name", "=", "Persona Natural")])
-        if not res.city_id:
-            res.city_id = self.env["res.city"].search([("name", "=", "CALI")])
-        return res
+    # def create(self, vals):
+    #     res = super(ResPartner, self).create(vals)
+    #     if not res.company_type and res.l10n_latam_identification_type_id.name == 'NIT':
+    #         res.company_type = 'company'
+    #     elif not res.company_type and res.l10n_latam_identification_type_id.name == 'Cédula de ciudadanía':
+    #         res.company_type = 'person'
+    #     if not res.organization_type_id and res.company_type == 'company':
+    #         res.organization_type_id = self.env["dian.companytype"].search([("name", "=", "Persona Juridica")])
+    #     elif not res.organization_type_id and res.company_type == 'person':
+    #         res.organization_type_id = self.env["dian.companytype"].search([("name", "=", "Persona Natural")])
+    #     if not res.city_id:
+    #         res.city_id = self.env["res.city"].search([("name", "=", "CALI")])
+    #     return res
 
     property_payment_term_id = fields.Many2one('account.payment.term', company_dependent=True,
                                                string='Customer Payment Terms',
