@@ -144,6 +144,7 @@
                     <field name="total_packs_order" column_invisible="1" optional="hide" sum="total"/>
                     <field name="show_group_total_packs" optional="hide" sum="total"/>
                     <field name="notas_logisticas" optional="hide"/>
+                    <field name="invoice_count" string="Numero de Facturas" optional="hide"/>
                     <field name="partner_shipping_id" optional="hide"/>
                     <field name="pricelist_id" optional="hide"/>
                     <field name="payment_term_id" optional="hide"/>
