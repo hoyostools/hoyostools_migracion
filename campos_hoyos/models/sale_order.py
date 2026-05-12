@@ -14,6 +14,7 @@ class SaleOrder(models.Model):
     is_user_gerencial = fields.Boolean(compute="_compute_is_user_gerencial", store=False)
     total_packs_order = fields.Integer(string='Total Pacas del Pedido', compute='_compute_total_packs_order')
     show_group_total_packs = fields.Integer(string='Total Pacas del Pedido',compute='_compute_total_packs_order', store=True)
+    packaging_order_observation = fields.Text(string='Totalidad del empaque de la orden')
 
 
     def _compute_is_user_gerencial(self):

@@ -6,6 +6,7 @@
             <field name="inherit_id" ref="stock.stock_picking_kanban"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="packaging_order_observation"/>
                     <field name="address_complete"/>
                     <field name="carrier_id_name"/>
                 </xpath>
