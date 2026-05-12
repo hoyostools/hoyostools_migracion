@@ -15,7 +15,6 @@
                 <field name="default_code"/>
                 <field name="name"/>
                 <field name="barcode"/>
-                <field name="list_price"/>
 
             </tree>
 
@@ -139,7 +138,7 @@
 
                             <group string="Embalaje">
 
-                                <field name="packaging_ids" readonly="1">
+                                <field name="packaging_ids" readonly="1" options="{'no_create': True, 'no_edit': True, 'no_open': True}">
 
                                     <tree>
                                         <field name="name"/>

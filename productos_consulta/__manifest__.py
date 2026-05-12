@@ -7,6 +7,7 @@
     'depends': [
         'product',
         'stock',
+        'campos_hoyos',
     ],
     'data': [
         'security/ir.model.access.csv',
