@@ -8,6 +8,8 @@ class B4BSaleOrder(models.Model):
         string='Guía',
         widget='url')
     
-    fecha_sube = fields.Date(string='Fecha Sube')
+    fecha_sube = fields.Date(
+        string='Fecha Sube',
+        widget='date')
     
     transportadora = fields.Char(string='Transportadora')
