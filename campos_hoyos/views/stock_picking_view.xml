@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <record id="stock_picking_kanban_inherit_hoyos" model="ir.ui.view">
+        <!-- <record id="stock_picking_kanban_inherit_hoyos" model="ir.ui.view">
             <field name="name">stock.barcode.picking.kanban.inherit.hoyos</field>
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.stock_picking_kanban"/>
@@ -16,7 +16,7 @@
                     <field name="carrier_id_name"/>
                 </xpath>
             </field>
-        </record>
+        </record> -->
 
         <record id="stock_picking_form_inherit_hoyos" model="ir.ui.view">
             <field name="name">stock.picking.form.inherit.hoyos</field>
@@ -28,6 +28,6 @@
                 </xpath>
             </field>
         </record>
-        
+
     </data>
 </odoo>
