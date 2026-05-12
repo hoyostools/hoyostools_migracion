@@ -5,6 +5,17 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+   
+            <xpath expr="//sheet" position="inside">
+
+                <field name="credit_blocked_limit" invisible="1"/>
+                <field name="credit_blocked_overdue" invisible="1"/>
+
+                <field name="credit_limit_assigned" invisible="1"/>
+                <field name="credit_available_at_validation" invisible="1"/>
+                <field name="credit_overdue_days_found" invisible="1"/>
+
+            </xpath>
 
             <xpath expr="//header" position="after">
                 <div class="alert alert-danger" invisible="not credit_blocked_limit">
