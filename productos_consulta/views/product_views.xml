@@ -177,7 +177,7 @@
 
                                 <field name="packaging_ids" readonly="1" options="{'no_create': True, 'no_edit': True, 'no_open': True}">
 
-                                    <tree>
+                                    <tree editable="bottom">
                                         <field name="name"/>
                                         <field name="qty"/>
                                         <field name="barcode"/>
