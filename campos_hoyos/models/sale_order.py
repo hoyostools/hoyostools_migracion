@@ -97,10 +97,6 @@ class SaleOrder(models.Model):
             order.total_packs_order = total_packs
             order.show_group_total_packs = total_packs
 
-
-
-
-
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
@@ -128,6 +124,11 @@ class SaleOrderLine(models.Model):
     pricelist_id = fields.Many2one('product.pricelist',string="Lista de precios",related="order_id.pricelist_id")
     payment_term_id = fields.Many2one('account.payment.term',string="Términos de pago",related="order_id.payment_term_id")
     payment_term_id = fields.Many2one('account.payment.term',string="Términos de pago",related="order_id.payment_term_id")
+    idOrden = fields.Char(string="Id de orden" ,related="order_id.idOrden")
+    idb4b = fields.Char(string="Id b4b", related="order_id.idDb4b")
+    servicio_logistico = fields.Boolean(string="Servicio logistico", related="order_id.idServicio_logistico")
+    nombre_logistico = fields.Char(string="Nombre logistico", related="order_id.idNombre_logistico")
+    b4b = fields.Char(string="B4B", related="order_id.idB4b")
 
     @api.onchange('product_template_id')
     @api.depends('product_template_id')
