@@ -20,4 +20,15 @@
             action = record.calcular_proyeccion_inventario()
         </field>
     </record>
+    <record id="action_server_calcular_rentabilidad_product_template" model="ir.actions.server">
+        <field name="name">Calcular rentabilidad</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="product.model_product_template"/>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record._compute_extreme_rentability()
+        </field>
+    </record>
 </odoo>
