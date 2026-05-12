@@ -236,6 +236,7 @@
     <menuitem
         id="menu_productos_consulta_root"
         name="Productos"
+        web_icon="productos_consulta,static/description/icon.png"
         sequence="1"/>
 
     <menuitem
