@@ -17,14 +17,11 @@
 
                 <xpath expr="//field[@name='not_send_dispatch']" position="after">
                     <field name="auction" widget="boolean_toggle"/>
+                    <field name="warranty_offered_by_supplier"/>
                 </xpath>
 
                 <xpath expr="//page[@name='purchase']/group[1]" position="inside">
                     <field string="Prom. Consumo" name="promedio_consumo"/>
-                </xpath>
-
-                <xpath expr="//field[@name='commission']" position="after">
-                    <field name="ranking"/>
                 </xpath>
 
                 <xpath expr="//field[@name='commission']" position="after">
