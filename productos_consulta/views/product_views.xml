@@ -103,7 +103,7 @@
                 <sheet>
                     <div class="oe_title text-center mb16">
 
-                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_1920'}"/>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_1920', 'zoom': true}"/>
 
                     </div>
 
