@@ -29,7 +29,7 @@
             </xpath>
 
             <xpath expr="//notebook" position="inside">
-                <page string="Seguridad Gestión Crédito" name="credit_security">
+                <page string="Seguridad Gestión Crédito" name="credit_security" groups="partner_credit_management.group_control_credito_manager">
                     <group>
                         <field name="credit_unlock_overdue"/>
                         <field name="credit_unlock_limit"/>
