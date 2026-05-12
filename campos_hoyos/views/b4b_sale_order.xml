@@ -6,6 +6,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='notes']" position="after">
                 <field name="guia_url"/>
+                <field name="fecha_sube" readonly="1"/>
+                <field name="transportadora" readonly="1"/>
             </xpath>
         </field>
     </record>
