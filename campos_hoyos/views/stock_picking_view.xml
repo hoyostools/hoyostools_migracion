@@ -27,5 +27,7 @@
                     <field name="packaging_order_observation"/>
                 </xpath>
             </field>
+        </record>
+        
     </data>
 </odoo>
