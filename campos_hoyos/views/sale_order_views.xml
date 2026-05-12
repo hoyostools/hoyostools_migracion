@@ -120,5 +120,15 @@
             </field>
         </record>
 
+        <record id="view_order_tree_inherit_factura_ids" model="ir.ui.view">
+            <field name="name">view.order.tree.factura.ids</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="invoice_ids" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </odoo>
