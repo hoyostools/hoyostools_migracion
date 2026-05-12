@@ -72,6 +72,7 @@
                 <field name="minimum_quantity_for_discount" optional="hide" />
                 <field name="maximum_quantity_for_discount" optional="hide" />
                 <field name="range_discount" optional="hide" />
+                <field name="product_brand_id" optional="show"/>
                 <field name="discount_exceeds_range" optional="hide" />
                 <field name="fixed_price_retail" optional="hide" />
                 <field name="fixed_price_pos" optional="hide" />
