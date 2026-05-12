@@ -35,6 +35,10 @@
                 <xpath expr="//page[@name='general_information']/group/group/field[@name='uom_id']" position="before">
                     <field name="cant_pack"/>
                 </xpath>
+
+                <xpath expr="//field[@name='website_id']" position="before">
+                    <field name="website_published"/>
+                </xpath>
             </field>
         </record>
 
