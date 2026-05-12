@@ -28,6 +28,9 @@
                     <field name="ranking"/>
                 </xpath>
 
+                <xpath expr="//field[@name='default_code']" position="before">
+                    <field name="extreme_rentability"/>
+
                 <xpath expr="//page[@name='general_information']/group/group/field[@name='uom_id']" position="before">
                     <field name="cant_pack"/>
                 </xpath>
