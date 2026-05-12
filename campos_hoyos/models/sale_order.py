@@ -120,6 +120,9 @@ class SaleOrderLine(models.Model):
         string='Cant. Paca'
     )
     total_packs = fields.Integer(string='Total pacas', compute='_compute_total_packs')
+    product_brand_id = fields.Many2one(
+        "product.brand", string="Marca", related="product_template_id.product_brand_id"
+    )
 
     @api.onchange('product_template_id')
     @api.depends('product_template_id')
