@@ -5,18 +5,27 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.stock_picking_kanban"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='location_id']" position="after">
-                    <field name="packaging_order_observation"/>
-                    <!-- <field name="address_complete"/>
-                    <field name="carrier_id_name"/> -->
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="address_complete"/>
+                    <field name="carrier_id_name"/>
                 </xpath>
-                <!-- <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="after">
+                <xpath expr="//div[hasclass('o_kanban_record_bottom')]" position="after">
                     <field name="address_complete"/>
                 </xpath>
                 <xpath expr="//div[hasclass('o_kanban_record_top')]" position="after">
                     <field name="carrier_id_name"/>
-                </xpath> -->
+                </xpath>
             </field>
         </record>
+
+        <record id="stock_picking_form_inherit_hoyos" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit.hoyos</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name=picking_type_id]" position="after">
+                    <field name="packaging_order_observation"/>
+                </xpath>
+            </field>
     </data>
 </odoo>
