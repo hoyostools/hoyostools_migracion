@@ -72,6 +72,7 @@
                 <field name="minimum_quantity_for_discount" optional="hide" />
                 <field name="maximum_quantity_for_discount" optional="hide" />
                 <field name="range_discount" optional="hide" />
+                <field name="product_brand_id" optional="show"/>
                 <field name="discount_exceeds_range" optional="hide" />
                 <field name="fixed_price_retail" optional="hide" />
                 <field name="fixed_price_pos" optional="hide" />
@@ -105,7 +106,6 @@
                 <xpath expr="//field[@name='validity_date']" position="after">
                     <field name="total_packs_order" column_invisible="1" optional="hide" sum="total"/>
                     <field name="show_group_total_packs" optional="hide" sum="total"/>
-                    <field name="product_brand_id" optional="show"/>
                     <field name="notas_logisticas" optional="hide"/>
                     <field name="partner_shipping_id" optional="hide"/>
                     <field name="pricelist_id" optional="hide"/>
