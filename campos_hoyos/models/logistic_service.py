@@ -14,4 +14,9 @@ class logistic_service_fields(models.Model):
     state_logistico = fields.Char(string="Departamento logistico")
     phone_logistico = fields.Char(string="Telefono logistico")
     guia_url = fields.Char(string='Guía', widget='url')
+    fecha_sube = fields.Date(
+        string='Fecha Sube',
+        widget='date')
+    
+    transportadora = fields.Char(string='Transportadora')
     notas_logisticas = fields.Char(string="Notas logisticas")
