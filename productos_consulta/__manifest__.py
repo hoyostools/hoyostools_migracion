@@ -3,7 +3,7 @@
     'version': '17.0.1.0.0',
     'category': 'Inventory',
     'summary': 'Consulta de productos e inventarios',
-    'author': 'Custom',
+    'author': 'Distribuciones Hoyostools sas',
     'depends': [
         'product',
         'stock',
