@@ -116,6 +116,17 @@
                 <xpath expr="//field[@name='validity_date']" position="after">
                     <field name="total_packs_order" column_invisible="1" optional="hide" sum="total"/>
                     <field name="show_group_total_packs" optional="hide" sum="total"/>
+                    <field name="product_brand_id" optional="show"/>
+                    <field name="notas_logisticas" optional="hide"/>
+                    <field name="partner_shipping_id" optional="hide"/>
+                    <field name="pricelist_id" optional="hide"/>
+                    <field name="payment_term_id" optional="hide"/>
+                    <field name="create_uid" string="PEDTOM" optional="hide"/>
+                    <field name="idOrden" optional="hide"/>
+                    <field name="idb4b" optional="hide"/>
+                    <field name="servicio_logistico" optional="hide"/>
+                    <field name="nombre_logistico" optional="hide"/>
+                    <field name="b4b" optional="hide"/>
                 </xpath>
             </field>
         </record>
