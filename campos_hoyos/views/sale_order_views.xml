@@ -140,7 +140,7 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
             <field name="arch" type="xml">
-                <xpath expr="//tree" position="inside">
+                <xpath expr="//field[@name='name']" position="before">
                     <field name="total_packs_order" column_invisible="1" optional="hide" sum="total"/>
                     <field name="show_group_total_packs" optional="hide" sum="total"/>
                     <field name="notas_logisticas" optional="hide"/>
