@@ -12,6 +12,7 @@
         "account",
     ],
     "data": [
+        "security/group_control_credito.xml",
         "security/ir.model.access.csv",
         "views/credit_risk_type_views.xml",
         "views/credit_config_wizard_views.xml",
