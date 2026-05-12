@@ -138,9 +138,9 @@
         <record id="view_order_tree_inherit_quotation" model="ir.ui.view">
             <field name="name">view.order.tree.quotation</field>
             <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='date_order']" position="inside">
+                <xpath expr="//tree" position="inside">
                     <field name="total_packs_order" column_invisible="1" optional="hide" sum="total"/>
                     <field name="show_group_total_packs" optional="hide" sum="total"/>
                     <field name="notas_logisticas" optional="hide"/>
