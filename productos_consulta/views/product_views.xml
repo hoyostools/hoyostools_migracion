@@ -242,7 +242,7 @@
     <menuitem
         id="menu_productos_consulta_root"
         name="Productos"
-        sequence="10"/>
+        sequence="1"/>
 
     <menuitem
         id="menu_productos_consulta"
@@ -251,4 +251,4 @@
         action="action_productos_consulta"
         sequence="1"/>
 
-</odoo>
+</odoo>elemnto
