@@ -123,6 +123,11 @@ class SaleOrderLine(models.Model):
     product_brand_id = fields.Many2one(
         "product.brand", string="Marca", related="product_template_id.product_brand_id"
     )
+    notas_logisticas = fields.Char(string="Notas logisticas",related="order_id.notas_logisticas")
+    partner_shipping_id = fields.Many2one('res.partner',string="Dirección Entrega",related="order_id.partner_shipping_id")
+    pricelist_id = fields.Many2one('product.pricelist',string="Lista de precios",related="order_id.pricelist_id")
+    payment_term_id = fields.Many2one('account.payment.term',string="Términos de pago",related="order_id.payment_term_id")
+    payment_term_id = fields.Many2one('account.payment.term',string="Términos de pago",related="order_id.payment_term_id")
 
     @api.onchange('product_template_id')
     @api.depends('product_template_id')
