@@ -17,8 +17,8 @@ class ResPartner(models.Model):
     # ---------------------------------------------------------
     # Tab Gestión Crédito
     # ---------------------------------------------------------
-    control_credit = fields.Boolean(string="Controlar Crédito", tracked=True)
-    credit_limit = fields.Float(string="Límite de Crédito", tracked=True)
+    control_credit = fields.Boolean(string="Controlar Crédito", tracking=True)
+    credit_limit = fields.Float(string="Límite de Crédito", tracking=True)
     credit_limit_with_conditions = fields.Float(
         string="Límite Crédito con Condiciones",
         compute="_compute_credit_limit_with_conditions",
@@ -48,8 +48,8 @@ class ResPartner(models.Model):
         store=False,
     )
 
-    over_quota_percent_enabled = fields.Boolean(string="Sobre Cupo %", tracked=True)
-    over_quota_percent = fields.Float(string="Porcentaje Sobre Cupo %", tracked=True)
+    over_quota_percent_enabled = fields.Boolean(string="Sobre Cupo %", tracking=True)
+    over_quota_percent = fields.Float(string="Porcentaje Sobre Cupo %", tracking=True)
 
     over_quota_percent_value = fields.Float(
         string="Valor Sobre Cupo %",
@@ -57,11 +57,11 @@ class ResPartner(models.Model):
         store=True,
     )
 
-    over_quota_manual_enabled = fields.Boolean(string="Sobre Cupo Manual", tracked=True)
-    over_quota_manual_value = fields.Float(string="Valor Sobre Cupo Manual", tracked=True)
+    over_quota_manual_enabled = fields.Boolean(string="Sobre Cupo Manual", tracking=True)
+    over_quota_manual_value = fields.Float(string="Valor Sobre Cupo Manual", tracking=True)
 
-    blocking_overdue_enabled = fields.Boolean(string="Bloqueo Días Mora", tracked=True)
-    blocking_overdue_days = fields.Float(string="Días para Bloqueo por Mora", tracked=True)
+    blocking_overdue_enabled = fields.Boolean(string="Bloqueo Días Mora", tracking=True)
+    blocking_overdue_days = fields.Float(string="Días para Bloqueo por Mora", tracking=True)
 
     sale_order_open_amount = fields.Float(
         string="Valor Órdenes de Venta Sin Factura",
