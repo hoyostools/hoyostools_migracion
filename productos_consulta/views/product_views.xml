@@ -12,6 +12,7 @@
 
             <tree string="Productos" create="0" edit="0" delete="0">
 
+                <field name="image_128" widget="image" options="{'size': [40, 40]}"/>
                 <field name="default_code"/>
                 <field name="name"/>
                 <field name="barcode"/>
@@ -31,26 +32,50 @@
         <field name="arch" type="xml">
 
             <kanban>
+
+                <field name="image_128"/>
+
                 <templates>
 
                     <t t-name="kanban-box">
 
-                        <div class="oe_kanban_global_click">
+                        <div class="oe_kanban_global_click o_kanban_record">
 
-                            <div class="o_kanban_record_top">
-                                <strong>
-                                    <field name="name"/>
-                                </strong>
-                            </div>
+                            <div class="row">
 
-                            <div>
-                                Referencia:
-                                <field name="default_code"/>
-                            </div>
+                                <!-- IMAGEN -->
 
-                            <div>
-                                Código Barras:
-                                <field name="barcode"/>
+                                <div class="col-4 text-center">
+
+                                    <field name="image_128"
+                                        widget="image"
+                                        class="oe_avatar"
+                                        options="{'size': [80, 80]}"/>
+
+                                </div>
+
+                                <!-- INFO -->
+
+                                <div class="col-8">
+
+                                    <div>
+                                        <strong>
+                                            <field name="name"/>
+                                        </strong>
+                                    </div>
+
+                                    <div>
+                                        Ref:
+                                        <field name="default_code"/>
+                                    </div>
+
+                                    <div>
+                                        Barcode:
+                                        <field name="barcode"/>
+                                    </div>
+
+                                </div>
+
                             </div>
 
                         </div>
@@ -58,6 +83,7 @@
                     </t>
 
                 </templates>
+
             </kanban>
 
         </field>
@@ -75,6 +101,14 @@
             <form string="Productos" create="0" edit="0" delete="0">
 
                 <sheet>
+                    <div class="oe_title text-center mb16">
+
+                        <field name="image_1920"
+                            widget="image"
+                            class="oe_avatar"
+                            options="{'preview_image': 'image_128'}"/>
+
+                    </div>
 
                     <notebook>
 
