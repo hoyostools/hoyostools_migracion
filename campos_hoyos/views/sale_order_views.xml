@@ -114,6 +114,7 @@
                     <field name="partner_shipping_id" optional="hide"/>
                     <field name="pricelist_id" optional="hide"/>
                     <field name="payment_term_id" optional="hide"/>
+                    <field name="carrier_id" optional="hide"/>
                     <field name="create_uid" string="PEDTOM" optional="hide"/>
                     <field name="idOrden" optional="hide"/>
                     <field name="idb4b" optional="hide"/>
