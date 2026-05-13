@@ -6,6 +6,9 @@
             <xpath expr="//field[@name='ref']" position="attributes">
                 <attribute name="invisible">move_type not in ('in_invoice', 'in_receipt', 'in_refund', 'out_refund')</attribute>
             </xpath>
+            <xpath expr="//label[@for='ref']" position="attributes">
+                <attribute name="invisible">move_type not in ('in_invoice', 'in_receipt', 'in_refund', 'out_refund')</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
