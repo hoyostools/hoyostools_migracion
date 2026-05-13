@@ -1,0 +1,30 @@
+<odoo>
+
+    <record id="product_template_landed_cost_contacts" model="ir.ui.view">
+        <field name="name">product.template.landed.cost.contacts</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook" position="inside">
+
+                <page string="Costos en destino">
+
+                    <group>
+
+                        <field name="landed_cost_contact_ids"
+                               widget="many2many_tags"
+                               options="{'no_create': False}"/>
+
+                    </group>
+
+                </page>
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+</odoo>
