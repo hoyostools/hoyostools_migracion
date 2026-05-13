@@ -17,3 +17,7 @@ class ResCity(models.Model):
         string='Valor Caja',
         digits=(16, 2)
     )
+
+    code = fields.Char(
+        string='Código Ciudad'
+    )
