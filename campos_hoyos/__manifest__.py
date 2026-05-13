@@ -24,6 +24,7 @@
         'views/menu_elementos_tarifa.xml',
         'views/product_template_views.xml',
         'views/account_payment.xml',
+        'views/account_move.xml',
         'views/sale_order_views.xml',
         'report/purchase_order_report.xml',
         'views/logistic_service.xml',
