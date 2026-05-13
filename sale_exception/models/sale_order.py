@@ -47,10 +47,10 @@ class SaleOrder(models.Model):
         if orders:
             orders._check_exception()
 
-    # def action_confirm(self):
-    #     if self.detect_exceptions():
-    #         return self._popup_exceptions()
-    #     return super().action_confirm()
+    def action_confirm(self):
+        if self.detect_exceptions():
+            return self._popup_exceptions()
+        return super().action_confirm()
 
     def action_draft(self):
         res = super().action_draft()

@@ -86,7 +86,7 @@ class BaseExceptionModel(models.AbstractModel):
                 }
             }
         )
-        return action
+        return
 
     @api.model
     def _get_popup_action(self):

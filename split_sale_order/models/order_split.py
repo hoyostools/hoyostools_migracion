@@ -33,8 +33,8 @@ class SplitOrder(models.Model):
 
     def action_confirm(self):
         for order in self:
-            # if order.detect_exceptions():
-            #     return order._popup_exceptions()
+            if order.detect_exceptions():
+                return order._popup_exceptions()
             if not order.carrier_id:
                 raise UserError("Error: Falta definir método de envío para: " + order.display_name)
         if self.env.company.split_activated:

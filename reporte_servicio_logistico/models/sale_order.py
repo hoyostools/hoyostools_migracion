@@ -28,7 +28,10 @@ class SaleOrder(models.Model):
                 lambda pick: pick.picking_type_id.id == order.warehouse_id.out_type_id.id).mapped(
                 'packaging_order_observation')
             if pickings:
-                return ', '.join(pickings)
+                try:
+                    return ', '.join(pickings)
+                except:
+                    return False
             return False
 
     def print_report_servicio_logistico(self):
