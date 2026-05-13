@@ -15,6 +15,7 @@
                 <field name="return_from_location" groups="stock.group_stock_multi_locations"/>
                 <field name="return_to_location" groups="stock.group_stock_multi_locations"/>
                 <field name="return_type"/>
+                <field name="has_credit_note"/>
                 <field name="product_count"/>
                 <field name="estimated_total" readonly="1"/>
                 <field name="state"/>
