@@ -49,6 +49,7 @@
             <field name="res_model">printnode.rule</field>
             <field name="view_mode">tree</field>
             <field name="view_id" ref="printnode_rules_tree" />
+            <field name="search_view_id" ref="printnode_rules_search"/>
             <field name="context">{"active_test": False}</field>
         </record>
 
