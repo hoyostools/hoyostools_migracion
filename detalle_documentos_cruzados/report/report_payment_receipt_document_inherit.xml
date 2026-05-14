@@ -139,7 +139,7 @@
                 </div>
             </t>
         </xpath>
-        <xpath expr="//t[@t-if='o.show_details_payment == False']" position="replace">
+        <xpath expr="//t/div" position="replace">
             <t t-if="o.show_details_payment == False">
                 <div class="page">
                     <h3>
