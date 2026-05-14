@@ -24,7 +24,10 @@ class PurchaseOrderLine(models.Model):
             if fiscal_position:
                 valid_taxes = fiscal_position.map_tax(valid_taxes)
             delete_taxes = line.order_id.order_line.taxes_id.filtered(lambda t: t.base_amount > line.order_id.amount_untaxed and t.base_check == True)
+            reteiva_taxes = line.order_id.order_line.taxes_id.filtered(lambda t: t.reteiva == True)
             if delete_taxes:
                 line.order_id.order_line.taxes_id -= delete_taxes
             if valid_taxes:
                 line.order_id.order_line.taxes_id += valid_taxes
+            if reteiva_taxes:
+                line.order_id.order_line.taxes_id += reteiva_taxes.impuesto_reteiva
