@@ -52,7 +52,7 @@ class SaleOrderLine(models.Model):
                 if taxes_to_remove:
                     line.tax_ids -= taxes_to_remove
 
-                if taxes_reteiva:
+                if taxes_reteiva and fiscal_position.aplica_reteiva:
                     line.tax_ids += taxes_reteiva.impuesto_reteiva
 
 

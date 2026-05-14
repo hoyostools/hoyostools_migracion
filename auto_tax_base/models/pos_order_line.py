@@ -33,5 +33,5 @@ class PosOrderLine(models.Model):
                 lambda t: t.reteiva == True)
             if delete_taxes:
                 line.order_id.lines.tax_ids_after_fiscal_position -= delete_taxes
-            if reteiva_taxes:
+            if reteiva_taxes and line.order_id.fiscal_position_id.aplica_reteiva:
                 line.order_id.lines.tax_ids_after_fiscal_position += reteiva_taxes.impuesto_reteiva

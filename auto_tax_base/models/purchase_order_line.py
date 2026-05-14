@@ -29,5 +29,5 @@ class PurchaseOrderLine(models.Model):
                 line.order_id.order_line.taxes_id -= delete_taxes
             if valid_taxes:
                 line.order_id.order_line.taxes_id += valid_taxes
-            if reteiva_taxes:
+            if reteiva_taxes and fiscal_position.aplica_reteiva:
                 line.order_id.order_line.taxes_id += reteiva_taxes.impuesto_reteiva
