@@ -18,7 +18,7 @@
         'stock',
         'website_sale',
         'b4b',
-        'point_of_sale'
+        'point_of_sale',
         'sale_margin',
     ],
     'data': [
