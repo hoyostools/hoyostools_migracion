@@ -8,6 +8,8 @@
             <field name="is_base_affected" position="after">
                 <field name="base_check"/>
                 <field name="base_amount" invisible="not base_check"/>
+                <field name="reteiva"/>
+                <field name="impuesto_reteiva" invisible="not reteiva"/>
             </field>
         </field>
     </record>

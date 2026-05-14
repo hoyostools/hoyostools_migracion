@@ -42,9 +42,18 @@ class SaleOrderLine(models.Model):
                         and t.base_amount > move.amount_untaxed
                     )
                 )
+                taxes_reteiva = line.tax_ids.filtered(
+                    lambda t: (
+                        t.reteiva
+                        and move.amount_untaxed != 0
+                    )
+                )
 
                 if taxes_to_remove:
                     line.tax_ids -= taxes_to_remove
+
+                if taxes_reteiva:
+                    line.tax_ids += taxes_reteiva.impuesto_reteiva
 
 
 class AccountMove(models.Model):

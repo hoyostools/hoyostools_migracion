@@ -29,5 +29,9 @@ class PosOrderLine(models.Model):
         for line in self:
             delete_taxes = line.order_id.lines.tax_ids_after_fiscal_position.filtered(
                 lambda t: t.base_amount > (line.order_id.amount_total - line.order_id.amount_tax) and t.base_check == True)
+            reteiva_taxes = line.order_id.lines.tax_ids_after_fiscal_position.filtered(
+                lambda t: t.reteiva == True)
             if delete_taxes:
                 line.order_id.lines.tax_ids_after_fiscal_position -= delete_taxes
+            if reteiva_taxes:
+                line.order_id.lines.tax_ids_after_fiscal_position += reteiva_taxes.impuesto_reteiva
