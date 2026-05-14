@@ -7,6 +7,7 @@
     'depends': ['sale', 'product', 'pos_sale', 'point_of_sale', 'account', 'base_automation', 'pos_intermedio'],
     'data': [
         'views/account_tax.xml',
+        'views/account_fiscal_position.xml',
     ],
     'installable': True,
     'auto_install': False,

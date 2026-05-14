@@ -34,7 +34,7 @@ class SaleOrderLine(models.Model):
                 line.order_id.order_line.tax_id -= delete_taxes
             if valid_taxes:
                 line.order_id.order_line.tax_id += valid_taxes
-            if reteiva_taxes:
+            if reteiva_taxes and fiscal_position.aplica_reteiva:
                 line.order_id.order_line.tax_id += reteiva_taxes.impuesto_reteiva
 
     def _get_protected_fields(self):
