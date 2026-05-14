@@ -32,3 +32,8 @@ class SaleOrderLine(models.Model):
                 line.order_id.order_line.tax_id -= delete_taxes
             if valid_taxes:
                 line.order_id.order_line.tax_id += valid_taxes
+
+    def _get_protected_fields(self):
+        lista = super()._get_protected_fields()
+        lista.remove('tax_id')
+        return lista
