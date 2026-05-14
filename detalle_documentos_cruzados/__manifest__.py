@@ -15,7 +15,7 @@
     'category': 'Uncategorized',
     'version': '0.1',
 
-    'depends': [],
+    'depends': ['account'],
 
     'data': [
         'report/report_payment_receipt_document_inherit.xml',
