@@ -1,6 +1,6 @@
 <odoo>
     <template id="report_payment_detalle_documentos_cruzados" inherit_id="account.report_payment_receipt_document">
-        <xpath expr="//t[@t-if='o.show_details_payment == True']" position="replace">
+        <xpath expr="//t/div" position="replace">
             <t t-if="o.show_details_payment == True">
                 <div class="page">
                     <h3>
