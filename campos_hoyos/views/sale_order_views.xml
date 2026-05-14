@@ -108,7 +108,7 @@
             <field name="inherit_id" ref="sale.view_order_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='validity_date']" position="after">
-                    <field name="margin_percent" optional="show"/>
+                    <field name="margin_percent" widget="percentage" optional="show"/>
                     <field name="total_packs_order" column_invisible="1" optional="hide" sum="total"/>
                     <field name="show_group_total_packs" optional="hide" sum="total"/>
                     <field name="notas_logisticas" optional="hide"/>
