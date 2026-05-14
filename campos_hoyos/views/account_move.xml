@@ -19,7 +19,7 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='invoice_date_due']" position="after">
-                <field name="invoice_payment_term_id"/>
+                <field name="invoice_payment_term_id" optional="hide"/>
             </xpath>
 
         </field>
