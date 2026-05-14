@@ -20,6 +20,30 @@
             </field>
         </record>
 
+        <record id="printnode_rules_search" model="ir.ui.view">
+            <field name="name">printnode.rule.search</field>
+            <field name="model">printnode.rule</field>
+
+            <field name="arch" type="xml">
+                <search string="Search User Rules">
+
+                    <field name="user_id"/>
+
+                    <field name="printer_id"/>
+
+                    <!-- Opcional -->
+                    <filter name="active"
+                            string="Active"
+                            domain="[('active', '=', True)]"/>
+
+                    <filter name="inactive"
+                            string="Inactive"
+                            domain="[('active', '=', False)]"/>
+
+                </search>
+            </field>
+        </record>
+
         <record id="printnode_rules" model="ir.actions.act_window">
             <field name="name">User Rules</field>
             <field name="res_model">printnode.rule</field>
