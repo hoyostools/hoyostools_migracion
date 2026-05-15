@@ -46,7 +46,12 @@ class AccountPayment(models.Model):
 
     @api.model
     def _get_destination_account_id(self):
-        return self.destination_account_id.id if self.destination_account_id else super()._get_destination_account_id()
+        self.ensure_one()
+
+        if self.voucher_type == 'anticipo' and self.tipo_anticipo_id.cuenta_anticipo_id:
+            return self.tipo_anticipo_id.cuenta_anticipo_id
+
+        return super()._get_destination_account_id()
 
     def _prepare_move_line_default_vals(self, write_off_line_vals=None, force_balance=False):
         res = super()._prepare_move_line_default_vals(
