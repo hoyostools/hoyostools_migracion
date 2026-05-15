@@ -25,7 +25,7 @@
 
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="voucher_type"/>
-                <field name="tipo_anticipo_id" invisible="voucher_type != 'anticipo'"/>
+                <field name="tipo_anticipo_id" invisible="voucher_type != 'anticipo'" options="{'no_create': True}"/>
                 <field name="destination_account_id" readonly="voucher_type == 'anticipo'" options="{'no_create': True, 'no_open': True}"/>
             </xpath>
 
