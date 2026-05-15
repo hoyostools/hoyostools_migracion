@@ -41,7 +41,7 @@ class AccountPayment(models.Model):
         y la coloca automáticamente en destination_account_id
         """
         if self.tipo_anticipo_id:
-            self.destination_account_id = self.tipo_anticipo_id.cuenta_anticipo_id.id
+            self._origin.destination_account_id = self.tipo_anticipo_id.cuenta_anticipo_id.id
 
     @api.model
     def _get_destination_account_id(self):
