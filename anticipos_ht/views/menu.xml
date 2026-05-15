@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_ap_anticipo_root"
+              name="Anticipos Clientes"
+              parent="account.menu_finance_configuration"/>
+
+    <menuitem id="menu_ap_anticipo"
+              name="Configuración Anticipos"
+              parent="menu_ap_anticipo_root"
+              action="action_ap_anticipo"/>
+</odoo>

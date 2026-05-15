@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ap_anticipo,access_ap_anticipo,model_ap_anticipo,,1,1,1,1
