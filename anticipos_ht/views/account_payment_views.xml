@@ -17,4 +17,19 @@
         </field>
     </record>
 
+    <record id="view_account_payment_form_custom" model="ir.ui.view">
+        <field name="name">account.payment.form.custom</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="voucher_type"/>
+                <field name="tipo_anticipo_id" invisible="voucher_type != 'anticipo'"/>
+                <field name="destination_account_id" readonly="voucher_type == 'anticipo'"/>
+            </xpath>
+
+        </field>
+    </record>
+
 </odoo>
