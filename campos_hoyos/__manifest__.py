@@ -8,6 +8,7 @@
     'version': '17.0.1.0.0',
     'license': 'OPL-1',
     'depends': [
+        'account',
         'sale',
         'sale_stock',
         'product',
