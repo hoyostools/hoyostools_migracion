@@ -46,6 +46,28 @@
             </field>
         </record>
 
+        <record id="product_view_kanban_catalog_inherit_cant_pack" model="ir.ui.view">
+            <field name="name">product.product_view_kanban_catalog.inherit.cant.pack</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_view_kanban_catalog"/>
+            <field name="arch" type="xml">
+
+                <!-- Agregar el campo al dataset del kanban -->
+                <xpath expr="//kanban/field[@name='default_code']" position="after">
+                    <field name="cant_pack"/>
+                </xpath>
+
+                <!-- Mostrar después del bloque default_code -->
+                <xpath expr="//div[@t-if='record.default_code.value']" position="after">
+                    <div t-if="record.cant_pack.value">
+                        <strong>Cant Pack:</strong>
+                        [<field name="cant_pack"/>]
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
         <record id="product_template_tree_view_campos_hoyos" model="ir.ui.view">
             <field name="name">product.template.product.tree.campos.hoyos</field>
             <field name="model">product.template</field>
