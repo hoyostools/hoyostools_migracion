@@ -38,6 +38,7 @@
         'views/purchase_order_views.xml',
         "views/product_template_sales_view.xml",
         "views/sale_order_readonly_view.xml",
+        "views/sale_order_line.xml",
         "views/stock_picking_view.xml",
         'views/stock_location_views.xml',
         'views/stock_quant_view.xml',
