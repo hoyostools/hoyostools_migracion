@@ -39,7 +39,10 @@
                 <xpath expr="//field[@name='website_id']" position="before">
                     <field name="website_published"/>
                 </xpath>
-            </field>
+
+                <xpath expr='//field[@name="website_ribbon_id"]' position="after">
+                    <field name="website_description"/>
+                </xpath>
         </record>
 
         <record id="product_template_tree_view_campos_hoyos" model="ir.ui.view">
