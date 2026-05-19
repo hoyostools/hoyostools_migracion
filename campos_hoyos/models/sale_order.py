@@ -125,6 +125,25 @@ class SaleOrderLine(models.Model):
     partner_shipping_id = fields.Many2one('res.partner',string="Dirección Entrega",related="order_id.partner_shipping_id")
     pricelist_id = fields.Many2one('product.pricelist',string="Lista de precios",related="order_id.pricelist_id")
     payment_term_id = fields.Many2one('account.payment.term',string="Términos de pago",related="order_id.payment_term_id")
+    secuencia = fields.Integer(
+        string='Número de linea',
+        readonly=True,
+        copy=False,
+    )
+
+    def create(self, vals_list):
+        lines = super().create(vals_list)
+
+        for line in lines:
+            # Solo asigna si no tiene secuencia
+            if not line.secuencia and line.order_id:
+                max_secuencia = max(
+                    line.order_id.order_line.mapped('secuencia') or [0]
+                )
+
+                line.secuencia = max_secuencia + 1
+
+        return lines
 
     @api.onchange('product_template_id')
     @api.depends('product_template_id')
