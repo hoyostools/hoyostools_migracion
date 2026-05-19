@@ -59,7 +59,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
             record.discount = 0.0
             if record.due_date:
                 if record.due_date > date.today():
-                    record.discount = record.debit * (record.invoice_payment_term_id.discount_percentage / 100)
+                    record.discount = record.move_id.amount_untaxed * (record.invoice_payment_term_id.discount_percentage / 100)
 
     # ==============================
     # CÁLCULO DE ESTADO DE VENCIMIENTO
