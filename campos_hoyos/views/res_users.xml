@@ -1,0 +1,29 @@
+<odoo>
+    <record id="res_users_tree_inherit" model="ir.ui.view">
+        <field name="name">res_users_inherit_tree</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_tree"/>
+        <field name="arch" type="xml">
+          <xpath expr="//field[@name='lang']" position="replace">
+            <field name="totp_enabled" optional="show"/>
+            <field name="allowed_warehouse_ids" optional="show"/>
+            <field name="tz" optional="show"/>
+            <field name="employee_ids" optional="show"/>
+          </xpath>
+          <xpath expr="//tree[1]/field[@name='name']" position="before">
+            <field name="id" optional="show"/>
+            <field name="company_ids" optional="show"/>
+          </xpath>
+          <xpath expr="//field[@name='login_date']" position="after">
+            <field name="notification_type" optional="show"/>
+            <field name="account_journal_ids" optional="show" widget="many2many_tags"/>
+          </xpath>
+          <xpath expr="//field[@name='company_id']" position="after">
+            <field name="write_date" optional="show"/>
+            <field name="write_uid" optional="show"/>
+            <field name="create_date" optional="show"/>
+            <field name="create_uid" optional="show"/>
+          </xpath>
+        </field>
+    </record>
+</odoo>

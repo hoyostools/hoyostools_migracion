@@ -42,6 +42,7 @@
         'views/stock_location_views.xml',
         'views/stock_quant_view.xml',
         'views/stock_scrap_views.xml',
+        'views/res_users.xml',
         'data/data.xml',
         "security/res_groups.xml"
     ],
