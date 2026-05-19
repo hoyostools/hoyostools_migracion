@@ -1,31 +1,31 @@
 <odoo>
-<!--    <record id="view_product_template_form_inherit" model="ir.ui.view">-->
-<!--        <field name="name">product.template.form.inherit</field>-->
-<!--        <field name="model">product.template</field>-->
-<!--        <field name="inherit_id" ref="product.product_template_only_form_view"/>-->
-<!--        <field name="arch" type="xml">-->
+   <record id="view_product_template_form_inherit" model="ir.ui.view">
+       <field name="name">product.template.form.inherit</field>
+       <field name="model">product.template</field>
+       <field name="inherit_id" ref="product.product_template_only_form_view"/>
+       <field name="arch" type="xml">
 <!--            &lt;!&ndash; Localizamos la pestaña Información General usando una referencia válida &ndash;&gt;-->
-<!--            <xpath expr="//sheet/notebook/page[1]/group" position="inside">-->
-<!--                <group>-->
-<!--                    <group string="Información del Proveedor">-->
-<!--                        <field name="first_seller_estimated_cost" readonly="1"/>-->
-<!--                        <field name="first_seller_sale_suggested_price" readonly="1"/>-->
-<!--                    </group>-->
+           <xpath expr="//sheet/notebook/page[1]/group" position="inside">
+               <group>
+                   <group string="Información del Proveedor">
+                       <field name="first_seller_estimated_cost" readonly="1"/>
+                       <field name="first_seller_sale_suggested_price" readonly="1"/>
+                   </group>
 
-<!--                    <group string="Información Detal">-->
-<!--                        <field name="first_seller_sale_suggested_price_detal_rounded" readonly="1"/>-->
-<!--                        <field name="first_seller_sale_suggested_price_detal_rounded_without_tax" readonly="1"/>-->
-<!--                    </group>-->
-<!--                </group>-->
-<!--            </xpath>-->
-<!--            <xpath expr="//sheet/notebook/page[1]/group" position="inside">-->
-<!--                <group>-->
-<!--                    <group string="INFORMACIÓN PTV">-->
-<!--                        <field name="first_seller_sale_suggested_price_ptv_rounded" readonly="1"/>-->
-<!--                        <field name="first_seller_sale_suggested_price_ptv_rounded_without_tax" readonly="1"/>-->
-<!--                    </group>-->
-<!--                </group>-->
-<!--            </xpath>-->
-<!--        </field>-->
-<!--    </record>-->
+                   <group string="Información Detal">
+                       <field name="first_seller_sale_suggested_price_detal_rounded" readonly="1"/>
+                       <field name="first_seller_sale_suggested_price_detal_rounded_without_tax" readonly="1"/>
+                   </group>
+               </group>
+           </xpath>
+           <xpath expr="//sheet/notebook/page[1]/group" position="inside">
+               <group>
+                   <group string="INFORMACIÓN PTV">
+                       <field name="first_seller_sale_suggested_price_ptv_rounded" readonly="1"/>
+                       <field name="first_seller_sale_suggested_price_ptv_rounded_without_tax" readonly="1"/>
+                   </group>
+               </group>
+           </xpath>
+       </field>
+   </record>
 </odoo>
