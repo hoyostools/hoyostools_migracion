@@ -363,7 +363,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
                     "partner_type": "customer",
                     "partner_id": partner_id,
                     "amount": debit_total,
-                    "date": cruce_date,
+                    "date": fields.Datetime.now().date(),
                     "journal_id": journal.id,
                     "payment_method_line_id": payment_method_line.id,
                     "ref": f"Cruce {cruce_name}",

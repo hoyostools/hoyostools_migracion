@@ -7,7 +7,7 @@
             [
                 '|',
                 ('id', 'in', user.account_journal_ids.ids),
-                ('id', '=', False)
+                ('id', 'not in', [])
             ]
         </field>
         <field name="perm_read" eval="1"/>
