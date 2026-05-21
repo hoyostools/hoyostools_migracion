@@ -6,7 +6,7 @@
         <field name="domain_force">
             [
                 '|',
-                ('id', 'in', user.account_journal_id.ids),
+                ('id', 'in', user.account_journal_ids.ids),
                 ('id', '=', False)
             ]
         </field>
