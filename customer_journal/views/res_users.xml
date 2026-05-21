@@ -1,0 +1,13 @@
+<odoo>
+    <record id="res_users_view_journal" model="ir.ui.view">
+        <field name="name">res_users_view_journal</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_title']//field[@name='partner_id']" position="after">
+                <field name="enable_journals_per_user" invisible="1"/>
+                <field name="account_journal_ids" widget="many2many_tags" options="{'no_create': True}" invisible="not enable_journals_per_user"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
