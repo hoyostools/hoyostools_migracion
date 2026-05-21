@@ -439,7 +439,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
                 cruce = self.env["cruce.saldos"].create({
                     "name": cruce_name,
                     "partner_id": partner_id,
-                    "date": cruce_date,
+                    "date": fields.Datetime.now().date(),
                     "total_amount": debit_total,
                     "move_id": pay_move.id,  # principal = move del pago
                 })
