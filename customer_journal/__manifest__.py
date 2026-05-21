@@ -5,7 +5,7 @@
     'author': 'Distribuciones Hoyostools',
     'depends': ['account','base'],
     'data': [
-        'views/stock_quant_view.xml',
+        'views/res_users.xml',
         'data/ir_rule.xml',
     ],
     'installable': True,
