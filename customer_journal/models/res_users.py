@@ -1,5 +1,4 @@
-from odoo import _, api, models
-from urllib3 import fields
+from odoo import _, api, models, fields
 
 
 class ResUser(models.Model):
