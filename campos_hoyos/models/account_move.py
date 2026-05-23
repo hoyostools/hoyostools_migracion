@@ -3,28 +3,24 @@ from odoo import models, fields, api
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    def create_dict_invoicehead_dian(self, totales):
-        datos = super(AccountMove, self).create_dict_invoicehead_dian(totales)
-        for order in self.line_ids.sale_line_ids.order_id:
-            if order.b4b and order.servicio_logistico:
-                datos['InvoiceComment8'] = 'ambas'
-            if order.b4b and not order.servicio_logistico:
-                datos['InvoiceComment8'] = 'b4b'
-            if not order.b4b and order.servicio_logistico:
-                datos['InvoiceComment8'] = 'servicio_logistico'
-            if not order.b4b and not order.servicio_logistico:
-                datos['InvoiceComment8'] = ''
-            if order.notas_logisticas:
-                datos['InvoiceComment9'] = order.notas_logisticas
-        return datos
+    def action_post(self):
+        """
+        Al confirmar una factura de proveedor:
+        - Si existe payment_reference:
+            coloca ese valor en el campo 'name' (Etiqueta)
+            de todos los apuntes contables.
+        - Si no existe:
+            mantiene el comportamiento nativo de Odoo.
+        """
+        res = super().action_post()
 
-class AccountMoveLine(models.Model):
-    _inherit = "account.move.line"
+        for move in self:
+            # Solo facturas/proveedores
+            if move.move_type in ("in_invoice", "in_refund"):
+                if move.payment_reference:
+                    move.line_ids.write({
+                        "name": move.payment_reference
+                    })
 
-    sale_origin_id = fields.Many2one("sale.order")
+        return res
 
-    def get_invoice_line_dict(self, index):
-        line_dict = super(AccountMoveLine, self).get_invoice_line_dict(index)
-        if self.sale_origin_id:
-            line_dict['LineComment3'] = self.sale_origin_id.name
-        return line_dict
