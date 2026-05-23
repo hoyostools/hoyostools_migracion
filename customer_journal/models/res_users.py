@@ -9,7 +9,7 @@ class ResUser(models.Model):
 
     def _has_group_restriction(self):
         for record in self:
-            if record.env.user.has_group('customer_journal.group_restricted_journal'):
+            if record.has_group('customer_journal.group_restricted_journal'):
                 record.has_group_restriction = True
             else:
                 record.has_group_restriction = False
