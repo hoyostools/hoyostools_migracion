@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <xpath expr="//div[@class='oe_title']//field[@name='partner_id']" position="after">
                 <field name="has_group_restriction" invisible="1"/>
-                <field name="account_journal_ids" required="has_group_restriction == true" invisible="not has_group_restriction" widget="many2many_tags" options="{'no_create': True}"/>
+                <field name="account_journal_ids" required="has_group_restriction" invisible="not has_group_restriction" widget="many2many_tags" options="{'no_create': True}"/>
             </xpath>
         </field>
     </record>
