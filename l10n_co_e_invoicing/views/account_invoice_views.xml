@@ -44,19 +44,19 @@
                     required="move_type in ('out_invoice', 'out_refund') and operation_type == '22'"
                     readonly="state != 'draft'"/>
                 <field name="id_invoice_refound"
-                    invisible="move_type not in ('out_invoice', 'out_refund')"
+                    invisible="move_type not in ('out_invoice', 'out_refund')  or not is_invoice_out_odoo"
                     readonly="state != 'draft'"
                     />
                 <field name="uuid_invoice"
-                    invisible="move_type not in ('out_invoice', 'out_refund')"
+                    invisible="move_type not in ('out_invoice', 'out_refund')  or not is_invoice_out_odoo"
                     readonly="state != 'draft'"
                     />
                 <field name="issue_date_invoice"
-                    invisible="move_type not in ('out_invoice', 'out_refund')"
+                    invisible="move_type not in ('out_invoice', 'out_refund')  or not is_invoice_out_odoo"
                     readonly="state != 'draft'"
                     />
                 <field name="customizationid_invoice"
-                    invisible="move_type not in ('out_invoice', 'out_refund'), not is_invoice_out_odoo"
+                    invisible="move_type not in ('out_invoice', 'out_refund')  or not is_invoice_out_odoo"
                     required="move_type == 'out_invoice'"
                     readonly="state != 'draft'"
                     />
