@@ -6,7 +6,7 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class SaleOrderLine(models.Model):
+class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     @api.onchange('quantity', 'price_unit', 'discount')
@@ -21,6 +21,7 @@ class SaleOrderLine(models.Model):
         super()._compute_tax_ids()
 
         for line in self:
+
             move = line.move_id
 
             if not move or move.move_type not in (
@@ -54,6 +55,7 @@ class SaleOrderLine(models.Model):
 
                 if taxes_reteiva and fiscal_position.aplica_reteiva:
                     line.tax_ids += taxes_reteiva.impuesto_reteiva
+                    
 
 
 class AccountMove(models.Model):
