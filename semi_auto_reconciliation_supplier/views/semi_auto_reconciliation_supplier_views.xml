@@ -1,0 +1,69 @@
+<odoo>
+
+    <record id="view_semi_auto_reconciliation_supplier_tree" model="ir.ui.view">
+        <field name="name">semi.auto.reconciliation.supplier.line.tree</field>
+        <field name="model">semi.auto.reconciliation.supplier.line</field>
+        <field name="arch" type="xml">
+            <tree string="Documentos a conciliar"
+                  default_group_by="partner_id"
+                  create="false"
+                  delete="false"
+                  editable="bottom"
+                  decoration-danger="is_due"
+                  decoration-warning="is_warning_due">
+
+                <field name="company_id" optional="hide"/>
+                <field name="journal_id" optional="hide"/>
+                <field name="partner_id" readonly="1"/>
+                <field name="invoice_date" readonly="1"/>
+                <field name="document_type" readonly="1"/>
+                <field name="move_id" readonly="1"/>
+                <field name="invoice_payment_term_id" readonly="1"/>
+                <field name="due_date"/>
+                <field name="is_due" optional="hide"/>
+                <field name="is_warning_due" optional="hide"/>
+                <field name="date" readonly="1"/>
+                <field name="payment_id" readonly="1"/>
+                <field name="discount" sum="Descuento" readonly="1"/>
+                <field name="debit" sum="Débito" readonly="1"/>
+                <field name="credit" sum="Crédito" readonly="1"/>
+                <field name="reconcile_full" widget="boolean_toggle"/>
+                <field name="amount_to_apply" sum="Aplicar"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_semi_auto_reconciliation_supplier_search" model="ir.ui.view">
+        <field name="name">semi.auto.reconciliation.supplier.line.search</field>
+        <field name="model">semi.auto.reconciliation.supplier.line</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Documentos">
+                <field name="partner_id"/>
+                <field name="due_date"/>
+                <field name="move_id"/>
+                <field name="payment_id"/>
+
+                <group expand="0" string="Agrupar por">
+                    <filter name="group_by_partner"
+                            string="Proveedor"
+                            context="{'group_by': 'partner_id'}"/>
+
+                    <filter name="group_by_due_date"
+                            string="Fecha Vencimiento"
+                            context="{'group_by': 'due_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_conciliar_documentos_proveedores" model="ir.actions.server">
+        <field name="name">Conciliar Documentos</field>
+        <field name="model_id" ref="model_semi_auto_reconciliation_supplier_line"/>
+        <field name="binding_model_id" ref="model_semi_auto_reconciliation_supplier_line"/>
+        <field name="state">code</field>
+        <field name="code"><![CDATA[
+model.action_reconcile_selected(records.ids)
+        ]]></field>
+    </record>
+
+</odoo>

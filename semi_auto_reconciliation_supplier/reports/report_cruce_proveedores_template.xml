@@ -1,0 +1,80 @@
+<odoo>
+
+    <record id="action_report_cruce_proveedores" model="ir.actions.report">
+        <field name="name">Reporte Cruce Proveedores</field>
+        <field name="model">cruce.saldos.supplier</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">semi_auto_reconciliation_supplier.report_cruce_proveedores_template</field>
+        <field name="report_file">semi_auto_reconciliation_supplier.report_cruce_proveedores_template</field>
+        <field name="binding_model_id" ref="model_cruce_saldos_supplier"/>
+        <field name="binding_type">report</field>
+
+    </record>
+
+    <template id="report_cruce_proveedores_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            Cruce Proveedores
+                        </h2>
+                        <p>
+                            <strong>Referencia:</strong>
+                            <span t-field="doc.name"/>
+                        </p>
+                        <p>
+                            <strong>Proveedor:</strong>
+                            <span t-field="doc.partner_id"/>
+                        </p>
+                        <p>
+                            <strong>Fecha:</strong>
+                            <span t-field="doc.date"/>
+                        </p>
+                        <p>
+                            <strong>Total:</strong>
+                            <span t-field="doc.total_amount"/>
+                        </p>
+                        <h4>
+                            Documentos Cruzados
+                        </h4>
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Factura</th>
+                                    <th>Nota Crédito</th>
+                                    <th>Pago</th>
+                                    <th>Importe Aplicado</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                <tr t-foreach="doc.line_ids"
+                                    t-as="line">
+                                    <td>
+                                        <span t-field="line.document_type"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.invoice_number"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.credit_note_number"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.payment_number"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="line.amount_applied"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

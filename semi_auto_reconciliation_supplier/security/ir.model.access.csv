@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cruce_saldos_supplier,cruce.saldos.supplier,model_cruce_saldos_supplier,account.group_account_user,1,1,1,1
+access_cruce_saldos_supplier_line,cruce.saldos.supplier.line,model_cruce_saldos_supplier_line,account.group_account_user,1,1,1,1
+access_cruce_saldos_supplier_move_line,cruce.saldos.supplier.move.line,model_cruce_saldos_supplier_move_line,account.group_account_user,1,1,1,1
+access_semi_auto_reconciliation_supplier_line,semi.auto.reconciliation.supplier.line,model_semi_auto_reconciliation_supplier_line,account.group_account_user,1,1,1,1
+access_supplier_reconciliation_wizard,semi.auto.reconciliation.supplier.wizard,model_semi_auto_reconciliation_supplier_wizard,account.group_account_user,1,1,1,1

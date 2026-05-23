@@ -1,0 +1,83 @@
+<odoo>
+
+    <record id="view_cruce_saldos_supplier_tree" model="ir.ui.view">
+        <field name="name">cruce.saldos.supplier.tree</field>
+        <field name="model">cruce.saldos.supplier</field>
+        <field name="arch" type="xml">
+            <tree string="Cruces Proveedores">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date"/>
+                <field name="total_amount"/>
+                <field name="move_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_cruce_saldos_supplier_form" model="ir.ui.view">
+        <field name="name">cruce.saldos.supplier.form</field>
+        <field name="model">cruce.saldos.supplier</field>
+        <field name="arch" type="xml">
+            <form string="Cruce Proveedores">
+                <header>
+                    <button name="action_open_account_move"
+                            string="Ver Asiento"
+                            type="object"
+                            class="btn-primary"
+                            invisible="not move_id"/>
+                </header>
+
+                <sheet>
+                    <field name="company_id" invisible="1"/>
+
+                    <group>
+                        <field name="name"/>
+                        <field name="partner_id"/>
+                        <field name="date"/>
+                        <field name="total_amount"/>
+                        <field name="move_id"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Documentos Cruzados">
+                            <field name="line_ids">
+                                <tree create="false" delete="false">
+                                    <field name="document_type"/>
+                                    <field name="invoice_number"/>
+                                    <field name="credit_note_number"/>
+                                    <field name="payment_number"/>
+                                    <field name="amount_applied"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Apuntes Contables">
+                            <field name="move_line_ids">
+                                <tree create="false" delete="false">
+                                    <field name="move_line_id"/>
+                                    <field name="account_id"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cruce_saldos_supplier" model="ir.actions.act_window">
+        <field name="name">Cruces Proveedores Finalizados</field>
+        <field name="res_model">cruce.saldos.supplier</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_cruce_saldos_supplier"
+              name="Cruces Proveedores Finalizados"
+              parent="account.menu_finance_payables"
+              action="action_cruce_saldos_supplier"
+              sequence="30"/>
+
+</odoo>
