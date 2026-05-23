@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record model="res.groups" id="group_restricted_journal">
+        <field name="name">Restringir Diarios</field>
+    </record>
+
     <record id="account_journal_user_rule" model="ir.rule">
         <field name="name">Restricción de diarios por usuario</field>
         <field name="model_id" ref="account.model_account_journal"/>
@@ -14,7 +18,7 @@
         <field name="perm_write" eval="1"/>
         <field name="perm_create" eval="1"/>
         <field name="perm_unlink" eval="0"/>
-        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+        <field name="groups" eval="[(4, ref('customer_journal.group_restricted_journal'))]"/>
     </record>
 
 </odoo>
