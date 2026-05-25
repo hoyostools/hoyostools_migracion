@@ -9,6 +9,13 @@ _logger = logging.getLogger(__name__)
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
+    def _get_computed_taxes(self):
+        if self.product_id.product_tmpl_id.no_validar_bases:
+            return self.tax_ids
+        else:
+            return super()._get_computed_taxes()
+
+
     @api.onchange('quantity', 'price_unit', 'discount')
     def calcular_retenciones(self):
         for line in self:
