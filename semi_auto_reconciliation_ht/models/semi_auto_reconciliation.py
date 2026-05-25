@@ -318,6 +318,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
 
             # # Ordenar fechas ascendente (aplica primero lo más antiguo)
             # sorted_dates = sorted(groups_by_date.keys())
+            
             normalized_lines = []
 
             # Preparar cola de facturas a consumir
@@ -531,39 +532,58 @@ class SemiAutoReconciliationLine(models.TransientModel):
             # -----------------------------------------------------------------
             # 5) Por cada fecha: armar conjunto de líneas (facturas parcializadas + recaudos/NC)
             # -----------------------------------------------------------------
-            # for cruce_date in sorted_dates:
-            #     group_rc = groups_by_date[cruce_date]
-                cruce_date = fields.Date.today()
-                group_total = sum(abs(l.amount_to_apply) for l in recaudo_nc_lines)
+            cruce_date = fields.Date.today()
 
-                needed = group_total
-                normalized_lines = []
+            group_total = sum(abs(l.amount_to_apply) for l in recaudo_nc_lines)
 
-                for inv in invoice_queue:
-                    if float_is_zero(needed, precision_digits=precision):
-                        break
-                    rem = invoice_remaining.get(inv.id, 0.0)
-                    if float_is_zero(rem, precision_digits=precision):
-                        continue
+            needed = group_total
+            normalized_lines = []
 
-                    take = rem if float_compare(rem, needed, precision_digits=precision) <= 0 else needed
-                    invoice_remaining[inv.id] = rem - take
-                    needed -= take
+            # =========================================================
+            # FACTURAS
+            # =========================================================
 
-                    normalized_lines.append({
-                        "document_type": "invoice",
-                        "move": inv.move_id,
-                        "move_id": inv.move_id.id,
-                        "payment_id": False,
-                        "amount": take,  # positivo
-                        "label": inv.move_id.name,
-                    })
+            for inv in invoice_queue:
+
+                if float_is_zero(needed, precision_digits=precision):
+                    break
+
+                rem = invoice_remaining.get(inv.id, 0.0)
+
+                if float_is_zero(rem, precision_digits=precision):
+                    continue
+
+                take = rem if float_compare(
+                    rem,
+                    needed,
+                    precision_digits=precision
+                ) <= 0 else needed
+
+                invoice_remaining[inv.id] = rem - take
+                needed -= take
+
+                normalized_lines.append({
+                    "document_type": "invoice",
+                    "move": inv.move_id,
+                    "move_id": inv.move_id.id,
+                    "payment_id": False,
+                    "amount": take,
+                    "label": inv.move_id.name,
+                })
+
+                # ==========================================
+                # DESCUENTO
+                # ==========================================
 
                 discount_pct = getattr(inv, "discount", 0.0)
 
                 if discount_pct:
 
-                    if not float_is_zero(discount_pct, precision_digits=precision) and inv.amount_to_apply == (inv.debit-discount_pct):
+                    if (
+                        not float_is_zero(discount_pct, precision_digits=precision)
+                        and inv.amount_to_apply == (inv.debit - discount_pct)
+                    ):
+
                         credit_note = self.env['account.move'].create({
                             'move_type': 'out_refund',
                             'partner_id': partner_id,
@@ -582,46 +602,72 @@ class SemiAutoReconciliationLine(models.TransientModel):
                         credit_note.action_post()
 
                         inv_line = inv.move_id.line_ids.filtered(
-                            lambda l: l.account_id.account_type == "asset_receivable" and not l.reconciled
+                            lambda l: (
+                                l.account_id.account_type == "asset_receivable"
+                                and not l.reconciled
+                            )
                         )[:1]
 
                         cn_line = credit_note.line_ids.filtered(
-                            lambda l: l.account_id.account_type == "asset_receivable" and not l.reconciled
+                            lambda l: (
+                                l.account_id.account_type == "asset_receivable"
+                                and not l.reconciled
+                            )
                         )[:1]
 
                         if inv_line and cn_line:
                             (inv_line + cn_line).reconcile()
 
-                if not float_is_zero(needed, precision_digits=precision):
-                    raise UserError(
-                        f"No hay suficiente saldo de facturas seleccionadas para cubrir el cruce del {cruce_date} por {group_total}."
-                    )
+            # =========================================================
+            # VALIDACIÓN
+            # =========================================================
 
-                for l in recaudo_nc_lines:
-                    if l.document_type == "payment":
-                        move = l.payment_id.move_id
-                        label = l.payment_id.name or move.name
-                        normalized_lines.append({
-                            "document_type": "payment",
-                            "move": move,
-                            "move_id": False,
-                            "payment_id": l.payment_id.id,
-                            "amount": l.amount_to_apply,  # negativo
-                            "label": label,
-                        })
-                    else:
-                        move = l.move_id
-                        label = move.name
-                        normalized_lines.append({
-                            "document_type": "credit_note",
-                            "move": move,
-                            "move_id": move.id,
-                            "payment_id": False,
-                            "amount": l.amount_to_apply,  # negativo
-                            "label": label,
-                        })
+            if not float_is_zero(needed, precision_digits=precision):
 
-                _process_single_cruce(cruce_date, normalized_lines)
+                raise UserError(
+                    f"No hay suficiente saldo de facturas seleccionadas "
+                    f"para cubrir el total del cruce por {group_total}."
+                )
+
+            # =========================================================
+            # PAGOS Y NOTAS CRÉDITO
+            # =========================================================
+
+            for l in recaudo_nc_lines:
+
+                if l.document_type == "payment":
+
+                    move = l.payment_id.move_id
+                    label = l.payment_id.name or move.name
+
+                    normalized_lines.append({
+                        "document_type": "payment",
+                        "move": move,
+                        "move_id": False,
+                        "payment_id": l.payment_id.id,
+                        "amount": l.amount_to_apply,
+                        "label": label,
+                    })
+
+                else:
+
+                    move = l.move_id
+                    label = move.name
+
+                    normalized_lines.append({
+                        "document_type": "credit_note",
+                        "move": move,
+                        "move_id": move.id,
+                        "payment_id": False,
+                        "amount": l.amount_to_apply,
+                        "label": label,
+                    })
+
+            # =========================================================
+            # EJECUTAR UN SOLO CRUCE
+            # =========================================================
+
+            _process_single_cruce(cruce_date, normalized_lines)
 
         # ---------------------------------------------------------------------
         # 6) Limpiar transient (wizard) y recargar vista
