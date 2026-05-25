@@ -38,9 +38,9 @@ class CruceSaldos(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         # 1) Asignar consecutivo si viene "Nuevo"
-        for vals in vals_list:
-            if vals.get('name', 'Nuevo') == 'Nuevo':
-                vals['name'] = self.env['ir.sequence'].next_by_code('cruce.saldos') or 'CRUCE'
+        # for vals in vals_list:
+        #     if vals.get('name', 'Nuevo') == 'Nuevo':
+        #         vals['name'] = self.env['ir.sequence'].next_by_code('cruce.saldos') or 'CRUCE'
 
         # 2) Crear registro(s)
         records = super().create(vals_list)
