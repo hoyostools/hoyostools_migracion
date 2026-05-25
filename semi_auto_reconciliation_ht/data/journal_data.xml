@@ -8,7 +8,6 @@
         <field name="name">Cruce Clientes Pago</field>
         <field name="code">PAYC</field>
         <field name="type">bank</field>
-        <field name="default_account_id" ref="account.a_receivable"/>
         <field name="company_id" ref="base.main_company"/>
     </record>
 
