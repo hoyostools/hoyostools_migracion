@@ -1,4 +1,4 @@
-<odoo noupdate="1">
+<odoo>
     <record id="seq_cruce_saldos" model="ir.sequence">
         <field name="name">Cruce de Saldos</field>
         <field name="code">cruce.saldos</field>
@@ -8,3 +8,4 @@
         <field name="number_increment">1</field>
     </record>
 </odoo>
+
