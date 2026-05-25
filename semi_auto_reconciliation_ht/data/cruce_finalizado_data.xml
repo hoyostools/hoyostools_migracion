@@ -1,4 +1,4 @@
-<odoo>
+<odoo noupdate="1">
     <record id="seq_cruce_saldos" model="ir.sequence">
         <field name="name">Cruce de Saldos</field>
         <field name="code">cruce.saldos</field>
