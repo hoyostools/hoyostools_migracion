@@ -282,7 +282,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
         #     raise UserError("No existe un diario llamado 'Cruce Clientes'.")
 
         # Para crear account.payment el diario debe ser bank/cash
-        if payment_journal not in ('bank', 'cash'):
+        if payment_journal.type not in ('bank', 'cash'):
             raise UserError("El diario 'Cruce Clientes' debe ser tipo Banco o Caja para poder crear Pagos (account.payment).")
 
         clearing_account = payment_journal.default_account_id
