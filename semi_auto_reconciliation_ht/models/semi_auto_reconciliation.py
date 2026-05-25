@@ -265,15 +265,27 @@ class SemiAutoReconciliationLine(models.TransientModel):
         # ---------------------------------------------------------------------
         # 3) Configuración: diario de cruce como PAGO + cuenta "liquidez" (sin conciliar)
         # ---------------------------------------------------------------------
-        journal = self.env['account.journal'].search([('name', '=', 'Cruce Clientes')], limit=1)
-        if not journal:
-            raise UserError("No existe un diario llamado 'Cruce Clientes'.")
+        payment_journal = self.env['account.journal'].search([
+            ('code', '=', 'PAYC')
+        ], limit=1)
+
+        bridge_journal = self.env['account.journal'].search([
+            ('code', '=', 'BRDG')
+        ], limit=1)
+
+        if not payment_journal:
+            raise UserError("No existe el diario PAYC.")
+
+        if not bridge_journal:
+            raise UserError("No existe el diario BRDG.")
+        # if not journal:
+        #     raise UserError("No existe un diario llamado 'Cruce Clientes'.")
 
         # Para crear account.payment el diario debe ser bank/cash
-        if journal.type not in ('bank', 'cash'):
+        if payment_journal not in ('bank', 'cash'):
             raise UserError("El diario 'Cruce Clientes' debe ser tipo Banco o Caja para poder crear Pagos (account.payment).")
 
-        clearing_account = journal.default_account_id
+        clearing_account = payment_journal.default_account_id
         if not clearing_account:
             raise UserError("El diario 'Cruce Clientes' debe tener una cuenta por defecto (default_account_id).")
 
@@ -281,7 +293,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
         # muchas bases lo bloquean. El saldo quedará neto en 0, aunque las líneas
         # de liquidez queden sin conciliar.
 
-        payment_method_line = journal.inbound_payment_method_line_ids[:1]
+        payment_method_line = payment_journal.inbound_payment_method_line_ids[:1]
         if not payment_method_line:
             raise UserError("El diario 'Cruce Clientes' no tiene método de pago de entrada configurado (inbound).")
 
@@ -366,7 +378,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
                     "partner_id": partner_id,
                     "amount": debit_total,
                     "date": fields.Datetime.now().date(),
-                    "journal_id": journal.id,
+                    "journal_id": payment_journal.id,
                     "payment_method_line_id": payment_method_line.id,
                     "ref": f"Cruce {cruce_name}",
                 }
@@ -424,7 +436,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
 
                 bridge_move = self.env["account.move"].create({
                     "ref": f"Bridge {cruce_name}",
-                    "journal_id": journal.id,
+                    "journal_id": bridge_journal.id,
                     "move_type": "entry",
                     "partner_id": partner_id,
                     "date": cruce_date,

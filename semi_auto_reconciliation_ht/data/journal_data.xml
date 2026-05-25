@@ -1,0 +1,25 @@
+<odoo noupdate="1">
+
+    <!-- ========================================= -->
+    <!-- JOURNAL PARA PAGOS DE CRUCE -->
+    <!-- ========================================= -->
+
+    <record id="journal_cruce_payment" model="account.journal">
+        <field name="name">Cruce Clientes Pago</field>
+        <field name="code">PAYC</field>
+        <field name="type">bank</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <!-- ========================================= -->
+    <!-- JOURNAL PARA ASIENTOS PUENTE -->
+    <!-- ========================================= -->
+
+    <record id="journal_cruce_bridge" model="account.journal">
+        <field name="name">Cruce Clientes Puente</field>
+        <field name="code">BRDG</field>
+        <field name="type">general</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+</odoo>
