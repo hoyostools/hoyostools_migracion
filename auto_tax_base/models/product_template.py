@@ -12,6 +12,6 @@ class ProductTemplate(models.Model):
 
     def write(self,vals):
         res = super().write(vals)
-        if not res.supplier_taxes_id:
-            res.no_validar_bases = True
+        if not self.supplier_taxes_id:
+            self.no_validar_bases = True
         return res
