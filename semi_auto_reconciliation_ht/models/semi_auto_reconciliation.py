@@ -305,19 +305,20 @@ class SemiAutoReconciliationLine(models.TransientModel):
                     f"⚠️ El total a aplicar en facturas ({total_invoices}) no coincide con el total de recaudos/NC ({total_credits})."
                 )
 
-            # Agrupar recaudos/NC por fecha
-            groups_by_date = {}
-            for l in recaudo_nc_lines:
-                d = _get_recaudo_nc_date(l)
-                if not d:
-                    raise UserError(
-                        f"No se pudo determinar la fecha para el documento "
-                        f"{l.payment_id.name if l.document_type == 'payment' else l.move_id.name}."
-                    )
-                groups_by_date.setdefault(d, []).append(l)
+            # # Agrupar recaudos/NC por fecha
+            # groups_by_date = {}
+            # for l in recaudo_nc_lines:
+            #     d = _get_recaudo_nc_date(l)
+            #     if not d:
+            #         raise UserError(
+            #             f"No se pudo determinar la fecha para el documento "
+            #             f"{l.payment_id.name if l.document_type == 'payment' else l.move_id.name}."
+            #         )
+            #     groups_by_date.setdefault(d, []).append(l)
 
-            # Ordenar fechas ascendente (aplica primero lo más antiguo)
-            sorted_dates = sorted(groups_by_date.keys())
+            # # Ordenar fechas ascendente (aplica primero lo más antiguo)
+            # sorted_dates = sorted(groups_by_date.keys())
+            normalized_lines = []
 
             # Preparar cola de facturas a consumir
             invoice_queue = sorted(
@@ -530,9 +531,10 @@ class SemiAutoReconciliationLine(models.TransientModel):
             # -----------------------------------------------------------------
             # 5) Por cada fecha: armar conjunto de líneas (facturas parcializadas + recaudos/NC)
             # -----------------------------------------------------------------
-            for cruce_date in sorted_dates:
-                group_rc = groups_by_date[cruce_date]
-                group_total = sum(abs(l.amount_to_apply) for l in group_rc)
+            # for cruce_date in sorted_dates:
+            #     group_rc = groups_by_date[cruce_date]
+                cruce_date = fields.Date.today()
+                group_total = sum(abs(l.amount_to_apply) for l in recaudo_nc_lines)
 
                 needed = group_total
                 normalized_lines = []
@@ -595,7 +597,7 @@ class SemiAutoReconciliationLine(models.TransientModel):
                         f"No hay suficiente saldo de facturas seleccionadas para cubrir el cruce del {cruce_date} por {group_total}."
                     )
 
-                for l in group_rc:
+                for l in recaudo_nc_lines:
                     if l.document_type == "payment":
                         move = l.payment_id.move_id
                         label = l.payment_id.name or move.name
