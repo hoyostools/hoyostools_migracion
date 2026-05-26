@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_quant_tree_inherit_mass_transfer"
+            model="ir.ui.view">
+
+        <field name="name">stock.quant.tree.mass.transfer</field>
+        <field name="model">stock.quant</field>
+
+        <field name="inherit_id"
+               ref="stock.view_stock_quant_tree_editable"/>
+
+        <field name="arch" type="xml">
+
+            <xpath expr="//tree" position="inside">
+
+                <header>
+
+                    <button
+                        name="%(action_stock_quant_mass_transfer_wizard)d"
+                        string="Trasladar Varios"
+                        type="action"
+                        class="btn-primary"/>
+
+                </header>
+
+            </xpath>
+
+        </field>
+
+    </record>
+
+</odoo>

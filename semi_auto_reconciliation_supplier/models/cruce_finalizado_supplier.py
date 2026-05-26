@@ -19,13 +19,13 @@ class CruceSaldosSupplier(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        for vals in vals_list:
-            if vals.get('name', 'Nuevo') == 'Nuevo':
-                vals['name'] = (
-                    self.env['ir.sequence'].next_by_code(
-                        'cruce.saldos.supplier'
-                    ) or 'CRUP'
-                )
+        # for vals in vals_list:
+        #     if vals.get('name', 'Nuevo') == 'Nuevo':
+        #         vals['name'] = (
+        #             self.env['ir.sequence'].next_by_code(
+        #                 'cruce.saldos.supplier'
+        #             ) or 'CRUP'
+        #         )
 
         records = super().create(vals_list)
         records._sync_move_lines_from_move()

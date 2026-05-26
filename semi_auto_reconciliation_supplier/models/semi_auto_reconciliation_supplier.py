@@ -410,19 +410,19 @@ class SemiAutoReconciliationSupplierLine(models.TransientModel):
                     f'con pagos/NC ({total_credits}).'
                 )
 
-            groups_by_date = {}
+            # groups_by_date = {}
 
-            for l in payment_nc_lines:
-                d = _get_payment_nc_date(l)
+            # for l in payment_nc_lines:
+            #     d = _get_payment_nc_date(l)
 
-                if not d:
-                    raise UserError(
-                        'No se pudo determinar la fecha del documento.'
-                    )
+            #     if not d:
+            #         raise UserError(
+            #             'No se pudo determinar la fecha del documento.'
+            #         )
 
-                groups_by_date.setdefault(d, []).append(l)
+            #     groups_by_date.setdefault(d, []).append(l)
 
-            sorted_dates = sorted(groups_by_date.keys())
+            # sorted_dates = sorted(groups_by_date.keys())
 
             invoice_queue = sorted(
                 invoice_lines,
@@ -657,13 +657,13 @@ class SemiAutoReconciliationSupplierLine(models.TransientModel):
                         'credit_amount_currency': amount,
                     })
 
-            for cruce_date in sorted_dates:
-                group_rc = groups_by_date[cruce_date]
-                group_total = sum(
-                    abs(l.amount_to_apply) for l in group_rc
-                )
-
-                needed = group_total
+            # for cruce_date in sorted_dates:
+            #     group_rc = groups_by_date[cruce_date]
+            #     group_total = sum(
+            #         abs(l.amount_to_apply) for l in group_rc
+            #     )
+                cruce_date = fields.Date.today()
+                needed = total_credits
                 normalized_lines = []
 
                 for inv in invoice_queue:
@@ -789,7 +789,7 @@ class SemiAutoReconciliationSupplierLine(models.TransientModel):
                         f'el cruce del {cruce_date}.'
                     )
 
-                for l in group_rc:
+                for l in payment_nc_lines:
                     if l.document_type == 'payment':
                         move = l.payment_id.move_id
                         label = l.payment_id.name or move.name
