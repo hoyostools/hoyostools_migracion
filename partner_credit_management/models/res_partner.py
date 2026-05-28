@@ -74,7 +74,8 @@ class ResPartner(models.Model):
     credit_blocked = fields.Boolean(
         string="Bloqueo",
         compute="_compute_credit_blocked",
-        store=False,
+        store=True,
+        tracking=True
     )
     
     # ---------------------------------------------------------
