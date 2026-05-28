@@ -75,7 +75,7 @@ class ResPartner(models.Model):
         string="Bloqueo",
         compute="_compute_credit_blocked",
         store=True,
-        tracking=True
+        tracking=True,
     )
     
     # ---------------------------------------------------------
