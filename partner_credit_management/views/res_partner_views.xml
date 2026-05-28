@@ -30,6 +30,8 @@
                             <field name="pending_reconcile_amount" readonly="1"/>
                             <field name="sale_order_open_amount" readonly="1"/>
                             <field name="available_credit" readonly="1"/>
+                            <field name="days_overdue" readonly="1"/>
+                            <field name="credit_blocked" readonly="1"/>
                         </group>
                         <!-- COLUMNA DERECHA -->
                         <group string="Configuración">

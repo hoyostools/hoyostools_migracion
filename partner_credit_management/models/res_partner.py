@@ -9,27 +9,17 @@ class ResPartner(models.Model):
     # ---------------------------------------------------------
     # Helpers
     # ---------------------------------------------------------
-    is_credit_main_contact = fields.Boolean(
-        string="Es contacto principal crédito",
-        compute="_compute_is_credit_main_contact",
-    )
+    is_credit_main_contact = fields.Boolean(string="Es contacto principal crédito", compute="_compute_is_credit_main_contact")
 
     # ---------------------------------------------------------
     # Tab Gestión Crédito
     # ---------------------------------------------------------
     control_credit = fields.Boolean(string="Controlar Crédito", tracking=True)
     credit_limit = fields.Float(string="Límite de Crédito", tracking=True)
-    credit_limit_with_conditions = fields.Float(
-        string="Límite Crédito con Condiciones",
-        compute="_compute_credit_limit_with_conditions",
-        store=True,
-    )
+    credit_limit_with_conditions = fields.Float(string="Límite Crédito con Condiciones", compute="_compute_credit_limit_with_conditions", store=True)
 
-    risk_category_id = fields.Many2one(
-        "credit.risk.type",
-        string="Categoría de Riesgo",
-        domain=[("active", "=", True)],
-    )
+    risk_category_id = fields.Many2one("credit.risk.type", string="Categoría de Riesgo", domain=[("active", "=", True)],)
+    
 
     # ---------------------------------------------------------
     # Configuración crédito por contacto principal
@@ -74,7 +64,19 @@ class ResPartner(models.Model):
         compute="_compute_credit_metrics",
         store=False,
     )
+    
+    days_overdue = fields.Integer(
+        string="Días Mora",
+        compute="_compute_days_overdue",
+        store=False,
+    )
 
+    credit_blocked = fields.Boolean(
+        string="Bloqueo",
+        compute="_compute_credit_blocked",
+        store=False,
+    )
+    
     # ---------------------------------------------------------
     # Computes
     # ---------------------------------------------------------
@@ -178,6 +180,52 @@ class ResPartner(models.Model):
             partner.pending_reconcile_amount = pending_reconcile
             partner.sale_order_open_amount = sale_open_amount
             partner.available_credit = available_credit
+            
+    def _compute_days_overdue(self):
+
+        for partner in self:
+
+            partner.days_overdue = 0
+
+            if not partner.control_credit:
+                continue
+
+            partner.days_overdue = partner._get_credit_overdue_days()
+            
+    def _compute_credit_blocked(self):
+
+        for partner in self:
+
+            blocked = False
+
+            # Si no controla crédito → nunca bloqueado
+            if not partner.control_credit:
+                partner.credit_blocked = False
+                continue
+
+            # ============================================
+            # BLOQUEO POR CUPO
+            # ============================================
+
+            if partner.available_credit < 0:
+                blocked = True
+
+            # ============================================
+            # BLOQUEO POR MORA
+            # ============================================
+
+            if (
+                not blocked
+                and partner.blocking_overdue_enabled
+                and partner.blocking_overdue_days > 0
+            ):
+
+                overdue_days = partner._get_credit_overdue_days()
+
+                if overdue_days > partner.blocking_overdue_days:
+                    blocked = True
+
+            partner.credit_blocked = blocked
 
     # ---------------------------------------------------------
     # Constraints
