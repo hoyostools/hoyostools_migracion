@@ -198,7 +198,7 @@ class ResPartner(models.Model):
 
             blocked = False
 
-            # Si no controla crédito → nunca bloqueado
+            # Si no controla crédito
             if not partner.control_credit:
                 partner.credit_blocked = False
                 continue
@@ -214,16 +214,10 @@ class ResPartner(models.Model):
             # BLOQUEO POR MORA
             # ============================================
 
-            if (
-                not blocked
-                and partner.blocking_overdue_enabled
-                and partner.blocking_overdue_days > 0
-            ):
+            overdue_days = partner._get_credit_overdue_days()
 
-                overdue_days = partner._get_credit_overdue_days()
-
-                if overdue_days > partner.blocking_overdue_days:
-                    blocked = True
+            if overdue_days > 0:
+                blocked = True
 
             partner.credit_blocked = blocked
 
