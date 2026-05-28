@@ -76,6 +76,7 @@ class ResPartner(models.Model):
         compute="_compute_credit_blocked",
         store=True,
         tracking=True,
+        readonly=False,
     )
     
     # ---------------------------------------------------------
