@@ -19,6 +19,11 @@
         "views/res_partner_views.xml",
         "views/sale_order_views.xml",
     ],
+    'assets': {
+        'point_of_sale._assets_pos': [
+            'partner_credit_management/static/src/js/pos_credit_block.js',
+        ],
+    },
     "installable": True,
     "application": False,
 }
