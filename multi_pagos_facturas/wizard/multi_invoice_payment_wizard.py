@@ -269,6 +269,12 @@ class MultiInvoicePaymentWizard(models.TransientModel):
 
                 amount_to_reconcile = wizard_line.receive_amount
 
+                amount_to_reconcile = min(
+                    abs(amount_to_reconcile),
+                    abs(invoice_line.amount_residual),
+                    abs(payment_line.amount_residual),
+                )
+
                 _logger.warning("""
             CONCILIANDO
 
@@ -283,47 +289,22 @@ class MultiInvoicePaymentWizard(models.TransientModel):
                     amount_to_reconcile
                 )
 
-                # self.env['account.partial.reconcile'].create({
-                #     'debit_move_id':
-                #         invoice_line.id,
-                #     'credit_move_id':
-                #         payment_line.id,
-                #     'amount':
-                #         amount_to_reconcile,
-                # })
-                
-                _logger.warning("""
-                PAYMENT LINE
+                partial_vals = {
+                    'debit_move_id': invoice_line.id,
+                    'credit_move_id': payment_line.id,
+                    'amount': amount_to_reconcile,
+                }
 
-                id=%s
-                balance=%s
-                amount_currency=%s
-                currency_id=%s
-                """,
-                    payment_line.id,
-                    payment_line.balance,
-                    payment_line.amount_currency,
-                    payment_line.currency_id.id,
-                )
+                if invoice_line.currency_id:
+                    partial_vals.update({
+                        'debit_amount_currency': amount_to_reconcile,
+                        'credit_amount_currency': amount_to_reconcile,
+                    })
 
-                _logger.warning("""
-                INVOICE LINE
-
-                id=%s
-                balance=%s
-                amount_currency=%s
-                currency_id=%s
-                """,
-                    invoice_line.id,
-                    invoice_line.balance,
-                    invoice_line.amount_currency,
-                    invoice_line.currency_id.id,
-                )
-
-                _logger.warning(
-                    "MONTO A CONCILIAR: %s",
-                    amount_to_reconcile
-                )                
+                self.env[
+                    'account.partial.reconcile'
+                ].create(partial_vals)
+         
             payments |= payment
 
         _logger.warning(
