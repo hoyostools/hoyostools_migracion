@@ -12,6 +12,7 @@
                 <field name="city"/>
                 <field name="servicio_logistico"/>
                 <field name="status"/>
+                <field name="sale_order_id"/>
             </tree>
         </field>
     </record>
@@ -38,6 +39,7 @@
                     <group>
                         <field name="name" required="1"/>
                         <field name="pedido_prov_id"/>
+                        <field name="sale_order_id" readonly="1"/>
                         <field name="notes"/>
                         <field name="servicio_logistico"/>
                         <field name="status"/>

@@ -23,6 +23,7 @@ class B4bSaleOrder(models.Model):
         ('confirmed', 'Confirmed'), ], string='Status', default='draft')
     sale_order_line_ids = fields.One2many('b4b.sale.order.line', 'sale_order_id',
                                           string='B4B Sale Order Lines')
+    sale_order_id = fields.Many2one('sale.order', string='Orden de Venta Odoo')
 
 class B4bSaleOrderLine(models.Model):
     _name = "b4b.sale.order.line"
