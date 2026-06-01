@@ -231,61 +231,30 @@ class MultiInvoicePaymentWizard(models.TransientModel):
                 payment.vendor_id = partner.user_id.id
 
             payment.action_post()
-            
-            _logger.warning(
-                "MOVE DEL PAGO: %s",
-                payment.move_id.id
+
+            payment_line = payment.move_id.line_ids.filtered(
+                lambda l:
+                    l.account_id.account_type == 'asset_receivable'
+                    and not l.reconciled
             )
 
-            for move_line in payment.move_id.line_ids:
+            invoice_lines = self.env['account.move.line']
 
-                _logger.warning("""
-            PAGO LINE:
-                id=%s
-                account=%s
-                account_type=%s
-                debit=%s
-                credit=%s
-                reconciled=%s
-            """,
-                    move_line.id,
-                    move_line.account_id.code,
-                    move_line.account_id.account_type,
-                    move_line.debit,
-                    move_line.credit,
-                    move_line.reconciled,
-                )
-                
             for invoice_id in data['invoice_ids']:
 
                 invoice = self.env['account.move'].browse(
                     invoice_id
                 )
 
-                _logger.warning(
-                    "FACTURA %s",
-                    invoice.name
+                invoice_line = invoice.line_ids.filtered(
+                    lambda l:
+                        l.account_id.account_type == 'asset_receivable'
+                        and not l.reconciled
                 )
 
-                for invoice_line in invoice.line_ids:
+                invoice_lines |= invoice_line
 
-                    _logger.warning("""
-            FACTURA LINE:
-                id=%s
-                account=%s
-                account_type=%s
-                debit=%s
-                credit=%s
-                reconciled=%s
-            """,
-                        invoice_line.id,
-                        invoice_line.account_id.code,
-                        invoice_line.account_id.account_type,
-                        invoice_line.debit,
-                        invoice_line.credit,
-                        invoice_line.reconciled,
-                    )
-
+            (payment_line | invoice_lines).reconcile()
             payments |= payment
 
         _logger.warning(
