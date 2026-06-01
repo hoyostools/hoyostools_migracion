@@ -147,64 +147,67 @@ class MultiInvoicePaymentWizard(models.TransientModel):
         self.ensure_one()
 
         _logger.warning("========== INICIO ACTION VALIDATE ==========")
-        _logger.warning("WIZARD ID: %s", self.id)
-        _logger.warning("LINE_IDS IDS: %s", self.line_ids.ids)
-        _logger.warning("LINE_IDS LEN: %s", len(self.line_ids))
 
         payments = self.env['account.payment']
 
         valid_lines = self.line_ids.filtered(
-            lambda l:
-                l.move_id_int
-                and l.receive_amount > 0
+            lambda l: l.move_id_int and l.receive_amount > 0
         )
 
-        for line in self.line_ids:
-
-            _logger.warning("""
-                LINEA:
-                ID: %s
-                move_id: %s
-                move_id_int: %s
-                partner_id: %s
-                receive_amount: %s
-                invoice_amount: %s
-                residual_amount: %s
-            """,
-                line.id,
-                line.move_id.id,
-                line.move_id_int,
-                line.partner_id.id,
-                line.receive_amount,
-                line.invoice_amount,
-                line.residual_amount,
-            )
-
-        _logger.warning("VALID_LINES: %s", valid_lines.ids)
-
         if not valid_lines:
-            _logger.warning("NO HAY LINEAS VALIDAS")
             raise UserError(_('No hay líneas válidas.'))
+
+        # =====================================================
+        # AGRUPAR LINEAS POR CLIENTE
+        # =====================================================
+
+        grouped_lines = {}
 
         for line in valid_lines:
 
-            invoice = self.env['account.move'].browse(
+            partner_id = line.partner_id_int
+
+            if partner_id not in grouped_lines:
+                grouped_lines[partner_id] = {
+                    'amount': 0.0,
+                    'invoice_ids': [],
+                    'partner_id': partner_id,
+                }
+
+            grouped_lines[partner_id]['amount'] += line.receive_amount
+            grouped_lines[partner_id]['invoice_ids'].append(
                 line.move_id_int
             )
 
-            _logger.warning("""
-                FACTURA:
-                ID: %s
-                NAME: %s
-                EXISTS: %s
-            """,
-                invoice.id,
-                invoice.name,
-                invoice.exists(),
+        _logger.warning(
+            "CLIENTES AGRUPADOS: %s",
+            grouped_lines
+        )
+
+        # =====================================================
+        # CREAR UN PAGO POR CLIENTE
+        # =====================================================
+
+        for partner_id, data in grouped_lines.items():
+
+            invoices = self.env['account.move'].browse(
+                data['invoice_ids']
             )
 
-            if not invoice.exists():
+            if not invoices:
                 continue
+
+            amount = data['amount']
+
+            _logger.warning("""
+                CLIENTE: %s
+                FACTURAS: %s
+                TOTAL PAGO: %s
+            """,
+                partner_id,
+                invoices.ids,
+                amount,
+            )
 
             try:
 
@@ -212,66 +215,56 @@ class MultiInvoicePaymentWizard(models.TransientModel):
                     'account.payment.register'
                 ].with_context(
                     active_model='account.move',
-                    active_ids=invoice.ids,
+                    active_ids=invoices.ids,
                 ).create({
                     'payment_date': self.payment_date,
                     'journal_id': self.journal_id.id,
                     'payment_method_line_id': self.payment_method_line_id.id,
-                    'amount': line.receive_amount,
+                    'amount': amount,
                 })
-
-                _logger.warning("""
-                    REGISTER WIZARD:
-                    ID: %s
-                    AMOUNT: %s
-                """,
-                    register_wizard.id,
-                    register_wizard.amount,
-                )
 
                 register_wizard.action_create_payments()
 
                 payment = self.env['account.payment'].search(
                     [
-                        ('partner_id', '=', invoice.partner_id.commercial_partner_id.id),
-                        ('amount', '=', line.receive_amount),
+                        (
+                            'partner_id',
+                            '=',
+                            invoices[0].partner_id.commercial_partner_id.id
+                        ),
+                        ('amount', '=', amount),
                     ],
                     order='id desc',
                     limit=1
                 )
 
-                _logger.warning("""
-                    PAYMENT:
-                    ID: %s
-                """,
-                    payment.id,
-                )
-
                 if payment:
 
                     payment.vendor_id = (
-                        invoice.partner_id
+                        invoices[0]
+                        .partner_id
                         .commercial_partner_id
-                        .user_id.id
+                        .user_id
+                        .id
                     )
 
                     payments |= payment
 
+                    _logger.warning(
+                        "PAGO CREADO: %s",
+                        payment.id
+                    )
+
             except Exception as e:
 
                 _logger.exception("""
-                    ERROR CREANDO PAGO:
-                    FACTURA: %s
+                    ERROR CREANDO PAGO
+                    CLIENTE: %s
                     ERROR: %s
                 """,
-                    invoice.name,
+                    partner_id,
                     str(e)
                 )
-
-        _logger.warning("""
-            PAYMENTS CREADOS:
-            %s
-        """, payments.ids)
 
         if not payments:
             raise UserError(_('No se crearon pagos.'))
@@ -283,7 +276,6 @@ class MultiInvoicePaymentWizard(models.TransientModel):
             'view_mode': 'tree,form',
             'domain': [('id', 'in', payments.ids)],
         }
-
 
 class MultiInvoicePaymentWizardLine(models.TransientModel):
     _name = 'multi.invoice.payment.wizard.line'
