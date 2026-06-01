@@ -232,29 +232,65 @@ class MultiInvoicePaymentWizard(models.TransientModel):
 
             payment.action_post()
 
+            # ==========================================
+            # LINEA CONTABLE DEL PAGO
+            # ==========================================
+
             payment_line = payment.move_id.line_ids.filtered(
                 lambda l:
                     l.account_id.account_type == 'asset_receivable'
                     and not l.reconciled
             )
 
-            invoice_lines = self.env['account.move.line']
+            payment_line = payment_line[:1]
 
-            for invoice_id in data['invoice_ids']:
+            # ==========================================
+            # CONCILIACION PARCIAL POR FACTURA
+            # ==========================================
+
+            for wizard_line in self.line_ids.filtered(
+                lambda l:
+                    l.partner_id_int == partner_id
+                    and l.receive_amount > 0
+            ):
 
                 invoice = self.env['account.move'].browse(
-                    invoice_id
+                    wizard_line.move_id_int
                 )
 
                 invoice_line = invoice.line_ids.filtered(
                     lambda l:
                         l.account_id.account_type == 'asset_receivable'
                         and not l.reconciled
+                )[:1]
+
+                if not invoice_line:
+                    continue
+
+                amount_to_reconcile = wizard_line.receive_amount
+
+                _logger.warning("""
+            CONCILIANDO
+
+            FACTURA: %s
+            INVOICE LINE: %s
+            PAYMENT LINE: %s
+            MONTO: %s
+            """,
+                    invoice.name,
+                    invoice_line.id,
+                    payment_line.id,
+                    amount_to_reconcile
                 )
 
-                invoice_lines |= invoice_line
-
-            (payment_line | invoice_lines).reconcile()
+                self.env['account.partial.reconcile'].create({
+                    'debit_move_id':
+                        invoice_line.id,
+                    'credit_move_id':
+                        payment_line.id,
+                    'amount':
+                        amount_to_reconcile,
+                })
             payments |= payment
 
         _logger.warning(
