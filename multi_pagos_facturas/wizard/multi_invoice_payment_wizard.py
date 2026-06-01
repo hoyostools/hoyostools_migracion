@@ -283,14 +283,47 @@ class MultiInvoicePaymentWizard(models.TransientModel):
                     amount_to_reconcile
                 )
 
-                self.env['account.partial.reconcile'].create({
-                    'debit_move_id':
-                        invoice_line.id,
-                    'credit_move_id':
-                        payment_line.id,
-                    'amount':
-                        amount_to_reconcile,
-                })
+                # self.env['account.partial.reconcile'].create({
+                #     'debit_move_id':
+                #         invoice_line.id,
+                #     'credit_move_id':
+                #         payment_line.id,
+                #     'amount':
+                #         amount_to_reconcile,
+                # })
+                
+                _logger.warning("""
+                PAYMENT LINE
+
+                id=%s
+                balance=%s
+                amount_currency=%s
+                currency_id=%s
+                """,
+                    payment_line.id,
+                    payment_line.balance,
+                    payment_line.amount_currency,
+                    payment_line.currency_id.id,
+                )
+
+                _logger.warning("""
+                INVOICE LINE
+
+                id=%s
+                balance=%s
+                amount_currency=%s
+                currency_id=%s
+                """,
+                    invoice_line.id,
+                    invoice_line.balance,
+                    invoice_line.amount_currency,
+                    invoice_line.currency_id.id,
+                )
+
+                _logger.warning(
+                    "MONTO A CONCILIAR: %s",
+                    amount_to_reconcile
+                )                
             payments |= payment
 
         _logger.warning(
