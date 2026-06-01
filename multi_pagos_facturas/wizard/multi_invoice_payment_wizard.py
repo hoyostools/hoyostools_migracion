@@ -249,26 +249,42 @@ class MultiInvoicePaymentWizard(models.TransientModel):
                     result
                 )
 
-                payments = self.env['account.payment'].search(
-                    [('partner_id', '=', partner_id)],
-                    order='id desc',
-                    limit=10
+                payment_ids = []
+
+                if result and result.get('domain'):
+
+                    for domain_item in result['domain']:
+
+                        if (
+                            len(domain_item) == 3
+                            and domain_item[0] == 'id'
+                            and domain_item[1] == 'in'
+                        ):
+                            payment_ids = domain_item[2]
+                            break
+
+                _logger.warning(
+                    "PAYMENT IDS RESULTADO: %s",
+                    payment_ids
                 )
+
+                payments = self.env[
+                    'account.payment'
+                ].browse(payment_ids)
 
                 _logger.warning(
                     "PAGOS ENCONTRADOS: %s",
                     payments.ids
                 )
 
-                if payments:
-                    payment = payments[0]
+                partner = invoices[0].partner_id.commercial_partner_id
+
+                for payment in payments:
 
                     _logger.warning(
                         "PAGO SELECCIONADO: %s",
                         payment.id
                     )
-
-                    partner = invoices[0].partner_id.commercial_partner_id
 
                     if hasattr(payment, 'vendor_id') and partner.user_id:
                         payment.vendor_id = partner.user_id.id
