@@ -213,6 +213,7 @@ class MultiInvoicePaymentWizard(models.TransientModel):
                 'journal_id': self.journal_id.id,
                 'payment_method_line_id':
                     self.payment_method_line_id.id,
+                'voucher_type': 'pago',
             }
 
             payment = self.env[
