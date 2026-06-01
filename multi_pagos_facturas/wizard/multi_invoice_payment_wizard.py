@@ -276,13 +276,13 @@ class MultiInvoicePaymentWizard(models.TransientModel):
                 )
 
                 _logger.warning("""
-            CONCILIANDO
+                CONCILIANDO
 
-            FACTURA: %s
-            INVOICE LINE: %s
-            PAYMENT LINE: %s
-            MONTO: %s
-            """,
+                FACTURA: %s
+                INVOICE LINE: %s
+                PAYMENT LINE: %s
+                MONTO: %s
+                """,
                     invoice.name,
                     invoice_line.id,
                     payment_line.id,
@@ -295,15 +295,21 @@ class MultiInvoicePaymentWizard(models.TransientModel):
                     'amount': amount_to_reconcile,
                 }
 
-                if invoice_line.currency_id:
+                # Misma moneda
+                if invoice_line.currency_id and payment_line.currency_id:
                     partial_vals.update({
                         'debit_amount_currency': amount_to_reconcile,
                         'credit_amount_currency': amount_to_reconcile,
                     })
 
-                self.env[
-                    'account.partial.reconcile'
-                ].create(partial_vals)
+                _logger.warning(
+                    "PARTIAL VALS: %s",
+                    partial_vals
+                )
+
+                self.env['account.partial.reconcile'].create(
+                    partial_vals
+                )
          
             payments |= payment
 
