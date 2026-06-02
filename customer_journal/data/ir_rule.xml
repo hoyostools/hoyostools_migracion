@@ -21,4 +21,21 @@
         <field name="groups" eval="[(4, ref('customer_journal.group_restricted_journal'))]"/>
     </record>
 
+    <record id="account_journal_user_rule" model="ir.rule">
+        <field name="name">Restricción de diarios por usuario apuntes asientos</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="domain_force">
+            [
+                '|',
+                ('journal_id', 'in', user.account_journal_ids.ids),
+                ('id', '=', False)
+            ]
+        </field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="groups" eval="[(4, ref('customer_journal.group_restricted_journal'))]"/>
+    </record>
+
 </odoo>
