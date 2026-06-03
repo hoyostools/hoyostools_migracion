@@ -657,37 +657,22 @@ class SemiAutoReconciliationSupplierLine(models.TransientModel):
                         'credit_amount_currency': amount,
                     })
 
-            # for cruce_date in sorted_dates:
-            #     group_rc = groups_by_date[cruce_date]
-            #     group_total = sum(
-            #         abs(l.amount_to_apply) for l in group_rc
-            #     )
                 cruce_date = fields.Date.today()
                 needed = total_credits
                 normalized_lines = []
 
                 for inv in invoice_queue:
-                    if float_is_zero(
-                        needed,
-                        precision_digits=precision
-                    ):
+                    if float_is_zero(needed, precision_digits=precision):
                         break
 
                     rem = invoice_remaining.get(inv.id, 0.0)
 
-                    if float_is_zero(
-                        rem,
-                        precision_digits=precision
-                    ):
+                    if float_is_zero(rem, precision_digits=precision):
                         continue
 
                     take = (
                         rem
-                        if float_compare(
-                            rem,
-                            needed,
-                            precision_digits=precision
-                        ) <= 0
+                        if float_compare(rem, needed, precision_digits=precision) <= 0
                         else needed
                     )
 
@@ -703,90 +688,66 @@ class SemiAutoReconciliationSupplierLine(models.TransientModel):
                         'label': inv.move_id.name,
                     })
 
-                discount_amount = getattr(
-                    inv,
-                    'discount',
-                    0.0
-                )
-
-                if discount_amount:
-
-                    expected_amount = (
-                        inv.debit - discount_amount
-                    )
+                    discount_amount = inv.discount or 0.0
 
                     if (
-                        not float_is_zero(
-                            discount_amount,
-                            precision_digits=precision
-                        )
+                        discount_amount
+                        and not float_is_zero(discount_amount, precision_digits=precision)
                         and float_compare(
                             inv.amount_to_apply,
-                            expected_amount,
+                            inv.debit - discount_amount,
                             precision_digits=precision
                         ) == 0
                     ):
+                        discount_journal = self.env['account.journal'].browse(1964)
 
-                        credit_note = self.env[
-                            'account.move'
-                        ].create({
+                        if not discount_journal.exists():
+                            raise UserError(
+                                'No existe el diario de descuento financiero con ID 1964.'
+                            )
 
+                        payable_line = inv.move_id.line_ids.filtered(
+                            lambda l: (
+                                l.account_id.account_type == 'liability_payable'
+                                and not l.reconciled
+                            )
+                        )[:1]
+
+                        if not payable_line:
+                            raise UserError(
+                                f'No se encontró cuenta por pagar abierta en {inv.move_id.name}.'
+                            )
+
+                        credit_note = self.env['account.move'].create({
                             'move_type': 'in_refund',
                             'partner_id': partner_id,
                             'invoice_date': cruce_date,
-                            'date': fields.Date.today(),
-                            'journal_id': 1964,
-                            'ref': (
-                                f"Descuento "
-                                f"{inv.move_id.name}"
-                            ),
-
+                            'date': cruce_date,
+                            'journal_id': discount_journal.id,
+                            'ref': f'Descuento {inv.move_id.name}',
                             'invoice_line_ids': [(0, 0, {
-
                                 'name': 'Descuento financiero',
                                 'quantity': 1,
                                 'price_unit': discount_amount,
-                                'account_id':
-                                    inv.move_id.line_ids.filtered(
-                                        lambda l:
-                                            l.account_id.account_type
-                                            == 'liability_payable'
-                                    )[:1].account_id.id,
-
-                            })]
-
+                                'account_id': payable_line.account_id.id,
+                            })],
                         })
 
                         credit_note.action_post()
-                        
-                        # CONCILIAR NC CON FACTURA
-                        inv_line = inv.move_id.line_ids.filtered(
-                            lambda l: (
-                                l.account_id.account_type
-                                == "liability_payable"
-                                and not l.reconciled
-                            )
-                        )[:1]
 
                         cn_line = credit_note.line_ids.filtered(
                             lambda l: (
-                                l.account_id.account_type
-                                == "liability_payable"
+                                l.account_id.account_type == 'liability_payable'
                                 and not l.reconciled
                             )
                         )[:1]
 
-                        if inv_line and cn_line:
+                        if payable_line and cn_line:
+                            (payable_line + cn_line).reconcile()
 
-                            (inv_line + cn_line).reconcile()
-
-                if not float_is_zero(
-                    needed,
-                    precision_digits=precision
-                ):
+                if not float_is_zero(needed, precision_digits=precision):
                     raise UserError(
-                        f'No hay suficiente saldo de facturas para cubrir '
-                        f'el cruce del {cruce_date}.'
+                        f'No hay suficiente saldo de facturas para cubrir el cruce por {total_credits}.'
                     )
 
                 for l in payment_nc_lines:
